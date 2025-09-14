@@ -75,7 +75,7 @@ prompt_toolkit==3.0.52
 propcache==0.3.2
 proto-plus==1.26.1
 protobuf==5.29.5
-psycopg2==2.9.10
+psycopg2-binary==2.9.9
 pure_eval==0.2.3
 pyarrow>=12.0.0
 pyasn1==0.6.1
@@ -130,4 +130,5 @@ wcwidth==0.2.13
 websockets==15.0.1
 yarl==1.20.1
 zstandard==0.24.0
+
 
