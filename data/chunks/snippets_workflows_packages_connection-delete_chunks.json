@@ -1,0 +1,128 @@
+[
+  {
+    "content": "Connection delete package - Developer\nSkip to content\nConnection delete package\n¶\nThe\nconnection delete package\ndeletes a connection and all its related assets.\nSoft-delete (archive) assets\n¶\n2.2.3\n4.0.0\nTo soft-delete (archive) all assets in a connection:\nJava\nPython\nKotlin\nRaw REST API\nArchive assets\n1\n2\n3\n4\n5\n6\nWorkflow\nworkflow\n=\nConnectionDelete\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n,\nfalse\n// (2)\n).\nbuild\n()\n// (3)\n.\ntoWorkflow\n();\n// (4)\nWorkflowResponse\nresponse\n=\nworkflow\n.\nrun\n(\nclient\n);\n// (5)\nThe\nConnectionDelete\npackage will create a workflow to delete a connection and its assets using the\ncreator()\nmethod.\nYou need to provide the following:\nqualified name of the connection whose assets should be deleted.\nwhether to permanently delete the connection and its assets (hard-delete) (\ntrue\n), or only archive (soft-delete) them (\nfalse\n).\nBuild the minimal package object.\nConvert the package into a\nWorkflow\nobject.\nRun the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "run()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how to check the status and wait until the workflow has been completed.\nArchive assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nConnectionDelete\nclient\n=\nAtlanClient\n()\nworkflow\n=\nConnectionDelete\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1234567890\"\n,\npurge\n=\nFalse\n# (2)\n)\n.\nto_workflow\n()\n# (3)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nworkflow\n)\n# (4)\nThe\nConnectionDelete\npackage will create\na workflow to delete a connection and its assets.\nYou need to provide the following:\nqualified name of the connection whose assets should be deleted.\nwhether to permanently delete the connection and its assets\n(hard-delete) (\nTrue\n), or only archive (soft-delete) them (\nFalse\n).\nConvert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod\non the workflow client, passing the created object.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "True\n), or only archive (soft-delete) them (\nFalse\n).\nConvert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod\non the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how to check the status and wait\nuntil the workflow has been completed.\nArchive assets\n1\n2\n3\n4\n5\n6\nval\nworkflow\n=\nConnectionDelete\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n,\nfalse\n// (2)\n).\nbuild\n()\n// (3)\n.\ntoWorkflow\n()\n// (4)\nval\nresponse\n=\nworkflow\n.\nrun\n(\nclient\n)\n// (5)\nThe\nConnectionDelete\npackage will create a workflow to delete a connection and its assets using the\ncreator()\nmethod.\nYou need to provide the following:\nqualified name of the connection whose assets should be deleted.\nwhether to permanently delete the connection and its assets (hard-delete) (\ntrue\n), or only archive (soft-delete) them (\nfalse\n).\nBuild the minimal package object.\nConvert the package into a\nWorkflow\nobject.\nRun the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Convert the package into a\nWorkflow\nobject.\nRun the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how to check the status and wait until the workflow has been completed.\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI.\nTo rerun an existing workflow, see the steps below.\nHard-delete (purge) assets\n¶\nPermanent and irreversible\nA hard-delete (purge) is permanent and irreversible.\nBe certain that you want to entirely remove all of the\nassets in a connection before running in this way!\n2.2.3\n4.0.0\nTo hard-delete (purge) all assets in a connection:\nJava\nPython\nKotlin\nRaw REST API\nPurge assets\n1\n2\n3\n4\n5\n6\nWorkflow\nworkflow\n=\nConnectionDelete\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n,\ntrue\n// (2)\n).\nbuild\n()\n// (3)\n.\ntoWorkflow\n();\n// (4)\nWorkflowResponse\nresponse\n=\nworkflow\n.\nrun\n(\nclient\n);\n// (5)\nThe\nConnectionDelete",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": ".\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n,\ntrue\n// (2)\n).\nbuild\n()\n// (3)\n.\ntoWorkflow\n();\n// (4)\nWorkflowResponse\nresponse\n=\nworkflow\n.\nrun\n(\nclient\n);\n// (5)\nThe\nConnectionDelete\npackage will create a workflow to delete a connection and its assets using the\ncreator()\nmethod.\nYou need to provide the following:\nqualified name of the connection whose assets should be deleted.\nwhether to permanently delete the connection and its assets (hard-delete) (\ntrue\n), or only archive (soft-delete) them (\nfalse\n).\nBuild the minimal package object.\nConvert the package into a\nWorkflow\nobject.\nRun the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how to check the status and wait until the workflow has been completed.\nPurge assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nConnectionDelete\nclient\n=\nAtlanClient\n()\nworkflow\n=\nConnectionDelete\n(\n# (1)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Purge assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nConnectionDelete\nclient\n=\nAtlanClient\n()\nworkflow\n=\nConnectionDelete\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1234567890\"\n,\npurge\n=\nTrue\n# (2)\n)\n.\nto_workflow\n()\n# (3)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nworkflow\n)\n# (4)\nThe\nConnectionDelete\npackage will create\na workflow to delete a connection and its assets.\nYou need to provide the following:\nqualified name of the connection whose assets should be deleted.\nwhether to permanently delete the connection and its assets\n(hard-delete) (\nTrue\n), or only archive (soft-delete) them (\nFalse\n).\nConvert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod\non the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how to check the status and wait\nuntil the workflow has been completed.\nPurge assets\n1\n2\n3\n4\n5\n6\nval\nworkflow\n=\nConnectionDelete\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n,\ntrue\n// (2)\n).\nbuild\n()\n// (3)\n.\ntoWorkflow\n()\n// (4)\nval\nresponse\n=\nworkflow\n.\nrun",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Purge assets\n1\n2\n3\n4\n5\n6\nval\nworkflow\n=\nConnectionDelete\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n,\ntrue\n// (2)\n).\nbuild\n()\n// (3)\n.\ntoWorkflow\n()\n// (4)\nval\nresponse\n=\nworkflow\n.\nrun\n(\nclient\n)\n// (5)\nThe\nConnectionDelete\npackage will create a workflow to delete a connection and its assets using the\ncreator()\nmethod.\nYou need to provide the following:\nqualified name of the connection whose assets should be deleted.\nwhether to permanently delete the connection and its assets (hard-delete) (\ntrue\n), or only archive (soft-delete) them (\nfalse\n).\nBuild the minimal package object.\nConvert the package into a\nWorkflow\nobject.\nRun the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how to check the status and wait until the workflow has been completed.\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI.\nTo rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Create the workflow via UI only\nWe recommend creating the workflow only via the UI.\nTo rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶\n1.9.5\n4.0.0\nTo re-run an existing connection delete workflow:\nJava\nPython\nKotlin\nRaw REST API\nRe-run existing connection delete workflow\n1\n2\n3\n4\nList\n<\nWorkflowSearchResult\n>\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nConnectionDelete\n.\nPREFIX\n,\n5\n);\n// (2)\n// Determine which of the results is the Connection delete workflow you want to re-run...\nWorkflowRunResponse\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n);\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nConnectionDelete\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "Once you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(client, true)\nmethod with idempotency to avoid re-running a workflow that is already in running or in a pending state. This will return details of the already running workflow if found, and by default, it is set to\nfalse\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRe-run existing connection delete workflow\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nCONNECTION_DELETE\n,\nmax_results\n=\n5\n)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "from\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nCONNECTION_DELETE\n,\nmax_results\n=\n5\n)\n# Determine which Connection delete workflow (n)\n# from the list of results you want to re-run.\nresponse\n=\nclient\n.\nworkflow\n.\nrerun\n(\nexisting\n[\nn\n])\n# (2)\nYou can find workflows by their type using the workflow client\nfind_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nConnectionDelete\n. (You can also specify\nthe\nmaximum number of resulting workflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,\nyou can simply call the workflow client\nrerun()\nmethod.\nOptionally, you can use\nrerun(idempotent=True)\nto avoid re-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Remember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRe-run existing connection delete workflow\n1\n2\n3\n4\n5\nval\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nConnectionDelete\n.\nPREFIX\n,\n5\n)\n// (2)\n// Determine which of the results is the\n// connection delete workflow you want to re-run...\nval\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n)\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nConnectionDelete\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "is just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(client, true)\nmethod with idempotency to avoid re-running a workflow that is already in running or in a pending state. This will return details of the already running workflow if found, and by default, it is set to\nfalse\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRequires multiple steps through the raw REST API\nFind the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-connection-delete\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-connection-delete\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n},\n\"order\"\n:\n\"desc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\nSearching by the\natlan-connection-delete\nprefix will ensure you only find existing connection delete workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name\nproperty of the response object.\n(Remember since this is a search, there could be multiple results, so you may want to use the other details\nin each result to determine which workflow you really want.)\nPOST /api/service/workflows/submit\n100\n101\n102\n103\n104\n{\n\"namespace\"\n:\n\"default\"\n,\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"atlan-connection-delete-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2022-12-28\n2025-01-28\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Was this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_connection-delete.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_connection-delete.json",
+      "chunk_id": 13
+    }
+  }
+]

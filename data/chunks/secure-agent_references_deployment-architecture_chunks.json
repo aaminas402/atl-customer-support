@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Deployment architecture | Atlan Documentation\nSkip to main content\nOn this page\nThe Atlan Secure Agent is a Kubernetes-based application that runs within a customer's environment. It acts as a gateway between the single-tenant Atlan SaaS and external systems like Snowflake, Tableau, and other data sources. This document explains the Secure Agent's deployment architecture, key components, communication flows, and security considerations.\nHigh-level architecture\nâ\nThis section describes how the Secure Agent is structured and deployed. It explains the core components that enable metadata extraction, job execution, and communication with Atlan.\nFigure 1:\nAtlan Secure Agent deployment architecture.\nCore components\nâ\nThe Secure Agent runs as a Kubernetes-based application within a customer's private cloud or on-premises environment. It consists of several key components that work together to execute metadata extraction tasks.\nArgo Workflows\nâ\nAn Argo Workflow server is deployed to coordinate all activities and launch Kubernetes workloads.\nThe Secure Agent uses Argo Workflows to orchestrate and manage metadata extraction jobs.",
+    "metadata": {
+      "source_url": "secure-agent_references_deployment-architecture.html",
+      "source_type": "docs",
+      "file": "secure-agent_references_deployment-architecture.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "â\nAn Argo Workflow server is deployed to coordinate all activities and launch Kubernetes workloads.\nThe Secure Agent uses Argo Workflows to orchestrate and manage metadata extraction jobs.\nEach workflow represents a unit of work, such as extracting metadata from a source system.\nAgent orchestrator\nâ\nA scheduled job that runs every five minutes to check for jobs that need to be executed.\nIt connects to the Atlan tenant, retrieves job details, and initiates workflows accordingly.\nAuxiliary services\nâ\nAdditional services that support agent operations:\nHealth monitoring service\nsends periodic heartbeats to Atlan to confirm the agent is active.\nLogging service\nuploads execution logs to Atlan for monitoring and debugging.\nMetadata extraction workflows\nâ\nConnector-specific jobs that extract metadata from source systems.\nWorkflows run in isolated containers, ensuring security and reliability.\nData flow\nâ\nThe Secure Agent supports two modes of metadata transfer. Each mode determines how extracted metadata is delivered to Atlan.\nBucket relay\nâ\nMetadata extraction in bucket relay mode stores metadata in enterprise-managed cloud storage before Atlan retrieves it.\nFigure 2:",
+    "metadata": {
+      "source_url": "secure-agent_references_deployment-architecture.html",
+      "source_type": "docs",
+      "file": "secure-agent_references_deployment-architecture.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Bucket relay\nâ\nMetadata extraction in bucket relay mode stores metadata in enterprise-managed cloud storage before Atlan retrieves it.\nFigure 2:\nData flow in bucket relay mode.\nThe Secure Agent extracts metadata and writes it to a storage bucket in the customerâs cloud environment (such as AWS S3, Azure Blob Storage, or Google Cloud Storage). This is managed by providing the agent write access to cloud storage.\nAtlan retrieves metadata from the storage bucket and processes it further. This is managed by providing Atlan read access to list and read files in cloud storage.\nThis mode ensures the extracted data remains within the customerâs infrastructure until Atlan explicitly fetches it. Customers can also use this data for auditing.\nDirect ingestion\nâ\nIn direct ingestion mode, metadata is transferred directly from the Secure Agent to Atlan.\nFigure 3:\nData flow in direct ingestion mode.\nThe Secure Agent uses pre-signed URLs to upload metadata directly to Atlan. Some cloud storage providers that use pre-signed URLs include:\nAWS reference\nAzure reference\nGCP reference\nA pre-signed URL grants temporary access to upload files without exposing long-term credentials.",
+    "metadata": {
+      "source_url": "secure-agent_references_deployment-architecture.html",
+      "source_type": "docs",
+      "file": "secure-agent_references_deployment-architecture.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "AWS reference\nAzure reference\nGCP reference\nA pre-signed URL grants temporary access to upload files without exposing long-term credentials.\nEach URL has an expiration time, ensuring access is only available for a limited duration.\nSee also\nâ\nSecure Agent - Security\n: Details on security mechanisms.\nHigh-level architecture\nCore components\nData flow\nSee also",
+    "metadata": {
+      "source_url": "secure-agent_references_deployment-architecture.html",
+      "source_type": "docs",
+      "file": "secure-agent_references_deployment-architecture.json",
+      "chunk_id": 3
+    }
+  }
+]

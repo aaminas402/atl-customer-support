@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Snowflake warehouse configuration | Atlan Documentation\nSkip to main content\nOn this page\nConfigure your Snowflake warehouses following these best practices to achieve optimal performance and reliability for Atlan data workflows. These recommendations establish predictable resource allocation and maximize workflow efficiency.\nConfigure warehouse allocation\nâ\nUse a dedicated warehouse for Atlan workflows\n: Assign a dedicated warehouse exclusively for Atlan operations. This approach separates warehouse performance from other workloads, enables precise cost tracking for Atlan operations, and provides consistent workflow performance.\nOne warehouse per connection\n: Provision one Snowflake warehouse for each Atlan connection to maintain scoped capacity and predictable resource allocation.\nConfigure statement timeout\nâ\nSet appropriate timeout values\n: If your account enforces timeouts, configure both\nSTATEMENT_TIMEOUT_IN_SECONDS\nand\nSTATEMENT_QUEUED_TIMEOUT_IN_SECONDS\nto at least 6 hours (21,600 seconds) for the Atlan user to accommodate comprehensive data cataloging workflows.\nDefault values work well\n: By default, both parameters are set to\n0",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_best-practices_snowflake-warehouse-configuration.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_best-practices_snowflake-warehouse-configuration.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "to at least 6 hours (21,600 seconds) for the Atlan user to accommodate comprehensive data cataloging workflows.\nDefault values work well\n: By default, both parameters are set to\n0\n(no limit), which is optimal for Atlan operations. Only adjust if your organization requires specific timeout enforcement.\nApply at user level\n: Configure timeouts at the user level for consistent behavior across all Atlan sessions rather than at warehouse or session level.\nConfigure warehouse allocation\nConfigure statement timeout",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_best-practices_snowflake-warehouse-configuration.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_best-practices_snowflake-warehouse-configuration.json",
+      "chunk_id": 1
+    }
+  }
+]

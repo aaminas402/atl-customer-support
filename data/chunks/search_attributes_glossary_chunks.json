@@ -1,0 +1,173 @@
+[
+  {
+    "content": "Glossary-specific search fields - Developer\nSkip to content\nGlossary attributes\n¶\nThese attributes only exist on glossary-related objects in Atlan (terms and categories). Attempting to search for them on other asset types will produce no results.\n[Atlas]GlossaryTerm.ANCHOR\n¶\n1.4.0\n4.0.0\nThe\nqualifiedName\nof the glossary in which the term is contained in Atlan.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nGlossaryTerm\n.\nANCHOR\n.\neq\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n// (2)\n.\nincludeOnResults\n(\nGlossaryTerm\n.\nANCHOR\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName of the glossary in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nQuery\nbyGlossary\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__glossary\"\n)\n.\nvalue\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\n8\n9\nfor\n(",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ")\n.\nvalue\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\n8\n9\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nif\n(\nresult\ninstanceof\nGlossaryTerm\n)\n{\n// (2)\nIGlossary\nparent\n=\n((\nGlossaryTerm\n)\nresult\n).\ngetAnchor\n();\n}\n}\nFor details, see\nSearching for assets\n.\nThe parent glossary can be retrieved from a result through\n.getAnchor()\n, but only after the result has been cast to the appropriate type (\nGlossaryTerm\n).\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAtlasGlossaryTerm\n.\nANCHOR\n.\neq\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n# (2)\n.\ninclude_on_results\n(\nAtlasGlossaryTerm\n.\nANCHOR\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualified_name of the glossary in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualified_name.",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "object. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualified_name of the glossary in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualified_name.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\n12\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nif\nisinstance\n(\nresult\n,\nAtlasGlossaryTerm\n):\n# (2)\nparent\n=\nresult\n.\nanchor\nFor details, see\nSearching for assets\n.\nThe parent glossary can be retrieved from a result through\n.anchor\n, but only after the result has been confirmed to the appropriate type (\nAtlasGlossaryTerm\n).\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nGlossaryTerm\n.\nANCHOR\n.\neq\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n// (2)\n.\nincludeOnResults\n(\nGlossaryTerm\n.\nANCHOR\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName of the glossary in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualifiedName.",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Searching for assets\n.)\nThen provide the exact, full qualifiedName of the glossary in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nval\nbyGlossary\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__glossary\"\n)\n.\nvalue\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\n8\n9\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nif\n(\nresult\nis\nGlossaryTerm\n)\n{\n// (2)\nval\nparent\n=\nresult\n.\nanchor\n}\n}\nFor details, see\nSearching for assets\n.\nThe parent glossary can be retrieved from a result through\n.anchor\n, but only after the result has been cast to the appropriate type (\nGlossaryTerm\n).\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__glossary\"\n:\n{\n\"value\"\n:\n\"hvhGIKJi7N4xrUhyy8SAP\"\n}}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"anchor\"\n]\n}\nYou can use a\nterm query\nto exactly match the qualifiedName of the parent glossary.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"anchor\"\n:\n{\n\"guid\"\n:\n\"3b7fc7d6-0447-4229-a5c8-53f793aefe0b\"\n,\n\"typeName\"\n:\n\"AtlasGlossary\"\n,",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Response\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"anchor\"\n:\n{\n\"guid\"\n:\n\"3b7fc7d6-0447-4229-a5c8-53f793aefe0b\"\n,\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"hvhGIKJi7N4xrUhyy8SAP\"\n}\n}\n}\n}\n]\n}\n[Atlas]GlossaryCategory.ANCHOR\n¶\n1.4.0\n4.0.0\nThe\nqualifiedName\nof the glossary in which the category is contained in Atlan.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nGlossaryCategory\n.\nANCHOR\n.\neq\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n// (2)\n.\nincludeOnResults\n(\nGlossaryCategory\n.\nANCHOR\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName of the glossary in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nQuery\nbyGlossary\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__glossary\"\n)\n.\nvalue\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": ".\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__glossary\"\n)\n.\nvalue\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\n8\n9\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nif\n(\nresult\ninstanceof\nGlossaryCategory\n)\n{\n// (2)\nIGlossary\nparent\n=\n((\nGlossaryCategory\n)\nresult\n).\ngetAnchor\n();\n}\n}\nFor details, see\nSearching for assets\n.\nThe parent glossary can be retrieved from a result through\n.getAnchor()\n, but only after the result has been cast to the appropriate type (\nGlossaryCategory\n).\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryCategory\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAtlasGlossaryCategory\n.\nANCHOR\n.\neq\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n# (2)\n.\ninclude_on_results\n(\nAtlasGlossaryCategory\n.\nANCHOR\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualified_name of the glossary in the\neq()\npredicate. This uses a\nterm query",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "FluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualified_name of the glossary in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualified_name.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\n12\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nif\nisinstance\n(\nresult\n,\nAtlasGlossaryCategory\n):\n# (2)\nparent\n=\nresult\n.\nanchor\nFor details, see\nSearching for assets\n.\nThe parent glossary can be retrieved from a result through\n.anchor\n, but only after the result has been confirmed to the appropriate type (\nAtlasGlossaryCategory\n).\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nGlossaryCategory\n.\nANCHOR\n.\neq\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n// (2)\n.\nincludeOnResults\n(\nGlossaryCategory\n.\nANCHOR\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName of the glossary in the\neq()\npredicate. This uses a\nterm query",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "select()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName of the glossary in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nval\nbyGlossary\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__glossary\"\n)\n.\nvalue\n(\n\"hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\n8\n9\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nif\n(\nresult\nis\nGlossaryCategory\n)\n{\n// (2)\nval\nparent\n=\nresult\n.\nanchor\n}\n}\nFor details, see\nSearching for assets\n.\nThe parent glossary can be retrieved from a result through\n.anchor\n, but only after the result has been cast to the appropriate type (\nGlossaryCategory\n).\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__glossary\"\n:\n{\n\"value\"\n:\n\"hvhGIKJi7N4xrUhyy8SAP\"\n}}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"anchor\"\n]\n}\nYou can use a\nterm query\nto exactly match the qualifiedName of the parent glossary.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"anchor\"\n:\n{\n\"guid\"",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "[\n\"anchor\"\n]\n}\nYou can use a\nterm query\nto exactly match the qualifiedName of the parent glossary.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"anchor\"\n:\n{\n\"guid\"\n:\n\"3b7fc7d6-0447-4229-a5c8-53f793aefe0b\"\n,\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"hvhGIKJi7N4xrUhyy8SAP\"\n}\n}\n}\n}\n]\n}\n[Atlas]GlossaryTerm.CATEGORIES\n¶\n1.4.0\n4.0.0\nThe\nqualifiedName\nof one or more categories in which the term is organized in Atlan.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\n5\n6\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nGlossaryTerm\n.\nCATEGORIES\n.\nin\n(\n// (2)\nList\n.\nof\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n,\n\"SWpBeZFipHmXhSvxUrVNw@hvhGIKJi7N4xrUhyy8SAP\"\n)));\n.\nincludeOnResults\n(\nGlossaryTerm\n.\nCATEGORIES\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName of one or more categories in the\nin()\npredicate. This uses a\nterms query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nQuery\nbyCategory\n=\nTermsQuery\n.",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "in()\npredicate. This uses a\nterms query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nQuery\nbyCategory\n=\nTermsQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__categories\"\n)\n.\nterms\n(\nTermsQueryField\n.\nof\n(\nf\n->\nf\n.\nvalue\n(\nList\n.\nof\n(\nFieldValue\n.\nof\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n),\nFieldValue\n.\nof\n(\n\"SWpBeZFipHmXhSvxUrVNw@hvhGIKJi7N4xrUhyy8SAP\"\n))))))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n7\n8\n9\n10\n11\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nif\n(\nresult\ninstanceof\nGlossaryTerm\n)\n{\n// (2)\nSet\n<\nIGlossaryCategory\n>\ncategories\n=\n((\nGlossaryTerm\n)\nresult\n).\ngetCategories\n();\n}\n}\nFor details, see\nSearching for assets\n.\nThe categories organizing the term can be retrieved from a result through\n.getCategories()\n, but only after the result has been cast to the appropriate type (\nGlossaryTerm\n).\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAtlasGlossaryTerm\n.",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "import\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAtlasGlossaryTerm\n.\nCATEGORIES\n.\nwithin\n([\n# (2)\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n,\n\"SWpBeZFipHmXhSvxUrVNw@hvhGIKJi7N4xrUhyy8SAP\"\n]))\n.\ninclude_on_results\n(\nAtlasGlossaryTerm\n.\nCATEGORIES\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualified_name of one or more categories in the\nwithin()\npredicate. This uses a\nterms query\nto exactly match the qualified_name.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n12\n13\n14\n15\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nif\nisinstance\n(\nresult\n,\nAtlasGlossaryTerm\n):\n# (2)\ncategories\n=\nresult\n.\ncategories\nFor details, see\nSearching for assets\n.\nThe categories organizing the term can be retrieved from a result through\n.categories\n, but only after the result has been confirmed to the appropriate type (\nAtlasGlossaryTerm\n).\nBuild the query and request",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": ".categories\n, but only after the result has been confirmed to the appropriate type (\nAtlasGlossaryTerm\n).\nBuild the query and request\n1\n2\n3\n4\n5\n6\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nGlossaryTerm\n.\nCATEGORIES\n.\nin\n(\n// (2)\nList\n.\nof\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n,\n\"SWpBeZFipHmXhSvxUrVNw@hvhGIKJi7N4xrUhyy8SAP\"\n)));\n.\nincludeOnResults\n(\nGlossaryTerm\n.\nCATEGORIES\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName of one or more categories in the\nin()\npredicate. This uses a\nterms query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nval\nbyCategory\n=\nTermsQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__categories\"\n)\n.\nterms\n(\nTermsQueryField\n.\nof\n(\nf\n->\nf\n.\nvalue\n(\nList\n.\nof\n(\nFieldValue\n.\nof\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n),\nFieldValue\n.\nof\n(\n\"SWpBeZFipHmXhSvxUrVNw@hvhGIKJi7N4xrUhyy8SAP\"\n))))))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n7\n8\n9\n10\n11\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "))))))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n7\n8\n9\n10\n11\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nif\n(\nresult\nis\nGlossaryTerm\n)\n{\n// (2)\nval\ncategories\n=\nresult\n.\ncategories\n}\n}\nFor details, see\nSearching for assets\n.\nThe categories organizing the term can be retrieved from a result through\n.categories\n, but only after the result has been cast to the appropriate type (\nGlossaryTerm\n).\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"terms\"\n:\n{\n// (1)\n\"__categories\"\n:\n[\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n,\n\"SWpBeZFipHmXhSvxUrVNw@hvhGIKJi7N4xrUhyy8SAP\"\n]\n}\n}\n},\n\"attributes\"\n:\n[\n\"categories\"\n]\n}\nYou can use a\nterms query\nto exactly match the qualifiedName of one of several categories.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"anchor\"\n:\n{\n\"guid\"\n:\n\"324f7d64-9ebb-4c61-8e95-129b88dbad60\"\n,\n\"typeName\"\n:\n\"AtlasGlossaryCategory\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n}\n}\n}\n}\n]\n}\n[Atlas]GlossaryCategory.PARENT_CATEGORY\n¶\n1.4.0\n4.0.0\nThe",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": ",\n\"typeName\"\n:\n\"AtlasGlossaryCategory\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n}\n}\n}\n}\n]\n}\n[Atlas]GlossaryCategory.PARENT_CATEGORY\n¶\n1.4.0\n4.0.0\nThe\nqualifiedName\nof the parent category in which a subcategory is contained in Atlan.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nGlossaryCategory\n.\nPARENT_CATEGORY\n.\neq\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n))\n// (2)\n.\nincludeOnResults\n(\nGlossaryCategory\n.\nPARENT_CATEGORY\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName the parent category in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nQuery\nbyParentCategory\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__parentCategory\"\n)\n.\nvalue\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\n8\n9\nfor\n(",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\n8\n9\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nif\n(\nresult\ninstanceof\nGlossaryCategory\n)\n{\n// (2)\nIGlossaryCategory\nparent\n=\n((\nGlossaryCategory\n)\nresult\n).\ngetParentCategory\n();\n}\n}\nFor details, see\nSearching for assets\n.\nThe parent category in which the subcategory is contained can be retrieved from a result through\n.getParentCategory()\n, but only after the result has been cast to the appropriate type (\nGlossaryCategory\n).\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryCategory\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAtlasGlossaryCategory\n.\nPARENT_CATEGORY\n.\neq\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n))\n# (2)\n.\ninclude_on_results\n(\nAtlasGlossaryCategory\n.\nPARENT_CATEGORY\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": ".\ninclude_on_results\n(\nAtlasGlossaryCategory\n.\nPARENT_CATEGORY\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualified_name the parent category in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualified_name.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\n12\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nif\nisinstance\n(\nresult\n,\nAtlasGlossaryCategory\n):\n# (2)\nparent\n=\nresult\n.\nparent_category\nFor details, see\nSearching for assets\n.\nThe parent category in which the subcategory is contained can be retrieved from a result through\n.parent_category\n, but only after the result has been confirmed to the appropriate type (\nAtlasGlossaryCategory\n).\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nGlossaryCategory\n.\nPARENT_CATEGORY\n.\neq\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n))\n// (2)\n.\nincludeOnResults\n(\nGlossaryCategory\n.\nPARENT_CATEGORY\n)\n// (3)\n.\ntoRequest\n()",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "()\n// (1)\n.\nwhere\n(\nGlossaryCategory\n.\nPARENT_CATEGORY\n.\neq\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n))\n// (2)\n.\nincludeOnResults\n(\nGlossaryCategory\n.\nPARENT_CATEGORY\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide the exact, full qualifiedName the parent category in the\neq()\npredicate. This uses a\nterm query\nto exactly match the qualifiedName.\nEquivalent query from Elastic\nval\nbyParentCategory\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__parentCategory\"\n)\n.\nvalue\n(\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\n8\n9\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nif\n(\nresult\nis\nGlossaryCategory\n)\n{\n// (2)\nval\nparent\n=\nresult\n.\nparentCategory\n}\n}\nFor details, see\nSearching for assets\n.\nThe parent category in which the subcategory is contained can be retrieved from a result through\n.parentCategory\n, but only after the result has been cast to the appropriate type (\nGlossaryCategory\n).\nPOST /api/meta/search/indexsearch",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": ".parentCategory\n, but only after the result has been cast to the appropriate type (\nGlossaryCategory\n).\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__parentCategory\"\n:{\n\"value\"\n:\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"parentCategory\"\n]\n}\nYou can use a\nterm query\nto exactly match the qualifiedName of the parent category.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"parentCategory\"\n:\n{\n\"guid\"\n:\n\"324f7d64-9ebb-4c61-8e95-129b88dbad60\"\n,\n\"typeName\"\n:\n\"AtlasGlossaryCategory\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"Y5kzMdHDHbKWncb3EK1w8@hvhGIKJi7N4xrUhyy8SAP\"\n}\n}\n}\n}\n]\n}\n2022-08-22\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "Allow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "search_attributes_glossary.html",
+      "source_type": "sdk",
+      "file": "search_attributes_glossary.json",
+      "chunk_id": 18
+    }
+  }
+]

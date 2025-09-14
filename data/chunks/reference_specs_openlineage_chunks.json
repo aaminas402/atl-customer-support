@@ -1,0 +1,74 @@
+[
+  {
+    "content": "OpenLineage spec - Developer\nSkip to content\nOpenLineage\n¶\nOut of the box\n¶\nAtlan supports integrated lineage through the OpenLineage standard out-of-the-box for a number of sources:\nApache Airflow\nAmazon MWAA\nApache Spark\nAstronomer\nGoogle Cloud Composer\nIf you want to integrate lineage from any of these tools, simply follow the linked instructions.\nSpecification\n¶\nOn the other hand, if you want to add lineage support to some other tooling you can do so by following the OpenLineage standard's specification.\nAlso available via SDKs\nWe are working on exposing some simplified ways to\nintegrate via OpenLineage using our SDKs\nas well.\nTo integrate via OpenLineage, you need to adhere to three main points:\nFormat\n¶\nThe format of payloads you send containing lineage information must match the OpenLineage standard. Specifically, they must minimally contain:\nA\njob\n— a process that consumes or produces datasets.\nA\nrun\n— an instance of a job that represents one of its occurrences in time.\nAt least one of the payloads for a given run should contain input and output datasets (the sources and targets of the lineage)\nAll payloads are wrapped up into an\nevent\nThey will look something like this:\n{",
+    "metadata": {
+      "source_url": "reference_specs_openlineage.html",
+      "source_type": "sdk",
+      "file": "reference_specs_openlineage.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "All payloads are wrapped up into an\nevent\nThey will look something like this:\n{\n\"eventTime\"\n:\n\"2024-07-01T08:23:37.491542Z\"\n,\n// (1)\n\"producer\"\n:\n\"https://github.com/some/example\"\n,\n// (2)\n\"schemaURL\"\n:\n\"https://openlineage.io/spec/2-0-2/OpenLineage.json#/$defs/RunEvent\"\n,\n\"eventType\"\n:\n\"START\"\n,\n// (3)\n\"job\"\n:\n{\n\"namespace\"\n:\n\"ol-spark\"\n,\n// (4)\n\"name\"\n:\n\"test-job-006\"\n,\n// (5)\n\"facets\"\n:\n{}\n},\n\"run\"\n:\n{\n\"runId\"\n:\n\"eefd52c3-5871-4f0e-8ff5-237e9a6efb53\"\n,\n// (6)\n\"facets\"\n:\n{}\n},\n\"inputs\"\n:\n[\n{\n\"namespace\"\n:\n\"snowflake://abc123.snowflakecomputing.com\"\n,\n// (7)\n\"name\"\n:\n\"RAW.WIDEWORLDIMPORTERS_SALESFORCE.ORG_EMAIL_ADDRESS_SECURITY\"\n,\n// (8)\n\"facets\"\n:\n{}\n}\n],\n\"outputs\"\n:\n[\n// (9)\n{\n\"namespace\"\n:\n\"snowflake://abc123.snowflakecomputing.com\"\n,\n\"name\"\n:\n\"ANALYTICS.WIDE_WORLD_IMPORTERS.new view\"\n,\n\"facets\"\n:\n{\n\"columnLineage\"\n:\n{\n// (10)\n\"_producer\"\n:\n\"https://github.com/atlanhq/atlan-java\"\n,\n\"_schemaURL\"\n:\n\"https://openlineage.io/spec/facets/1-1-0/ColumnLineageDatasetFacet.json#/$defs/ColumnLineageDatasetFacet\"\n,\n\"fields\"\n:\n{\n\"StockItemID\"\n:\n{\n// (11)\n\"inputFields\"\n:\n[\n{\n\"namespace\"\n:\n\"snowflake://abc123.snowflakecomputing.com\"\n,\n\"name\"\n:",
+    "metadata": {
+      "source_url": "reference_specs_openlineage.html",
+      "source_type": "sdk",
+      "file": "reference_specs_openlineage.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ",\n\"fields\"\n:\n{\n\"StockItemID\"\n:\n{\n// (11)\n\"inputFields\"\n:\n[\n{\n\"namespace\"\n:\n\"snowflake://abc123.snowflakecomputing.com\"\n,\n\"name\"\n:\n\"RAW.WIDEWORLDIMPORTERS_SALESFORCE.ORG_EMAIL_ADDRESS_SECURITY\"\n,\n\"field\"\n:\n\"ID\"\n// (12)\n},\n{\n\"namespace\"\n:\n\"snowflake://abc123.snowflakecomputing.com\"\n,\n\"name\"\n:\n\"RAW.WIDEWORLDIMPORTERS_SALESFORCE.ORG_EMAIL_ADDRESS_SECURITY\"\n,\n\"field\"\n:\n\"PARENT_ID\"\n}\n]\n},\n\"TargetStockLevel\"\n:\n{\n\"inputFields\"\n:\n[\n{\n\"namespace\"\n:\n\"snowflake://abc123.snowflakecomputing.com\"\n,\n\"name\"\n:\n\"RAW.WIDEWORLDIMPORTERS_SALESFORCE.ORG_EMAIL_ADDRESS_SECURITY\"\n,\n\"field\"\n:\n\"SYSTEM_MODSTAMP\"\n}\n]\n}\n}\n}\n}\n}\n]\n}\nThe time at which the event occurred, in ISO-8601 format.\nA unique URI of what was responsible for triggering the event, for example a specific piece of code.\nThe type of the event (e.g.\nSTART\nvs\nCOMPLETE\n).\nThe name of the connection in which this lineage process should exist.\nA unique name for the lineage process. This acts as an idempotent business key: the first time it is used, a lineage process will be created. Any subsequent use of the same job name will cause a new run for that same job to be tracked.",
+    "metadata": {
+      "source_url": "reference_specs_openlineage.html",
+      "source_type": "sdk",
+      "file": "reference_specs_openlineage.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "A unique identifier for the run of the job this event relates to. This must be kept constant between events for the same run (for example, the same\nrunId\nshould be used for both a\nSTART\nand a\nCOMPLETE\nevent to show when a job run has started and when it has completed).\nInputs (sources) for the data lineage. The\nnamespace\nof a dataset should follow the\nsource-specific naming standards of OpenLineage\n.\nThe\nname\nof a dataset should use a\n.\n-qualified form. For example, a table should be\nDATABASE_NAME.SCHEMA_NAME.TABLE_NAME\n.\nOutputs (targets) for the dtaa lineage. The\nnamespace\nand\nname\nshould follow the same conventions as the inputs.\nIf you want to track column-level lineage, note that this is\nonly\nspecified on the target (outputs) end of the lineage.\nEach field used as a key in the\nfields\nobject is the name of a field (column) in the\noutput\ndataset.\nThe\ninputFields\nlist within then defines\nall\ninput (source) fields that map to this output field in column-level lineage.\nAirflow has a more complex, hierarchical structure",
+    "metadata": {
+      "source_url": "reference_specs_openlineage.html",
+      "source_type": "sdk",
+      "file": "reference_specs_openlineage.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "output\ndataset.\nThe\ninputFields\nlist within then defines\nall\ninput (source) fields that map to this output field in column-level lineage.\nAirflow has a more complex, hierarchical structure\nThe general structure above applies to Spark, in particular. For Airflow, there is a nested hierarchical structure that differentiates between an overall DAG and its individual tasks. Each DAG and each task will need to follow the points outlined here, and in addition there are further requirements to link together the DAG and its tasks using additional\nOpenLineage facets\n. For now, these are beyond the scope of this document — if you want to integrate Airflow specifically, we would recommend using one of the out-of-the-box integrations linked above.\nEvents\n¶\nFor any given run, there must be\nat least\ntwo events:\nSTART\nto indicate that a run has begun\nOne of the following to indicate that the run has finished:\nCOMPLETE\nto signify that execution of the run has concluded\nABORT\nto signify the run has been stopped abnormally\nFAIL\nto signify the run has failed\nAtlan's OpenLineage processing will\nmerge",
+    "metadata": {
+      "source_url": "reference_specs_openlineage.html",
+      "source_type": "sdk",
+      "file": "reference_specs_openlineage.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "COMPLETE\nto signify that execution of the run has concluded\nABORT\nto signify the run has been stopped abnormally\nFAIL\nto signify the run has failed\nAtlan's OpenLineage processing will\nmerge\nall inputs and outputs across all events for a given run to construct the lineage for that run. The merge will happen only when a completion event has been received; and completion events will only be processed if there is a\nSTART\nevent for that same run.\nOnly provide inputs and outputs in one of the events\nFor simplicity, this means you only need to provide the inputs and outputs for lineage in one of the events. For example, if you provide them in the start event (like in the example above), then the completion event can be as simple as:\n{\n\"eventTime\"\n:\n\"2024-07-01T08:23:38.360567Z\"\n,\n// (1)\n\"producer\"\n:\n\"https://github.com/some/example\"\n,\n\"schemaURL\"\n:\n\"https://openlineage.io/spec/2-0-2/OpenLineage.json#/$defs/RunEvent\"\n,\n\"eventType\"\n:\n\"COMPLETE\"\n,\n\"run\"\n:\n{\n\"runId\"\n:\n\"eefd52c3-5871-4f0e-8ff5-237e9a6efb53\"\n,\n// (2)\n\"facets\"\n:\n{}\n},\n\"job\"\n:\n{\n// (3)\n\"namespace\"\n:\n\"ol-spark\"\n,\n\"name\"\n:\n\"test-job-006\"\n,\n\"facets\"\n:\n{}\n}\n}\nThe time at which the job run finished.\nThe\nrunId\nmust match the\nrunId",
+    "metadata": {
+      "source_url": "reference_specs_openlineage.html",
+      "source_type": "sdk",
+      "file": "reference_specs_openlineage.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": ",\n// (2)\n\"facets\"\n:\n{}\n},\n\"job\"\n:\n{\n// (3)\n\"namespace\"\n:\n\"ol-spark\"\n,\n\"name\"\n:\n\"test-job-006\"\n,\n\"facets\"\n:\n{}\n}\n}\nThe time at which the job run finished.\nThe\nrunId\nmust match the\nrunId\nused in the event marking the start of the job run.\nThe job details must match those used in the event marking the start of the job run.\nNaming\n¶\nFinally, the names used in the payloads must align to assets in Atlan as follows:\nThe\nnamespace\nof a job must match the name of a Spark or Airflow connection in Atlan\nThe\nnamespace\nof a dataset should follow the\nsource-specific naming standards of OpenLineage\nThe\nname\nof a dataset should use a\n.\n-qualified form. For example, a table should be\nDATABASE_NAME.SCHEMA_NAME.TABLE_NAME\nWhat if an asset used in lineage has not yet been crawled into Atlan?\nThe connection you refer to must exist in Atlan before you can emit OpenLineage events for it. In practice, this means you must first configure OpenLineage, for example, for Spark assets before sending any events with a job\nnamespace\nthat refers to such a connection.\nHowever, any input or output datasets that do not (yet) exist in Atlan will be created automatically as part of the lineage processing — but only as",
+    "metadata": {
+      "source_url": "reference_specs_openlineage.html",
+      "source_type": "sdk",
+      "file": "reference_specs_openlineage.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "namespace\nthat refers to such a connection.\nHowever, any input or output datasets that do not (yet) exist in Atlan will be created automatically as part of the lineage processing — but only as\npartial assets\n. This means they will appear in lineage, but not be discoverable or able to be enriched in any other way in Atlan's UI.\nOnce such assets are crawled, they will be promoted automatically to \"full\" (not partial) assets, and then they will be discoverable and can be enriched just like any other asset in Atlan.\n2024-07-01\n2024-07-01\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "reference_specs_openlineage.html",
+      "source_type": "sdk",
+      "file": "reference_specs_openlineage.json",
+      "chunk_id": 7
+    }
+  }
+]

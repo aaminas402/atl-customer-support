@@ -1,0 +1,5 @@
+{
+  "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_faq_power-bi-dataflow-datasource.html",
+  "text": "What is the difference between a Power BI data source and dataflow? | Atlan Documentation\nSkip to main content\nIn Microsoft Power BI:\nData source   -  a data source is any source that fuels a dataset. You can connect to different types of data sources, such as databases, files, Microsoft Fabric, and more, to fetch data directly into Microsoft Power BI for creating reports and dashboards. For a full list, refer to\nMicrosoft Power BI documentation\n.\nDataflows   -  data flows help you encode the process of extracting and transforming data from a data source to produce a dataset. These have a refresh frequency that keeps the dataset in sync with the data source. To learn more, refer to\nMicrosoft Power BI documentation\n.",
+  "source_type": "docs"
+}

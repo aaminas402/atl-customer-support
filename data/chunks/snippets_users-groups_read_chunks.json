@@ -1,0 +1,200 @@
+[
+  {
+    "content": "Retrieving users and groups - Developer\nSkip to content\nRetrieving users and groups\n¶\nYou can retrieve users and groups through different helper methods.\nRetrieve all groups\n¶\n0.0.13\n6.1.0\n4.0.0\nFor example, to retrieve all groups in Atlan:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve all groups\n1\n2\n3\n4\nList\n<\nAtlanGroup\n>\ngroups\n=\nAtlanGroup\n.\nlist\n(\nclient\n);\n// (1)\nfor\n(\nAtlanGroup\ngroup\n:\ngroups\n)\n{\n// (2)\n// Do something with the group...\n}\nYou can retrieve all groups in Atlan using the\nAtlanGroup.list()\nmethod. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the groups to do whatever you like with them.\nRetrieve all groups\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\ngroups\n=\nclient\n.\ngroup\n.\nget_all\n(\n# (1)\nlimit\n=\n10\n,\noffset\n=\n1\n,\nsort\n=\n\"createdAt\"\n,\ncolumns\n=\n[\n\"roles\"\n,\n\"path\"\n])\nfor\ngroup\nin\ngroups\n:\n# (2)\n# Do something with the group...\nThe\nget_all()\nmethod retrieves all groups defined in Atlan. Returns a GroupResponse object. Optional parameters include:\n(Optional)\nlimit",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "for\ngroup\nin\ngroups\n:\n# (2)\n# Do something with the group...\nThe\nget_all()\nmethod retrieves all groups defined in Atlan. Returns a GroupResponse object. Optional parameters include:\n(Optional)\nlimit\n: Specifies the maximum number of results to return. Defaults to\n20\n.\n(Optional)\noffset\n: Indicates the starting point for the results when paging. Defaults to\n0\n.\n(Optional)\nsort\n: Allows sorting by a specific property, such as\n\"createdAt\"\n.\n(Optional)\ncolumns\n: Restricts the fields returned for each group, providing column projection support. Example:\n[\"roles\", \"path\"]\n.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nRetrieve all groups\n1\n2\n3\n4\nval\ngroups\n=\nAtlanGroup\n.\nlist\n(\nclient\n)\n// (1)\nfor\n(\ngroup\nin\ngroups\n)\n{\n// (2)\n// Do something with the group...\n}\nYou can retrieve all groups in Atlan using the\nAtlanGroup.list()\nmethod. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the groups to do whatever you like with them.\nRetrieve all groups\n1\n2\n3\n4\n5\n6\n7\n8\ngroups\n,\natlanErr",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the groups to do whatever you like with them.\nRetrieve all groups\n1\n2\n3\n4\n5\n6\n7\n8\ngroups\n,\natlanErr\n:=\nctx\n.\nGroupClient\n.\nGetAll\n(\n// (1)\n10\n,\n1\n,\n\"createdAt\"\n,\n)\nfor\n_\n,\ngroup\n:=\nrange\ngroups\n{\n// (2)\n// Do Something with the group...\n}\nThe\nGetAll()\nmethod retrieves all groups defined in Atlan. Optional parameters include:\n(Optional)\nlimit\n: Specifies the maximum number of results to return. Defaults to\n20\n.\n(Optional)\noffset\n: Indicates the starting point for the results when paging. Defaults to\n0\n.\n(Optional)\nsort\n: Allows sorting by a specific property, such as\n\"createdAt\"\n.\nYou can then iterate through the groups to do whatever you like with them.\nGET /api/service/v2/groups?sort=createdAt&imit=10&offset=0&columns=path&columns=roles\n1\n// (1)\nAll details are in the URL itself.\nPaging results\nNote that you have a\nlimit\nto control page size, and an\noffset\nto control where to start a page.\nRetrieve group by name\n¶\n0.0.13\n6.1.0\n4.0.0\nTo retrieve a specific group in Atlan by its name:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve group by name\n1\n2\nList\n<\nAtlanGroup\n>\nlist\n=\nAtlanGroup\n.\nget",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "¶\n0.0.13\n6.1.0\n4.0.0\nTo retrieve a specific group in Atlan by its name:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve group by name\n1\n2\nList\n<\nAtlanGroup\n>\nlist\n=\nAtlanGroup\n.\nget\n(\nclient\n,\n\"Example\"\n);\n// (1)\nAtlanGroup\ngroup\n=\nlist\n.\nget\n(\n0\n);\n// (2)\nYou can retrieve a specific group by its name using the\nAtlanGroup.get()\nmethod. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nStill returns a list\nNote that this still returns a list of groups, as it actually runs a\ncontains\nsearch for the specified name. You could therefore use this same method to retrieve many groups that all follow the same naming convention, for example.\nIf you were expecting only a single group to match, however, you can still retrieve that from the list directly, of course.\nRetrieve group by name\n1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\ngroups\n=\nclient\n.\ngroup\n.\nget_by_name\n(\n\"Example\"\n)\n# (1)\ngroup\n=\ngroups\n.\nrecords\n[\n0\n]\n# (2)\nYou can retrieve a specific group by its name using the\ngroup.get_by_name()\nmethod. Returns a GroupResponse object.\nStill returns a list",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "(\n\"Example\"\n)\n# (1)\ngroup\n=\ngroups\n.\nrecords\n[\n0\n]\n# (2)\nYou can retrieve a specific group by its name using the\ngroup.get_by_name()\nmethod. Returns a GroupResponse object.\nStill returns a list\nNote that this still returns a list of groups, as it actually runs a\ncontains\nsearch for the specified name. You could therefore use this same method to retrieve many groups that all follow the same naming convention, for example.\nIf you were expecting only a single group to match, however, you can still retrieve that from the list directly, of course.\nRetrieve group by name\n1\n2\nval\nlist\n=\nAtlanGroup\n.\nget\n(\nclient\n,\n\"Example\"\n)\n// (1)\nval\ngroup\n=\nlist\n[\n0\n]\n// (2)\nYou can retrieve a specific group by its name using the\nAtlanGroup.get()\nmethod. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nStill returns a list\nNote that this still returns a list of groups, as it actually runs a\ncontains\nsearch for the specified name. You could therefore use this same method to retrieve many groups that all follow the same naming convention, for example.",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "contains\nsearch for the specified name. You could therefore use this same method to retrieve many groups that all follow the same naming convention, for example.\nIf you were expecting only a single group to match, however, you can still retrieve that from the list directly, of course.\nRetrieve group by name\n1\n2\ngroups\n,\natlanErr\n:=\nctx\n.\nGroupClient\n.\nGetByName\n(\n\"Example\"\n,\n20\n,\n0\n)\n// (1)\ngroup\n:=\ngroups\n[\n0\n]\n// (2)\nYou can retrieve a specific group by its name using the\nGroupClient.GetByName()\nmethod. You can also set the limit (default is 20) and offset (default is 0).\nStill returns a list\nNote that this still returns a list of groups, as it actually runs a\ncontains\nsearch for the specified name. You could therefore use this same method to retrieve many groups that all follow the same naming convention, for example.\nIf you were expecting only a single group to match, however, you can still retrieve that from the list directly, of course.\nGET /api/service/groups?filter=%7B%22%24and%22%3A[%7B%22alias%22%3A%7B%22%24ilike%22%3A%22%25Example%25%22%7D%7D]%7D\n1\n// (1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it would be:",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "1\n// (1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it would be:\n{\"$and\":[{\"alias\":{\"$ilike\":\"%Example%\"}}]}\nRetrieve all users\n¶\n0.0.13\n6.1.0\n4.0.0\nTo retrieve all users in Atlan:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve all users\n1\n2\n3\n4\nList\n<\nAtlanUser\n>\nusers\n=\nAtlanUser\n.\nlist\n(\nclient\n);\n// (1)\nfor\n(\nAtlanUser\nuser\n:\nusers\n)\n{\n// (2)\n// Do something with the user...\n}\nYou can retrieve all users in Atlan using the\nAtlanUser.list()\nmethod. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the users to do whatever you like with them.\nRetrieve all users\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nusers\n=\nclient\n.\nuser\n.\nget_all\n()\n# (1)\nfor\nuser\nin\nusers\n:\n# (2)\n# Do something with the user...\nYou can retrieve all users in Atlan using the\nget_all()\nmethod under the\nuser\nattribute of the AtlanClient instance. Returns a UserResponse object.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "method under the\nuser\nattribute of the AtlanClient instance. Returns a UserResponse object.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nRetrieve all users\n1\n2\n3\n4\nval\nusers\n=\nAtlanUser\n.\nlist\n(\nclient\n)\n// (1)\nfor\n(\nuser\nin\nusers\n)\n{\n// (2)\n// Do something with the user...\n}\nYou can retrieve all users in Atlan using the\nAtlanUser.list()\nmethod. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the users to do whatever you like with them.\nRetrieve all users\n1\n2\n3\n4\nusers\n,\natlanErr\n:=\nctx\n.\nUserClient\n.\nGetAll\n(\n20\n,\n0\n,\n\"\"\n)\n// (1)\nfor\n_\n,\nuser\n:=\nrange\nusers\n{\n// (2)\n// Do something with the user...\n}\nYou can retrieve all users in Atlan using the\nGetAll()\nmethod under the\nuser\nattribute of the AtlanClient instance. You can also set the limit (default is 20), offset (default is 0) and sort (default is by username).\nYou can then iterate through the users to do whatever you like with them.\nGET /api/service/users?sort=username&limit=100&offset=0\n1\n// (1)",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "You can then iterate through the users to do whatever you like with them.\nGET /api/service/users?sort=username&limit=100&offset=0\n1\n// (1)\nAll details are in the URL itself.\nPaging results\nNote that you have a\nlimit\nto control page size, and an\noffset\nto control where to start a page.\nRetrieve user by username\n¶\n0.0.13\n1.3.3\n4.0.0\nTo retrieve a specific user in Atlan by their username:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve user by username\n1\nAtlanUser\nuser\n=\nAtlanUser\n.\ngetByUsername\n(\nclient\n,\n\"jdoe\"\n);\n// (1)\nYou can retrieve a specific user by their username using the\nAtlanUser.getByUsername()\nmethod. This runs an exact match for the provided username, so only returns a single user (if found). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve user by username\n1\n2\n3\n4\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nuser\n=\nclient\n.\nuser\n.\nget_by_username\n(\n\"jdoe\"\n)\n# (1)\nYou can retrieve a specific user by their username using the\nuser.get_by_username()\nmethod. This runs an exact match for the provided username, so only returns a single user (if found).",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": ")\n# (1)\nYou can retrieve a specific user by their username using the\nuser.get_by_username()\nmethod. This runs an exact match for the provided username, so only returns a single user (if found).\nRetrieve user by username\n1\nval\nuser\n=\nAtlanUser\n.\ngetByUsername\n(\nclient\n,\n\"jdoe\"\n)\n// (1)\nYou can retrieve a specific user by their username using the\nAtlanUser.getByUsername()\nmethod. This runs an exact match for the provided username, so only returns a single user (if found). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve user by username\n1\nusers\n,\natlanErr\n:=\nctx\n.\nUserClient\n.\nGetByUsername\n(\n\"jdoe\"\n)\n// (1)\nYou can retrieve a specific user by their username using the\nUserClient.GetByUsername()\nmethod. This runs an exact match for the provided username, so only returns a single user (if found).\nGET /api/service/users?filter=%7B%22username%22%3A%22jdoe%22%7D\n1\n// (1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it would be:\n{\"username\":\"jdoe\"}\nRetrieve user by email\n¶\n0.0.13\n6.1.0\n4.0.0",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "1\n// (1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it would be:\n{\"username\":\"jdoe\"}\nRetrieve user by email\n¶\n0.0.13\n6.1.0\n4.0.0\nTo retrieve a specific user in Atlan by their email address:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve user by username\n1\n2\nList\n<\nAtlanUser\n>\nusers\n=\nAtlanUser\n.\ngetByEmail\n(\nclient\n,\n\"@example.com\"\n);\n// (1)\nAtlanUser\nuser\n=\nusers\n.\nget\n(\n0\n);\n// (2)\nYou can retrieve a specific user by their email address using the\nAtlanUser.getByEmail()\nmethod. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nStill returns a list\nNote that this still returns a list of users, as it actually runs a\ncontains\nsearch for the specified email address. You could therefore use this same method to retrieve many users that all have the same email domain, for example.\nIf you were expecting only a single user to match, however, you can still retrieve that from the list directly, of course.\nRetrieve user by username\n1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nusers\n=\nclient\n.\nuser\n.\nget_by_email\n(",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "Retrieve user by username\n1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nusers\n=\nclient\n.\nuser\n.\nget_by_email\n(\n\"@example.com\"\n)\n# (1)\nuser\n=\nusers\n.\nrecords\n[\n0\n]\n# (2)\nYou can retrieve a specific user by their email address using the\nuser.get_by_email()\nmethod. Returns a UserResponse object.\nStill returns a list\nNote that this still returns a list of users, as it actually runs a\ncontains\nsearch for the specified email address. You could therefore use this same method to retrieve many users that all have the same email domain, for example.\nIf you were expecting only a single user to match, however, you can still retrieve that from the list directly, of course.\nRetrieve user by username\n1\n2\nval\nusers\n=\nAtlanUser\n.\ngetByEmail\n(\nclient\n,\n\"@example.com\"\n)\n// (1)\nval\nuser\n=\nusers\n[\n0\n]\n// (2)\nYou can retrieve a specific user by their email address using the\nAtlanUser.getByEmail()\nmethod. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nStill returns a list\nNote that this still returns a list of users, as it actually runs a\ncontains",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nStill returns a list\nNote that this still returns a list of users, as it actually runs a\ncontains\nsearch for the specified email address. You could therefore use this same method to retrieve many users that all have the same email domain, for example.\nIf you were expecting only a single user to match, however, you can still retrieve that from the list directly, of course.\nRetrieve user by username\n1\n2\nusers\n,\natlanErr\n:=\nctx\n.\nUserClient\n.\nGetByEmail\n(\n\"@example.com\"\n,\n20\n,\n0\n)\n// (1)\nuser\n:=\nusers\n[\n0\n]\n// (2)\nYou can retrieve a specific user by their email address using the\nUserClient.GetByEmail()\nmethod.\nStill returns a list\nNote that this still returns a list of users, as it actually runs a\ncontains\nsearch for the specified email address. You could therefore use this same method to retrieve many users that all have the same email domain, for example.\nIf you were expecting only a single user to match, however, you can still retrieve that from the list directly, of course.\nGET /api/service/users?filter=%7B%22email%22%3A%7B%22%24ilike%22%3A%22%25%40example.com%25%22%7D%7D\n1\n// (1)\nAll details are in the URL itself.",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "GET /api/service/users?filter=%7B%22email%22%3A%7B%22%24ilike%22%3A%22%25%40example.com%25%22%7D%7D\n1\n// (1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it would be:\n{\"email\":{\"$ilike\":\"%@example.com%\"}}\nRetrieve multiple users\n¶\n0.0.13\n6.1.0\n4.0.0\nBy usernames\n¶\nTo retrieve multiple users in Atlan by their usernames:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve users by usernames\n1\n2\n3\nList\n<\nAtlanUser\n>\nusers\n=\nclient\n.\nusers\n.\ngetByUsernames\n(\nList\n.\nof\n(\n\"john.doe\"\n,\n\"jane.doe\"\n)\n);\n// (1)\nRetrieve users with specified usernames using the\nusers.getByUsernames()\nmethod. This method performs an exact match for the provided username in the list.\nRetrieve users by usernames\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nusers\n=\nclient\n.\nuser\n.\nget_by_usernames\n([\n'john.doe'\n,\n'jane.doe'\n])\n# (1)\nfor\nuser\nin\nusers\n:\n# (2)\n# Do something with the user...\nRetrieve users with specified usernames using the\nuser.get_by_usernames()\nmethod.\nThis method performs an exact match for the provided username in the list. Returns a UserResponse object.",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Retrieve users with specified usernames using the\nuser.get_by_usernames()\nmethod.\nThis method performs an exact match for the provided username in the list. Returns a UserResponse object.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nRetrieve users by usernames\n1\n2\n3\nval\nusers\n=\nclient\n.\nusers\n.\ngetByUsernames\n(\nlistOf\n(\n\"john.doe\"\n,\n\"jane.doe\"\n)\n);\n// (1)\nRetrieve users with specified usernames using the\nusers.getByUsernames()\nmethod. This method performs an exact match for the provided username in the list.\nRetrieve users by usernames\n1\nusers\n,\natlanErr\n:=\nctx\n.\nUserClient\n.\nGetByUsernames\n([]\nstring\n{\n\"john.doe\"\n,\n\"jane.doe\"\n},\n20\n,\n0\n)\n// (1)\nRetrieve users with specified usernames using the\nUserClient.GetByUsernames()\nmethod.\nThis method performs an exact match for the provided username in the list.\nGET /api/service/users?filter={%22username%22:{%22$in%22:[%22john.doe%22,%22jane.doe%22]}}\n1\n// (1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it\nwould be:\n{\"username\":{\"$in\":[\"john.doe\",\"jane.doe\"]}}\nBy emails\n¶\n6.1.0",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "1\n// (1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it\nwould be:\n{\"username\":{\"$in\":[\"john.doe\",\"jane.doe\"]}}\nBy emails\n¶\n6.1.0\nTo retrieve multiple users in Atlan by their emails:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve users by emails\n1\n2\n3\nList\n<\nAtlanUser\n>\nusers\n=\nclient\n.\nusers\n.\ngetByEmails\n(\nList\n.\nof\n(\n\"john@atlan.com\"\n,\n\"jane@atlan.com\"\n)\n);\n// (1)\nRetrieve users with specified emails using the\nusers.getByEmails()\nmethod. This method performs an exact match for the provided email in the list.\nRetrieve users by emails\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nusers\n=\nclient\n.\nuser\n.\nget_by_emails\n([\n'john@atlan.com'\n,\n'jane@atlan.com'\n])\n# (1)\nfor\nuser\nin\nusers\n:\n# (2)\n# Do something with the user...\nRetrieve users with specified emails using the\nuser.get_by_emails()\nmethod.\nThis method performs an exact match for the provided email in the list. Returns a UserResponse object.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nRetrieve users by emails\n1\n2\n3\nval\nusers\n=\nclient\n.\nusers\n.",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "This is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nRetrieve users by emails\n1\n2\n3\nval\nusers\n=\nclient\n.\nusers\n.\ngetByEmails\n(\nlistOf\n(\n\"john@atlan.com\"\n,\n\"jane@atlan.com\"\n)\n);\n// (1)\nRetrieve users with specified emails using the\nusers.getByEmails()\nmethod. This method performs an exact match for the provided email in the list.\nRetrieve users by emails\n1\nusers\n,\natlanErr\n:=\nctx\n.\nUserClient\n.\nGetByEmails\n([]\nstring\n{\n\"john@atlan.com\"\n,\n\"jane@atlan.com\"\n},\n20\n,\n0\n)\n// (1)\nRetrieve users with specified emails using the\nUserClient.GetByEmails()\nmethod.\nThis method performs an exact match for the provided email in the list.\nGET /api/service/users?filter={%22email%22:{%22$in%22:[%22john@atlan.com%22,%20%22jane@atlan.com%22]}}\n1\n// (1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it\nwould be:\n{\"email\":{\"$in\":[\"john@atlan.com\",\"jane@atlan.com\"]}}\nRetrieve user group membership\n¶\nRetrieve groups for a user\n¶\n0.0.13\n2.0.1\n4.0.0\nTo retrieve the groups a user is a member of:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve groups for a user\n3\n4\n5\n6",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "Retrieve user group membership\n¶\nRetrieve groups for a user\n¶\n0.0.13\n2.0.1\n4.0.0\nTo retrieve the groups a user is a member of:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve groups for a user\n3\n4\n5\n6\nGroupResponse\nresponse\n=\nuser\n.\nfetchGroups\n(\nclient\n);\n// (1)\nfor\n(\nAtlanGroup\ngroup\n:\nresponse\n)\n{\n// (2)\n// Do something with each group...\n}\nYou can retrieve the groups the user is a member of using the\nfetchGroups()\nmethod, after you have an\nAtlanUser\nobject (for example, by first retrieving it). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the groups the user is a member of.\nRetrieve groups for a user\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\nuser\n.\nget_groups\n(\nuser\n.\nid\n)\n# (1)\nfor\ngroup\nin\nresponse\n:\n# (2)\n# Do something with each group...\nYou can retrieve the groups the user is a member of using the\nuser.get_groups()\nmethod, by providing the GUID of the user.\nYou can then iterate through the groups the user is a member of.\nRetrieve groups for a user\n3\n4\n5\n6\nval\nresponse\n=\nuser\n.\nfetchGroups\n(\nclient\n)",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "method, by providing the GUID of the user.\nYou can then iterate through the groups the user is a member of.\nRetrieve groups for a user\n3\n4\n5\n6\nval\nresponse\n=\nuser\n.\nfetchGroups\n(\nclient\n)\n// (1)\nfor\n(\ngroup\nin\nresponse\n)\n{\n// (2)\n// Do something with each group...\n}\nYou can retrieve the groups the user is a member of using the\nfetchGroups()\nmethod, after you have an\nAtlanUser\nobject (for example, by first retrieving it). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the groups the user is a member of.\nRetrieve groups for a user\n3\n4\n5\n6\nresponse\n,\natlanErr\n:=\nctx\n.\nUserClient\n.\nGetGroups\n(\nuser\n.\nID\n,\nnil\n)\n// (1)\nfor\n_\n,\ngroup\n:=\nrange\nresponse\n{\n// (2)\n// Do something with each group...\n}\nYou can retrieve the groups the user is a member of using the\nUserClient.GetGroups()\nmethod, by providing the GUID of the user.\nYou can then iterate through the groups the user is a member of.\nGET /api/service/users/f06122f4-7279-4e42-b9e0-46f9b470e659/groups\n1\n// (1)\nAll details are in the URL itself.\nUser ID in the URL",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "You can then iterate through the groups the user is a member of.\nGET /api/service/users/f06122f4-7279-4e42-b9e0-46f9b470e659/groups\n1\n// (1)\nAll details are in the URL itself.\nUser ID in the URL\nNote that you must provide the unique ID (GUID) of the user to retrieve its associated groups.\nRetrieve users in a group\n¶\n0.0.13\n2.0.1\n4.0.0\nTo retrieve the users that are members of a group:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve users in a group\n3\n4\n5\n6\nUserResponse\nresponse\n=\ngroup\n.\nfetchUsers\n(\nclient\n);\n// (1)\nfor\n(\nAtlanUser\nuser\n:\nresponse\n)\n{\n// (2)\n// Do something with each user...\n}\nYou can retrieve the users a group has as members using the\nfetchUsers()\nmethod, after you have an\nAtlanGroup\nobject (for example, by first retrieving it). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the users that are members of the group.\nRetrieve users in a group\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ngroup\n.\nget_members\n(\ngroup\n.\nid\n)\n# (1)\nfor\nuser\nin\nresponse\n:\n# (2)\n# Do something with each user...",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ngroup\n.\nget_members\n(\ngroup\n.\nid\n)\n# (1)\nfor\nuser\nin\nresponse\n:\n# (2)\n# Do something with each user...\nYou can retrieve the users a group has as members using the\ngroup.get_members()\nmethod, by providing the GUID of the group.\nYou can then iterate through the users that are members of the group.\nRetrieve users in a group\n3\n4\n5\n6\nval\nresponse\n=\ngroup\n.\nfetchUsers\n(\nclient\n)\n// (1)\nfor\n(\nuser\nin\nresponse\n)\n{\n// (2)\n// Do something with each user...\n}\nYou can retrieve the users a group has as members using the\nfetchUsers()\nmethod, after you have an\nAtlanGroup\nobject (for example, by first retrieving it). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through the users that are members of the group.\nRetrieve users in a group\n3\n4\n5\n6\nresponse\n,\natlanErr\n:=\nctx\n.\nGroupClient\n.\nGetMembers\n(\ngroup\n.\nID\n,\nnil\n)\nfor\n_\n,\nuser\n:=\nrange\nresponse\n{\n// Do something with each user\n}\nYou can retrieve the users a group has as members using the\nGroupClient.GetMembers()",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": ".\nGroupClient\n.\nGetMembers\n(\ngroup\n.\nID\n,\nnil\n)\nfor\n_\n,\nuser\n:=\nrange\nresponse\n{\n// Do something with each user\n}\nYou can retrieve the users a group has as members using the\nGroupClient.GetMembers()\nmethod, by providing the GUID of the group.\nYou can then iterate through the users that are members of the group.\nGET /api/service/groups/e79cb8eb-2bb6-4821-914c-f8dfd21fedc7/members\n1\n// (1)\nAll details are in the URL itself.\nGroup ID in the URL\nNote that you must provide the unique ID (GUID) of the group to retrieve its associated members.\n2022-12-28\n2025-05-14\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_users-groups_read.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_read.json",
+      "chunk_id": 21
+    }
+  }
+]

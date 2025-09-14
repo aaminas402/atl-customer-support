@@ -1,0 +1,5 @@
+{
+  "source_url": "search_queries_rank.html",
+  "text": "Rank feature queries - Developer\nSkip to content\nRank feature queries\n¶\nRank feature queries allow you to boost the relevance of results based on the value of a numeric field.\n1\nUnlike other queries, you don't search on a rank query field itself but instead use it to change the relevance score of results to boost them higher up.\nComing soon\nThis page is a summary of the details in the Elasticsearch Guide's\nRank feature queries\n↩\n2023-01-04\n2023-01-04\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+  "source_type": "sdk"
+}

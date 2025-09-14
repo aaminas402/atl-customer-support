@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Core - Developer\nSkip to content\nCore model\n¶\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand developing with Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nThese are the core model elements in Atlan from which everything else derives.\nclassDiagram\ndirection RL\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nReferenceable <|-- Asset : extends\nclass Connection\nlink Connection \"../entities/connection\"\nAsset <|-- Connection : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nAsset <|-- Catalog : extends\nclass AccessControl {\n<<abstract>>\n}\nlink AccessControl \"../accesscontrol\"\nAsset <|-- AccessControl : extends\nclass Persona\nlink Persona \"../entities/persona\"\nAccessControl <|-- Persona : extends\nclass Purpose\nlink Purpose \"../entities/purpose\"\nAccessControl <|-- Purpose : extends\nclass Tag {\n<<abstract>>\n}",
+    "metadata": {
+      "source_url": "models_core.html",
+      "source_type": "sdk",
+      "file": "models_core.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "class Persona\nlink Persona \"../entities/persona\"\nAccessControl <|-- Persona : extends\nclass Purpose\nlink Purpose \"../entities/purpose\"\nAccessControl <|-- Purpose : extends\nclass Tag {\n<<abstract>>\n}\nlink Tag \"../entities/tag\"\nCatalog <|-- Tag : extends\nclass AuthPolicy\nlink AuthPolicy \"../entities/authpolicy\"\nAsset <|-- AuthPolicy : extends\nclass AuthService\nlink AuthService \"../entities/authservice\"\nAsset <|-- AuthService : extends\nclass WorkflowRun\nlink WorkflowRun \"../entities/workflowrun\"\nAsset <|-- WorkflowRun : extends\nclass Task\nlink Task \"../entities/task\"\nAsset <|-- Task : extends\n2023-07-07\n2024-06-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_core.html",
+      "source_type": "sdk",
+      "file": "models_core.json",
+      "chunk_id": 1
+    }
+  }
+]

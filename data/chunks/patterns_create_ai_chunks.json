@@ -1,0 +1,83 @@
+[
+  {
+    "content": "Manage AI assets - Developer\nSkip to content\nManage AI assets\n¶\nAI model\n¶\n7.1.4\nCreating an AI model is a\n2-step process\n:\nStep 1\n: Create the minimal AI model with basic information\nStep 2\n: Create processes to link the AI model with datasets used for training, testing, inference, validation, and output\nAn AI model requires a\nname\nand\nai_model_status\n. The model can be associated with training and output datasets through processes.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate an AI model\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAIModel\nfrom\npyatlan.model.enums\nimport\nAIDatasetType\n,\nAIModelStatus\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nfrom\npyatlan.model.assets\nimport\nAsset\nclient\n=\nAtlanClient\n()\n# Step 1: Create the minimal AI model\nmodel\n=\nAIModel\n.\ncreator\n(\n# (1)\nname\n=\n\"test-ai-model\"\n,\n# (2)\nai_model_status\n=\nAIModelStatus\n.\nACTIVE\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nmodel\n)\n# (4)\nai_model\n=\nresponse\n.\nmutated_entities\n.\nCREATE\n[\n0\n]\n# (5)",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "(\n# (1)\nname\n=\n\"test-ai-model\"\n,\n# (2)\nai_model_status\n=\nAIModelStatus\n.\nACTIVE\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nmodel\n)\n# (4)\nai_model\n=\nresponse\n.\nmutated_entities\n.\nCREATE\n[\n0\n]\n# (5)\n# Step 2: Create processes to link with datasets\nquery\n=\n(\nFluentSearch\n()\n.\nwhere\n(\nAsset\n.\nTYPE_NAME\n.\neq\n(\n\"View\"\n))\n.\ninclude_on_results\n(\nAsset\n.\nNAME\n)\n.\ninclude_on_results\n(\nAsset\n.\nGUID\n)\n.\ninclude_on_results\n(\nAsset\n.\nTYPE_NAME\n)\n)\n.\nto_request\n()\nlist_training\n=\n[]\nfor\nresults\nin\nclient\n.\nasset\n.\nsearch\n(\nquery\n):\nlist_training\n.\nappend\n(\nresults\n)\nquery\n=\n(\nFluentSearch\n()\n.\nwhere\n(\nAsset\n.\nTYPE_NAME\n.\neq\n(\n\"Table\"\n))\n.\ninclude_on_results\n(\nAsset\n.\nNAME\n)\n.\ninclude_on_results\n(\nAsset\n.\nGUID\n)\n.\ninclude_on_results\n(\nAsset\n.\nTYPE_NAME\n)\n)\n.\nto_request\n()\nlist_output\n=\n[]\nfor\nresults\nin\nclient\n.\nasset\n.\nsearch\n(\nquery\n):\nlist_output\n.\nappend\n(\nresults\n)\ndataset_dict\n=\n{\nAIDatasetType\n.\nTRAINING\n:\nlist_training\n,\nAIDatasetType\n.\nOUTPUT\n:\nlist_output\n}\nprocess\n=\nAIModel\n.\nprocesses_creator\n(\nai_model\n,\ndataset_dict\n)\n# (6)\nresponse\n=\nAIModel\n.\nprocesses_batch_save\n(\nclient\n,\nprocess\n)\n# (7)\nBuild up the minimum request to create an AI model.",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "}\nprocess\n=\nAIModel\n.\nprocesses_creator\n(\nai_model\n,\ndataset_dict\n)\n# (6)\nresponse\n=\nAIModel\n.\nprocesses_batch_save\n(\nclient\n,\nprocess\n)\n# (7)\nBuild up the minimum request to create an AI model.\nProvide a human-readable name for your AI model, such as\ngpt-4-model\nor\nbert-classifier\n.\nSet the status of the AI model.\nActually call Atlan to create the AI model.\nRetrieve the AI model response object to be used in the next step.\nCreate a process to link the AI model with its associated datasets.\nSave the processes in batches of 20 to map the relationships between the AI model and the datasets.\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AIModel\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"test-ai-model\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/ai/aiapplication/testAiModel\"\n,\n// (4)\n\"connectorName\"\n:\n\"ai\"\n,\n// (5)\n\"aiModelStatus\"\n:\n\"ACTIVE\"\n,\n// (6)\n\"aiModelVersion\"\n:\n\"\"\n,\n// (7)\n\"ownerGroups\"\n:\n[],\n// (8)\n\"ownerUsers\"\n:\n[],\n// (9)\n\"assetCoverImage\"\n:\n\"/assets/default-product-cover-DeQonY47.webp\"\n// (10)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nSpecify the entity type as\nAIModel\nto create an AI model asset.",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "\"assetCoverImage\"\n:\n\"/assets/default-product-cover-DeQonY47.webp\"\n// (10)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nSpecify the entity type as\nAIModel\nto create an AI model asset.\nProvide a human-readable name for your AI model, such as\ngpt-4-model\nor\nbert-classifier\n.\nSet the unique qualified name for the AI model in the format\ndefault/ai/aiapplication/{name}\nwhere\n{name}\nshould be in camelCase.\nSpecify the connector name as\nai\nfor AI assets.\nSet the status of the AI model (e.g.,\nACTIVE\n,\nINACTIVE\n).\n(optional) Specify the version of the AI model (e.g., \"1.2\", \"2.0\").\n(optional) Assign owner groups of this AI model.\n(optional) Assign owner users of this AI model.\nSet the cover image for the AI model asset.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Process\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"asset-name -> ai-model\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/ai/dataset/937c19beebb3f99fb02e59f14702d86d47623cd519c3f8aec44136cfc574dd18\"\n,\n// (4)\n\"aiDatasetType\"\n:\n\"TRAINING\"\n,\n// (5)\n\"inputs\"\n:\n[\n// (6)\n{\n\"typeName\"\n:\n\"Table\"",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "\"qualifiedName\"\n:\n\"default/ai/dataset/937c19beebb3f99fb02e59f14702d86d47623cd519c3f8aec44136cfc574dd18\"\n,\n// (4)\n\"aiDatasetType\"\n:\n\"TRAINING\"\n,\n// (5)\n\"inputs\"\n:\n[\n// (6)\n{\n\"typeName\"\n:\n\"Table\"\n,\n\"guid\"\n:\n\"9065bba5-22b8-4331-bff8-1bdf017c5cfb\"\n}\n],\n\"outputs\"\n:\n[\n// (7)\n{\n\"typeName\"\n:\n\"AIModel\"\n,\n\"guid\"\n:\n\"9065bba5-22b8-4331-bff8-1bdf017c5cfb\"\n}\n],\n\"__state\"\n:\n\"ACTIVE\"\n// (8)\n}\n},\n{\n\"typeName\"\n:\n\"Process\"\n,\n\"attributes\"\n:\n{\n\"name\"\n:\n\"ai-model -> asset-name\"\n,\n\"qualifiedName\"\n:\n\"default/ai/dataset/4578fd36d3956f38b3123555bc5fac951e76ea7b3517e7b988e71b8191f36f3e\"\n,\n\"aiDatasetType\"\n:\n\"OUTPUT\"\n,\n\"inputs\"\n:\n[\n{\n\"typeName\"\n:\n\"AIModel\"\n,\n\"guid\"\n:\n\"9065bba5-22b8-4331-bff8-1bdf017c5cfb\"\n}\n],\n\"outputs\"\n:\n[\n{\n\"typeName\"\n:\n\"Table\"\n,\n\"guid\"\n:\n\"9065bba5-22b8-4331-bff8-1bdf017c5cfb\"\n}\n],\n\"__state\"\n:\n\"ACTIVE\"\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nSpecify the entity type as\nProcess\nto create relationships between datasets and AI models.\nProvide a descriptive name for the process showing the relationship (e.g., \"asset-name -> model\").\nSet the unique qualified name for the process in the format\ndefault/ai/dataset/{hash}",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Provide a descriptive name for the process showing the relationship (e.g., \"asset-name -> model\").\nSet the unique qualified name for the process in the format\ndefault/ai/dataset/{hash}\n. The MD5 hash is generated internally by the SDK based on process attributes.\nSpecify the dataset type (e.g.,\nTRAINING\n,\nTESTING\n,\nINFERENCE\n,\nVALIDATION\n,\nOUTPUT\n).\nDefine the input datasets that feed into the AI model.\nDefine the output AI model that receives the data.\nSet the process state to\nACTIVE\nto enable the relationship.\nAI application\n¶\n7.1.4\nAn AI application requires a\nname\n,\nai_application_version\n, and\nai_application_development_stage\n.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate an AI application\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAIApplication\nfrom\npyatlan.model.enums\nimport\nAIApplicationDevelopmentStage\nclient\n=\nAtlanClient\n()\nai_application\n=\nAIApplication\n.\ncreator\n(\n# (1)\nname\n=\n\"ai-app\"\n,\n# (2)\nai_application_version\n=\n\"1.1\"\n,\n# (3)\nai_application_development_stage\n=\nAIApplicationDevelopmentStage\n.\nPRODUCTION\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nai_application\n)\n# (5)",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "\"ai-app\"\n,\n# (2)\nai_application_version\n=\n\"1.1\"\n,\n# (3)\nai_application_development_stage\n=\nAIApplicationDevelopmentStage\n.\nPRODUCTION\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nai_application\n)\n# (5)\nBuild up the minimum request to create an AI application.\nProvide a human-readable name for your AI application, such as\nchatbot-app\nor\nrecommendation-engine\n.\nSpecify the version of the AI application (e.g., \"1.1\", \"2.12\").\nSet the development stage of the application.\nActually call Atlan to create the AI application.\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AIApplication\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"test-ai-application\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/ai/aiapplication/testAiApplication\"\n,\n// (4)\n\"aiApplicationVersion\"\n:\n\"1.1\"\n,\n// (5)\n\"aiApplicationDevelopmentStage\"\n:\n\"PRODUCTION\"\n,\n// (6)\n\"certificateStatus\"\n:\n\"DRAFT\"\n,\n// (7)\n\"ownerGroups\"\n:\n[],\n// (8)\n\"ownerUsers\"\n:\n[],\n// (9)\n\"assetCoverImage\"\n:\n\"/assets/default-product-cover-DeQonY47.webp\"\n// (10)\n},\n\"relationshipAttributes\"\n:\n{\n\"models\"\n:\n[]\n// (11)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ":\n[],\n// (9)\n\"assetCoverImage\"\n:\n\"/assets/default-product-cover-DeQonY47.webp\"\n// (10)\n},\n\"relationshipAttributes\"\n:\n{\n\"models\"\n:\n[]\n// (11)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nSpecify the entity type as\nAIApplication\nto create an AI application asset.\nProvide a human-readable name for your AI application, such as\nchatbot-app\nor\nrecommendation-engine\n.\nSet the unique qualified name for the AI application in the format\ndefault/ai/aiapplication/{name}\nwhere\n{name}\nshould be in camelCase.\nSpecify the version of the AI application (e.g., \"1.1\", \"2.12\").\nSet the development stage of the application (e.g.,\nPROPOSAL\n,\nDEVELOPMENT\n,\nPRODUCTION\n).\nSet the certificate status.\n(optional) Assign owner groups of this AI application.\n(optional) Assign owner users of this AI application.\nSet the cover image for the AI application asset.\n(optional) Provide the AI models objects to be used by this application.\nNext Step\n¶\nLearn about managing AI assets\n— common operations like adding descriptions, owners, and tags\nSearch for AI assets\n— find specific AI models or applications\nUpdate AI assets\n— modify existing AI assets\nDelete AI assets\n— remove AI assets when no longer needed",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "Search for AI assets\n— find specific AI models or applications\nUpdate AI assets\n— modify existing AI assets\nDelete AI assets\n— remove AI assets when no longer needed\nFor more details on the order of operations, see the\ncreating assets overview\n.\n↩\n2025-07-29\n2025-07-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_create_ai.html",
+      "source_type": "sdk",
+      "file": "patterns_create_ai.json",
+      "chunk_id": 8
+    }
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Retrieve custom metadata - Developer\nSkip to content\nRetrieve custom metadata\n¶\n7.0.0\n4.0.0\nYou can retrieve an existing custom metadata structure:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve existing custom metadata structure\n1\n2\n3\nCustomMetadataDef\nexisting\n=\nclient\n.\ngetCustomMetadataCache\n()\n.\ngetCustomMetadataDef\n(\n\"RACI\"\n);\n// (1)\nYou can retrieve the current custom metadata definition using the custom metadata cache from any client. In most cases you can simply use the default client (\nAtlan.getDefaultClient()\n). Pass the human-readable name of the custom metadata structure to the cache.\nRetrieve existing custom metadata structure\n1\n2\n3\n4\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\ncustom_metadata_cache\n.\nget_custom_metadata_def\n(\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n)\n# (1)\nYou can retrieve the current custom metadata definition using the\nclient.custom_metadata_cache.get_custom_metadata_def()\nmethod and passing the client and human-readable name of the custom metadata structure.\nRetrieve existing custom metadata structure\n1\n2\n3\nval\nexisting\n=\nclient\n.\ncustomMetadataCache\n.\ngetCustomMetadataDef\n(\n\"RACI\"\n)\n// (1)",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_read.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_read.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Retrieve existing custom metadata structure\n1\n2\n3\nval\nexisting\n=\nclient\n.\ncustomMetadataCache\n.\ngetCustomMetadataDef\n(\n\"RACI\"\n)\n// (1)\nYou can retrieve the current custom metadata definition using the custom metadata cache from any client. In most cases you can simply use the default client (\nAtlan.getDefaultClient()\n). Pass the human-readable name of the custom metadata structure to the cache.\nGET /api/meta/types/typedefs?type=BUSINESS_METADATA\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n{\n\"businessMetadataDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"BUSINESS_METADATA\"\n,\n// (2)\n\"guid\"\n:\n\"917ffec9-fa84-4c59-8e6c-c7b114d04be3\"\n,\n\"name\"\n:\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n,\n// (3)\n\"displayName\"\n:\n\"RACI\"\n,\n// (4)\n\"description\"\n:\n\"\"\n,\n\"typeVersion\"\n:\n\"1.0\"\n,\n\"serviceType\"\n:\n\"atlan\"\n,\n\"attributeDefs\"\n:\n[\n// (5)\n{\n\"name\"\n:\n\"fWMB77RSjRGNYoFeD4FcGi\"\n,\n// (6)\n\"displayName\"\n:\n\"Responsible\"\n,\n// (7)\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n// (8)\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_read.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_read.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ":\n\"string\"\n,\n// (8)\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"valuesMinCount\"\n:\n0\n,\n\"valuesMaxCount\"\n:\n1\n,\n\"options\"\n:\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"allowFiltering\"\n:\ntrue\n,\n\"allowSearch\"\n:\ntrue\n,\n\"primitiveType\"\n:\n\"string\"\n,\n\"customType\"\n:\n\"users\"\n// (9)\n}\n}\n],\n\"createdBy\"\n:\n\"jsmith\"\n,\n\"updatedBy\"\n:\n\"jsmith\"\n,\n\"createTime\"\n:\n1648852296555\n,\n\"updateTime\"\n:\n1649172284333\n,\n\"version\"\n:\n2\n}\n]\n}\nEach custom metadata structure will be wrapped in the top-level\nbusinessMetadataDefs\narray.\nEach custom metadata structure object will have a\ncategory\nof\nBUSINESS_METADATA\n.\nThe\nname\nof a custom metadata structure is a unique hashed-string, but is not human-readable. This is how the custom metadata is uniquely referred to through the raw APIs.\nThe\ndisplayName\nof a custom metadata structure is the human-readable name you see in the UI.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_read.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_read.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "The\ndisplayName\nof a custom metadata structure is the human-readable name you see in the UI.\nEach property defined within the custom metadata structure is nested within an\nattributeDefs\narray.\nAs with the overall custom metadata structure, each attribute has a unique hashed-string\nname\nthat is not human-readable. This is how the custom metadata property is uniquely referred to through the raw APIs.\nAs with the overall custom metadata structure, each attribute also has a\ndisplayName\nthat is the human-readable name you see in the UI.\nThe type of the custom metadata property is its simple type, but does not include custom types like SQL, users, groups and so on.\nFor the precise type, you also need to look at the\ncustomType\nwithin the\noptions\n, within the attribute definition.\n2023-03-07\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_read.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_read.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Cookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_read.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_read.json",
+      "chunk_id": 4
+    }
+  }
+]

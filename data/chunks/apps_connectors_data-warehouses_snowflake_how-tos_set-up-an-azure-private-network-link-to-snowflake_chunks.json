@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Set up an Azure private network link to Snowflake | Atlan Documentation\nSkip to main content\nOn this page\nAzure Private Link\ncreates a secure, private connection between services running in Azure. This document describes the steps to set this up between Snowflake and Atlan.\nWho can do this?\nYou will need Snowflake Support, and probably your Snowflake administrator involved   -  you may not have access or the tools to run these tasks.\nPrerequisites\nâ\nSnowflake must be set up with Business Critical Edition (or higher).\nOpen a ticket with Snowflake Support to enable Azure Private Link for your Snowflake account.\nSnowflake support will take 1-2 days to review and enable Azure Private Link.\nIf you are using IP allowlist in your Snowflake instance, you must add the Atlan IP to the allowlist. Please\nraise a support request\nto do so.\n(For all details, see the\nSnowflake documentation\n.)\nFetch Private Link information\nâ\nLog in to snowCLI using the\nACCOUNTADMIN\naccount, and run the following commands:\nuse role accountadmin;\nselect system$get_privatelink_config();\nThis will produce an output like the following (formatted here for readability):\n{",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "ACCOUNTADMIN\naccount, and run the following commands:\nuse role accountadmin;\nselect system$get_privatelink_config();\nThis will produce an output like the following (formatted here for readability):\n{\n\"regionless-snowsight-privatelink-url\": \"abc123.privatelink.snowflakecomputing.com\",\n\"privatelink-account-name\": \"abc123.west-europe.privatelink\",\n\"snowsight-privatelink-url\": \"abc123.west-europe.privatelink.snowflakecomputing.com\",\n\"privatelink-account-url\": \"abc123.west-europe.privatelink.snowflakecomputing.com\",\n\"privatelink-connection-ocsp-urls\": \"[]\",\n\"privatelink-pls-id\": \"abc123.westeurope.azure.privatelinkservice\",\n\"regionless-privatelink-account-url\": \"abc123.privatelink.snowflakecomputing.com\",\n\"privatelink_ocsp-url\": \"ocsp.abc123.west-europe.privatelink.snowflakecomputing.com\",\n\"privatelink-connection-urls\": \"[]\"\n}\nShare details with Atlan support team\nâ\nShare the following values with the\nAtlan support team\n:\nregionless-snowsight-privatelink-url\nprivatelink-account-name\nsnowsight-privatelink-url\nprivatelink-account-url\nprivatelink-connection-ocsp-urls\nprivatelink-pls-id\nregionless-privatelink-account-url\nprivatelink_ocsp-url\nprivatelink-connection-urls",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "snowsight-privatelink-url\nprivatelink-account-url\nprivatelink-connection-ocsp-urls\nprivatelink-pls-id\nregionless-privatelink-account-url\nprivatelink_ocsp-url\nprivatelink-connection-urls\nAtlan support will finish the configuration on the Atlan side using these values. Support will then provide you with the Snowflake private endpoint resource ID and Azure token for you to approve the request.\nApprove the endpoint connection request\nâ\nLog in to snowCLI using the\nACCOUNTADMIN\naccount, and run the following commands:\nuse role accountadmin;\nSELECT SYSTEM$AUTHORIZE_PRIVATELINK (\n'/subscriptions/26d.../resourcegroups/sf-1/providers/microsoft.network/privateendpoints/test-self-service',\n'eyJ...'\n);\nSnowflake will return an\nAccountÂ isÂ authorizedÂ forÂ PrivateLink.\nmessage to confirm successful authorization. The status of the private endpoint in Atlan will then change to\nApproved\n.\nWhen you use this endpoint in the configuration for\ncrawling\nand\nmining\nSnowflake, Atlan will connect to Snowflake over the Private Link.\n(Optional) Configure private endpoint for internal stages\nâ",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "When you use this endpoint in the configuration for\ncrawling\nand\nmining\nSnowflake, Atlan will connect to Snowflake over the Private Link.\n(Optional) Configure private endpoint for internal stages\nâ\nThis is only required if you're using Snowflake internal stages. To enable Atlan to securely access your Snowflake internal stages, Atlan will require a private endpoint to your Azure storage account. Refer to\nSnowflake documentation\nto learn more.\nTo configure an Azure private endpoint to access Snowflake internal stages:\nOpen the Azure portal and navigate to your Azure Storage account.\nOn the\nStorage accounts\npage, select the storage account to connect. From the storage account menu, click\nOverview\n. In the\nResource JSON\nform, for\nResource ID\n, click the clipboard icon to copy the value and\ncontact Atlan support to share the value\n. (Atlan support will finish the configuration on the Atlan side using the\nResource ID\nvalue and contact you to confirm endpoint creation.)\nFrom the storage account menu, click\nSecurity + networking\nand then click\nNetworking\n.\nOn the\nNetworking\npage, change to the\nPrivate endpoint connections\ntab and then approve the endpoint connection request from Atlan.",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Security + networking\nand then click\nNetworking\n.\nOn the\nNetworking\npage, change to the\nPrivate endpoint connections\ntab and then approve the endpoint connection request from Atlan.\nPrerequisites\nFetch Private Link information\nShare details with Atlan support team\nApprove the endpoint connection request\n(Optional) Configure private endpoint for internal stages",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-azure-private-network-link-to-snowflake.json",
+      "chunk_id": 4
+    }
+  }
+]

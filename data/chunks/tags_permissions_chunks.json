@@ -1,0 +1,38 @@
+[
+  {
+    "content": "20 docs tagged with \"permissions\" | Atlan Documentation\nSkip to main content\nAccess Control\nLearn how to manage user permissions and access to data assets in Atlan for security and compliance.\nAtlan architecture\nLearn about atlan architecture.\nAtlan browser extension security\nLearn about atlan browser extension security.\nCompliance standards and assessments\nLearn about compliance standards and assessments.\nData quality permissions\nReference for data quality permission scopes and configuration in Atlan.\nDeployment architecture\nThe Atlan Secure Agent is a Kubernetes-based application that runs within a customer's environment. It acts as a gateway between the single-tenant Atlan SaaS and external systems like Snowflake, Tableau, and other data sources. This document explains the Secure Agent's deployment architecture, key components, communication flows, and security considerations.\nEncryption and key management\nLearn about encryption and key management.\nIncident response plan\nLearn about incident response plan.\nInfrastructure security\nLearn about infrastructure security.\nInstall on AWS EKS",
+    "metadata": {
+      "source_url": "tags_permissions.html",
+      "source_type": "docs",
+      "file": "tags_permissions.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Learn about encryption and key management.\nIncident response plan\nLearn about incident response plan.\nInfrastructure security\nLearn about infrastructure security.\nInstall on AWS EKS\nThis guide provides step-by-step instructions to install the Secure Agent on an Amazon Elastic Kubernetes Service (AWS EKS) cluster.\nManage user authentication\nWhen users log into Atlan, a user session begins. You can change the default timeouts for user sessions for all users in your organization, helping you establish secure authentication protocols in Atlan. Once you have configured the settings, these would be applicable to users logging in via both basic and SSO authentication.\nMicrosoft Defender SSO error\nLearn about unable to log into atlan via sso due to an \"internal error\" from microsoft defender.\nRoles and permissions\nExplanation of Snowflake's security model and role requirements for data quality operations.\nSecure Agent",
+    "metadata": {
+      "source_url": "tags_permissions.html",
+      "source_type": "docs",
+      "file": "tags_permissions.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Roles and permissions\nExplanation of Snowflake's security model and role requirements for data quality operations.\nSecure Agent\nThe Atlan Secure Agent is a lightweight, Kubernetes-based application that enables secure metadata extraction. It connects internal systems with Atlan SaaS while keeping sensitive data protected and doesnât require inbound connectivity. Running within an organizationâs controlled environment, the Secure Agent ensures compliance with security policies and automates metadata processing.\nSecurity monitoring\nLearn about security monitoring.\nSet up on-premises Databricks lineage extraction\nIn some cases you will not be able to expose your Databricks instance for Atlan to extract and ingest lineage. For example, this may happen when security requirements restrict access to sensitive, mission-critical data.\nSet up SAP ECC\nSet up user accounts and permissions required for SAP ECC metadata extraction in Atlan.\nSet up SAP S/4HANA\nSet up user accounts and permissions required for SAP S/4HANA metadata extraction in Atlan.\nTroubleshooting Salesforce connectivity\nLearn about troubleshooting salesforce connectivity.\nTroubleshooting ServiceNow",
+    "metadata": {
+      "source_url": "tags_permissions.html",
+      "source_type": "docs",
+      "file": "tags_permissions.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Troubleshooting Salesforce connectivity\nLearn about troubleshooting salesforce connectivity.\nTroubleshooting ServiceNow\nWhy is the security\\_admin role required to complete the ServiceNow integration?",
+    "metadata": {
+      "source_url": "tags_permissions.html",
+      "source_type": "docs",
+      "file": "tags_permissions.json",
+      "chunk_id": 3
+    }
+  }
+]

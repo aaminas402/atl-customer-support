@@ -1,0 +1,5 @@
+{
+  "source_url": "events_scenarios_custom-metadata-add.html",
+  "text": "Custom metadata is added - Developer\nSkip to content\nEvents when custom metadata is added to an asset\n¶\nWhen custom metadata is added to an\nasset\nin Atlan, the following event is emitted.\nBUSINESS_ATTRIBUTE_UPDATE\n¶\nAtlan always emits a\nBUSINESS_ATTRIBUTE_UPDATE\nevent when custom metadata is added to an asset.\n2022-11-07\n2024-10-01\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+  "source_type": "sdk"
+}

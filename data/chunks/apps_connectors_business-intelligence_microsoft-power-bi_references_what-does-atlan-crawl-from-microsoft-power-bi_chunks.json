@@ -1,0 +1,74 @@
+[
+  {
+    "content": "What does Atlan crawl from Microsoft Power BI? | Atlan Documentation\nSkip to main content\nOn this page\nAtlan crawls and maps the following assets and properties from Microsoft Power BI.\nOnce you've\ncrawled Microsoft Power BI\n, you can\nuse connector-specific filters\nfor quick asset discovery. The following filters are currently supported for these assets:\nMeasures\n-  External measure filter\ndanger\nCurrently Atlan only represents the assets marked with ð in lineage.\nFor your Microsoft Power BI\nreports\n, Atlan also provides asset previews to help with quick discovery and give you the context you need.\nApps\nâ\nAtlan maps\nApps\nfrom Microsoft Power BI to its\nPowerBIApp\nasset type.\nSource Property\nAtlan Property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\nid\npowerBIAppId\nproperties sidebar\ndescription\ndescription\nasset profile and overview sidebar\npublishedBy\nsourceOwners\noverview sidebar\nusers   ( displayName, appUserAccessRight )\npowerBIAppUsers\nasset profile\ngroups   ( displayName, appUserAccessRight )\npowerBIAppGroups\nasset profile\nWorkspaces\nâ\nAtlan maps workspaces from Microsoft Power BI to its\nPowerBIWorkspace\nasset type.\nSource property\nAtlan property",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "powerBIAppGroups\nasset profile\nWorkspaces\nâ\nAtlan maps workspaces from Microsoft Power BI to its\nPowerBIWorkspace\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\ndescription\ndescription\nasset profile and overview sidebar\nreportCount\nreportCount\nasset preview and profile\ndashboardCount\ndashboardCount\nasset profile\ndatasetCount\ndatasetCount\nasset profile\ndataflowCount\ndataflowCount\nasset profile\nwebUrl\nsourceURL\noverview sidebar\nDashboards ð\nâ\nAtlan maps dashboards from Microsoft Power BI to its\nPowerBIDashboard\nasset type.\nSource property\nAtlan property\nWhere in Atlan\ndisplayName\nname\nasset profile and overview sidebar\nworkspace_name\nworkspaceName\nAPI only\ndescription\ndescription\nasset profile and overview sidebar\ntileCount\ntileCount\nasset profile\nwebUrl\nsourceURL\noverview sidebar\nData sources\nâ\nAtlan maps data sources from Microsoft Power BI to its\nPowerBIDatasource\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\nconnectionDetails\nconnectionDetails\noverview sidebar\nDatasets ð\nâ\nAtlan maps datasets from Microsoft Power BI to its\nPowerBIDataset\nasset type.",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "name\nname\nasset profile and overview sidebar\nconnectionDetails\nconnectionDetails\noverview sidebar\nDatasets ð\nâ\nAtlan maps datasets from Microsoft Power BI to its\nPowerBIDataset\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\nworkspace_name\nworkspaceName\nAPI only\ndescription\ndescription\nasset profile and overview sidebar\nwebUrl\nsourceURL\noverview sidebar\nconfiguredBy\nsourceOwners\nasset profile and properties sidebar\ncreatedDate\nsourceCreatedAt\nasset profile and properties sidebar\nendorsementDetails\ncertificateStatus (VERIFIED)\nasset profile and overview sidebar\nendorsementDetails (endorsement)\ncertificateStatusMessage\n,\npowerBIEndorsement\nasset profile and overview sidebar\nendorsementDetails (certifiedBy)\ncertificateUpdatedBy\nasset profile and overview sidebar\nDataflows ð\nâ\nAtlan maps dataflows from Microsoft Power BI to its\nPowerBIDataflow\nasset type. Atlan currently only supports dataflow lineage for the following SQL sources:\nMicrosoft SQL Server\nOracle\nSAP HANA\nSnowflake\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\nworkspace_name\nworkspaceName\nAPI only\ndescription",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Microsoft SQL Server\nOracle\nSAP HANA\nSnowflake\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\nworkspace_name\nworkspaceName\nAPI only\ndescription\ndescription\nasset profile and overview sidebar\nwebUrl\nsourceURL\noverview sidebar\nconfiguredBy\nsourceOwners\nasset profile and properties sidebar\nmodifiedDateTime\nsourceUpdatedAt\nasset profile and properties sidebar\nendorsementDetails\ncertificateStatus (VERIFIED)\nasset profile and overview sidebar\nendorsementDetails (endorsement)\ncertificateStatusMessage\n,\npowerBIEndorsement\nasset profile and overview sidebar\nendorsementDetails (certifiedBy)\ncertificateUpdatedBy\nasset profile and overview sidebar\nmodifiedBy\nsourceUpdatedBy\nasset profile and properties sidebar\ndays\npowerBIDataflowRefreshScheduleFrequency\nproperties sidebar\ntimes\npowerBIDataflowRefreshScheduleTimes\nproperties sidebar\nlocalTimeZoneId\npowerBIDataflowRefreshScheduleTimeZone\nproperties sidebar\nDataflow entity columns ð\nâ\nAtlan maps attributes of dataflow entities from Microsoft Power BI to its\nPowerBIDataflowEntityColumn\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nattrbutes.name\nname\nasset profile and overview sidebar",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "PowerBIDataflowEntityColumn\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nattrbutes.name\nname\nasset profile and overview sidebar\nentities.name\npowerBIDataflowEntityName\noverview sidebar\nattributes.$type\npowerBIDataflowEntityColumnDataType\nasset profile and overview sidebar\nReports ð\nâ\nAtlan maps reports from Microsoft Power BI to its\nPowerBIReport\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\nworkspace_name\nworkspaceName\nAPI only\ndescription\ndescription\nasset profile and overview sidebar\npageCount\npageCount\nasset profile\nwebUrl\nsourceURL\noverview sidebar\ncreatedDateTime\nsourceCreatedAt\nasset profile and properties sidebar\nmodifiedDateTime\nsourceUpdatedAt\nasset profile and properties sidebar\ncreatedBy\nsourceCreatedBy\n,\nsourceOwners\nasset profile and properties sidebar\nmodifiedBy\nsourceUpdatedBy\nasset profile and properties sidebar\nendorsementDetails\ncertificateStatus (VERIFIED)\nasset profile and overview sidebar\nendorsementDetails (endorsement)\ncertificateStatusMessage\n,\npowerBIEndorsement\nasset profile and overview sidebar\nendorsementDetails (certifiedBy)\ncertificateUpdatedBy",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "endorsementDetails (endorsement)\ncertificateStatusMessage\n,\npowerBIEndorsement\nasset profile and overview sidebar\nendorsementDetails (certifiedBy)\ncertificateUpdatedBy\nasset profile and overview sidebar\nPages ð\nâ\nAtlan maps pages from Microsoft Power BI to its\nPowerBIPage\nasset type.\nSource property\nAtlan property\nWhere in Atlan\ndisplayName\nname\nasset profile and overview sidebar\nworkspace_name\nworkspaceName\nAPI only\nreport_name\nreportName\nAPI only\nTiles ð\nâ\nAtlan maps tiles from Microsoft Power BI to its\nPowerBITile\nasset type.\nSource property\nAtlan property\nWhere in Atlan\ntitle\nname\nasset profile and overview sidebar\nsubTitle\ndescription\nasset profile and overview sidebar\nworkspace_name\nworkspaceName\nAPI only\ndashboard_name\ndashboardName\nAPI only\nTables ð\nâ\nAtlan maps tables from Microsoft Power BI to its\nPowerBITable\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\ndescription\ndescription\nasset profile and overview sidebar\nisHidden\nisHidden\nAPI only\nsourceExpressions\npowerBITableSourceExpressions\nAPI only\ncolumnCount\npowerBITableColumnCount\nasset profile and preview\nmeasureCount\npowerBITableMeasureCount",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "isHidden\nisHidden\nAPI only\nsourceExpressions\npowerBITableSourceExpressions\nAPI only\ncolumnCount\npowerBITableColumnCount\nasset profile and preview\nmeasureCount\npowerBITableMeasureCount\nasset profile and preview\nColumns ð\nâ\nAtlan maps columns from Microsoft Power BI to its\nPowerBIColumn\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\ndescription\ndescription\nasset profile and overview sidebar\nisHidden\npowerBIIsHidden\nAPI only\ndataCategory\npowerBIColumnDataCategory\nAPI only\ndataType\npowerBIColumnDataType\nasset preview and overview sidebar\nformatString\npowerBIFormatString\nAPI only\nsortByColumn\npowerBISortByColumn\nAPI only\nsummarizeBy\npowerBIColumnSummarizeBy\nAPI only\nMeasures ð\nâ\nAtlan maps measures from Microsoft Power BI to its\nPowerBIMeasure\nasset type. Atlan supports PowerBI Measures for downstream lineage to a PowerBI Page.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\ndescription\ndescription\nasset profile and overview sidebar\nisHidden\npowerBIIsHidden\nAPI only\nexpression\npowerBIMeasureExpression\noverview sidebar\nisExternalMeasure\npowerBIIsExternalMeasure\nasset filter",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "description\nasset profile and overview sidebar\nisHidden\npowerBIIsHidden\nAPI only\nexpression\npowerBIMeasureExpression\noverview sidebar\nisExternalMeasure\npowerBIIsExternalMeasure\nasset filter\nformatString\npowerBIFormatString\nAPI only\nApps\nWorkspaces\nDashboards ð\nData sources\nDatasets ð\nDataflows ð\nDataflow entity columns ð\nReports ð\nPages ð\nTiles ð\nTables ð\nColumns ð\nMeasures ð",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_references_what-does-atlan-crawl-from-microsoft-power-bi.json",
+      "chunk_id": 7
+    }
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Set up cross-workspace extraction | Atlan Documentation\nSkip to main content\nOn this page\nEliminate the need for separate crawler configurations by using a single service principal to crawl metadata from all workspaces within a Databricks metastore. This guide walks you through configuring the necessary permissions to enable cross-workspace extraction.\nImportant!\nCross-workspace extraction isn't supported for REST API or JDBC extraction methods.\nPrerequisites\nâ\nBefore you begin, make sure you have:\nA Unity Catalog-enabled Databricks workspace\nAccount admin access to create and manage service principals\nWorkspace admin access to grant permissions across all target workspaces\nAt least one active SQL warehouse in each workspace you intend to crawl\nSet up Databricks authentication\ncompleted with one of the supported authentication methods\nSystem table extraction enabled\nfor lineage and usage extraction\nPermissions required\nâ\nThe service principal needs the following permissions to enable cross-workspace extraction:\nCAN_USE\non SQL warehouses in each workspace\nSELECT\non\nsystem.access.workspace_latest\ntable\nUSE CATALOG\n,\nBROWSE\n, and\nSELECT\non all catalogs you want to crawl",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "CAN_USE\non SQL warehouses in each workspace\nSELECT\non\nsystem.access.workspace_latest\ntable\nUSE CATALOG\n,\nBROWSE\n, and\nSELECT\non all catalogs you want to crawl\nAdd service principal to all workspaces\nâ\nYou must use a\nsingle, common service principal\nthat has been granted access to\nall\nDatabricks workspaces you intend to crawl within the metastore.\nLog in to your Databricks account console as an account admin\nFrom the left menu, click\nWorkspaces\nand select a workspace\nFrom the tabs along the top, click the\nPermissions\ntab\nIn the upper right, click\nAdd permissions\nIn the\nAdd permissions\ndialog:\nFor\nUser, group, or service principal\n, select your service principal\nFor\nPermission\n, select workspace\nUser\nClick\nAdd\nRepeat steps 2-5 for each workspace you intend to crawl\nGrant permissions\nâ\nConfigure the necessary permissions for the service principal to access and extract metadata from all workspaces within the metastore.\nSQL workspace permissions:\nThe service principal must have usage permissions on\nat least one active SQL warehouse within each workspace\n. The extractor uses the smallest available warehouse to run its discovery queries.\nVia SQL\nVia UI",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "at least one active SQL warehouse within each workspace\n. The extractor uses the smallest available warehouse to run its discovery queries.\nVia SQL\nVia UI\nConnect to your Databricks workspace using a SQL client or the SQL editor\nRun the following command for each workspace, replacing the placeholders:\nGRANT\nCAN_USE\nON\nWAREHOUSE\n<\nwarehouse_name\n>\nTO\n`\n<service_principal_id>\n`\n;\nReplace\n<warehouse_name>\nwith your actual warehouse name\nReplace\n<service_principal_id>\nwith your service principal's application ID\nExample\nGRANT\nCAN_USE\nON\nWAREHOUSE production\n-\nwarehouse\nTO\n`\n12345678-1234-1234-1234-123456789012\n`\n;\nLog in to your Databricks workspace as a workspace admin\nFrom the left menu, click\nSQL Warehouses\nOn the\nCompute\npage, for each SQL warehouse, click the 3-dot icon and then click\nPermissions\nIn the\nManage permissions\ndialog:\nIn the\nType to add multiple users or groups\nfield, search for and select your service principal\nSelect\nCan use\npermission\nClick\nAdd\nto assign the permission\nSystem table permissions:\nAccess to the system schema is essential for workspace and lineage discovery.\nVia SQL\nVia UI\nConnect to your Databricks workspace using a SQL client or the SQL editor",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "System table permissions:\nAccess to the system schema is essential for workspace and lineage discovery.\nVia SQL\nVia UI\nConnect to your Databricks workspace using a SQL client or the SQL editor\nRun the following command, replacing the placeholder:\nGRANT\nSELECT\nON\nTABLE\nsystem\n.\naccess\n.\nworkspace_latest\nTO\n`\n<service_principal_id>\n`\n;\nReplace\n<service_principal_id>\nwith your service principal's application ID\nExample\nGRANT\nSELECT\nON\nTABLE\nsystem\n.\naccess\n.\nworkspace_latest\nTO\n`\n12345678-1234-1234-1234-123456789012\n`\n;\nLog in to your Databricks workspace as a workspace admin\nFrom the left menu, click\nCatalog\nIn the\nCatalog Explorer\n, navigate to\nsystem\n>\naccess\nClick on the\nworkspace_latest\ntable\nClick the\nPermissions\ntab and then click\nGrant\nIn the\nGrant permissions\ndialog:\nUnder\nPrincipals\n, select your service principal\nUnder\nPrivileges\n, check\nSELECT\nClick\nGrant\nto apply the permissions\nAsset permissions:\nThe service principal requires permissions to \"see\" and \"read\" the metadata for all data assets you wish to extract. These grants must be applied to all private, public, and shared catalogs that are in scope for crawling.\nImportant!",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Important!\nFor private catalogs, grant permissions from each workspace. For public catalogs, grant from any workspace.\nVia SQL\nVia UI\nConnect to your Databricks workspace using a SQL client or the SQL editor\nGrant catalog-level permissions (required even when using BROWSE - BROWSE automatically grants access to all schemas and tables):\nGRANT\nUSE\nCATALOG\nON\nCATALOG\n<\ncatalog_name\n>\nTO\n`\n<service_principal_id>\n`\n;\nGRANT\nBROWSE\nON\nCATALOG\n<\ncatalog_name\n>\nTO\n`\n<service_principal_id>\n`\n;\nReplace\n<catalog_name>\nwith your actual catalog name\nReplace\n<service_principal_id>\nwith your service principal's application ID\nIf not using BROWSE, along with catalog permissions, grant additional permissions:\nGrant schema-level permissions:\nGRANT\nUSE\nSCHEMA\nON\nSCHEMA\n<\ncatalog_name\n>\n.\n<\nschema_name\n>\nTO\n`\n<service_principal_id>\n`\n;\nReplace\n<catalog_name>\nand\n<schema_name>\nwith your actual values\nReplace\n<service_principal_id>\nwith your service principal's application ID\nExample\nGRANT\nUSE\nCATALOG\nON\nCATALOG main\nTO\n`\n12345678-1234-1234-1234-123456789012\n`\n;\nGRANT\nBROWSE\nON\nCATALOG main\nTO\n`\n12345678-1234-1234-1234-123456789012\n`\n;\nLog in to your Databricks workspace as a workspace admin",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "ON\nCATALOG main\nTO\n`\n12345678-1234-1234-1234-123456789012\n`\n;\nGRANT\nBROWSE\nON\nCATALOG main\nTO\n`\n12345678-1234-1234-1234-123456789012\n`\n;\nLog in to your Databricks workspace as a workspace admin\nFrom the left menu, click\nCatalog\nIn the\nCatalog Explorer\n, navigate to the catalog you want to grant permissions on (for example,\nmain\n)\nClick the\nPermissions\ntab and then click\nGrant\nIn the\nGrant permissions\ndialog:\nUnder\nPrincipals\n, select your service principal\nUnder\nPrivileges\n, check the following permissions:\nUSE CATALOG\nUSE SCHEMA\nBROWSE\nSELECT\nClick\nGrant\nto apply the permissions\nRepeat steps 3-5 for each catalog you want to crawl in Atlan\nNeed help?\nâ\nCheck\nTroubleshooting Databricks connectivity\nfor common issues\nContact Atlan support\nfor help with setup or integration\nNext steps\nâ\nCrawl Databricks\nPrerequisites\nPermissions required\nAdd service principal to all workspaces\nGrant permissions\nNeed help?\nNext steps",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-cross-workspace-extraction.json",
+      "chunk_id": 5
+    }
+  }
+]

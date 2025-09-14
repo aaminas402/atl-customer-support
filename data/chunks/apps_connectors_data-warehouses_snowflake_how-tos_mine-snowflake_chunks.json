@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Mine Snowflake | Atlan Documentation\nSkip to main content\nOn this page\nOnce you have\ncrawled assets from Snowflake\n, you can mine its query history to construct lineage.\nTo mine lineage from Snowflake, review the\norder of operations\nand then complete the following steps.\nSelect the miner\nâ\nTo select the Snowflake miner:\nIn the top right of any screen, navigate toÂ\nNew\nand then clickÂ\nNew Workflow\n.\nFrom the filters along the top, click\nMiner\n.\nFrom the list of packages, select\nSnowflake Miner\nand then click\nSetup Workflow\n.\nConfigure the miner\nâ\nTo configure the Snowflake miner:\nFor\nConnection\n, select the connection to mine. (To select a connection,\nthe crawler\nmust have already run.)\nFor\nMiner Extraction Method\n, select\nSource\n,\nAgent\n, or see the separate instructions for the\nS3 miner\n.\nFor\nSnowflake Database\n:\nIf the connection is configured with\naccess to the snowflake database\n, choose\nDefault\n.\nIf the connection can only\naccess a separate cloned database\n, choose\nCloned Database\n.\nIf you are using a cloned database, enter the name of the cloned database in\nDatabase Name\nand the name of the cloned schema in\nSchema Name\n.\nFor\nStart time",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ", choose\nCloned Database\n.\nIf you are using a cloned database, enter the name of the cloned database in\nDatabase Name\nand the name of the cloned schema in\nSchema Name\n.\nFor\nStart time\n, choose the earliest date from which to mine query history.\ninfo\nðª\nDid you know?\nThe miner restricts you to only querying the past two weeks of query history. If you need to query more history, for example in an initial load, consider using the\nS3 miner\nfirst. After the initial load, you can\nmodify the miner's configuration\nto use query history extraction.\nTo check for any permissions or other configuration issues before running the miner, click\nPreflight checks\n.\nAt the bottom of the screen, click\nNext\nto proceed.\nAgent extraction method\nâ\nAtlan supports using a Secure Agent for mining query history from Snowflake. To use a Secure Agent, follow these steps:\nImportant!\nQuery redaction is a compute-intensive operation and can impact workflow performance. To use this feature effectively, assign at least 4 CPU cores to the agent.\nSelect the\nAgent\ntab.\nConfigure Query Redaction\n: By default, Query Redaction is turned off. You may choose to configure query redaction:\nSet\nEnable Query Redaction",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Select the\nAgent\ntab.\nConfigure Query Redaction\n: By default, Query Redaction is turned off. You may choose to configure query redaction:\nSet\nEnable Query Redaction\nflag to true if you want to redact PII data from query history before ingesting it to Atlan.\nConfigure PII Patterns for Query Redaction\n: Define patterns to identify and redact sensitive information using the following JSON format:\n{\n\"pii_patterns\"\n:\n[\n{\n\"name\"\n:\n\"email\"\n,\n\"regex\"\n:\n\"\\\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}\\\\b\"\n,\n\"replacement\"\n:\n\"[EMAIL]\"\n}\n]\n}\nConfigure the Snowflake data source by adding the secret keys for your secret store. For details on the required fields, refer to the connection configuration used when\ncrawling Snowflake\n.\nComplete the Secure Agent configuration by following the instructions in the\nHow to configure Secure Agent for workflow execution\nguide.\nClick\nNext\nafter completing the configuration.\nImportant!",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": ".\nComplete the Secure Agent configuration by following the instructions in the\nHow to configure Secure Agent for workflow execution\nguide.\nClick\nNext\nafter completing the configuration.\nImportant!\nIf running the miner for the first time, Atlan recommends setting a start date around three days prior to the current date and then scheduling it daily to build up to two weeks of query history. Mining two weeks of query history on the first miner run may cause delays. For all subsequent runs, Atlan requires a minimum lag of 24 to 48 hours to capture all the relevant transformations that were part of a session. Learn more about the miner logic\nhere\n.\nConfigure the miner behavior\nâ\nTo configure the Snowflake miner behavior:\n(Optional) For\nCalculate popularity\n, keep\nTrue\nto retrieve\nusage and popularity metrics\nfor your Snowflake assets from query history.\nFor\nExcluded Users\n, type the names of users to be excluded while calculating\nusage metrics\nfor Snowflake assets. Press\nEnter\nafter each name to add more names.Â\n(Optional) For\nAdvanced Config\n, keep\nDefault\nfor the default configuration or click\nCustom\nto configure the miner:",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "usage metrics\nfor Snowflake assets. Press\nEnter\nafter each name to add more names.Â\n(Optional) For\nAdvanced Config\n, keep\nDefault\nfor the default configuration or click\nCustom\nto configure the miner:\nIf Atlan support has provided you with a custom control configuration,Â enter the configuration into theÂ\nCustom Config\nbox.\nYou can also enter\n{âignore-all-caseâ: true}\nto enable crawling assets with case-sensitive identifiers.\nFor\nPopularity Window (days)\n, 90 days is the maximum limit. You can set a shorter popularity window of less than 90 days.\nRun the miner\nâ\nTo run the Snowflake miner, after completing the configuration steps:\nTo run the miner once immediately, at the bottom of the screen, click the\nRun\nbutton.\nTo schedule the miner to run hourly, daily, weekly, or monthly, at the bottom of the screen, click the\nSchedule & Run\nbutton.\nOnce the miner has completed running, you can see lineage for Snowflake assets that were created in Snowflake between the start time and when the miner ran! ð\nSelect the miner\nConfigure the miner\nConfigure the miner behavior\nRun the miner",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_mine-snowflake.json",
+      "chunk_id": 4
+    }
+  }
+]

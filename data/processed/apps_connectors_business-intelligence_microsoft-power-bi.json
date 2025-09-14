@@ -1,0 +1,5 @@
+{
+  "source_url": "apps_connectors_business-intelligence_microsoft-power-bi.html",
+  "text": "Microsoft Power BI | Atlan Documentation\nSkip to main content\nOn this page\nOverview:\nCatalog workspaces, reports, dashboards, and datasets from Microsoft Power BI in Atlan to enable discovery, lineage, and governance for your analytics assets.\nGet started\nâ\nFollow these steps to connect and catalog Power BI assets in Atlan:\nSet up the connector\nCrawl Microsoft Power BI assets\nGuides\nâ\nMine Power BI usage\n: Extract usage metrics and activity events from Power BI.\nReferences\nâ\nWhat does Atlan crawl from Microsoft Power BI\n: Learn about the Power BI assets and metadata that Atlan discovers and catalogs.\nWhat lineage does Atlan extract from Microsoft Power BI\n: Learn about supported lineage extraction for Power BI assets.\nPreflight checks for Microsoft Power BI\n: Verify prerequisites before setting up the Microsoft Power BI connector.\nTroubleshooting\nâ\nTroubleshooting connectivity\n: Resolve common Power BI connection issues and errors.\nGet started\nGuides\nReferences\nTroubleshooting",
+  "source_type": "docs"
+}

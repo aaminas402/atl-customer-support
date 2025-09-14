@@ -1,0 +1,5 @@
+{
+  "source_url": "patterns_events.html",
+  "text": "Event handling - Developer\nSkip to content\nEvent handling\n¶\nIf you want to process metadata as it evolves, in real-time, then you'll want to tap into events.\nCurrently in Atlan, you can\ncreate webhooks\nthat will send all metadata activity to a target URL of your choice.\nIn this section you'll find common scenarios to write such a target to handle these events:\nWebhook <> Lambda\nhandling events through an AWS Lambda function\n2023-03-06\n2024-03-14\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+  "source_type": "sdk"
+}

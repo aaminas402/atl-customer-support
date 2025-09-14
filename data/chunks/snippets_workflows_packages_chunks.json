@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Supported packages - Developer\nSkip to content\nSupported packages\n¶\nIn this section, you'll find a comprehensive list of individual packages currently supported through our SDKs.\nEach package section includes examples demonstrating how to build a workflow from scratch and execute it on Atlan.\nCan't find the package you're looking for?\nPython\nGo\n4.1.0\nDon't worry! If the workflow package isn't listed here, you can still run it by passing your workflow JSON configuration string directly to the\nWorkflowClient.run()\nmethod in Atlan.\nworkflow_run_example.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nworkflow_json\n=\nr\n\"\"\"\n{\n\"metadata\": {\"name\": \"test-name\", \"namespace\": \"test-namespace\"},\n\"spec\":\n{}\n,\n\"payload\": [{\"parameter\": \"test-param\", \"type\": \"test-type\", \"body\":\n{}\n}]\n}\n\"\"\"\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nworkflow_json\n)\n0.0.16\nDon't worry! If the workflow package isn't listed here, you can still run it by passing your workflow JSON configuration string directly to the\nctx.WorkflowClient.Run()\nmethod in Atlan.\nworkflow_run_example.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nworkflowJSON\n:=\n`{",
+    "metadata": {
+      "source_url": "snippets_workflows_packages.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "ctx.WorkflowClient.Run()\nmethod in Atlan.\nworkflow_run_example.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nworkflowJSON\n:=\n`{\n\"metadata\": {\"name\": \"test-name\", \"namespace\": \"test-namespace\"},\n\"spec\": {},\n\"payload\": [{\"parameter\": \"test-param\", \"type\": \"test-type\", \"body\": {}}]\n}`\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nRun\n(\nworkflowJSON\n,\nnil\n)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nConnectors\n¶\nAthena assets\nBigQuery assets\nConnection delete\nConfluent Kafka assets\ndbt assets\nDynamoDB assets\nDatabricks assets\nDatabricks miner\nFivetran enrichment\nGlue assets\nLooker assets\nOracle assets\nPostgres assets\nPowerBI assets\nRedshift assets\nSnowflake assets\nSnowflake miner\nSigma assets\nSQL Server assets\nTableau assets\nMongoDB assets\nUtilities\n¶\nAsset import\nAsset export (basic)\nAPI token connection admin\nLineage builder\nLineage generator (no transformation)\nRelational assets builder\n2024-05-09\n2025-03-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and",
+    "metadata": {
+      "source_url": "snippets_workflows_packages.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Thanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages.json",
+      "chunk_id": 2
+    }
+  }
+]

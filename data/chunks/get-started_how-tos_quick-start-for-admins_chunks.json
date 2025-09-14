@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Administrators | Atlan Documentation\nSkip to main content\nOn this page\nUser management\nâ\nUser management is a critical part of data governance. Atlan's\nuser management capabilities\nshould be a mainstay of how you organize and control access for people in your organization.\nAdd and manage users from the admin center\nâ\nIt's super simple to\ninvite\nand\nremove\nusers from Atlan from the\nAdmin center\n. You can also\nmanage existing users\nby adding them to groups, changing their roles, or set up\nSSO\n,\nSCIM\n, and\nSMTP\nconfigurations.\nManage access control from the governance center\nâ\nThe\nGovernance center\nis where you can build access control mechanisms to\nmanage user access\n.\nPersonas\nallow you to group users into teams, such as\nFinancial Analysts\nor\nCloud Engineers\n, and set policies based on the access those personas should have.\nPurposes\nare where you can build policies based on the actions or access that a user might need. For example, you can use Atlan's policy-based access controls to manage access to PII and other sensitive data. This is a best practice for data governance.",
+    "metadata": {
+      "source_url": "get-started_how-tos_quick-start-for-admins.html",
+      "source_type": "docs",
+      "file": "get-started_how-tos_quick-start-for-admins.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Once you set these policies, Atlan will enforce them throughout your users' experience. This means that users who don't have access to a particular type of data will not be able to see it.\nGovernance workflows\nhelp you set up robust controls on data access management, metadata enrichment, new entity creation, and more, with out-of-the-box workflow templates and automated execution.\nAsset profile\nâ\nThe\nasset profile\nin Atlan gives you a quick and clear understanding of what a data asset contains. You can think of the asset profile as the TL;DR about your data.\nGlossary\nâ\nThe Atlan\nglossary\nis a rich tool for defining and organizing your data\nterminology\nto improve transparency and share knowledge. No need to ask around for what a column name means. The glossary functions as a source of truth for teams to understand their data assets. Start keeping all your definitions in one searchable place.\nThe glossary provides key intel on your data assets so you can quickly understand important attributes of your data, such as:\nOwners\nof your data, so you know who to ask for clarification.\nCertificate",
+    "metadata": {
+      "source_url": "get-started_how-tos_quick-start-for-admins.html",
+      "source_type": "docs",
+      "file": "get-started_how-tos_quick-start-for-admins.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Owners\nof your data, so you know who to ask for clarification.\nCertificate\nstatus, to easily understand if metadata enrichment is still in progress or the asset is ready to be used.\nLinked assets\nthat are relevant to the term, so you can explore other helpful material.\nDid you know?\nThe glossary helps power\nAtlan's powerful search tool\n, so tagging and defining assets are critical to helping your team find what they need.\nDiscovery\nâ\nWe rely on search bars to find things in almost every corner of the internet. Atlan uses a similar search tool to help you explore your data assets. The\ndiscovery tool\nis Atlan's powerful in-platform search, powered by the terms and descriptions you've added to your data assets.\nHere are a few of the things that make Atlan's discovery awesome:\nEvery attribute of your data is searchable in Atlan   -  saved SQL queries, schemas, links, and more. This lets you search far and wide to find exactly what you need.\nIntelligent keyword recognition sees through your typos to show exactly what you wanted, no matter what you actually typed.\nSearch assets from just about any page in Atlan using\nCmd/Ctrl+K\nor by clicking\nSearch assets across Atlan",
+    "metadata": {
+      "source_url": "get-started_how-tos_quick-start-for-admins.html",
+      "source_type": "docs",
+      "file": "get-started_how-tos_quick-start-for-admins.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Search assets from just about any page in Atlan using\nCmd/Ctrl+K\nor by clicking\nSearch assets across Atlan\nat the top of any page.\nControl your search by using facets about your data (such as the verification status or owner) to find what's most important to you.\nSort by popularity to quickly discover what assets your teammates are using every day.\nUser management\nAsset profile\nGlossary\nDiscovery",
+    "metadata": {
+      "source_url": "get-started_how-tos_quick-start-for-admins.html",
+      "source_type": "docs",
+      "file": "get-started_how-tos_quick-start-for-admins.json",
+      "chunk_id": 3
+    }
+  }
+]

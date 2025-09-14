@@ -1,0 +1,38 @@
+[
+  {
+    "content": "What does Atlan crawl from Databricks? | Atlan Documentation\nSkip to main content\nOn this page\nAtlan crawls and maps the following assets and properties from Databricks.\ninfo\nThe following properties aren't crawled by the\nSystem tables\nextraction method:\nTable properties\n:\npartitionList\n,\npartitionCount\nColumn properties\n:\nmaxLength\n,\nprecision\nDatabases\nâ\nAtlan maps databases from Databricks to its\nDatabase\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_CATALOG\nname\nAsset profile and overview sidebar\nSCHEMA_COUNT\nschemaCount\nAPI only\nSchemas\nâ\nAtlan maps schemas from Databricks to its\nSchema\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_SCHEMA\nname\nAsset profile and overview sidebar\nTABLE_COUNT\ntableCount\nAsset preview and profile\nVIEW_COUNT\nviewsCount\nAsset preview and profile\nTABLE_CATALOG\ndatabaseName\nAsset preview and profile\nTables\nâ\nAtlan maps tables from Databricks to its\nTable\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_NAME\nname\nAsset profile and overview sidebar\nREMARKS, DESCRIPTION\ndescription\nAsset profile and overview sidebar\nCOLUMN_COUNT\ncolumnCount\nAsset profile and overview sidebar\nLOCATION",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_references_what-does-atlan-crawl-from-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_references_what-does-atlan-crawl-from-databricks.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "TABLE_NAME\nname\nAsset profile and overview sidebar\nREMARKS, DESCRIPTION\ndescription\nAsset profile and overview sidebar\nCOLUMN_COUNT\ncolumnCount\nAsset profile and overview sidebar\nLOCATION\nexternalLocation\nOverview sidebar\nFORMAT\nexternalLocationFormat\nOverview sidebar\nOWNER\nCreated (in Databricks)\nProperties sidebar\nCREATEDAT\nsourceCreatedAt\nProperties sidebar\nUPDATED_BY\nLast updated\nProperties sidebar\nLASTMODIFIED\nsourceUpdatedAt\nProperties sidebar\nPARTITIONS\nisPartitioned\n,\npartitionCount\n,\npartitionList\nAPI only\nViews\nâ\nAtlan maps views from Databricks to its\nView\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_NAME\nname\nAsset profile and overview sidebar\nREMARKS\ndescription\nAsset profile and overview sidebar\nCOLUMN_COUNT\ncolumnCount\nAsset profile and overview sidebar\nCREATETAB_STMT\ndefinition\nAsset profile and overview sidebar\nOWNER\nCreated (in Databricks)\nProperties sidebar\nCREATEDAT\nsourceCreatedAt\nProperties sidebar\nUPDATED_BY\nLast updated\nProperties sidebar\nLASTMODIFIED\nsourceUpdatedAt\nProperties sidebar\nMaterialized views\nâ\nAtlan maps materialized views from Databricks to its\nMaterialisedView\nasset type.\nSource property\nAtlan property\nWhere in Atlan",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_references_what-does-atlan-crawl-from-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_references_what-does-atlan-crawl-from-databricks.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "LASTMODIFIED\nsourceUpdatedAt\nProperties sidebar\nMaterialized views\nâ\nAtlan maps materialized views from Databricks to its\nMaterialisedView\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_NAME\nname\nAsset profile and overview sidebar\nREMARKS\ndescription\nAsset profile and overview sidebar\nCOLUMN_COUNT\ncolumnCount\nAsset profile and overview sidebar\nCREATETAB_STMT\ndefinition\nAsset profile and overview sidebar\nOWNER\nCreated (in Databricks)\nProperties sidebar\nCREATEDAT\nsourceCreatedAt\nProperties sidebar\nUPDATED_BY\nLast updated\nProperties sidebar\nLASTMODIFIED\nsourceUpdatedAt\nProperties sidebar\nColumns\nâ\nDid you know?\nTo help you work seamlessly with STRUCT data types, Atlan supports\nnested columns up to level 30\nin Databricks. You can view these columns in the Tree view or the asset sidebar of your table assets, and also explore child columns of STRUCTs nested within MAPs or ARRAYs. However,\nlineage\nfor nested columns\nisn't\nsupported.\nAtlan maps columns from Databricks to its\nColumn\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nPRIMARY KEY\nisPrimary\nAsset preview and filter, overview sidebar\nFOREIGN KEY\nisForeign\nAsset preview and filter, overview sidebar",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_references_what-does-atlan-crawl-from-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_references_what-does-atlan-crawl-from-databricks.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Column\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nPRIMARY KEY\nisPrimary\nAsset preview and filter, overview sidebar\nFOREIGN KEY\nisForeign\nAsset preview and filter, overview sidebar\nCOLUMN_NAME\nname\nAsset profile and overview sidebar\nREMARKS\ndescription\nAsset profile and overview sidebar\nORDINAL_POSITION\norder\nAsset profile\nTYPE_NAME\ndataType\nAsset profile and overview sidebar\nPARTITION_INDEX\nisPartition\nAsset preview and profile\nNULLABLE\nisNullable\nAPI only\nCHAR_OCTET_LENGTH\nmaxLength\nAPI only\nDECIMAL_DIGITS\nprecision\nAPI only\nDatabases\nSchemas\nTables\nViews\nMaterialized views\nColumns",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_references_what-does-atlan-crawl-from-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_references_what-does-atlan-crawl-from-databricks.json",
+      "chunk_id": 3
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "content": "What does Atlan crawl from Amazon QuickSight? | Atlan Documentation\nSkip to main content\nOn this page\nAtlan currently supports lineage for the Amazon QuickSight connector to the following data sources:\nAmazon Athena\nAmazon Redshift\nMicrosoft SQL Server\nMySQL\nPostgreSQL\nSalesforce\nSnowflake\nAtlan crawls and maps the following assets and properties from Amazon QuickSight.\nAnalyses\nâ\nAtlan maps analyses from Amazon QuickSight to its\nQuickSightAnalysis\nasset type.\nSource property\nAtlan property\nname\nname\ncreatedAt\nsourceCreatedAt\nupdatedAt\nsourceUpdatedAt\nstatus\nquickSightAnalysisStatus\ncalculatedFields\nquickSightAnalysisCalculatedFields\nparameterDeclarations\nquickSightAnalysisParameterDeclarations\nfilterGroups\nquickSightAnalysisFilterGroups\nDashboards\nâ\nAtlan maps dashboards from Amazon QuickSight to its\nQuickSightDashboard\nasset type.\nSource property\nAtlan property\nname\nname\ncreatedAt\nsourceCreatedAt\nupdatedAt\nsourceUpdatedAt\npublishedVersionNumber\nquickSightDashboardPublishedVersionNumber\nlastPublishedTime\nquickSightDashboardLastPublishedTime\nanalysisName\nquickSightAnalysisQualifiedName\nDatasets\nâ\nAtlan maps datasets from Amazon QuickSight to its\nQuickSightDataset\nasset type.",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_amazon-quicksight_references_what-does-atlan-crawl-from-amazon-quicksight.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_amazon-quicksight_references_what-does-atlan-crawl-from-amazon-quicksight.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "lastPublishedTime\nquickSightDashboardLastPublishedTime\nanalysisName\nquickSightAnalysisQualifiedName\nDatasets\nâ\nAtlan maps datasets from Amazon QuickSight to its\nQuickSightDataset\nasset type.\nSource property\nAtlan property\nname\nname\ncreatedAt\nsourceCreatedAt\nupdatedAt\nsourceUpdatedAt\nImportMode\nquickSightDatasetImportMode\noutputColumnCount\nquickSightDatasetColumnCount\nFolders\nâ\nAtlan maps folders from Amazon QuickSight to its\nQuickSightFolder\nasset type.\nSource property\nAtlan property\nname\nname\ncreatedAt\nsourceCreatedAt\nupdatedAt\nsourceUpdatedAt\nFolderType\nquickSightFolderType\nSharingModel\nquickSightFolderSharingModel\nfolderHierarchy\nquickSightFolderHierarchy\nDataset fields\nâ\nAtlan maps dataset fields from Amazon QuickSight to its\nQuickSightDatasetField\nasset type.\nSource property\nAtlan property\nname\nname\ncreatedAt\nsourceCreatedAt\nupdatedAt\nsourceUpdatedAt\ntype\nquickSightDatasetFieldType\ndatasetQualifiedName\nquickSightDatasetQualifiedName\nAnalysis visuals\nâ\nAtlan maps analysis visuals from Amazon QuickSight to its\nQuickSightAnalysisVisual\nasset type.\nSource property\nAtlan property\nname\nname\ncreatedAt\nsourceCreatedAt\nupdatedAt\nsourceUpdatedAt\nId\nquickSightId",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_amazon-quicksight_references_what-does-atlan-crawl-from-amazon-quicksight.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_amazon-quicksight_references_what-does-atlan-crawl-from-amazon-quicksight.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "QuickSightAnalysisVisual\nasset type.\nSource property\nAtlan property\nname\nname\ncreatedAt\nsourceCreatedAt\nupdatedAt\nsourceUpdatedAt\nId\nquickSightId\nanalysisQualifiedName\nquickSightAnalysisQualifiedName\nsheetId\nquickSightSheetId\nsheetName\nquickSightSheetName\nDashboard visuals\nâ\nAtlan maps dashboard visuals from Amazon QuickSight to its\nQuickSightDashboardVisual\nasset type.\nSource property\nAtlan property\nname\nname\ncreatedAt\nsourceCreatedAt\nupdatedAt\nsourceUpdatedAt\nId\nquickSightId\ndashboardQualifiedName\nquickSightDashboardQualifiedName\nsheetId\nquickSightSheetId\nsheetName\nquickSightSheetName\nAnalyses\nDashboards\nDatasets\nFolders\nDataset fields\nAnalysis visuals\nDashboard visuals",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_amazon-quicksight_references_what-does-atlan-crawl-from-amazon-quicksight.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_amazon-quicksight_references_what-does-atlan-crawl-from-amazon-quicksight.json",
+      "chunk_id": 2
+    }
+  }
+]

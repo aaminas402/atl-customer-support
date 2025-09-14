@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Mode - Developer\nSkip to content\nMode\n¶\nBase class for Mode assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand managing Mode assets in Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass Mode {\n<<abstract>>\n}\nlink Mode \"../mode\"\nclass BI {\n<<abstract>>\n}\nlink BI \"../entities/bi\"\nBI <|-- Mode : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- BI : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass ModeReport\nlink ModeReport \"../entities/modereport\"\nMode <|-- ModeReport : extends\nclass ModeQuery\nlink ModeQuery \"../entities/modequery\"\nMode <|-- ModeQuery : extends\nclass ModeChart\nlink ModeChart \"../entities/modechart\"\nMode <|-- ModeChart : extends\nclass ModeWorkspace\nlink ModeWorkspace \"../entities/modeworkspace\"",
+    "metadata": {
+      "source_url": "models_mode.html",
+      "source_type": "sdk",
+      "file": "models_mode.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Mode <|-- ModeQuery : extends\nclass ModeChart\nlink ModeChart \"../entities/modechart\"\nMode <|-- ModeChart : extends\nclass ModeWorkspace\nlink ModeWorkspace \"../entities/modeworkspace\"\nMode <|-- ModeWorkspace : extends\nclass ModeCollection\nlink ModeCollection \"../entities/modecollection\"\nMode <|-- ModeCollection : extends\nProperties\n¶\nThese attributes are specific to instances of\nMode\n(and all of its subtypes).\nmodeId\n¶\nTBC\nmodeQueryName\n¶\nTBC\nmodeQueryQualifiedName\n¶\nTBC\nmodeReportName\n¶\nTBC\nmodeReportQualifiedName\n¶\nTBC\nmodeToken\n¶\nTBC\nmodeWorkspaceName\n¶\nTBC\nmodeWorkspaceQualifiedName\n¶\nTBC\nmodeWorkspaceUsername\n¶\nTBC\nRelationships\n¶\nThe following illustrates how the various Mode objects inter-relate with each other:\nerDiagram\nConnection ||..o{ ModeWorkspace : \"\"\nModeWorkspace |o--o{ ModeCollection : modeCollections\nModeCollection }o--o{ ModeReport : modeReports\nModeReport |o--o{ ModeQuery : modeQueries\nModeQuery |o--o{ ModeChart : modeCharts\n2023-01-04\n2024-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:",
+    "metadata": {
+      "source_url": "models_mode.html",
+      "source_type": "sdk",
+      "file": "models_mode.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Thanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_mode.html",
+      "source_type": "sdk",
+      "file": "models_mode.json",
+      "chunk_id": 2
+    }
+  }
+]

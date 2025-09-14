@@ -1,0 +1,5 @@
+{
+  "source_url": "platform_references_how-are-resources-isolated.html",
+  "text": "How are resources isolated? | Atlan Documentation\nSkip to main content\nEach Atlan customer has their own isolated set of nodes within Kubernetes.\nDeployments isolate all running services, including the metastore and its persistence in Cassandra and Elasticsearch.\nThe underlying Kubernetes control plane and networking layer (coredns) are shared between tenants. To achieve logical isolation, Loftâs\nvirtual clusters\nare implemented.\nThe compute resources (nodes, nodegroups) and storage are physically isolated between tenants.\nOnly Atlan's cloud team is able to manage the\nAWS\n,\nAzure\n, and\nGCP\nresources across these levels of isolation.\nSee\nsecurity.atlan.com\nfor the latest policies and standards, reports and certifications, architecture, diagrams and more.",
+  "source_type": "docs"
+}

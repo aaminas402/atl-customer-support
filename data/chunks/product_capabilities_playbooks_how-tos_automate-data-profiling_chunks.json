@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Automate data profiling | Atlan Documentation\nSkip to main content\nOn this page\nâ\nAvailable via the Data Quality Studio package\nwarning\nð¤ Who can do this?\nYou need to be an\nadmin user\nin Atlan to create profiling playbooks.\nMonitoring and improving data quality is critical to building trust in your data assets. Atlan solves for this with profiling playbooks!\nProfiling playbooks help power data observability for your assets in Atlan. You can create profiling playbooks to scan your assets at scale, identify any issues or inconsistencies, and improve the data quality of your assets.\nSupported sources\nâ\nAtlan currently supports column profiling for the following connectors:\nAmazon Athena\nAmazon Redshift\nDatabricks\nGoogle BigQuery\nMicrosoft SQL Server\nMySQL\nPostgreSQL\nSnowflake\nTrino\nCreate a profiling playbook\nâ\nTo create a profiling playbook:\nIn the left menu in Atlan, click\nGovernance\n.\nUnder the\nGovernance\nheading of the\nGovernance center\n, click\nPlaybooks\n.\nTo the right of the\nCreate New\nbutton, click the downward arrow and then select\nProfiling Playbook\n.\nIn the\nCreate new profiling playbook\ndialog, enter the following details:\nFor\nName",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_automate-data-profiling.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_automate-data-profiling.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Playbooks\n.\nTo the right of the\nCreate New\nbutton, click the downward arrow and then select\nProfiling Playbook\n.\nIn the\nCreate new profiling playbook\ndialog, enter the following details:\nFor\nName\n, enter a name for the task to be accomplished   -  for example,\nTables scan\n. (Atlan recommends that the length of a playbook name must be no longer than 46 characters.)\nFor\nConnection\n, select a\nsupported connection\nfrom the dropdown menu   -  in this example, we'll select a Google BigQuery connection\ndevelopment\n.\n(Optional) For\nDescription\n, enter a description for your playbook.\n(Optional) Select an icon for your playbook.\nClick\nCreate\nto save your playbook.\nSet up rules as filters\nâ\nDid you know?\nThe assets to be scanned are pre-filled based on your selected connection.\nTo set up rules as filters for your profiling playbook:\nIn the\nBuild Rules\npage of your profiling playbook, click\nFilters\n.\nFor the name field, add a name to your filter   -  for example,\nProfiling action\n.\nTo set a matching condition for the filters, select\nMatch all\nor\nMatch any\n.\nMatch all\nwill logically\nAND\nthe criteria, while\nMatch any\nwill logically\nOR\nthe criteria.\nFor\nAttributes",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_automate-data-profiling.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_automate-data-profiling.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ".\nTo set a matching condition for the filters, select\nMatch all\nor\nMatch any\n.\nMatch all\nwill logically\nAND\nthe criteria, while\nMatch any\nwill logically\nOR\nthe criteria.\nFor\nAttributes\n, select the relevant option. For this example, we'll select\nName\nlisted under\nProperties\n. (Optional) To further refine your asset selection:\nClick\nConnection\nto select a specific connection.Â\nClick\nAll databases\nto filter by databases in a selected connection.\nClick\nAll schemas\nto filter by schemas in a selected connection.\nClick\nConnector\nto filter assets by\nsupported connectors\n.\nClick\nAsset type\nto filter by specific asset types   -  for example, tables, columns, queries, glossaries, and more.\nClick\nCertificate\nto filter assets by\ncertification status\n.\nClick\nOwners\nto filter assets by\nasset owners\n.\nClick\nTags\nto filter assets by your\ntags\nin Atlan, including imported\nSnowflake\nand\ndbt\ntags.\n(Optional) For\nSnowflake tags\nonly, to the left of the checkbox, click\nSelect value\n, and then from the\nSelect tag value\ndialog, select any value(s) to filter assets by tag value.\nClick\nGlossary, terms, & categories\nto filter by a specific\nglossary\nor\ncategory",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_automate-data-profiling.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_automate-data-profiling.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Select value\n, and then from the\nSelect tag value\ndialog, select any value(s) to filter assets by tag value.\nClick\nGlossary, terms, & categories\nto filter by a specific\nglossary\nor\ncategory\nto bulk update all the nested terms or by multiple glossaries and categories.\nClick\nLinked terms\nto filter assets by\nlinked terms\n.\nClick\nSchema qualified Name\nto filter assets by the qualified name of a given schema.\nClick\nDatabase qualified Name\nto filter assets by the qualified name of a given database.\nClick\ndbt\nto filter assets by dbt-specific filters and then select a\ndbt Cloud\nor\ndbt Core\nfilter.\nClick\nProperties\nto filter assets by\ncommon asset properties\n.\nClick\nUsage\nto filter assets by\nusage metrics\n.\nClick\nMonte Carlo\nto filter assets by\nMonte Carlo-specific filters\n.\nClick\nSoda\nto filter assets by\nSoda-specific filters\n.\nClick\nTable/View\nto filter tables or views by row count, column count, or size.\nClick\nColumn\nto filter columns by\ncolumn-specific filters\n, including parent asset type or name, data type, or\ncolumn keys\n.\nClick\nProcess\nto filter\nlineage processes\nby the SQL query.\nClick\nQuery\nto filter assets by associated\nvisual queries\n.\nClick\nMeasure\nto filter",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_automate-data-profiling.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_automate-data-profiling.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "column keys\n.\nClick\nProcess\nto filter\nlineage processes\nby the SQL query.\nClick\nQuery\nto filter assets by associated\nvisual queries\n.\nClick\nMeasure\nto filter\nMicrosoft Power BI measures\nusing the external measures filter.\nFor\nOperator\n, select\nIs one of\nfor values to include or\nIs not\nfor values to exclude. Depending on the selected attribute(s), you can also choose from\nadditional operators\n:\nSelect\nEquals (=)\nor\nNot Equals (!=)\nto include or exclude assets through exact match search.\nSelect\nStarts With\nor\nEnds With\nto filter assets using the starting or ending sequence of values.\nSelect\nContains\nor\nDoes not contain\nto find assets with or without specified values contained within the attribute.\nSelect\nPattern\nto filter assets using supported\nElastic DSL regular expressions\n.\nSelect\nIs empty\nto filter assets with null values.\nFor\nValues\n, select the relevant values. The values will vary depending on the selected attributes.\n(Optional) To add more filters, click\nAdd filter\nand select\nFilter\nto add individual filters or\nFilter\nGroup\nto nest more filters in a group.\n(Optional) To view all the assets that match your rules, in the\nFilters\ncard, click\nView\nall\nfor a preview.",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_automate-data-profiling.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_automate-data-profiling.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Filter\nto add individual filters or\nFilter\nGroup\nto nest more filters in a group.\n(Optional) To view all the assets that match your rules, in the\nFilters\ncard, click\nView\nall\nfor a preview.\nConfirm profiling actions\nâ\ndanger\nColumn profiling is currently only supported for number and text data types. The profiled column assets will be populated with preconfigured metrics.\nTo select the actions to be performed based on your rules:\nThe default profiling actions to be performed include:\nBase metrics\n:\nDistinct count   -  number of rows that contain distinct values, relative to the column.\nMissing count   -  number of rows that do not contain specific values.\nNumeric metrics\n:\nMinimum and maximum values   -  smallest and greatest values in a numeric column.\nAverage   -  calculated average of values in a numeric column.\nStandard deviation   -  calculated standard deviation of values in a numeric column.\nVariance   -  calculated variance of values in a numeric column.\nString metrics\n:\nAverage length   -  average length of string values in a column.\nMinimum and maximum length   -  minimum and maximum length of string values in a column.\nClick\nNext\nto proceed to the next step.\nIn the",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_automate-data-profiling.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_automate-data-profiling.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Minimum and maximum length   -  minimum and maximum length of string values in a column.\nClick\nNext\nto proceed to the next step.\nIn the\nOptimize your Profiling query\npopup, the following message will appear:\nThis Profiling playbook will query\nx\nrows across\ny\nassets. To avoid significant computing costs, review your applied filters before proceeding\n. Click\nReview filters\nto review your existing filters or click\nContinue anyway\nto proceed.\nNote that Atlan is working to support sampling functionality in the future.\nRun the playbook\nâ\nIf you'd like to continue working on your playbook, you can save it as a draft. If your playbook is ready, you can proceed to running it.\nTo run the playbook:\nYou can either:\nTo run the playbook once immediately, click\nRun once\n.\nTo schedule the playbook to run hourly, daily, weekly, or monthly, click\nSchedule\nand choose the preferred frequency, timezone, and time.\nClick\nComplete\nto confirm your selections.\nIn the resulting screen, click\nGo to profile\nto view your playbook profile.\nOnce your playbook run is completed, you will see the data profile updated for your assets! ð\nView profiled assets\nâ\nTo view the profiled assets for your playbook:",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_automate-data-profiling.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_automate-data-profiling.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "to view your playbook profile.\nOnce your playbook run is completed, you will see the data profile updated for your assets! ð\nView profiled assets\nâ\nTo view the profiled assets for your playbook:\nIn the\nOverview\npage of your playbook, to the right of\nProfiling action\n, click the total count of profiled assets.\nIn the sidebar to the right, profiled assets will be indicated with a bar graph icon. Click any profiled asset to proceed to viewing profiling data.\nFrom the table sidebar, click the\nColumn\ntab to view column assets and then select any of the profiled columns.\nIn the column sidebar to the right, click\nProfile\nto view profiling data for the selected column asset.\nDid you know?\nOnce you've created a profiling playbook, you can\nmonitor, modify, or delete\nit at any time.\nSupported sources\nCreate a profiling playbook\nSet up rules as filters\nConfirm profiling actions\nRun the playbook\nView profiled assets",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_automate-data-profiling.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_automate-data-profiling.json",
+      "chunk_id": 7
+    }
+  }
+]

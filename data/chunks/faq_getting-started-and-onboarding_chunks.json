@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Getting Started and Onboarding | Atlan Documentation\nSkip to main content\nOn this page\nEverything you need to know when starting with Atlan - from trials and demos to deployment options and implementation requirements.\nIs there a trial version of Atlan that I can use to learn more on my own?\nâ\nYou can sign up for the\nproduct tour\nwith your business email to learn more about Atlan.\nDo you have customers in my industry?\nâ\nAtlan has customers across a wide variety of industries, including highly regulated industries like financial services and healthcare. Feel free to review the\ncustomers page\n, or\nreach out\nto discuss your use case in more detail.\nWhat are the implementation and maintenance requirements?\nâ\nThere are no additional costs incurred during implementation. To support the user/process transformation within your organization, Atlan provides an optional Accelerator Package with cultural enablement services.\nIn terms of individuals and responsibilities required to run and maintain Atlan, both may vary depending on the following two factors:\nSize of your organization (10, 100, 1000 users).\nOrganizational structure (data mesh vs. data stewardship model).",
+    "metadata": {
+      "source_url": "faq_getting-started-and-onboarding.html",
+      "source_type": "docs",
+      "file": "faq_getting-started-and-onboarding.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Size of your organization (10, 100, 1000 users).\nOrganizational structure (data mesh vs. data stewardship model).\nTypically, the application is owned by at least 1 data engineer persona and 1 persona responsible for data governance, data enablement, and information architecture. You'd only be in charge of managing data source integrations because Atlan is deployed as software as a service (SaaS).\nWhere's Atlan deployed?\nâ\nAtlan is a cloud-first solution.\nSingle-tenant SaaS\nis the recommended deployment model.\nAtlan currently supports hosting tenants on the following cloud platforms:\nAmazon Web Services (AWS)\nMicrosoft Azure\nGoogle Cloud Platform (GCP)\nFor more information, see\nAtlan architecture\n.\nWhat cloud providers do you support?\nâ\nAtlan currently supports hosting tenants on the following cloud platforms:\nAmazon Web Services (AWS)\nMicrosoft Azure\nGoogle Cloud Platform (GCP)\nWhat's the maintenance window for managing updates?\nâ\nIn addition to\nregular feature rollouts",
+    "metadata": {
+      "source_url": "faq_getting-started-and-onboarding.html",
+      "source_type": "docs",
+      "file": "faq_getting-started-and-onboarding.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Amazon Web Services (AWS)\nMicrosoft Azure\nGoogle Cloud Platform (GCP)\nWhat's the maintenance window for managing updates?\nâ\nIn addition to\nregular feature rollouts\n, Atlan performs monthly tenant infrastructure upgrades to enhance the performance, stability, and security of the tenant. Unless explicitly outlined otherwise in your organization's contract, these upgrades are performed for a period of 2-4 hours during a predetermined low usage window, usually over the weekend in your timezone.\nFor any upgrades requiring downtime, Atlan provides notice to organizations at least 1 week in advance. For any further questions about the maintenance window, please\nreach out to Atlan support\n.",
+    "metadata": {
+      "source_url": "faq_getting-started-and-onboarding.html",
+      "source_type": "docs",
+      "file": "faq_getting-started-and-onboarding.json",
+      "chunk_id": 2
+    }
+  }
+]

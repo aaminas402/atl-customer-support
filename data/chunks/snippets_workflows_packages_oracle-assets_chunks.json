@@ -1,0 +1,146 @@
+[
+  {
+    "content": "Oracle assets package - Developer\nSkip to content\nOracle assets package\n¶\nThe\nOracle assets package\ncrawls Oracle assets and publishes them to Atlan for discovery.\nDirect extraction\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method it\nwill create a new connection and new assets within that connection — which could lead to duplicate assets\nif you run the workflow this way multiple times with the same settings.\nInstead, when you want to re-crawl assets, re-run the existing workflow\n(see\nRe-run existing workflow\nbelow).\n6.0.0\nTo crawl assets directly from Oracle:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nDirect extraction from Oracle\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nOracleCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nOracleCrawler\n(\n# (1)\nconnection_name\n=\n\"production\"\n,\n# (2)\nadmin_roles\n=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (3)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\nrow_limit\n=\n10000\n,\n# (4)\nallow_query\n=\nTrue\n,\n# (5)\nallow_query_preview\n=\nTrue\n,\n# (6)\n)\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (3)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\nrow_limit\n=\n10000\n,\n# (4)\nallow_query\n=\nTrue\n,\n# (5)\nallow_query_preview\n=\nTrue\n,\n# (6)\n)\n.\ndirect\n(\nhostname\n=\n\"test.oracle.com\"\n,\nport\n=\n1521\n)\n# (7)\n.\nbasic_auth\n(\n# (8)\nusername\n=\n\"test-username\"\n,\npassword\n=\n\"test-password\"\n,\nsid\n=\n\"test-sid\"\n,\ndatabase_name\n=\n\"test-db\"\n,\n)\n.\ninclude\n(\nassets\n=\n{\n\"ANALYTICS\"\n:\n[\n\"SALES\"\n,\n\"CUSTOMER\"\n]})\n# (9)\n.\nexclude\n(\nassets\n=\n{})\n# (10)\n.\nexclude_regex\n(\n\"TEST*\"\n)\n# (11)\n.\njdbc_internal_methods\n(\nTrue\n)\n# (12)\n.\nsource_level_filtering\n(\nFalse\n)\n# (13)\n.\nto_workflow\n()\n# (14)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\ncrawler\n)\n# (15)\nBase configuration for a new Oracle crawler.\nYou must provide a name for the connection that the Oracle assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers).\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nYou can specify a maximum number of rows that can be accessed for any asset in the connection.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "a list of users (names) that will be connection admins.\nYou can specify a maximum number of rows that can be accessed for any asset in the connection.\nYou can specify whether you want to allow queries to this connection.\n(\nTrue\n, as in this example) or deny all query access to the connection (\nFalse\n).\nYou can specify whether you want to allow data previews on this connection\n(\nTrue\n, as in this example) or deny all sample data previews to the connection (\nFalse\n).\nTo configure the crawler for extracting data directly from Oracle\nthen you must provide the following information:\nhostname of your Oracle instance.\nport number of the Oracle instance (use\n1521\nfor the default).\nWhen using\nbasic_auth()\n, you must provide the following information:\nusername through which to access Oracle\npassword through which to access Oracle\nSID (system identifier) of the Oracle instance\ndatabase name to crawl\nYou can also optionally specify the set of assets to include in crawling. For Oracle assets,\nthis should be specified as a dict keyed by database name with values as a list of schemas within that\ndatabase to crawl. (If set to\nNone\n, all databases and schemas will be crawled.)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "this should be specified as a dict keyed by database name with values as a list of schemas within that\ndatabase to crawl. (If set to\nNone\n, all databases and schemas will be crawled.)\nYou can also optionally specify the list of assets to exclude from crawling.\nFor Oracle assets, this should be specified as a dict keyed by database name with values\nas a list of schemas within the database to exclude. (If set to\nNone\n, no assets will be excluded.)\nYou can also optionally specify the exclude regex for\ncrawler ignore tables and views based on a naming convention.\nYou can also optionally specify whether to enable (\nTrue\n) or disable (\nFalse\n) JDBC\ninternal methods for data extraction.\nYou can also optionally specify whether to enable (\nTrue\n) or disable (\nFalse\n) schema\nlevel filtering on source, schemas selected in the include filter will be fetched.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "run()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI. To rerun an existing workflow, see the steps below.\nOffline extraction\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method it\nwill create a new connection and new assets within that connection — which could lead to duplicate assets\nif you run the workflow this way multiple times with the same settings.\nInstead, when you want to re-crawl assets, re-run the existing workflow\n(see\nRe-run existing workflow\nbelow).\n7.0.0\nTo crawl Oracle assets from the S3 bucket:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCrawl assets from the S3 bucket\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nOracleCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nOracleCrawler\n(\n# (1)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nOracleCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nOracleCrawler\n(\n# (1)\nclient\n=\nclient\n,\n# (2)\nconnection_name\n=\n\"production\"\n,\n# (3)\nadmin_roles\n=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (4)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\nrow_limit\n=\n10000\n,\n# (5)\nallow_query\n=\nTrue\n,\n# (6)\nallow_query_preview\n=\nTrue\n,\n# (7)\n)\n.\ns3\n(\n# (8)\nbucket_name\n=\n\"test-bucket\"\n,\nbucket_prefix\n=\n\"test-prefix\"\n,\n)\n.\njdbc_internal_methods\n(\nTrue\n)\n# (9)\n.\nsource_level_filtering\n(\nFalse\n)\n# (10)\n.\nto_workflow\n()\n# (11)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\ncrawler\n)\n# (12)\nBase configuration for a new Oracle crawler.\nYou must provide a client instance.\nYou must provide a name for the connection that the Oracle assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers).\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nYou can specify a maximum number of rows that can be accessed for any asset in the connection.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "a list of users (names) that will be connection admins.\nYou can specify a maximum number of rows that can be accessed for any asset in the connection.\nYou can specify whether you want to allow queries to this connection.\n(\nTrue\n, as in this example) or deny all query access to the connection (\nFalse\n).\nYou can specify whether you want to allow data previews on this connection\n(\nTrue\n, as in this example) or deny all sample data previews to the connection (\nFalse\n).\nWhen using\ns3()\n, you need to provide the following information:\nname of the bucket/storage that contains the extracted metadata files.\nprefix is everything after the bucket/storage name, including the\npath\n.\nYou can also optionally specify whether to enable (\nTrue\n) or disable (\nFalse\n) JDBC\ninternal methods for data extraction.\nYou can also optionally specify whether to enable (\nTrue\n) or disable (\nFalse\n) schema\nlevel filtering on source, schemas selected in the include filter will be fetched.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Now, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI. To rerun an existing workflow, see the steps below.\nSecure agent extraction\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method it\nwill create a new connection and new assets within that connection — which could lead to duplicate assets\nif you run the workflow this way multiple times with the same settings.\nInstead, when you want to re-crawl assets, re-run the existing workflow\n(see\nRe-run existing workflow\nbelow).\n7.0.0\nIn this example, we demonstrates creating an Oracle Secure Agent workflow with basic authentication (\nOracleCrawler.AuthType.BASIC\n). You can create a similar workflow for Kerberos authentication (\nOracleCrawler.AuthType.KERBEROS",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "OracleCrawler.AuthType.BASIC\n). You can create a similar workflow for Kerberos authentication (\nOracleCrawler.AuthType.KERBEROS\n) by providing the necessary configuration.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nTo crawl Oracle assets in the offline agent\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nOracleCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nOracleCrawler\n(\n# (1)\nclient\n=\nclient\n,\n# (2)\nconnection_name\n=\n\"production\"\n,\n# (3)\nadmin_roles\n=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (4)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\nrow_limit\n=\n10000\n,\n# (5)\nallow_query\n=\nTrue\n,\n# (6)\nallow_query_preview\n=\nTrue\n,\n# (7)\n)\n.\nagent_config\n(\n# (8)\nhostname\n=\n\"test.oracle.com\"\n,\nport\n=\n1521\n,\nauth_type\n=\nOracleCrawler\n.\nAuthType\n.\nBASIC\n,\ndefault_db_name\n=\n\"test-db\"\n,\nsid\n=\n\"test-sid\"\n,\nagent_name\n=\n\"test-agent\"\n,\naws_region\n=\n\"us-east-1\"\n,\naws_auth_method\n=\nOracleCrawler\n.\nAwsAuthMethod\n.\nIAM\n,\nsecret_store\n=\nOracleCrawler\n.\nSecretStore\n.\nAWS_SECRET_MANAGER\n,\nsecret_path\n=\n\"test/path/secret.json\"\n,\nagent_custom_config\n=\n{\n\"test\"\n:",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": ",\naws_auth_method\n=\nOracleCrawler\n.\nAwsAuthMethod\n.\nIAM\n,\nsecret_store\n=\nOracleCrawler\n.\nSecretStore\n.\nAWS_SECRET_MANAGER\n,\nsecret_path\n=\n\"test/path/secret.json\"\n,\nagent_custom_config\n=\n{\n\"test\"\n:\n\"config\"\n},\n)\n.\ninclude\n(\nassets\n=\n{\n\"ANALYTICS\"\n:\n[\n\"SALES\"\n,\n\"CUSTOMER\"\n]})\n# (9)\n.\nexclude\n(\nassets\n=\n{})\n# (10)\n.\njdbc_internal_methods\n(\nTrue\n)\n# (11)\n.\nsource_level_filtering\n(\nFalse\n)\n# (12)\n.\nto_workflow\n()\n# (13)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\ncrawler\n)\n# (14)\nBase configuration for a new Oracle crawler.\nYou must provide a client instance.\nYou must provide a name for the connection that the Oracle assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers).\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nYou can specify a maximum number of rows that can be accessed for any asset in the connection.\nYou can specify whether you want to allow queries to this connection.\n(\nTrue\n, as in this example) or deny all query access to the connection (\nFalse\n).\nYou can specify whether you want to allow data previews on this connection\n(\nTrue",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "(\nTrue\n, as in this example) or deny all query access to the connection (\nFalse\n).\nYou can specify whether you want to allow data previews on this connection\n(\nTrue\n, as in this example) or deny all sample data previews to the connection (\nFalse\n).\nWhen using secure\nagent_config()\n, you need to provide the following information:\nhost address of the Oracle instance.\nport number for the Oracle instance. Defaults to\n1521\n.\nauthentication type (\nbasic\nor\nkerberos\n). Defaults to\nbasic\n.\ndefault database name.\nSID (system identifier) of the Oracle instance.\nname of the agent.\nAWS region where secrets are stored. Defaults to\nus-east-1\n.\nAWS authentication method (\niam\n,\niam-assume-role\n,\naccess-key\n). Defaults to\niam\n.\nsecret store to use (e.g\nAWS\n,\nAzure\n,\nGCP\n, etc)\n(optional) path to the secret in the secret manager.\n(optional) Custom JSON configuration for the agent.\nYou can also optionally specify the set of assets to include in crawling. For Oracle assets,\nthis should be specified as a dict keyed by database name with values as a list of schemas within that\ndatabase to crawl. (If set to\nNone\n, all databases and schemas will be crawled.)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "this should be specified as a dict keyed by database name with values as a list of schemas within that\ndatabase to crawl. (If set to\nNone\n, all databases and schemas will be crawled.)\nYou can also optionally specify the list of assets to exclude from crawling.\nFor Oracle assets, this should be specified as a dict keyed by database name with values\nas a list of schemas within the database to exclude. (If set to\nNone\n, no assets will be excluded.)\nYou can also optionally specify whether to enable (\nTrue\n) or disable (\nFalse\n) JDBC\ninternal methods for data extraction.\nYou can also optionally specify whether to enable (\nTrue\n) or disable (\nFalse\n) schema\nlevel filtering on source, schemas selected in the include filter will be fetched.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nCreate the workflow via UI only",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "packages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI. To rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶\n1.9.5\nTo re-run an existing workflow for Oracle assets:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nRe-run existing Oracle workflow\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nORACLE\n,\nmax_results\n=\n5\n)\n# Determine which Oracle workflow (n)\n# from the list of results you want to re-run.\nresponse\n=\nclient\n.\nworkflow\n.\nrerun\n(\nexisting\n[\nn\n])\n# (2)\nYou can find workflows by their type using the workflow client\nfind_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nTableauCrawler\n. (You can also specify\nthe\nmaximum number of resulting workflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "In this example, we do so for the\nTableauCrawler\n. (You can also specify\nthe\nmaximum number of resulting workflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,\nyou can simply call the workflow client\nrerun()\nmethod.\nOptionally, you can use\nrerun(idempotent=True)\nto avoid re-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nRequires multiple steps through the raw REST API\nFind the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-oracle\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": ":\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-oracle\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n},\n\"order\"\n:\n\"desc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\nSearching by the\natlan-oracle\nprefix will ensure you only find existing Oracle assets workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name\nproperty of the response object.\n(Remember since this is a search, there could be multiple results, so you may want to use the other\ndetails in each result to determine which workflow you really want.)\nPOST /api/service/workflows/submit\n100\n101\n102\n103\n104\n{\n\"namespace\"\n:\n\"default\"\n,\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"atlan-oracle-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2025-01-28\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Thanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_oracle-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_oracle-assets.json",
+      "chunk_id": 15
+    }
+  }
+]

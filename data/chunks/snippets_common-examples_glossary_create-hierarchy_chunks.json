@@ -1,0 +1,83 @@
+[
+  {
+    "content": "Glossary category hierarchy - Developer\nSkip to content\nCreating a hierarchy\n¶\nCategories in a glossary can be organized within another category, to create a hierarchy of categories.\nTo do this, you need to create the upper levels of the hierarchy before the lower levels. Each level you create should refer to its parent, and therefore its parent must first exist.\nCreate a root-level category\n¶\n2.0.0\n4.0.0\nTo create a root- or top-level category (no parent):\nJava\nPython\nKotlin\nRaw REST API\nCreate a top-level category\n1\n2\n3\n4\n5\nGlossaryCategory\ntop\n=\nGlossaryCategory\n.\ncreator\n(\n\"Top\"\n,\n// (1)\nglossary\n)\n// (2)\n.\nbuild\n();\n// (3)\nAssetMutationResponse\nresponse\n=\ntop\n.\nsave\n(\nclient\n);\n// (4)\nA name for the new category.\nThe glossary in which to create the category. Note that we do not specify any parent category anywhere, since this will be a top-level category.\nYou need to build the object you've just defined.\nYou then only need to\nsave()\n1\nthe object to create it in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a top-level category\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a top-level category\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryCategory\nclient\n=\nAtlanClient\n()\ntop\n=\nAtlasGlossaryCategory\n.\ncreator\n(\nname\n=\n\"Top\"\n,\n# (1)\nanchor\n=\nglossary\n# (2)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ntop\n)\n# (3)\nA name for the new category.\nThe glossary in which to create the category. Note that we do not specify any parent category anywhere, since this will be a top-level category.\nYou then only need to\nsave()\n1\nthe object to create it in Atlan.\nCreate a top-level category\n1\n2\n3\n4\n5\nval\ntop\n=\nGlossaryCategory\n.\ncreator\n(\n\"Top\"\n,\n// (1)\nglossary\n)\n// (2)\n.\nbuild\n()\n// (3)\nval\nresponse\n=\ntop\n.\nsave\n(\nclient\n)\n// (4)\nA name for the new category.\nThe glossary in which to create the category. Note that we do not specify any parent category anywhere, since this will be a top-level category.\nYou need to build the object you've just defined.\nYou then only need to\nsave()\n1\nthe object to create it in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "You then only need to\nsave()\n1\nthe object to create it in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryCategory\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Top\"\n,\n// (3)\n\"displayName\"\n:\n\"Top\"\n,\n// (4)\n\"anchor\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n// (6)\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n// (7)\n}\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the category (case-sensitive), which for a category is\nAtlasGlossaryCategory\n.\nYou must provide the exact name of the category (case-sensitive).\nYou must provide the exact name of the category (case-sensitive) as you want it to appear in the UI.\nYou must provide an\nanchor\nrelationship.\nWithin the\nanchor\nrelationship you must provide the exact type name for a glossary:\nAtlasGlossary\n.\nWithin the\nanchor\nrelationship you must provide the GUID of the glossary the category should be created within.\nCreate a child category\n¶\nParent must exist before creating the child",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "AtlasGlossary\n.\nWithin the\nanchor\nrelationship you must provide the GUID of the glossary the category should be created within.\nCreate a child category\n¶\nParent must exist before creating the child\nRemember: the parent category must exist before you create the child category.\n2.0.0\n4.0.0\nTo create a child category, the steps are very similar but you add in the reference to the parent category:\nJava\nPython\nKotlin\nRaw REST API\nCreate a child category\n6\n7\n8\n9\n10\n11\nGlossaryCategory\nchild\n=\nGlossaryCategory\n.\ncreator\n(\n\"Middle\"\n,\n// (1)\nglossary\n)\n// (2)\n.\nparentCategory\n(\ntop\n.\ntrimToReference\n())\n// (3)\n.\nbuild\n();\n// (4)\nAssetMutationResponse\nresponse\n=\nchild\n.\nsave\n(\nclient\n);\n// (5)\nA name for the new category.\nThe glossary in which to create the category.\nNow you add in the reference to the parent category. There are multiple ways you can reference the category:\nIf you have the parent category already, you can use\ntrimToReference()\nto obtain the minimal reference to it.\nIf you only know the GUID, you can use\nGlossaryCategory.refByGuid()\nto create a minimal reference to it.\nIf you only know the qualifiedName, you can use\nGlossaryCategory.refByQualifiedName()",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "If you only know the GUID, you can use\nGlossaryCategory.refByGuid()\nto create a minimal reference to it.\nIf you only know the qualifiedName, you can use\nGlossaryCategory.refByQualifiedName()\nto create a minimal reference to it.\nYou need to build the object you've just defined.\nYou then only need to\nsave()\n1\nthe object to create it in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a child category\n10\n11\n12\n13\n14\n15\n16\n17\n18\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryCategory\nclient\n=\nAtlanClient\n()\nchild\n=\nAtlasGlossaryCategory\n.\ncreator\n(\nname\n=\n\"Middle\"\n,\n# (1)\nanchor\n=\nglossary\n,\n# (2)\nparent_category\n=\ntop\n)\n# (3)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nchild\n);\n# (4)\nA name for the new category.\nThe glossary in which to create the category.\nNow you add in the reference to the parent category. There are multiple ways you can reference the category:\nIf you have the parent category already, you can send it through as-is.\nIf you only know the GUID, you can use\nAtlasGlossaryCategory.ref_by_guid()\nto create a minimal reference to it.",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "If you have the parent category already, you can send it through as-is.\nIf you only know the GUID, you can use\nAtlasGlossaryCategory.ref_by_guid()\nto create a minimal reference to it.\nIf you only know the qualifiedName, you can use\nGlossaryCategory.ref_by_qualified_name()\nto create a minimal reference to it.\nYou then only need to\nsave()\n1\nthe object to create it in Atlan.\nCreate a child category\n6\n7\n8\n9\n10\n11\nval\nchild\n=\nGlossaryCategory\n.\ncreator\n(\n\"Middle\"\n,\n// (1)\nglossary\n)\n// (2)\n.\nparentCategory\n(\ntop\n.\ntrimToReference\n())\n// (3)\n.\nbuild\n()\n// (4)\nval\nresponse\n=\nchild\n.\nsave\n(\nclient\n)\n// (5)\nA name for the new category.\nThe glossary in which to create the category.\nNow you add in the reference to the parent category. There are multiple ways you can reference the category:\nIf you have the parent category already, you can use\ntrimToReference()\nto obtain the minimal reference to it.\nIf you only know the GUID, you can use\nGlossaryCategory.refByGuid()\nto create a minimal reference to it.\nIf you only know the qualifiedName, you can use\nGlossaryCategory.refByQualifiedName()\nto create a minimal reference to it.\nYou need to build the object you've just defined.\nYou then only need to",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "If you only know the qualifiedName, you can use\nGlossaryCategory.refByQualifiedName()\nto create a minimal reference to it.\nYou need to build the object you've just defined.\nYou then only need to\nsave()\n1\nthe object to create it in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryCategory\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Middle\"\n,\n// (3)\n\"displayName\"\n:\n\"Middle\"\n,\n// (4)\n\"anchor\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n// (6)\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n// (7)\n},\n\"parentCategory\"\n:\n{\n// (8)\n\"typeName\"\n:\n\"AtlasGlossaryCategory\"\n,\n// (9)\n\"guid\"\n:\n\"dc4c0a08-a902-402b-bf24-cf935aecc343\"\n// (10)\n}\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the category (case-sensitive), which for a category is\nAtlasGlossaryCategory\n.\nYou must provide the exact name of the category (case-sensitive).\nYou must provide the exact name of the category (case-sensitive) as you want it to appear in the UI.",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "AtlasGlossaryCategory\n.\nYou must provide the exact name of the category (case-sensitive).\nYou must provide the exact name of the category (case-sensitive) as you want it to appear in the UI.\nYou must provide an\nanchor\nrelationship.\nWithin the\nanchor\nrelationship you must provide the exact type name for a glossary:\nAtlasGlossary\n.\nWithin the\nanchor\nrelationship you must provide the GUID of the glossary the category should be created within.\nYou must provide a\nparentCategory\nrelationship to define the parent category.\nWithin the\nparentCategory\nrelationship you must provide the exact type name for a category:\nAtlasGlossaryCategory\n.\nWithin the\nparentCategory\nrelationship you must provide the GUID of the category this category should be organized within.\nWhy no distinction between create and update? This has to do with how Atlan detects changes — see the\nImportance of identifiers\nconcept for a more detailed explanation.\n↩\n↩\n↩\n↩\n↩\n↩\n2022-12-22\n2025-01-03\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "Thanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create-hierarchy.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create-hierarchy.json",
+      "chunk_id": 8
+    }
+  }
+]

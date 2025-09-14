@@ -1,0 +1,65 @@
+[
+  {
+    "content": "Install on Virtual Machine (K3s) | Atlan Documentation\nSkip to main content\nOn this page\nDid you know?\nSecure Agent installation can be done by a non-root user. Root access is\nonly\nneeded for setting up system prerequisites before installation.\nThis page provides instructions for installing the Secure Agent on a virtual machine (VM) by deploying\nK3s in a rootless execution mode\n.\nSystem requirements\nâ\nBefore installing the Secure Agent, ensure that the virtual machine (VM) meets the following requirements:\nAt least 80GB of available disk space.\nA Linux-based OS running on an amd64 (x86_64) architecture with\nsystemd\nenabled.\nThe Secure Agent requires the following ports for internal services. Ensure these ports are open and accessible:\nKubernetes API:\n6443\nInternal K3s proxy:\n10443\n,\n10080\nMinIO storage:\n9000\n,\n32075\nMinIO console:\n9001\n,\n30614\nTraefik ingress:\n31037\n,\n32547\nPrerequisites\nâ\nBefore installing the Secure Agent, complete the following setup steps to prepare your Atlan tenant and virtual machine.\nConfigure Atlan tenant\nâ\nIn Atlan, complete the following steps to configure the tenant:\nSign in to your tenant as an Atlan admin.\nFrom the left menu of any screen, click",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Configure Atlan tenant\nâ\nIn Atlan, complete the following steps to configure the tenant:\nSign in to your tenant as an Atlan admin.\nFrom the left menu of any screen, click\nAdmin\n.\nUnder\nWorkspace\nclick\nLabs\n.\nNavigate to\nWorkflow Center\n.\nEnable the\nCrawl assets using Secure Agent\ntoggle.\nConfigure virtual machine\nâ\nOn the virtual machine, complete the following steps to configure it:\nLog in as a root user.\nCreate the required directory to configure cgroup delegation with:\nsudo mkdir -p /etc/systemd/system/\n[email protected]\nUse the below\ncat\ncommand to create the delegation file with required configuration:\ncat <<EOF | sudo tee /etc/systemd/system/\n[email protected]\n/delegate.conf\n[Service]\nDelegate=cpu cpuset io memory pids\nEOF\nUse the below command to reload systemd:\nsudo systemctl daemon-reload && sudo reboot\nTo keep the Secure Agent running after logout, the root user must enable service persistence for the user installing it by running the following command:\nsudo loginctl enable-linger ``<user_installing_secure_agent>``\nReplace\n<user_installing_secure_agent>\nwith the actual username of the user installing the Secure Agent.",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "sudo loginctl enable-linger ``<user_installing_secure_agent>``\nReplace\n<user_installing_secure_agent>\nwith the actual username of the user installing the Secure Agent.\nRun the following commands to enable IP forwarding so Secure Agent can communicate with other Secure Agent instances and make network requests to the Atlan tenant.\nIPv4 forwarding:\nsudo sysctl -w net.ipv4.ip_forward=1\nIPv6 forwarding:\nsudo sysctl -w net.ipv6.conf.all.forwarding=1\nTo manage containerized workloads, install fuse-overlayfs with:\nsudo yum install fuse-overlayfs\nThe VM must have access to the source systemâs secret manager to retrieve secrets. For more information, see how to provide access for some popular secret managers listed below:\nAWS:\nConfigure access for AWS Secrets Manager.\nAzure:\nConfigure access for Azure Key Vault.\nGCP:\nConfigure access for GCP Secret Manager.\nPermissions required\nâ\nBefore installing the Secure Agent, the user must have the following permissions:\nCreate and modify directories in the userâs home directory:\n~/.config/systemd/user\n,\n~/bin\n,\n~/.local/bin\n, and\n~/.rancher\n.\nCreate and write log files.\nExecute standard Linux commands:\nmkdir\n,\nchmod\n,\ntar\n, and\nsed\n.",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "~/.config/systemd/user\n,\n~/bin\n,\n~/.local/bin\n, and\n~/.rancher\n.\nCreate and write log files.\nExecute standard Linux commands:\nmkdir\n,\nchmod\n,\ntar\n, and\nsed\n.\nDownload Agent packages\nâ\nFollow these steps to download the necessary packages for setting up the Secure Agent.\nDid you know?\nThe steps require Internet access to download files. In case the VM has no Internet connectivity, one can download them separately and copy the files to the VM.\nCreate a folder for deployment and navigate to it:\nmkdir -p atlan-secure-agent && cd atlan-secure-agent\nRun the following commands to download the required packages:\nDownload the\nKubernetes install package\n, which contains files to run K3s on an air-gapped VM:\ncurl -O https://atlan-public.s3.amazonaws.com/workflow-offline-agent/container/k3s_offline_package_main.tar\nDownload the\nContainer images package\nif an image registry isn't available:\ncurl -O https://atlan-public.s3.amazonaws.com/workflow-offline-agent/container/atlan_images_main.tar\nDownload the\nSecure Agent install package\n, which contains files for running the Secure Agent:",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "curl -O https://atlan-public.s3.amazonaws.com/workflow-offline-agent/container/atlan_images_main.tar\nDownload the\nSecure Agent install package\n, which contains files for running the Secure Agent:\ncurl -O https://atlan-public.s3.amazonaws.com/workflow-offline-agent/container/atlan_install_config_main.tar.gz\nVerify that all the files are downloaded.\nInstall Secure Agent\nâ\nFollow these steps to install and configure the Secure Agent on the virtual machine.\nDid you know?\nThe installation can be performed by both root (administrative) and non-root (standard) users.\nNavigate to the deployment folder (if not already):\ncd atlan-secure-agent\nRun the following command to extract the Secure Agent install package:\ntar -xvf atlan_install_config_main.tar.gz\nThe\nrootless-install\nfolder is extracted from the Secure Agent install package. Run the following command to create an environment file using the\nenv.sample\nfile located in the\nrootless-install\nfolder:\ncp ./rootless-install/.env.sample .env\nOpen the\n.env\nfile and update these variables:\nVAR_ATLAN_SECURE_AGENT_NAME=prod-atlan-agent-vm\nVAR_ATLAN_DOMAIN=tenant.atlan.com\nVAR_ATLAN_TOKEN=<atlan-api-token>",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Open the\n.env\nfile and update these variables:\nVAR_ATLAN_SECURE_AGENT_NAME=prod-atlan-agent-vm\nVAR_ATLAN_DOMAIN=tenant.atlan.com\nVAR_ATLAN_TOKEN=<atlan-api-token>\nVAR_ATLAN_DATA_PATH=</absolute/path/to/atlan-secure-agent>\nReplace the environment variable values:\nVAR_ATLAN_SECURE_AGENT_NAME:\nSpecify a meaningful and unique name for the Secure Agent. For example,\nprod-atlan-agent-vm\n.\nVAR_ATLAN_DOMAIN:\nEnter your Atlan tenant domain. For example,\ntenant.atlan.com\n.\nVAR_ATLAN_TOKEN:\nProvide the API key (Bearer token). For more information on generating an API key, see\nCreate a bearer token\n.\nVAR_ATLAN_DATA_PATH:\nSpecify the path where the\natlan-secure-agent\ndirectory is located.\nRun the following command to grant execution permission for the setup script:\nchmod +x rootless-install/setup.sh\nThe extracted\nsetup.sh\nfile installs the Secure Agent and K3s. Run the following command to execute the installer:\n./rootless-install/setup.sh .env\nWhile the installation is in progress, you can run the following command to verify the progress:\nkubectl get pods -A\nVerify installation\nâ",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "./rootless-install/setup.sh .env\nWhile the installation is in progress, you can run the following command to verify the progress:\nkubectl get pods -A\nVerify installation\nâ\nAfter installing the Secure Agent, verify that it's running correctly. You can check its status through the Atlan UI or by accessing the Agent UI on K3s.\nLog in as an Atlan admin or a similar role to access your tenant. For example:\nhttps://<tenant>.atlan.com\n.\nNavigate to the\nAgent\ntab.\nIn the\nSecure Agents\nlist, use the\nSearch for agents\nbox to enter your Secure Agent name.\nIf the agent appears in the list and is marked\nActive\n, installation is complete.\nTroubleshooting\nâ\nIf you encounter issues during installation, follow these steps:\nCheck the logs using the following command for detailed error messages that may indicate the root cause:\ntail -f logs/k3s.log\nFor K3s rootless mode issues, follow the\nK3s official documentation\nfor troubleshooting rootless issues.\nIf you continue to face issues, contact Atlan support by\ncreating a ticket\n.\nSystem requirements\nPrerequisites\nPermissions required\nDownload Agent packages\nInstall Secure Agent\nVerify installation\nTroubleshooting",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_k3s_install-secure-agent-on-virtual-machine-k3s.json",
+      "chunk_id": 6
+    }
+  }
+]

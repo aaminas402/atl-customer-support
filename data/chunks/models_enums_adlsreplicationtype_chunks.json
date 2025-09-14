@@ -1,0 +1,11 @@
+[
+  {
+    "content": "ADLSReplicationType - Developer\nSkip to content\nADLSReplicationType\n¶\nPossible ADLS replication types for storage objects.\nComplete reference\nThis is a complete reference for the\nADLSReplicationType\nenumeration in Atlan, showing all of its possible values. For an introduction, you probably want to start with:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nValid values\n¶\nLRS\nZRS\nGRS\nGZRS\nRA-GRS\n2023-01-11\n2023-11-08\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_enums_adlsreplicationtype.html",
+      "source_type": "sdk",
+      "file": "models_enums_adlsreplicationtype.json",
+      "chunk_id": 0
+    }
+  }
+]

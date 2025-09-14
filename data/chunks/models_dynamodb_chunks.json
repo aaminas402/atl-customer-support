@@ -1,0 +1,29 @@
+[
+  {
+    "content": "DynamoDB - Developer\nSkip to content\nDynamoDB model\n¶\nBase class for DynamoDB assets.\nComplete reference\nThis is a complete reference for the\nDynamoDB\nobject in Atlan, showing every possible property and relationship that can exist for these objects. For an introduction, you probably want to start with:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass DynamoDB {\n<<abstract>>\n}\nlink DynamoDB \"../dynamodb\"\nclass NoSQL {\n<<abstract>>\n}\nlink NoSQL \"../nosql\"\nNoSQL <|-- DynamoDB : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../catalog\"\nCatalog <|-- NoSQL : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../referenceable\"\nReferenceable <|-- Asset : extends\nclass DynamoDBSecondaryIndex {\n<<abstract>>\n}\nlink DynamoDBSecondaryIndex \"../entities/dynamodbsecondaryindex\"\nTable <|-- DynamoDBSecondaryIndex : extends\nclass DynamoDBLocalSecondaryIndex\nlink DynamoDBLocalSecondaryIndex \"../entities/dynamodblocalsecondaryindex\"",
+    "metadata": {
+      "source_url": "models_dynamodb.html",
+      "source_type": "sdk",
+      "file": "models_dynamodb.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Table <|-- DynamoDBSecondaryIndex : extends\nclass DynamoDBLocalSecondaryIndex\nlink DynamoDBLocalSecondaryIndex \"../entities/dynamodblocalsecondaryindex\"\nDynamoDBSecondaryIndex <|-- DynamoDBLocalSecondaryIndex : extends\nclass DynamoDBGlobalSecondaryIndex\nlink DynamoDBGlobalSecondaryIndex \"../entities/dynamodbglobalsecondaryindex\"\nDynamoDBSecondaryIndex <|-- DynamoDBGlobalSecondaryIndex : extends\nclass DynamoDBTable\nlink DynamoDBTable \"../entities/dynamodbtable\"\nTable <|-- DynamoDBTable : extends\nDynamoDB <|-- DynamoDBSecondaryIndex : extends\nDynamoDB <|-- DynamoDBTable : extends\nSQL <|-- Table : extends\nCatalog <|-- SQL : extends\nProperties\n¶\nThese attributes are specific to instances of\nDynamoDB\n(and all of its subtypes).\ndynamoDBPartitionKey\n¶\nSpecifies the partition key of the DynamoDB Table/Index\ndynamoDBReadCapacityUnits\n¶\nThe maximum number of strongly consistent reads consumed per second before DynamoDB returns a ThrottlingException\ndynamoDBSortKey\n¶\nSpecifies the sort key of the DynamoDB Table/Index\ndynamoDBStatus\n¶\nStatus of the DynamoDB Asset\ndynamoDBWriteCapacityUnits\n¶\nThe maximum number of writes consumed per second before DynamoDB returns a ThrottlingException",
+    "metadata": {
+      "source_url": "models_dynamodb.html",
+      "source_type": "sdk",
+      "file": "models_dynamodb.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "dynamoDBStatus\n¶\nStatus of the DynamoDB Asset\ndynamoDBWriteCapacityUnits\n¶\nThe maximum number of writes consumed per second before DynamoDB returns a ThrottlingException\nRelationships\n¶\nThe following illustrates how the various DynamoDB objects inter-relate with each other:\nerDiagram\nConnection ||..o{ DynamoDBTable : \"\"\nDynamoDBTable ||--o{ DynamoDBGlobalSecondaryIndex : dynamoDBGlobalSecondaryIndexes\nDynamoDBTable ||--o{ DynamoDBLocalSecondaryIndex : dynamoDBLocalSecondaryIndexes\n2023-12-08\n2023-12-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_dynamodb.html",
+      "source_type": "sdk",
+      "file": "models_dynamodb.json",
+      "chunk_id": 2
+    }
+  }
+]

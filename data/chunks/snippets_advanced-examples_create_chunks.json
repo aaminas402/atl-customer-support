@@ -1,0 +1,119 @@
+[
+  {
+    "content": "Creating an asset - Developer\nSkip to content\nCreating an asset\n¶\nAll objects in the SDK that you can create within Atlan implement the builder pattern. This allows you to progressively build-up the object you want to create. In addition, each object provides a method that takes the minimal set of required fields to create that\nasset\n.\nEach type of asset has a different containment hierarchy\nEvery asset in Atlan can have slightly different parent objects in which they exist. For example, a\nGlossaryTerm\ncannot exist outside a\nGlossary\n. A\nColumn\ncannot exist outside a\nTable\n,\nView\nor\nMaterializedView\n; these cannot exist outside a\nSchema\n; which cannot exist outside a\nDatabase\n; which cannot exist outside a\nConnection\n.\nThe minimal required fields for each asset type will therefore be slightly different.\nCreation order is important\nAs a result of this containment, creation order is important. Parent objects must be created (exist) before child objects can be created.\nBuild minimal object needed\n¶\n2.0.0\n1.0.0\nFor example, to create a glossary term you need to provide the name of the term and either the GUID or\nqualifiedName\nof the glossary in which to create the term:\nJava\nPython",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "¶\n2.0.0\n1.0.0\nFor example, to create a glossary term you need to provide the name of the term and either the GUID or\nqualifiedName\nof the glossary in which to create the term:\nJava\nPython\nKotlin\nRaw REST API\nBuild minimal asset necessary for creation\n1\n2\n3\nGlossaryTermBuilder\n<?\n,\n?>\ntermCreator\n=\nGlossaryTerm\n.\ncreator\n(\n\"Example Term\"\n,\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n);\n// (2)\nA name for the new term.\nThe GUID or\nqualifiedName\nof the glossary in which to create the term.\nBuild minimal asset necessary for creation\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\nclient\n=\nAtlanClient\n()\nterm\n=\nAtlasGlossaryTerm\n.\ncreator\n(\nname\n=\n\"Example Term\"\n,\n# (1)\nglossary_guid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n# (2)\n)\nA name for the new term.\nThe GUID of the glossary in which to create the term.\nBuild minimal asset necessary for creation\n1\n2\n3\n4\n5\nval\ntermCreator\n=\nGlossaryTerm\n.\ncreator\n(\n\"Example Term\"\n,\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (2)\n)\nA name for the new term.\nThe GUID or\nqualifiedName\nof the glossary in which to create the term.\nImplicit in the API calls below",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ",\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (2)\n)\nA name for the new term.\nThe GUID or\nqualifiedName\nof the glossary in which to create the term.\nImplicit in the API calls below\nThere is nothing specific to do for this step when using the raw APIs — constructing the object is simply what you place in the payload of the API calls in the steps below.\nCreate the asset from the object\n¶\n1.4.0\n4.0.0\nThis\nterm\nobject will have the minimal required information for Atlan to create it. You must then actually persist the object in Atlan\n1\n:\nJava\nPython\nKotlin\nRaw REST API\nCreate the asset\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nGlossaryTerm\nterm\n=\ntermCreator\n.\nbuild\n();\n// (1)\nAssetMutationResponse\nresponse\n=\nterm\n.\nsave\n(\nclient\n);\n// (2)\nAsset\ncreated\n=\nresponse\n.\ngetCreatedAssets\n().\nget\n(\n0\n);\n// (3)\nif\n(\ncreated\ninstanceof\nGlossaryTerm\n)\n{\nterm\n=\n(\nGlossaryTerm\n)\ncreated\n;\n// (4)\n}\nAsset\nupdated\n=\nresponse\n.\ngetUpdatedAssets\n().\nget\n(\n0\n);\n// (5)\nGlossary\nglossary\n;\nif\n(\nupdated\ninstanceof\nGlossary\n)\n{\nglossary\n=\n(\nGlossary\n)\nupdated\n;\n// (6)\n}\nBefore you can take actions on the builder object you've been interacting with, you need to\nbuild()\nit into a full object.",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "(\nupdated\ninstanceof\nGlossary\n)\n{\nglossary\n=\n(\nGlossary\n)\nupdated\n;\n// (6)\n}\nBefore you can take actions on the builder object you've been interacting with, you need to\nbuild()\nit into a full object.\nThen you can do operations, like\nsave()\n, which will either:\ncreate a new asset, if Atlan does not have a term with the same name in the same glossary\nupdate an existing asset, if Atlan already has a term with the same name in the same glossary\nBecause this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can distinguish what was created or updated:\ngetCreatedAssets()\nlists assets that were created\ngetUpdatedAssets()\nlists assets that were updated\nNote that the\nsave()\nmethod always returns objects of type\nAsset\n, though.\nThe\nAsset\nclass is a superclass of all assets. So you need to cast to more specific types (like\nGlossaryTerm\n) after verifying the object that was actually returned.\nIn this example, creating the\nGlossaryTerm\nactually also updates the parent\nGlossary\n. This is why the\nresponse\ncontains generic\nAsset\nobjects rather than specific types — any operation could side-effect a number of different assets.",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "actually also updates the parent\nGlossary\n. This is why the\nresponse\ncontains generic\nAsset\nobjects rather than specific types — any operation could side-effect a number of different assets.\nLike with the\nGlossaryTerm\n, you can check and cast the generic\nAsset\nreturned by the response into its more specific type (\nGlossary\n).\nCreate the asset\n9\n10\n11\n12\n13\n14\n15\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nterm\n)\n# (1)\ncreated\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nAtlasGlossaryTerm\n)\n# (2)\nif\ncreated\n:\n# (3)\nterm\n=\ncreated\n[\n0\n]\n# (4)\nupdated\n=\nresponse\n.\nassets_updated\n(\nasset_type\n=\nAtlasGlossaryTerm\n)\n# (5)\nif\nupdated\n:\n# (6)\nterm\n=\nupdated\n[\n0\n]\n# (7)\nCall the\nsave\nmethod which will create or update the asset in atlan.\nYou can distinguish what was created or updated:\nassets_created(asset_type=AtlasGlossaryTerm)\nreturns a lists assets of the specified type that were created.\nassets_updated(asset_type=AtlasGlossaryTerm)\nreturns a lists assets of the specified type that were updated.\nCheck if the list is empty to determine if an\nAtlasGlossaryTerm\nwas created.\nGet the new\nAtlasGlossaryTerm\nthat was created.\nIn this example, creating the\nAtlasGlossaryTerm",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Check if the list is empty to determine if an\nAtlasGlossaryTerm\nwas created.\nGet the new\nAtlasGlossaryTerm\nthat was created.\nIn this example, creating the\nAtlasGlossaryTerm\nactually also updates the parent\nAtlasGlossary\n. This is why the\nresponse\ncontains an\nAtlasGlossary\n.\nCheck if the list is empty to determine if an\nAtlasGlossary\nwas updated.\nGet the\nAtlasGlossary\nthat was updated.\nCreate the asset\n6\n7\n8\n9\n10\n11\n12\n13\nvar\nterm\n=\ntermCreator\n.\nbuild\n()\n// (1)\nval\nresponse\n=\nterm\n.\nsave\n(\nclient\n)\n// (2)\nval\ncreated\n=\nresponse\n.\ncreatedAssets\n[\n0\n]\n// (3)\nif\n(\ncreated\nis\nGlossaryTerm\n)\n{\nterm\n=\ncreated\n// (4)\n}\nval\nupdated\n=\nresponse\n.\nupdatedAssets\n[\n0\n]\n// (5)\nval\nglossary\n=\nif\n(\nupdated\nis\nGlossary\n)\nupdated\nelse\nnull\n// (6)\nBefore you can take actions on the builder object you've been interacting with, you need to\nbuild()\nit into a full object.\nThen you can do operations, like\nsave()\n, which will either:\ncreate a new asset, if Atlan does not have a term with the same name in the same glossary\nupdate an existing asset, if Atlan already has a term with the same name in the same glossary\nBecause this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "update an existing asset, if Atlan already has a term with the same name in the same glossary\nBecause this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can distinguish what was created or updated:\ngetCreatedAssets()\nlists assets that were created\ngetUpdatedAssets()\nlists assets that were updated\nNote that the\nsave()\nmethod always returns objects of type\nAsset\n, though.\nThe\nAsset\nclass is a superclass of all assets. So you need to cast to more specific types (like\nGlossaryTerm\n) after verifying the object that was actually returned.\nIn this example, creating the\nGlossaryTerm\nactually also updates the parent\nGlossary\n. This is why the\nresponse\ncontains generic\nAsset\nobjects rather than specific types — any operation could side-effect a number of different assets.\nLike with the\nGlossaryTerm\n, you can check and cast the generic\nAsset\nreturned by the response into its more specific type (\nGlossary\n).\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Example Term\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"Example Term\"",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Example Term\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"Example Term\"\n,\n// (4)\n\"anchor\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n}\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive). For a term, this is\nAtlasGlossaryTerm\n.\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide a\nqualifiedName\nof the asset (case-sensitive). In the case of glossary objects (like terms), this will actually be replaced in the back-end with a generated\nqualifiedName\n, but you must provide some value when creating the object.\nYou must also specify the parent object in which this object is contained (if any). In the case of a term, it can only exist within a glossary. So here we specify the details of the parent glossary through the\nanchor\nrelationship (specific to glossary assets).\n(Optional) Enrich before creating\n¶\n2.0.0\n4.0.0\nIf you want to further enrich the asset before creating it, you can do this using the builder pattern:\nJava\nPython",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "(Optional) Enrich before creating\n¶\n2.0.0\n4.0.0\nIf you want to further enrich the asset before creating it, you can do this using the builder pattern:\nJava\nPython\nKotlin\nRaw REST API\nAlternatively, further enrich the asset before creating it\n5\n6\n7\n8\n9\n10\n11\nGlossaryTerm\nterm\n=\ntermCreator\n// (1)\n.\ncertificateStatus\n(\nCertificateStatus\n.\nVERIFIED\n)\n// (2)\n.\nannouncementType\n(\nAtlanAnnouncementType\n.\nINFORMATION\n)\n.\nannouncementTitle\n(\n\"Imported\"\n)\n.\nannouncementMessage\n(\n\"This term was imported from ...\"\n)\n.\nbuild\n();\n// (3)\nAssetMutationResponse\nresponse\n=\nterm\n.\nsave\n(\nclient\n);\n// (4)\nWe'll create an object you can take actions on from this creator.\nIn this example, you're adding a certificate and announcement to the object.\nTo persist the enrichment back to the object, you must\nbuild()\nthe builder.\nYou can call the\nsave()\noperation against this enriched object, the same as shown earlier. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nAssign the result back\nRemember to assign the result of the\nbuild()\noperation back to a variable! (In the example above this happens on line 5 with",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "AtlanClient\nthrough which to connect to the tenant.\nAssign the result back\nRemember to assign the result of the\nbuild()\noperation back to a variable! (In the example above this happens on line 5 with\nGlossaryTerm term =\n.)\nAlternatively, further enrich the asset before creating it\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossary\n,\nAtlasGlossaryTerm\nfrom\npyatlan.model.enums\nimport\nAnnouncementType\n,\nCertificateStatus\nclient\n=\nAtlanClient\n()\nterm\n=\nAtlasGlossaryTerm\n.\ncreator\n(\nname\n=\n\"Example Term\"\n,\nglossary_guid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\nterm\n.\ncertificate_status\n=\nCertificateStatus\n.\nVERIFIED\nannouncement\n=\nAnnouncement\n(\nannouncement_type\n=\nAnnouncementType\n.\nINFORMATION\n,\nannouncement_title\n=\n\"Imported\"\n,\nannouncement_message\n=\n\"This term was imported from ..\"\n,\n)\nterm\n.\nset_announcement\n(\nannouncement\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nterm\n)\n# (1)\nYou can call the\nsave()\noperation against this enriched object, the same as shown earlier.\nAlternatively, further enrich the asset before creating it\n6\n7\n8\n9\n10\n11\n12\nval\nterm\n=\ntermCreator\n// (1)\n.\ncertificateStatus\n(",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "operation against this enriched object, the same as shown earlier.\nAlternatively, further enrich the asset before creating it\n6\n7\n8\n9\n10\n11\n12\nval\nterm\n=\ntermCreator\n// (1)\n.\ncertificateStatus\n(\nCertificateStatus\n.\nVERIFIED\n)\n// (2)\n.\nannouncementType\n(\nAtlanAnnouncementType\n.\nINFORMATION\n)\n.\nannouncementTitle\n(\n\"Imported\"\n)\n.\nannouncementMessage\n(\n\"This term was imported from ...\"\n)\n.\nbuild\n()\n// (3)\nval\nresponse\n=\nterm\n.\nsave\n(\nclient\n)\n// (4)\nWe'll create an object you can take actions on from this creator.\nIn this example, you're adding a certificate and announcement to the object.\nTo persist the enrichment back to the object, you must\nbuild()\nthe builder.\nYou can call the\nsave()\noperation against this enriched object, the same as shown earlier. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nAssign the result back\nRemember to assign the result of the\nbuild()\noperation back to a variable! (In the example above this happens on line 6 with\nval term =\n.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "val term =\n.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Example Term\"\n,\n\"qualifiedName\"\n:\n\"Example Term\"\n,\n\"anchor\"\n:\n{\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n},\n\"certificateStatus\"\n:\n\"VERIFIED\"\n,\n// (2)\n\"announcementType\"\n:\n\"information\"\n,\n\"announcementTitle\"\n:\n\"Imported\"\n,\n\"announcementMessage\"\n:\n\"This term was imported from...\"\n}\n}\n]\n}\nYou would still create the asset by wrapping it within the\nentities\narray.\nBut you can also extend the information you store on the asset. In this example, you're adding a certificate and announcement to the object when it is created.\nWhy no distinction between creation and update? This has to do with how Atlan detects changes — see the\nImportance of identifiers\nfor a more detailed explanation.\n↩\n2022-09-14\n2024-12-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Thanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_create.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_create.json",
+      "chunk_id": 12
+    }
+  }
+]

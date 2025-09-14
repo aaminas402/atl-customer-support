@@ -1,0 +1,20 @@
+[
+  {
+    "content": "What does Atlan crawl from Sigma? | Atlan Documentation\nSkip to main content\nOn this page\nAtlan crawls and maps the following assets and properties from Sigma.\ndanger\nCurrently, Atlan only represents the assets marked with ð in lineage.\nFor your Sigma\nworkbooks\n, Atlan also provides asset previews to help with quick discovery and give you the context you need.\nWorkbooks ð\nâ\nAtlan maps workbooks from Sigma to its\nSigmaWorkbook\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\ncreatedAt\nsourceCreatedAt\nasset profile and properties sidebar\nupdatedAt\nsourceUpdatedAt\nasset profile and properties sidebar\nurl\nsourceURL\noverview sidebar\nPages ð\nâ\nAtlan maps pages from Sigma to its\nSigmaPage\nasset type.\nSource property\nAtlan property\nWhere in Atlan\ntitle\nname\nasset profile and overview sidebar\nData elements ð\nâ\nAtlan maps table, pivot table, and visualization elements from Sigma to its\nSigmaDataElement\nasset type.\nSource property\nAtlan property\nWhere in Atlan\ndisplayName\nname\nasset profile and overview sidebar\ntype\ntype\noverview sidebar\nData element fields ð\nâ",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_sigma_references_what-does-atlan-crawl-from-sigma.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_sigma_references_what-does-atlan-crawl-from-sigma.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "SigmaDataElement\nasset type.\nSource property\nAtlan property\nWhere in Atlan\ndisplayName\nname\nasset profile and overview sidebar\ntype\ntype\noverview sidebar\nData element fields ð\nâ\nAtlan maps table, pivot table, and visualization element fields from Sigma to its\nSigmaDataElementField\nasset type.\nSource property\nAtlan property\nWhere in Atlan\ndisplayName\nname\nasset profile and overview sidebar\nDatasets\nâ\nAtlan maps datasets from Sigma to its\nSigmaDataset\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nname\nname\nasset profile and overview sidebar\ncreatedAt\nsourceCreatedAt\nasset profile and properties sidebar\nupdatedAt\nsourceUpdatedAt\nasset profile and properties sidebar\nurl\nsourceURL\noverview sidebar\nWorkbooks ð\nPages ð\nData elements ð\nData element fields ð\nDatasets",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_sigma_references_what-does-atlan-crawl-from-sigma.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_sigma_references_what-does-atlan-crawl-from-sigma.json",
+      "chunk_id": 1
+    }
+  }
+]

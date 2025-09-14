@@ -1,0 +1,65 @@
+[
+  {
+    "content": "Compound queries - Developer\nSkip to content\nCompound queries\n¶\nCompound queries\n1\nwrap other queries to either:\nCombine their results\nChange their behavior\nSwitch query contexts (in particular, from\nquery\nto\nfilter\ncontext)\nIn other words, you can use compound queries to\ncombine\nany number of\nterm-level\nand\nfull-text\nqueries (and in fact other compound queries as well).\nDetails\nBelow are the various kinds of compound queries. These are sorted with the most commonly used at the top, and cover their usual usage. Each one is linked to Elasticsearch's own documentation to provide greater details. (In most cases there are many more options for each kind of query than what is documented here.)\nBool\n¶\nBool queries\ncombine multiple queries using\nmust\n,\nshould\n,\nmust_not\nand\nfilter\nclauses. These allow you to combine queries with logic like\nAND\n,\nOR\nand\nNOT\n.\nClause\nDescription\nContext\nmust\nQuery clauses must match the results, and will contribute to the score. These act like a logical\nAND\noperation.\nquery\nshould\nQuery clauses should match the results, and will contribute to the score. These act like a logical\nOR\noperation.\nquery\nmust_not\nQuery clauses must\nnot",
+    "metadata": {
+      "source_url": "search_queries_compound.html",
+      "source_type": "sdk",
+      "file": "search_queries_compound.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "AND\noperation.\nquery\nshould\nQuery clauses should match the results, and will contribute to the score. These act like a logical\nOR\noperation.\nquery\nmust_not\nQuery clauses must\nnot\nmatch the results, and are used to either include or exclude results (no scoring). These act like a logical\nNOT\noperation.\nfilter\nfilter\nQuery clauses must match the results, but will\nnot\ncontribute to the score.\nfilter\nFluent search uses filter context exclusively\nNote that the\nwhere\nclause in fluent search is actually translated to a\nfilter\nclause, and not a\nmust\nclause. Therefore, fluent search exclusively uses\nfilter\ncontext. If you truly want to use\nquery\ncontext you will need to construct your queries using lower-level Elastic queries rather than fluent search's clauses.\n7.0.0\n4.0.0\nFor example, this query would find all active (non-archived) tables with either a classification or a term assigned:\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\n5\nIndexSearchRequest\nindex\n=\nTable\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhereSome\n(\nAsset\n.\nATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.\nwhereSome\n(\nAsset\n.\nASSIGNED_TERMS\n.\nhasAnyValue\n())\n.\nminSomes\n(\n1\n)\n// (3)\n.\ntoRequest\n();\n// (4)",
+    "metadata": {
+      "source_url": "search_queries_compound.html",
+      "source_type": "sdk",
+      "file": "search_queries_compound.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "=\nTable\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhereSome\n(\nAsset\n.\nATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.\nwhereSome\n(\nAsset\n.\nASSIGNED_TERMS\n.\nhasAnyValue\n())\n.\nminSomes\n(\n1\n)\n// (3)\n.\ntoRequest\n();\n// (4)\nYou can build up a compound query progressively, starting from the type of asset you want to query using the\nselect()\nmethod. This will start a query that narrows results to only active assets of this type (\nTable\nin this example). Because this operation may retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can add any number of conditions where some of them must match using the\nwhereSome()\nhelper with a query as a condition. (You can add any number of\nmandatory\nconditions using the\nwhere()\nhelper with a query as a condition, instead.) Each query you provide can either be from a helper (like these examples) or a full-fledged Elastic\nQuery\n, if you need ultimate flexibility.\nYou can specify how many of these\nwhereSome()\nconditions must match using the\nminSomes()\nhelper.\nFinally, you can build the compound query into a search request using the\ntoRequest()\nhelper method.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13",
+    "metadata": {
+      "source_url": "search_queries_compound.html",
+      "source_type": "sdk",
+      "file": "search_queries_compound.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "minSomes()\nhelper.\nFinally, you can build the compound query into a search request using the\ntoRequest()\nhelper method.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\nfrom\npyatlan.model.fluent_search\nimport\nCompoundQuery\n,\nFluentSearch\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nCompoundQuery\n.\nasset_type\n(\nTable\n))\n# (2)\n.\nwhere\n(\nCompoundQuery\n.\nactive_assets\n())\n.\nwhere_some\n(\nCompoundQuery\n.\ntagged\n(\nclient\n=\nclient\n,\ndirectly\n=\nTrue\n))\n# (3)\n.\nwhere_some\n(\nCompoundQuery\n.\nassigned_term\n())\n.\nmin_somes\n(\n1\n)\n# (4)\n)\n.\nto_request\n()\n# (5)\nYou can build up a compound query progressively by creating a\nFluentSearch()\nobject and chaining conditions onto it.\nYou can add any number of mandatory conditions using the\nwhere()\nhelper with a query as a condition. You can use query helpers (like these examples from\nCompoundQuery\nto narrow to assets of a particular type (\nTable\n) and only active assets), or full-fledged Elastic\nQuery\n's.\nYou can add any number of conditions where some of them must match using the\nwhere_some()\nhelper with a query as a condition.",
+    "metadata": {
+      "source_url": "search_queries_compound.html",
+      "source_type": "sdk",
+      "file": "search_queries_compound.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Table\n) and only active assets), or full-fledged Elastic\nQuery\n's.\nYou can add any number of conditions where some of them must match using the\nwhere_some()\nhelper with a query as a condition.\nYou can specify how many of these\nwhere_some()\nconditions must match using the\nmin_somes()\nhelper.\nFinally, you can build the compound query into a search request using the\nto_request()\nhelper method.\nBuild the query and request\n1\n2\n3\n4\n5\nval\nindex\n=\nTable\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhereSome\n(\nAsset\n.\nATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.\nwhereSome\n(\nAsset\n.\nASSIGNED_TERMS\n.\nhasAnyValue\n())\n.\nminSomes\n(\n1\n)\n// (3)\n.\ntoRequest\n()\n// (4)\nYou can build up a compound query progressively, starting from the type of asset you want to query using the\nselect()\nmethod. This will start a query that narrows results to only active assets of this type (\nTable\nin this example). Because this operation may retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can add any number of conditions where some of them must match using the\nwhereSome()\nhelper with a query as a condition. (You can add any number of\nmandatory\nconditions using the\nwhere()",
+    "metadata": {
+      "source_url": "search_queries_compound.html",
+      "source_type": "sdk",
+      "file": "search_queries_compound.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "You can add any number of conditions where some of them must match using the\nwhereSome()\nhelper with a query as a condition. (You can add any number of\nmandatory\nconditions using the\nwhere()\nhelper with a query as a condition, instead.) Each query you provide can either be from a helper (like these examples) or a full-fledged Elastic\nQuery\n, if you need ultimate flexibility.\nYou can specify how many of these\nwhereSome()\nconditions must match using the\nminSomes()\nhelper.\nFinally, you can build the compound query into a search request using the\ntoRequest()\nhelper method.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"must\"\n:\n{\n\"term\"\n:\n{\n\"__state\"\n:\n{\n\"value\"\n:\n\"ACTIVE\"\n}}\n},\n\"filter\"\n:\n{\n\"term\"\n:\n{\n\"__typeName.keyword\"\n:\n{\n\"value\"\n:\n\"Table\"\n}}\n},\n\"should\"\n:\n[\n\"exists\"\n:\n{\n\"field\"\n:\n\"__traitNames\"\n},\n\"exists\"\n:\n{\n\"field\"\n:\n\"__meanings\"\n}\n],\n\"minimum_should_match\"\n:\n1\n}\n}\n}\n}\nIn the vast majority of cases you will use\nbool\nqueries, which the SDK examples above create. There are other compound query options for influencing scores, but details for these are left to the Elasticsearch documentation linked below.",
+    "metadata": {
+      "source_url": "search_queries_compound.html",
+      "source_type": "sdk",
+      "file": "search_queries_compound.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "bool\nqueries, which the SDK examples above create. There are other compound query options for influencing scores, but details for these are left to the Elasticsearch documentation linked below.\nThis page is a summary of the details in the Elasticsearch Guide's\nCompound queries\n↩\n2022-09-09\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "search_queries_compound.html",
+      "source_type": "sdk",
+      "file": "search_queries_compound.json",
+      "chunk_id": 6
+    }
+  }
+]

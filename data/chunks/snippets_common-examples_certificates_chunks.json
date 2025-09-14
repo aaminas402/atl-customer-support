@@ -1,0 +1,128 @@
+[
+  {
+    "content": "Certify assets - Developer\nSkip to content\nCertify assets\n¶\nAdd to an existing asset\n¶\n1.4.0\n4.0.0\nTo add a certificate to an existing\nasset\n:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nAdd certificate to existing assets\n1\n2\n3\n4\n5\n6\n7\n8\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nattributes\n:\n# (2)\ncertificateStatus\n:\nVERIFIED\n# (3)\ncertificateStatusMessage\n:\n>-\n# (4)\nVerified through automation.\nYou must of course give the name of the object.\nThe details for the certificate must be nested within the\nmeta\n.\natlan\n.\nattributes\nstructure.\nYou must provide a valid status for the certificate (\nDRAFT\n,\nVERIFIED\nor\nDEPRECATED\n).\n(Optional) You can also provide a message to associate with the certificate.\nAdd certificate to existing assets\n1\n2\n3\n4\n5\nTable\nresult\n=\nTable\n.\nupdateCertificate\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\nCertificateStatus\n.\nVERIFIED\n,\n// (4)\n\"Verified through automation.\"\n);\n// (5)\nUse the\nupdateCertificate()",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ",\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\nCertificateStatus\n.\nVERIFIED\n,\n// (4)\n\"Verified through automation.\"\n);\n// (5)\nUse the\nupdateCertificate()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the update operation all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the object.\nThe type of certificate (the\nCertificateStatus\nenumeration gives the valid values).\n(Optional) A message to include in the certificate.\nAdd certificate to existing assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.enums\nimport\nCertificateStatus\nclient\n=\nAtlanClient\n()\ntable\n=\nclient\n.\nasset\n.\nupdate_certificate\n(\n# (1)\nasset_type\n=\nTable\n,\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\ncertificate_status\n=\nCertificateStatus\n.\nVERIFIED",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "(\n# (1)\nasset_type\n=\nTable\n,\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\ncertificate_status\n=\nCertificateStatus\n.\nVERIFIED\n,\nmessage\n=\n\"Verified through automation.\"\n,\n)\nif\ntable\nis\nNone\n:\n# (2)\nprint\n(\n\"Certificate status did not change\"\n)\nelse\n:\n# (3)\nprint\n(\n\"Certificate status updated\"\n)\nUse the\nasset.update_certificate()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the update operation all-in-one.\nIf no change occurs to the asset then\nNone\nwill be returned.\nIf the asset is updated then the asset will be returned.\nAdd certificate to existing assets\n1\n2\n3\n4\n5\nval\nresult\n=\nTable\n.\nupdateCertificate\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\nCertificateStatus\n.\nVERIFIED\n,\n// (4)\n\"Verified through automation.\"\n)\n// (5)\nUse the\nupdateCertificate()",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "client\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\nCertificateStatus\n.\nVERIFIED\n,\n// (4)\n\"Verified through automation.\"\n)\n// (5)\nUse the\nupdateCertificate()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the update operation all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the object.\nThe type of certificate (the\nCertificateStatus\nenumeration gives the valid values).\n(Optional) A message to include in the certificate.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"certificateStatus\"\n:\n\"VERIFIED\"\n,\n// (5)\n\"certificateStatusMessage\"\n:\n\"Verified through automation.\"\n// (6)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": ",\n// (4)\n\"certificateStatus\"\n:\n\"VERIFIED\"\n,\n// (5)\n\"certificateStatusMessage\"\n:\n\"Verified through automation.\"\n// (6)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nYou must provide a valid status for the certificate.\n(Optional) You can also provide a status message for the certificate.\nRemove from an existing asset\n¶\n1.4.0\n4.0.0\nTo remove a certificate from an existing asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nIt is currently not possible to\nremove\na certificate from an asset via dbt.\nRemove certificate from existing asset\n1\n2\n3\n4\nColumn\ncolumn\n=\nColumn\n.\nremoveCertificate\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\n// (3)\n\"USER_ID\"\n);\n// (4)\nUse the\nremoveCertificate()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the removal operation all-in-one.",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Because this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the column (this is generally needed on all assets).\nThe name of the column (this varies by asset, but most assets need the name specified).\nRemove certificate from existing asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nColumn\nclient\n=\nAtlanClient\n()\ncolumn\n=\nclient\n.\nasset\n.\nremove_certificate\n(\n# (1)\nasset_type\n=\nColumn\n,\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\nname\n=\n\"USER_ID\"\n,\n)\nif\ncolumn\nis\nNone\n:\n# (2)\nprint\n(\n\"Certificate was not present\"\n)\nelse\n:\n# (3)\nprint\n(\n\"Certificate was removed\"\n)\nUse the\nasset.remove_certificate()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the removal operation all-in-one.\nIf no change occurs to the asset because the certificate is not present then\nNone\nwill be returned.",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "If no change occurs to the asset because the certificate is not present then\nNone\nwill be returned.\nIf certificate is removed from the asset then the asset will be returned.\nRemove certificate from existing asset\n1\n2\n3\n4\nval\ncolumn\n=\nColumn\n.\nremoveCertificate\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\n// (3)\n\"USER_ID\"\n)\n// (4)\nUse the\nremoveCertificate()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the removal operation all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the column (this is generally needed on all assets).\nThe name of the column (this varies by asset, but most assets need the name specified).\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"USER_ID\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"USER_ID\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\n// (4)\n\"certificateStatus\"\n:\nnull\n,\n// (5)\n\"certificateStatusMessage\"\n:\nnull\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nTo remove the certificate, set its status and message to\nnull\n.\nWhen creating an asset\n¶\n2.0.0\n4.0.0\nTo add a certificate when creating an asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nAdd certificate when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nattributes\n:\n# (2)\ncertificateStatus\n:\nVERIFIED\n# (3)\ncertificateStatusMessage\n:\n>-\n# (4)\nVerified at creation.\nYou must of course give the name of the object.\nThe details for the certificate must be nested within the\nmeta\n.\natlan\n.\nattributes\nstructure.\nYou must provide a valid status for the certificate (\nDRAFT\n,\nVERIFIED\nor\nDEPRECATED\n).",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "The details for the certificate must be nested within the\nmeta\n.\natlan\n.\nattributes\nstructure.\nYou must provide a valid status for the certificate (\nDRAFT\n,\nVERIFIED\nor\nDEPRECATED\n).\n(Optional) You can also provide a message to associate with the certificate.\nAdd certificate when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\nTable\ntable\n=\nTable\n.\ncreator\n(\n\"TOP_BEVERAGE_USERS\"\n,\n// (1)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n)\n.\ncertificateStatus\n(\nCertificateStatus\n.\nVERIFIED\n)\n// (2)\n.\ncertificateStatusMessage\n(\n\"Verified at creation.\"\n)\n// (3)\n.\nbuild\n();\n// (4)\nAssetMutationResponse\nresponse\n=\ntable\n.\nsave\n(\nclient\n);\n// (5)\nassert\nresponse\n.\ngetCreatedAssets\n().\nsize\n()\n==\n1\n// (6)\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nSet the certificate that should be added (in this example, we're using\nVERIFIED\n).\n(Optional) Add a message for the certificate.\nCall the\nbuild()\nmethod to build the enriched object.\nCall the\nsave()\nmethod to actually create the asset with this certificate. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "save()\nmethod to actually create the asset with this certificate. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was created.\nAdd certificate when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.enums\nimport\nCertificateStatus\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\ncreator\n(\n# (1)\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\nschema_qualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n,\n)\ntable\n.\ncertificate_status\n=\nCertificateStatus\n.\nVERIFIED\n# (2)\ntable\n.\ncertificate_status_message\n=\n\"Verified at creation.\"\n# (3)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ntable\n)\n# (4)\nassert\nresponse\n.\nassets_created\n(\nTable\n)\n# (5)\ntable\n=\nresponse\n.\nassets_created\n(\nTable\n)[\n0\n]\n# (6)\nUse the\ncreate()\nmethod to initialize the object with all necessary attributes for creating it.\nSet the certificate that should be added (in this example, we're using\nVERIFIED\n).\n(Optional) Add a message for the certificate.\nInvoke the\nsave()",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Set the certificate that should be added (in this example, we're using\nVERIFIED\n).\n(Optional) Add a message for the certificate.\nInvoke the\nsave()\nmethod with asset. This method will return an AssetMutationResponse object that encapsulates the results.\nSince a save can add, update, delete or partially update multiple assets the\nassets_created()\nmethod can be used to return a list of the assets of the specified type that were added. The assert statement is present to ensure a\nTable\nasset was created.\nSince only one\nTable\nshould have been created we use an index of 0 to retrieve the newly created table.\nAdd certificate when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\nval\ntable\n:\nTable\n=\nTable\n.\ncreator\n(\n\"TOP_BEVERAGE_USERS\"\n,\n// (1)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n)\n.\ncertificateStatus\n(\nCertificateStatus\n.\nVERIFIED\n)\n// (2)\n.\ncertificateStatusMessage\n(\n\"Verified at creation.\"\n)\n// (3)\n.\nbuild\n()\n// (4)\nval\nresponse\n=\ntable\n.\nsave\n(\nclient\n)\n// (5)\nassert\n(\nresponse\n.\ncreatedAssets\n.\nsize\n==\n1\n)\n// (6)\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nSet the certificate that should be added (in this example, we're using\nVERIFIED",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": ".\nsize\n==\n1\n)\n// (6)\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nSet the certificate that should be added (in this example, we're using\nVERIFIED\n).\n(Optional) Add a message for the certificate.\nCall the\nbuild()\nmethod to build the enriched object.\nCall the\nsave()\nmethod to actually create the asset with this certificate. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was created.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"atlanSchema\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"Schema\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n}\n},\n\"certificateStatus\"\n:\n\"VERIFIED\"\n,\n// (6)\n\"certificateStatusMessage\"\n:\n\"Verified at creation.\"\n// (7)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "}\n},\n\"certificateStatus\"\n:\n\"VERIFIED\"\n,\n// (6)\n\"certificateStatusMessage\"\n:\n\"Verified at creation.\"\n// (7)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide a name for the asset.\nIn the case of a table, the\nqualifiedName\nmust be the concatenation of the parent schema's qualifiedName and the name of the table.\nWhen creating a table, you must specify the schema to create it within. This is defined by the\natlanSchema\nattribute. You must specify both the type (must be\nSchema\n) and qualifiedName of the schema within the\natlanSchema\nattribute — and the schema must already exist.\nYou must provide a valid status for the certificate.\n(Optional) You can also provide a status message for the certificate.\n2022-08-22\n2024-12-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Cookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_common-examples_certificates.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_certificates.json",
+      "chunk_id": 13
+    }
+  }
+]

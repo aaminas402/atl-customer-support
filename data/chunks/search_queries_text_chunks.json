@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Full text queries - Developer\nSkip to content\nFull text queries\n¶\nFull text queries allow you to find results based on analyzed text fields.\n1\nFor example, by a word or phrase within a longer description.\nUnlike\nterm-level queries\n, the search terms you use in a full-text query\nare\nanalyzed. This means what you search for is tokenized first (broken up into separate words), singular / plural variants determined, synonyms applied, and so on.\nDetails\nBelow are the various kinds of full text queries. These are sorted with the most commonly used at the top, and cover their usual usage. Each one is linked to Elasticsearch's own documentation to provide greater details. (In most cases there are many more options for each kind of query than what is documented here.)\nMatch\n¶\n1.0.0\n4.0.0\nMatch queries\nreturn results where the asset's value for that attribute matches some part of what you're searching.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nmatch\n(\n\"tmp\"\n))\n// (1)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a",
+    "metadata": {
+      "source_url": "search_queries_text.html",
+      "source_type": "sdk",
+      "file": "search_queries_text.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ".\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nmatch\n(\n\"tmp\"\n))\n// (1)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nmatch()\npredicate creates a match query.\nEquivalent query through Elastic\nQuery\nbyMatch\n=\nMatchQuery\n.\nof\n(\nm\n->\nm\n.\nfield\n(\n\"name\"\n)\n.\nquery\n(\n\"tmp\"\n)\n.\n_toQuery\n();\nBuild the query\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nmatch\n(\n\"tmp\"\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nUse the class variable representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nmatch()\npredicate creates a match query.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nmatch\n(\n\"tmp\"\n))\n// (1)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()",
+    "metadata": {
+      "source_url": "search_queries_text.html",
+      "source_type": "sdk",
+      "file": "search_queries_text.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Build the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nmatch\n(\n\"tmp\"\n))\n// (1)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nmatch()\npredicate creates a match query.\nEquivalent query through Elastic\nval\nbyMatch\n=\nMatchQuery\n.\nof\n(\nm\n->\nm\n.\nfield\n(\n\"name\"\n)\n.\nquery\n(\n\"tmp\"\n)\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n{\n\"dsl\"\n:\n{\n// (1)\n\"query\"\n:\n{\n// (2)\n\"match\"\n:\n{\n// (3)\n\"name\"\n:\n{\n// (4)\n\"query\"\n:\n\"tmp\"\n// (5)\n}\n}\n}\n}\n}\nQueries must be within the\ndsl\nobject in the API...\n...and within that the\nquery\nobject.\nFor a match query, there needs to be a\nmatch\nobject embedded within the\nquery\nobject.\nWithin this object should be a key with the name of the Elasticsearch field (Atlan attribute) to match against.\nThe value for this field (attribute) to match against should be given through the\nquery\nproperty.\nMatch phrase\n¶\n5.0.1\nUnlike a regular\nmatch",
+    "metadata": {
+      "source_url": "search_queries_text.html",
+      "source_type": "sdk",
+      "file": "search_queries_text.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "The value for this field (attribute) to match against should be given through the\nquery\nproperty.\nMatch phrase\n¶\n5.0.1\nUnlike a regular\nmatch\nquery, which performs a full-text search and may return results with individual words appearing in any order, a\nmatch_phrase\nquery ensures that the terms appear in the exact order specified.\nFor example, to search for assets where the\ndescription\nfield contains the exact phrase\n\"data pipeline\"\n:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nBuild the query\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nDESCRIPTION\n.\nmatch_phrase\n(\n\"data pipeline\"\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nUse the class variable representing a field of the type you want to search to start a query, in this case the\nDESCRIPTION\nof an\nAsset\n. Adding the\nmatch_phrase()\npredicate creates a match phrase query.\nComing soon\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n{\n\"dsl\"\n:\n{\n// (1)\n\"query\"\n:\n{\n// (2)\n\"match_phrase\"\n:\n{\n// (3)\n\"description\"\n:\n{\n// (4)\n\"query\"\n:\n\"data pipeline\"\n// (5)\n}\n}\n}\n}\n}",
+    "metadata": {
+      "source_url": "search_queries_text.html",
+      "source_type": "sdk",
+      "file": "search_queries_text.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "POST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n{\n\"dsl\"\n:\n{\n// (1)\n\"query\"\n:\n{\n// (2)\n\"match_phrase\"\n:\n{\n// (3)\n\"description\"\n:\n{\n// (4)\n\"query\"\n:\n\"data pipeline\"\n// (5)\n}\n}\n}\n}\n}\nQueries must be within the\ndsl\nobject in the API...\n...and within that the\nquery\nobject.\nFor a match phrase query, there needs to be a\nmatch_phrase\nobject embedded within the\nquery\nobject.\nWithin this object should be a key with the name of the Elasticsearch field (Atlan attribute) to match against.\nThe value for this field (attribute) to match against should be given through the\nquery\nproperty.\nThis page is a summary of the details in the Elasticsearch Guide's\nFull text queries\n↩\n2022-09-09\n2025-03-03\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙",
+    "metadata": {
+      "source_url": "search_queries_text.html",
+      "source_type": "sdk",
+      "file": "search_queries_text.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "We do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "search_queries_text.html",
+      "source_type": "sdk",
+      "file": "search_queries_text.json",
+      "chunk_id": 5
+    }
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "content": "Render your model - Developer\nSkip to content\nRender your model\n¶\nFull example (expand for details)\nIn addition to defining the various entities and relationships outlined at the beginning of this page, we have created this inheritance structure:\nclassDiagram\ndirection LR\nCatalog <|-- Custom\nCatalog <|-- SQL\nSQL <|-- Table\nSQL <|-- Column\nCustom <|-- CustomDataset\nCustom <|-- CustomTable\nTable <|-- CustomTable\nCustom <|-- CustomField\nColumn <|-- CustomField\nclass Catalog{\nstring name\nstring qualifiedName\nstring description\n}\nclass SQL{\nstring tableName\nstring tableQualifiedName\n}\nclass Custom{\nstring customSourceId\nstring customDatasetName\nstring customDatasetQualifiedName\n}\n<<abstract>> Catalog\n<<abstract>> SQL\n<<abstract>> Custom\nclass CustomTable{\nstruct[] customRatings\n}\nclass CustomField{\nenum customTemperature\n}\nFollowing is the complete model file for the running example, without any comments, in case you want to try it yourself as a sort of \"hello world\" example:\nMyCustomModel.pkl\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n92\n93\n94\n95\n96\n97\n98\n99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n114\n115\n116\n117\n118\n119\n120\n121\n122\n123\n124\n125\n126\n127\n128\n129\n130\n131\n132\n133\n134\n135\n136\n137\n138\n139\n140\n141\n142\n143\n144\n145\n146\n147\n148\n149\n150\n151\n152\n153\n154\n155\n156\n157\n158\n159\n160\n161\n162\n163\n164\n165\n166\n167\n168\n169\n170\n171\n172\n173\n174\n175\n176\n177\n178\n179\n180\n181\n182\n183\n184\n185\n186\n187\n188\n189\namends\n\"../toolkit/src/main/pkl/Typedefs.pkl\"\nimport\n\"../toolkits/src/main/pkl/Frontend.pkl\"\nnamespace\n=\n\"Custom\"\nattrPrefix\n=\nnamespace\n.\ndecapitalize\n()\nlocal\nTemperatureType\n=\ngetTypeName\n(\n\"TemperatureType\"\n)\nlocal\nRatings\n=\ngetTypeName\n(\n\"Ratings\"\n)\ncustomEnumTypes\n{\n[\nTemperatureType\n]\n{\ndescription\n=\n\"Valid values for \\(Table) temperatures.\"\nvalidValues\n{\n[\n\"COLD\"\n]\n{\ndescription\n=\n\"Lowest availability, can be offline storage.\"\n}\n[\n\"HOT\"\n]\n{\ndescription\n=\n\"Highest availability, must be on solid-state or in-memory storage.\"\n}\n}\n}\n}",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "validValues\n{\n[\n\"COLD\"\n]\n{\ndescription\n=\n\"Lowest availability, can be offline storage.\"\n}\n[\n\"HOT\"\n]\n{\ndescription\n=\n\"Highest availability, must be on solid-state or in-memory storage.\"\n}\n}\n}\n}\ncustomStructTypes\n{\n[\nRatings\n]\n{\ndescription\n=\n\"Ratings for an asset from the source system.\"\nattributes\n{\n[\n\"ratingFrom\"\n]\n{\nlabel\n=\n\"From\"\ndescription\n=\n\"Username of the user who left the rating.\"\ntype\n=\n\"\nstring\n\"\n}\n[\n\"ratingOf\"\n]\n{\nlabel\n=\n\"Score\"\ndescription\n=\n\"Numeric score for the rating left by the user.\"\ntype\n=\n\"\nlong\n\"\n}\n}\n}\n}\nsupertypeDefinition\n{\nname\n=\nnamespace\nsuperTypes\n=\nnew\nListing\n{\n\"Catalog\"\n}\nattributes\n{\n[\n\"sourceId\"\n]\n{\nlabel\n=\n\"Source ID\"\ndescription\n=\n\"Unique identifier for the \\(namespace) asset from the source system.\"\ntype\n=\n\"\nstring\n\"\n}\n[\n\"datasetName\"\n]\n{\nlabel\n=\n\"Dataset\"\ndescription\n=\n\"Simple name of the dataset in which this asset exists, or empty if it is itself a dataset.\"\ntype\n=\n\"\nstring\n\"\nindexAs\n=\n\"both\"\n}\n[\n\"datasetQualifiedName\"\n]\n{\ndescription\n=\n\"Unique name of the dataset in which this asset exists, or empty if it is itself a dataset.\"\ntype\n=\n\"\nstring\n\"\nindexAs\n=\n\"keyword\"\n}\n}\n}\nlocal\nDataset\n=\ngetTypeName\n(\n\"Dataset\"\n)\nlocal\nTable\n=\ngetTypeName\n(",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "type\n=\n\"\nstring\n\"\nindexAs\n=\n\"keyword\"\n}\n}\n}\nlocal\nDataset\n=\ngetTypeName\n(\n\"Dataset\"\n)\nlocal\nTable\n=\ngetTypeName\n(\n\"Table\"\n)\nlocal\nField\n=\ngetTypeName\n(\n\"Field\"\n)\nlocal\ndatasetQN\n=\ngetAttributeName\n(\n\"datasetQualifiedName\"\n)\nlocal\ndatasetN\n=\ngetAttributeName\n(\n\"datasetName\"\n)\nlocal\ntableQN\n=\ngetAttributeName\n(\n\"tableQualifiedName\"\n)\nlocal\ntableN\n=\ngetAttributeName\n(\n\"tableName\"\n)\nlocal\ndatasetIcon\n=\nnew\nFrontend\n.\nIcon\n{\nname\n=\n\"DatabaseGray\"\nnameActive\n=\n\"Database\"\nsvg\n=\n\"database-gray.svg\"\nsvgActive\n=\n\"database.svg\"\n}\nlocal\ntableIcon\n=\nnew\nFrontend\n.\nIcon\n{\nname\n=\n\"TableGray\"\nnameActive\n=\n\"Table\"\nsvg\n=\n\"table-gray.svg\"\nsvgActive\n=\n\"table.svg\"\n}\nlocal\nfieldIcon\n=\nnew\nFrontend\n.\nIcon\n{\nname\n=\n\"ColumnGray\"\nnameActive\n=\n\"Column\"\nsvg\n=\n\"column-gray.svg\"\nsvgActive\n=\n\"column.svg\"\n}\ncustomAssetTypes\n{\n[\nDataset\n]\n{\nlabel\n=\n\"Dataset\"\nicon\n=\ndatasetIcon\ndescription\n=\n\"Instances of \\(Dataset) in Atlan.\"\n}\n[\nTable\n]\n{\nlabel\n=\n\"Table\"\nicon\n=\ntableIcon\ndescription\n=\n\"Instances of \\(Table) in Atlan.\"\nparentQualifiedName\n=\ndatasetQN\nattributes\n{\n[\n\"ratings\"\n]\n{\nlabel\n=\n\"Rating\"\ndescription\n=\n\"Ratings for the \\(Table) asset from the source system.\"\ntype\n=\n\"\nstruct\n\"\nstructName\n=\nRatings",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "parentQualifiedName\n=\ndatasetQN\nattributes\n{\n[\n\"ratings\"\n]\n{\nlabel\n=\n\"Rating\"\ndescription\n=\n\"Ratings for the \\(Table) asset from the source system.\"\ntype\n=\n\"\nstruct\n\"\nstructName\n=\nRatings\nmultiValued\n=\ntrue\n}\n}\nsuperTypes\n{\n\"Table\"\n}\n}\n[\nField\n]\n{\nlabel\n=\n\"Field\"\nicon\n=\nfieldIcon\ndescription\n=\n\"Instances of \\(Field) in Atlan.\"\nparentQualifiedName\n=\ntableQN\nattributes\n{\n[\n\"temperature\"\n]\n{\nlabel\n=\n\"Temperature\"\ndescription\n=\n\"Temperature of the \\(Field) asset.\"\ntype\n=\n\"\nenum\n\"\nenumName\n=\nTemperatureType\n}\n}\nsuperTypes\n{\n\"Column\"\n}\n}\n}\nui\n{\nsvgName\n=\n\"\\(namespace).svg\"\nfilters\n{\n[\nDataset\n]\n{\nattribute\n=\ndatasetQN\n}\n}\nbreadcrumb\n{\n[\nDataset\n]\n{\nq\n=\ndatasetQN\nn\n=\ndatasetN\n}\n[\nTable\n]\n{\nq\n=\ntableQN\nn\n=\ntableN\n}\n}\n}\ncustomRelationshipTypes\n{\n[\n\"datasetAndItsTables\"\n]\n=\nnew\nContainmentRelationship\n{\nparent\n{\ntype\n=\nDataset\nattribute\n=\n\"dataset\"\ndescription\n=\n\"Dataset containing the Table.\"\n}\nchildren\n{\ntype\n=\nTable\nattribute\n=\n\"tables\"\ndescription\n=\n\"Tables contained within the Dataset.\"\n}\n}\n[\n\"tableAndItsFields\"\n]\n=\nnew\nContainmentRelationship\n{\nparent\n{\ntype\n=\nTable\nattribute\n=\n\"table\"\ndescription\n=\n\"Table containing the Field.\"\n}\nchildren\n{\ntype\n=\nField\nattribute\n=\n\"fields\"",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "}\n}\n[\n\"tableAndItsFields\"\n]\n=\nnew\nContainmentRelationship\n{\nparent\n{\ntype\n=\nTable\nattribute\n=\n\"table\"\ndescription\n=\n\"Table containing the Field.\"\n}\nchildren\n{\ntype\n=\nField\nattribute\n=\n\"fields\"\ndescription\n=\n\"Fields contained within the Table.\"\n}\n}\n[\n\"interrelatedFields\"\n]\n=\nnew\nPeerToPeerRelationship\n{\ndescription\n=\n\"Many-to-many peer-to-peer relationship between \\(Field)s.\"\npeers\n{\nnew\n{\ntype\n=\nField\nattribute\n=\n\"fromFields\"\ndescription\n=\n\"\\(Field)s from which this \\(Field) is related.\"\n}\nnew\n{\ntype\n=\nField\nattribute\n=\n\"toFields\"\ndescription\n=\n\"\\(Field)s to which this \\(Field) is related.\"\n}\n}\n}\n}\nRender through\npkl\n¶\nOnce your model is defined, you can then \"render\" it into the files Atlan needs using the\npkl\nCLI:\npkl\neval\nMyCustomModel.pkl\n-m\ntmp\nThis will generate multiple JSON files representing the custom model, in the folder structure required by Atlan, ready to be submitted in a PR.\nOutput produced\n¶\nRendering the model will create two subdirectories under the output directory you specify (the location you specify for\n-m\n):\n├──\nmodels/\n# (1)\n│\n├──\n{{\nNamespace\n}}\n.json\n# (2)\n│\n└──\n{{\nNamespace\n}}\n/\n│\n├──\n{{\nAssetType\n}}\n.json\n# (3)\n│\n├──\n...\n│\n└──\n{{\nNamespace\n}}",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "-m\n):\n├──\nmodels/\n# (1)\n│\n├──\n{{\nNamespace\n}}\n.json\n# (2)\n│\n└──\n{{\nNamespace\n}}\n/\n│\n├──\n{{\nAssetType\n}}\n.json\n# (3)\n│\n├──\n...\n│\n└──\n{{\nNamespace\n}}\n_relationships.json\n# (4)\n│\n└──\nfrontend/\n# (5)\n└──\n{{\nNamespace\n}}\n/\n└──\nsrc/\n├──\napi/\n│\n└──\nschemas/\n# (6)\n│\n├──\n{{\nNamespace\n}}\n.json\n│\n└──\n{{\nNamespace\n}}\n/\n│\n├──\n{{\nAssetType\n}}\n.json\n│\n├──\n...\n│\n└──\n{{\nNamespace\n}}\n_relationships.json\n│\n├──\nassets/\n│\n└──\nimages/\n│\n└──\nicons/\n# (7)\n│\n├──\ncomponents/\n│\n└──\ncommon/\n│\n├──\nicon/\n# (8)\n│\n└──\nwidgets/\n# (9)\n│\n├──\ncomposables/\n│\n└──\ndiscovery/\n# (10)\n│\n├──\nconstant/\n# (11)\n│\n└──\nlocales/\n# (12)\nThe\nmodels\nsubdirectory will contain JSON files needed by Atlas for the underlying metamodel.\nA single file containing details of the abstract supertype, all enumerations and all structs.\nMultiple JSON files, one per custom asset type.\nA single JSON file containing all relationships.\nThe\nfrontend\nsubdirectory will contain various JSON, TypeScript, Vue, and placeholder image files.\nThe same JSON files as output to the\nmodels\nsubdirectory.\nEmpty placeholder files indicating the image files for icons you must copy over separately.\nCode snippets you need to insert into an existing TypeScript file.",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "models\nsubdirectory.\nEmpty placeholder files indicating the image files for icons you must copy over separately.\nCode snippets you need to insert into an existing TypeScript file.\nCode snippets you need to insert into an existing Vue file.\nCode snippets you need to insert into an existing TypeScript file for parent-child navigation through de-normalized qualifiedName attributes to work.\nMixture of code snippets and full TypeScript code files you need to copy over.\nInternationalization snippets you need to insert into an existing JSON file.\nRunning example (expand for details)\nFor our running example, this would produce:\n├──\nmodels/\n│\n├──\nCustom.json\n# (1)!\n│\n└──\nCustom/\n│\n├──\nCustomDataset.json\n│\n├──\nCustomTable.json\n│\n├──\nCustomField.json\n│\n└──\nCustom_relationships.json\n│\n└──\nfrontend/\n└──\nCustom/\n└──\nsrc/\n├──\napi/\n│\n└──\nschemas/\n│\n├──\nCustom.json\n│\n└──\nCustom/\n│\n├──\nCustomDataset.json\n│\n├──\nCustomTable.json\n│\n├──\nCustomField.json\n│\n└──\nCustom_relationships.json\n│\n├──\nassets/\n│\n└──\nimages/\n│\n└──\nicons/\n│\n├──\ndatabase-gray.svg-PLACEHOLDER\n│\n├──\ndatabase.svg-PLACEHOLDER\n│\n├──\ntable-gray.svg-PLACEHOLDER\n│\n├──\ntable.svg-PLACEHOLDER\n│\n├──\ncolumn-gray.svg-PLACEHOLDER\n│\n└──",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "│\n└──\nimages/\n│\n└──\nicons/\n│\n├──\ndatabase-gray.svg-PLACEHOLDER\n│\n├──\ndatabase.svg-PLACEHOLDER\n│\n├──\ntable-gray.svg-PLACEHOLDER\n│\n├──\ntable.svg-PLACEHOLDER\n│\n├──\ncolumn-gray.svg-PLACEHOLDER\n│\n└──\ncolumn.svg-PLACEHOLDER\n│\n├──\ncomponents/\n│\n└──\ncommon/\n│\n├──\nicon/\n│\n│\n└──\ncolumn.svg-PLACEHOLDER\n│\n└──\nwidgets/\n│\n└──\nsummary/\n│\n└──\ntypes/\n│\n└──\nparentAssetInline.vue-snippet\n│\n├──\ncomposables/\n│\n└──\ndiscovery/\n│\n└──\nuseBody.ts-snippet\n│\n├──\nconstant/\n│\n├──\nprojection.ts-snippet\n│\n└──\nsource/\n│\n├──\nindex.ts-snippet\n│\n└──\ncustom/\n│\n├──\nindex.ts\n│\n├──\nmethods.ts\n│\n├──\ncommon/\n│\n│\n├──\nindex.ts\n│\n│\n├──\nassetTypes.ts\n│\n│\n├──\ngetAssetTypes.ts\n│\n│\n└──\nhierarchyFilters.ts\n│\n└──\nattributes/\n│\n├──\ncustomDataset.ts\n│\n├──\ncustomTable.ts\n│\n└──\ncustomField.ts\n│\n└──\nlocales/\n└──\nen.json-snippet\nThis file will contain all the attributes defined in the supertype, as well as the enumeration and struct.\n2025-03-11\n2025-06-24\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "Thanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits_typedef_render.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_render.json",
+      "chunk_id": 9
+    }
+  }
+]

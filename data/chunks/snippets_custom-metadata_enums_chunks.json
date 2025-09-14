@@ -1,0 +1,200 @@
+[
+  {
+    "content": "Manage options (enumerations) - Developer\nSkip to content\nManage options (enumerations)\n¶\nOptions (or\nenumerations\n) in Atlan allow you to define a set of valid values\nfor custom metadata attributes. Like other objects in the SDK, enumerations implement\nthe builder pattern. This allows you to progressively build-up the list of values you want to create.\nBuild minimal object needed\n¶\n1.3.3\n1.0.0\nFor example, to create an enumeration to capture a data quality dimension:\nJava\nPython\nKotlin\nRaw REST API\nBuild enumeration for creation\n1\n2\n3\n4\nEnumDef\nenumDef\n=\nEnumDef\n.\ncreator\n(\n\"DataQualityDimensions\"\n,\n// (1)\nList\n.\nof\n(\n\"Accuracy\"\n,\n\"Completeness\"\n,\n\"Consistency\"\n,\n\"Timeliness\"\n,\n\"Validity\"\n,\n\"Uniqueness\"\n))\n// 2\n.\nbuild\n();\n// (3)\nWhen creating the enumeration, you must provide a name (\nDataQualityDimensions\nin this example).\nYou can then add as many valid values as you want: always as a list of strings.\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nBuild enumeration for creation\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.typedef\nimport\nEnumDef\nenum_def\n=\nEnumDef\n.\ncreate\n(\nname\n=\n\"DataQualityDimensions\"\n,\n# (1)\nvalues\n=\n[\n\"Accuracy\"\n,\n\"Completeness\"\n,",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Build enumeration for creation\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.typedef\nimport\nEnumDef\nenum_def\n=\nEnumDef\n.\ncreate\n(\nname\n=\n\"DataQualityDimensions\"\n,\n# (1)\nvalues\n=\n[\n\"Accuracy\"\n,\n\"Completeness\"\n,\n\"Consistency\"\n,\n\"Timeliness\"\n,\n\"Validity\"\n,\n\"Uniqueness\"\n]\n# (2)\n)\nWhen creating the enumeration, you must provide a name (\nDataQualityDimensions\nin this example).\nYou can then add as many valid values as you want: always as a list of strings.\nBuild enumeration for creation\n1\n2\n3\n4\nval\nenumDef\n=\nEnumDef\n.\ncreator\n(\n\"DataQualityDimensions\"\n,\n// (1)\nlistOf\n(\n\"Accuracy\"\n,\n\"Completeness\"\n,\n\"Consistency\"\n,\n\"Timeliness\"\n,\n\"Validity\"\n,\n\"Uniqueness\"\n))\n// 2\n.\nbuild\n()\n// (3)\nWhen creating the enumeration, you must provide a name (\nDataQualityDimensions\nin this example).\nYou can then add as many valid values as you want: always as a list of strings.\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nPOST /api/meta/types/typedefs\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n{\n\"enumDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"ENUM\"\n,\n// (2)\n\"name\"\n:\n\"DataQualityDimensions\"\n,\n// (3)\n\"elementDefs\"\n:\n[\n// (4)\n{\n\"value\"\n:\n\"Accuracy\"\n,",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n{\n\"enumDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"ENUM\"\n,\n// (2)\n\"name\"\n:\n\"DataQualityDimensions\"\n,\n// (3)\n\"elementDefs\"\n:\n[\n// (4)\n{\n\"value\"\n:\n\"Accuracy\"\n,\n\"ordinal\"\n:\n0\n},\n{\n\"value\"\n:\n\"Completeness\"\n,\n\"ordinal\"\n:\n1\n},\n{\n\"value\"\n:\n\"Consistency\"\n,\n\"ordinal\"\n:\n2\n},\n{\n\"value\"\n:\n\"Timeliness\"\n,\n\"ordinal\"\n:\n3\n},\n{\n\"value\"\n:\n\"Validity\"\n,\n\"ordinal\"\n:\n4\n},\n{\n\"value\"\n:\n\"Uniqueness\"\n,\n\"ordinal\"\n:\n5\n}\n]\n}\n]\n}\nAll enumeration definitions must be specified within the\nenumDefs\narray.\nEach definition must be defined with a category set to\nENUM\n.\nThe name you provide for the definition will be used both for the front and back-end.\nWithin the definition, you need to define each valid value for the enumeration within the\nelementDefs\narray. Each valid value should have both a string\nvalue\n(as it will appear in the UI) and an integer\nordinal\n. Both must be unique within the enumeration.\nCreate the enumeration from the object\n¶\n1.3.3\n4.0.0\nNow that the object is built, this\nenumDef\nobject will have the required information for Atlan to create it.\nYou can then actually create the enumeration in Atlan by calling the\ncreate()\nmethod on the object itself:\nJava",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "enumDef\nobject will have the required information for Atlan to create it.\nYou can then actually create the enumeration in Atlan by calling the\ncreate()\nmethod on the object itself:\nJava\nPython\nKotlin\nRaw REST API\nCreate the enumeration\n5\nEnumDef\nresponse\n=\nenumDef\n.\ncreate\n(\nclient\n);\n// (1)\nThe\ncreate()\noperation will actually create the enumeration within Atlan, including all the valid values that were defined as part of it. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate the enumeration\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ntypedef\n.\ncreate\n(\nenum_def\n)\n# (1)\nThe\ntypedef.create()\noperation will actually create the enumeration definition within Atlan, including all the valid values that were defined as part of it.\nCreate the enumeration\n5\nval\nresponse\n=\nenumDef\n.\ncreate\n(\nclient\n)\n// (1)\nThe\ncreate()\noperation will actually create the enumeration within Atlan, including all the valid values that were defined as part of it. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreation implicit in step above\nThe actual creation of the enumeration structure is implicit in the example above.\nUse an enumeration in a custom metadata definition\n¶\n7.0.0\n4.0.0\nTo use an enumeration to restrain the values for an attribute in a custom metadata definition:\nJava\nPython\nKotlin\nRaw REST API\nBuild custom metadata definition for creation\n6\n7\n8\n9\n10\n11\n12\n13\n14\nCustomMetadataDef\ncustomMetadataDef\n=\nCustomMetadataDef\n.\ncreator\n(\n\"DQ\"\n)\n// (1)\n.\nattributeDef\n(\n// (2)\nAttributeDef\n.\nof\n(\nclient\n,\n\"Dimension\"\n,\n// (3)\nAtlanCustomAttributePrimitiveType\n.\nOPTIONS\n,\n// (4)\n\"DataQualityDimensions\"\n,\n// (5)\nfalse\n))\n// (6)\n.\noptions\n(\nCustomMetadataOptions\n.\nwithLogoAsEmoji\n(\n\"🔖\"\n))\n// (7)\n.\nbuild\n();\n// (8)\ncustomMetadataDef\n.\ncreate\n();\n// (9)\nWhen creating the custom metadata structure, you must provide a name (\nDQ\nin this example).\nYou can then add as many attributes to that structure as you want.\nEach attribute must have a name. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Each attribute must have a name. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nEach attribute must have a type. When using the enumeration as the type (to constrain its possible values), use\nAtlanCustomAttributePrimitiveType.OPTIONS\nas the type.\nYou must then also specify the enumeration that defines the valid values for this attribute. Carrying on the same example, we give the name of the enumeration here:\nDataQualityDimensions\n.\nYou must also specify whether the attribute allows multiple values to be captured on it (\ntrue\n) or only a single value (\nfalse\n).\nYou can specify how the custom metadata should appear (in this case, with an emoji).\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nThen you can\ncreate()\nthe custom metadata definition within Atlan, including this enumeration-constrained attribute that was defined as part of it.\nBuild custom metadata definition for creation\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\nfrom\npyatlan.model.typedef\nimport\nAttributeDef\n,\nCustomMetadataDef\nfrom\npyatlan.model.enums\nimport",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\nfrom\npyatlan.model.typedef\nimport\nAttributeDef\n,\nCustomMetadataDef\nfrom\npyatlan.model.enums\nimport\nAtlanCustomAttributePrimitiveType\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\ncm_def\n=\nCustomMetadataDef\n.\ncreate\n(\ndisplay_name\n=\n\"DQ\"\n)\n# (1)\ncm_def\n.\nattribute_defs\n=\n[\n# (2)\nAttributeDef\n.\ncreate\n(\nclient\n=\nclient\n,\n# (3)\ndisplay_name\n=\n\"Dimension\"\n,\n# (4)\nattribute_type\n=\nAtlanCustomAttributePrimitiveType\n.\nOPTIONS\n,\n# (5)\noptions_name\n=\n\"DataQualityDimensions\"\n,\n# (6)\n),\n]\ncm_def\n.\noptions\n=\nCustomMetadataDef\n.\nOptions\n.\nwith_logo_as_emoji\n(\n# (7)\nemoji\n=\n\"🔖\"\n)\nclient\n.\ntypedef\n.\ncreate\n(\ncm_def\n)\n# (8)\nWhen creating the custom metadata structure, you must provide a name (\nDQ\nin this example).\nYou can then add as many attributes to that structure as you want.\nYou must provide a client instance.\nEach attribute must have a name.\nEach attribute must have a type. When using the enumeration as the type (to constrain its possible values), use\nAtlanCustomAttributePrimitiveType.OPTIONS\nas the type.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Each attribute must have a name.\nEach attribute must have a type. When using the enumeration as the type (to constrain its possible values), use\nAtlanCustomAttributePrimitiveType.OPTIONS\nas the type.\nYou must then also specify the enumeration that defines the valid values for this attribute. Carrying on the same example, we give the name of the enumeration here:\nDataQualityDimensions\n.\nYou can specify how the custom metadata should appear (in this case, with an emoji).\nThen you can create the custom metadata definition within Atlan, including this enumeration-constrained attribute that was defined as part of it.\nBuild custom metadata definition for creation\n6\n7\n8\n9\n10\n11\n12\n13\n14\nval\ncustomMetadataDef\n=\nCustomMetadataDef\n.\ncreator\n(\n\"DQ\"\n)\n// (1)\n.\nattributeDef\n(\n// (2)\nAttributeDef\n.\nof\n(\nclient\n,\n\"Dimension\"\n,\n// (3)\nAtlanCustomAttributePrimitiveType\n.\nOPTIONS\n,\n// (4)\n\"DataQualityDimensions\"\n,\n// (5)\nfalse\n))\n// (6)\n.\noptions\n(\nCustomMetadataOptions\n.\nwithLogoAsEmoji\n(\n\"🔖\"\n))\n// (7)\n.\nbuild\n()\n// (8)\ncustomMetadataDef\n.\ncreate\n()\n// (9)\nWhen creating the custom metadata structure, you must provide a name (\nDQ\nin this example).",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": ".\nwithLogoAsEmoji\n(\n\"🔖\"\n))\n// (7)\n.\nbuild\n()\n// (8)\ncustomMetadataDef\n.\ncreate\n()\n// (9)\nWhen creating the custom metadata structure, you must provide a name (\nDQ\nin this example).\nYou can then add as many attributes to that structure as you want.\nEach attribute must have a name. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nEach attribute must have a type. When using the enumeration as the type (to constrain its possible values), use\nAtlanCustomAttributePrimitiveType.OPTIONS\nas the type.\nYou must then also specify the enumeration that defines the valid values for this attribute. Carrying on the same example, we give the name of the enumeration here:\nDataQualityDimensions\n.\nYou must also specify whether the attribute allows multiple values to be captured on it (\ntrue\n) or only a single value (\nfalse\n).\nYou can specify how the custom metadata should appear (in this case, with an emoji).\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nThen you can\ncreate()",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "false\n).\nYou can specify how the custom metadata should appear (in this case, with an emoji).\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nThen you can\ncreate()\nthe custom metadata definition within Atlan, including this enumeration-constrained attribute that was defined as part of it.\nPOST /api/meta/types/typedefs\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n{\n\"businessMetadataDefs\"\n:\n[\n{\n\"category\"\n:\n\"BUSINESS_METADATA\"\n,\n\"name\"\n:\n\"DQ\"\n,\n// (1)\n\"attributeDefs\"\n:\n[\n// (2)\n{\n\"name\"\n:\n\"\"\n,\n// (3)\n\"displayName\"\n:\n\"Dimension\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"DataQualityDimensions\"\n,\n// (4)\n\"isOptional\"\n:\ntrue\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"valuesMinCount\"\n:\n0\n,\n\"valuesMaxCount\"\n:\n1\n,\n\"isUnique\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"options\"\n:\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "\"[\\\"PowerBIMeasure\\\",\\\"TableauWorkbook\\\",\\\"LookerModel\\\",\\\"MetabaseCollection\\\",\\\"ModeQuery\\\",\\\"GCSBucket\\\",\\\"LookerTile\\\",\\\"Table\\\",\\\"PowerBITile\\\",\\\"PowerBIPage\\\",\\\"SalesforceOrganization\\\",\\\"PresetWorkspace\\\",\\\"TableauDatasource\\\",\\\"PresetDataset\\\",\\\"TableauCalculatedField\\\",\\\"LookerFolder\\\",\\\"TableauWorksheet\\\",\\\"MetabaseQuestion\\\",\\\"AtlasGlossary\\\",\\\"PresetChart\\\",\\\"PowerBITable\\\",\\\"LookerProject\\\",\\\"SnowflakePipe\\\",\\\"PowerBIReport\\\",\\\"SigmaDatasetColumn\\\",\\\"TableauDatasourceField\\\",\\\"TablePartition\\\",\\\"AtlasGlossaryTerm\\\",\\\"SigmaDataElementField\\\",\\\"Schema\\\",\\\"Database\\\",\\\"DbtColumnProcess\\\",\\\"S3Object\\\",\\\"LookerLook\\\",\\\"TableauSite\\\",\\\"SnowflakeStream\\\",\\\"ModeCollection\\\",\\\"LookerDashboard\\\",\\\"PowerBIWorkspace\\\",\\\"Collection\\\",\\\"AtlasGlossaryCategory\\\",\\\"TableauFlow\\\",\\\"LookerView\\\",\\\"TableauProject\\\",\\\"LookerExplore\\\",\\\"ModeReport\\\",\\\"PowerBIColumn\\\",\\\"Query\\\",\\\"ColumnProcess\\\",\\\"SalesforceDashboard\\\",\\\"SalesforceObject\\\",\\\"BIProcess\\\",\\\"DbtModelColumn\\\",\\\"S3Bucket\\\",\\\"SigmaDataElement\\\",\\\"DataStudioAsset\\\",\\\"DbtProcess\\\",\\\"DbtModel\\\",\\\"PowerBIDataset\\\",\\\"Column\\\",\\\"DbtMetric\\\",\\\"TableauDashboard\\\",\\\"SigmaDataset\\\",\\\"LookerQuery\\\",\\\"APISpec\\\",\\\"MetabaseDashboard\\\",\\\"Proces",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "taElement\\\",\\\"DataStudioAsset\\\",\\\"DbtProcess\\\",\\\"DbtModel\\\",\\\"PowerBIDataset\\\",\\\"Column\\\",\\\"DbtMetric\\\",\\\"TableauDashboard\\\",\\\"SigmaDataset\\\",\\\"LookerQuery\\\",\\\"APISpec\\\",\\\"MetabaseDashboard\\\",\\\"Process\\\",\\\"PowerBIDashboard\\\",\\\"APIPath\\\",\\\"ModeChart\\\",\\\"PowerBIDataflow\\\",\\\"SalesforceField\\\",\\\"GCSObject\\\",\\\"SalesforceReport\\\",\\\"View\\\",\\\"Folder\\\",\\\"TableauMetric\\\",\\\"MaterialisedView\\\",\\\"PresetDashboard\\\",\\\"PowerBIDatasource\\\",\\\"ModeWorkspace\\\",\\\"SigmaPage\\\",\\\"LookerField\\\",\\\"SigmaWorkbook\\\"]\"",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ",\n\"allowSearch\"\n:\nfalse\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"allowFiltering\"\n:\ntrue\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"showInOverview\"\n:\nfalse\n,\n\"primitiveType\"\n:\n\"enum\"\n,\n// (5)\n\"isEnum\"\n:\ntrue\n,\n\"enumType\"\n:\n\"DataQualityDimensions\"\n},\n\"isNew\"\n:\ntrue\n,\n\"enumValues\"\n:\n[\n\"Accuracy\"\n,\n\"Completeness\"\n,\n\"Consistency\"\n,\n\"Timeliness\"\n,\n\"Validity\"\n,\n\"Uniqueness\"\n]\n}\n],\n\"displayName\"\n:\n\"DQ\"\n,\n\"options\"\n:\n{\n\"logoType\"\n:\n\"emoji\"\n,\n\"emoji\"\n:\n\"🔖\"\n}\n}\n]\n}\nWhen creating the custom metadata structure, you must provide a name (\nDQ\nin this example).\nYou can then add as many attributes to that structure as you want.\nEach attribute must have a name. Note, however, that the\nname\nshould be sent as an empty string when creating an attribute (the name will be generated by the back-end), and it is actually the\ndisplayName\nthat gives the name as it will appear in the UI.\nYou must specify the enumeration that defines the valid values for this attribute. Carrying on the same example, we give the name of the enumeration here:\nDataQualityDimensions\n.\nEach attribute must also have a primitive type. When using the enumeration as the type (to constrain its possible values), use:\nenum\nas the primitive type\nisEnum",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "DataQualityDimensions\n.\nEach attribute must also have a primitive type. When using the enumeration as the type (to constrain its possible values), use:\nenum\nas the primitive type\nisEnum\nset to\ntrue\nand set\nenumType\nto the name of the enumeration\nUpdate options (enumerations)\n¶\n7.0.0\n4.0.0\nFor example, to update our data quality dimension\nenumeration by adding a new set of valid values.\nJava\nPython\nKotlin\nRaw REST API\nUpdate existing enum structure\n1\n2\n3\n4\n5\n6\n7\nEnumDef\nenumDef\n=\nEnumDef\n.\nupdater\n(\nclient\n,\n\"DataQualityDimensions\"\n,\n// (1)\nList\n.\nof\n(\n\"Unknown\"\n,\n\"Others\"\n),\n// (2)\nfalse\n// (3)\n).\nbuild\n();\n// (4)\nEnumDef\nresponse\n=\nenumDef\n.\nupdate\n(\nclient\n);\n// (5)\nWhen updating the existing enumeration, you must provide a name (\nDataQualityDimensions\nin this example). Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then add as many valid values as you want: always as a list of strings.\nYou must specify whether you want to replace all existing values in the enumeration with the new ones (\ntrue\n), or if the new ones will be appended to the existing set (\nfalse\n).",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "You must specify whether you want to replace all existing values in the enumeration with the new ones (\ntrue\n), or if the new ones will be appended to the existing set (\nfalse\n).\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nThe\nupdate()\noperation will actually update the enumeration within Atlan, including all the valid values that were defined as part of it. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUpdate existing enum structure\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\nfrom\npyatlan.model.typedef\nimport\nEnumDef\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nenum_def\n=\nEnumDef\n.\nupdate\n(\nclient\n=\nclient\n,\nname\n=\n\"DataQualityDimensions\"\n,\n# (1)\nvalues\n=\n[\n\"Unknown\"\n,\n\"Others\"\n]\n# (2)\nreplace_existing\n=\nFalse\n# (3)\n)\nresponse\n=\nclient\n.\ntypedef\n.\nupdate\n(\nenum_def\n)\n# (4)\nWhen updating the existing enumeration, you must provide\na name (\nDataQualityDimensions\nin this example).\nYou can then add as many valid values as you want: always as a list of strings.\nYou must specify whether you want to replace all existing values in the enumeration",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "in this example).\nYou can then add as many valid values as you want: always as a list of strings.\nYou must specify whether you want to replace all existing values in the enumeration\nwith the new ones (\nTrue\n), or if the new ones will be appended to the existing set (\nFalse\n).\nThe\nclient.typedef.update()\noperation will actually update the enumeration within Atlan,\nincluding all the valid values that were defined as part of it.\nUpdate existing enum structure\n1\n2\n3\n4\n5\n6\n7\nval\nenumDef\n=\nEnumDef\n.\nupdater\n(\nclient\n,\n\"DataQualityDimensions\"\n,\n// (1)\nlistOf\n(\n\"Unknown\"\n,\n\"Others\"\n),\n// (2)\nfalse\n// (3)\n).\nbuild\n()\n// (4)\nval\nresponse\n=\nenumDef\n.\nupdate\n(\nclient\n)\n// (5)\nWhen updating the existing enumeration, you must provide a name (\nDataQualityDimensions\nin this example). Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then add as many valid values as you want: always as a list of strings.\nYou must specify whether you want to replace all existing values in the enumeration with the new ones (\ntrue\n), or if the new ones will be appended to the existing set (\nfalse\n).",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "You must specify whether you want to replace all existing values in the enumeration with the new ones (\ntrue\n), or if the new ones will be appended to the existing set (\nfalse\n).\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nThe\nupdate()\noperation will actually update the enumeration within Atlan, including all the valid values that were defined as part of it. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPUT /api/meta/types/typedefs\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n{\n\"enumDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"ENUM\"\n,\n// (2)\n\"name\"\n:\n\"DataQualityDimensions\"\n,\n// (3)\n\"elementDefs\"\n:\n[\n// (4)\n{\n\"value\"\n:\n\"Accuracy\"\n,\n\"ordinal\"\n:\n0\n},\n{\n\"value\"\n:\n\"Completeness\"\n,\n\"ordinal\"\n:\n1\n},\n{\n\"value\"\n:\n\"Consistency\"\n,\n\"ordinal\"\n:\n2\n},\n{\n\"value\"\n:\n\"Timeliness\"\n,\n\"ordinal\"\n:\n3\n},\n{\n\"value\"\n:\n\"Validity\"\n,\n\"ordinal\"\n:\n4\n},\n{\n\"value\"\n:\n\"Uniqueness\"\n,\n\"ordinal\"\n:\n5\n},\n{\n\"value\"\n:\n\"Unknown\"\n,\n\"ordinal\"\n:\n6\n},\n{\n\"value\"\n:\n\"Others\"\n,\n\"ordinal\"\n:\n7\n}\n]\n}\n]\n}",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": ",\n\"ordinal\"\n:\n3\n},\n{\n\"value\"\n:\n\"Validity\"\n,\n\"ordinal\"\n:\n4\n},\n{\n\"value\"\n:\n\"Uniqueness\"\n,\n\"ordinal\"\n:\n5\n},\n{\n\"value\"\n:\n\"Unknown\"\n,\n\"ordinal\"\n:\n6\n},\n{\n\"value\"\n:\n\"Others\"\n,\n\"ordinal\"\n:\n7\n}\n]\n}\n]\n}\nAll enumeration definitions must be specified within the\nenumDefs\narray.\nEach definition must be defined with a category set to\nENUM\n.\nThe name of the enumeration definition you want to update.\nYou must send all valid values in the\nelementDefs\narray, as the existing list\nof elements for the enumerations will be entirely replaced by what you provide here.\nRetrieve options (enumerations)\n¶\n2.1.0\n1.0.0\nTo retrieve options (enumeration) by name:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve existing enum structure\n1\nTypeDef\nenumDef\n=\nclient\n.\ntypeDefs\n.\nget\n(\n\"DataQualityDimensions\"\n);\n// (1)\nTo retrieve the enumeration, you need to call the\n.typeDefs.get()\nmethod on a client, with the human-readable name of the enumeration.\nRetrieve existing enum structure\n1\n2\n3\n4\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nenum_def\n=\nclient\n.\ntypedef\n.\nget_by_name\n(\n\"DataQualityDimensions\"\n)\n# (1)\nTo retrieve the enumeration, you need to call the\nclient.typedef.get_by_name()",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "import\nAtlanClient\nclient\n=\nAtlanClient\n()\nenum_def\n=\nclient\n.\ntypedef\n.\nget_by_name\n(\n\"DataQualityDimensions\"\n)\n# (1)\nTo retrieve the enumeration, you need to call the\nclient.typedef.get_by_name()\nmethod with its human-readable name.\nRetrieve existing enum structure\n1\nval\nenumDef\n=\nclient\n.\ntypeDefs\n.\nget\n(\n\"DataQualityDimensions\"\n)\n// (1)\nTo retrieve the enumeration, you need to call the\n.typeDefs.get()\nmethod on a client, with the human-readable name of the enumeration.\nGET /api/meta/types/typedef/name/DataQualityDimensions\n1\nOptions (enumerations) do not have a hashed-string representation\nNote that unlike a custom metadata structure, options (enumerations) do not have\na hashed-string name. Therefore, use their human-readable name when retrieving its structure.\nURL-encoding\nHowever, since this name is embedded in the URL for retrieval,\nit does need to be url-encoded. For example, if the name contains\nspaces these need to be replaced with\n%20\n.\nRetrieve all options (enumerations)\n¶\n1.3.3\n4.0.0\nTo retrieve all options (enumeration):\nJava\nPython\nKotlin\nRaw REST API\nRetrieve all enum structures\n1\nTypeDefResponse\nenumDefs\n=\nclient\n.\ntypeDefs\n.\nlist\n(\nAtlanTypeCategory\n.\nENUM\n);",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "¶\n1.3.3\n4.0.0\nTo retrieve all options (enumeration):\nJava\nPython\nKotlin\nRaw REST API\nRetrieve all enum structures\n1\nTypeDefResponse\nenumDefs\n=\nclient\n.\ntypeDefs\n.\nlist\n(\nAtlanTypeCategory\n.\nENUM\n);\n// (1)\nTo retrieve all enumerations, call the\n.typeDefs.list()\nmethod on a client, with the category\nAtlanTypeCategory.ENUM\n.\nRetrieve all enum structures\n1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ntypedef\n.\nget\n(\ntype_category\n=\nAtlanTypeCategory\n.\nENUM\n)\n# (1)\nenum_defs\n=\nresponse\n.\nenum_defs\n# (2)\nTo retrieve all enumerations, call the\nclient.typedef.get()\nmethod with the definition category\nAtlanTypeCategory.ENUM\n.\nSpecifically retrieve the list of enumerations from\nTypeDefResponse\n.\nRetrieve all enum structures\n1\nval\nenumDefs\n=\nclient\n.\ntypeDefs\n.\nlist\n(\nAtlanTypeCategory\n.\nENUM\n)\n// (1)\nTo retrieve all enumerations, call the\n.typeDefs.list()\nmethod on a client, with the category\nAtlanTypeCategory.ENUM\n.\nGET /api/meta/types/typedefs/?type=ENUM\n1\nDelete options (enumerations)\n¶\n1.3.3\n4.0.0\nTo delete options (enumeration):\nJava\nPython\nKotlin\nRaw REST API\nDelete enum structure\n1\nEnumDef\n.\npurge\n(\nclient\n,\n\"DataQualityDimensions\"",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "1\nDelete options (enumerations)\n¶\n1.3.3\n4.0.0\nTo delete options (enumeration):\nJava\nPython\nKotlin\nRaw REST API\nDelete enum structure\n1\nEnumDef\n.\npurge\n(\nclient\n,\n\"DataQualityDimensions\"\n);\n// (1)\nYou only need to call the\nEnumDef.purge()\nmethod with the human-readable name of the enumeration, and it will be deleted. Because this operation will remove the structure from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nDelete enum structure\n1\n2\n3\n4\n5\nfrom\npyatlan.model.typedef\nimport\nEnumDef\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nclient\n.\ntypedef\n.\npurge\n(\n\"DataQualityDimensions\"\n,\nEnumDef\n)\n# (1)\nYou only need to call the\nclietn.typedef.purge()\nmethod\nwith the human-readable name of the enumeration, and it will be deleted.\nDelete enum structure\n1\nEnumDef\n.\npurge\n(\n\"DataQualityDimensions\"\n)\n// (1)\nYou only need to call the\nEnumDef.purge()\nmethod with the human-readable name of the enumeration, and it will be deleted. Because this operation will remove the structure from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nDELETE /api/meta/types/typedef/name/DataQualityDimensions\n1",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nDELETE /api/meta/types/typedef/name/DataQualityDimensions\n1\nOptions (enumerations) do not have a hashed-string representation\nNote that unlike a custom metadata structure, options (enumerations)\ndo not have a hashed-string name. Therefore, use their human-readable name when deleting.\nURL-encoding\nHowever, since this name is embedded in the URL for deletion,\nit does need to be url-encoded. For example, if the name contains\nspaces these need to be replaced with\n%20\n.\n2022-12-23\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_enums.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_enums.json",
+      "chunk_id": 21
+    }
+  }
+]

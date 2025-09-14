@@ -1,0 +1,299 @@
+[
+  {
+    "content": "Testing toolkit - Developer\nSkip to content\nTesting toolkit\n¶\nWith the testing toolkit we can guide you to write robust, reusable integration tests for connectors and utilities in Atlan.\nWriting tests for non-toolkit based scripts\n¶\nYou can write integration tests for existing scripts in the\nmarketplace-csa-scripts\nrepository, even if they are not based on package toolkits. These tests help verify script behavior end-to-end in a real Atlan tenant.\nWe'll begin by performing minimal refactoring of the existing script, as it's necessary to enable writing integration tests.\nStep 1: Rename directory to\nsnake_case\n¶\nIf the script is in\nkebab-case\ndirectory, convert it to\nsnake_case\n.\nDo this just after renaming\nUpdate references in\nmkdocs.yml\n, delete the old directory, and verify imports/links still work.\nFor example:\nBefore:\nscripts/\n└── designation-based-group-provisioning/\n├── main.py\n├── index.md\n└── tests/\n└── test_main.py\nAfter:\nscripts/\n└── designation_based_group_provisioning/\n├── main.py\n├── index.md\n└── tests/\n└── test_main.py\nStep 2: Refactor\nmain.py\n¶\nDO\nRefactor the script without altering logic or flow.\nWrap all logic inside functions.\nCreate a single entry point:",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "├── main.py\n├── index.md\n└── tests/\n└── test_main.py\nStep 2: Refactor\nmain.py\n¶\nDO\nRefactor the script without altering logic or flow.\nWrap all logic inside functions.\nCreate a single entry point:\nmain(args: argparse.Namespace)\nCall helper functions from\nmain()\n— each should receive only required\nargs\nor\ninputs\n.\nDO NOT\nRename or restructure existing functions.\nChange the sequence or logic flow.\nModify argument parsing.\nAdd/remove logging unless required for debugging.\nExample refactored\nmain.py\n:\nmain.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\nimport\nargparse\nfrom\ntyping\nimport\nAny\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.pkg.utils\nimport\nget_client\n,\nset_package_headers\ndef\nload_input_file\n(\nfile_path\n:\nstr\n)\n->\nAny\n:\n\"\"\"Load and validate the input file.\"\"\"\n# Your file loading logic here\npass\ndef\nprocess_data_with_atlan\n(\nclient\n:\nAtlanClient\n,\ndata\n:\nAny\n)\n->\nNone\n:\n\"\"\"Process the loaded data using Atlan client.\"\"\"\n# Your data processing logic here\npass\ndef\nmain\n(\nargs\n:\nargparse\n.\nNamespace\n)\n->\nNone\n:\n\"\"\"Main entry point for the script.\"\"\"\n# Initialize Atlan client\nclient\n=\nget_client\n(",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "# Your data processing logic here\npass\ndef\nmain\n(\nargs\n:\nargparse\n.\nNamespace\n)\n->\nNone\n:\n\"\"\"Main entry point for the script.\"\"\"\n# Initialize Atlan client\nclient\n=\nget_client\n(\nimpersonate_user_id\n=\nargs\n.\nuser_id\n)\nclient\n=\nset_package_headers\n(\nclient\n)\n# Load and process data\ndata\n=\nload_input_file\n(\nargs\n.\ninput_file\n)\nprocess_data_with_atlan\n(\nclient\n,\ndata\n)\nif\n__name__\n==\n\"__main__\"\n:\nparser\n=\nargparse\n.\nArgumentParser\n(\ndescription\n=\n\"Script description\"\n)\nparser\n.\nadd_argument\n(\n\"--user-id\"\n,\nrequired\n=\nTrue\n,\nhelp\n=\n\"User ID for impersonation\"\n)\nparser\n.\nadd_argument\n(\n\"--input-file\"\n,\nrequired\n=\nTrue\n,\nhelp\n=\n\"Path to input file\"\n)\nargs\n=\nparser\n.\nparse_args\n()\nmain\n(\nargs\n)\nStep 3: Add integration tests\n¶\nPrerequisites: Install test dependencies\n¶\nBefore writing tests, you need to install the required testing dependencies. Choose one of the following methods:\nOption 1: Install from package (recommended if available)\npip\ninstall\n-e\n\".[test]\"\nOption 2: Install explicitly with requirements file\nCreate a\nrequirements-test.txt\nfile:\nrequirements-test.txt\n1\n2\n3\n4\n5\n6\npytest\n>=\n7.4.0\ncoverage\n>=\n7.6.1\n# pytest plugins (optional but recommended)\npytest\n-\norder\n>=\n1.3.0\npytest",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Create a\nrequirements-test.txt\nfile:\nrequirements-test.txt\n1\n2\n3\n4\n5\n6\npytest\n>=\n7.4.0\ncoverage\n>=\n7.6.1\n# pytest plugins (optional but recommended)\npytest\n-\norder\n>=\n1.3.0\npytest\n-\nsugar\n>=\n1.0.0\npytest\n-\ntimer\n[\ntermcolor\n]\n>=\n1.0.0\nInstall the dependencies:\npip\ninstall\n-r\nrequirements-test.txt\nReady to proceed\nOnce dependencies are installed, you can proceed to write your integration tests.\nTest layout for\ntest_main.py\n¶\nCreate a\ntests/\nfolder if not already present:\nscripts/\n└── my_script/\n├── main.py\n└── tests/\n└── test_main.py\nFunction\nPurpose\ntest_main_functions\nTest small pure helper functions individually (useful for quick validation of logic)\ntest_main\nRun the\nmain()\nfunction with a config to simulate full script execution (end-to-end)\ntest_after_main\n(optional)\nValidate side effects after running the script, such as asset creation, retrieval, audit logs, etc.\nExample Reference:\nFor a complete real-world example, see the integration test for\ndesignation_based_group_provisioning/main.py\n.\nRecommended testing strategy for scripts\n¶\nWhen writing\nintegration tests\nfor scripts in\nmarketplace-csa-scripts",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "designation_based_group_provisioning/main.py\n.\nRecommended testing strategy for scripts\n¶\nWhen writing\nintegration tests\nfor scripts in\nmarketplace-csa-scripts\n, follow these practices to ensure reliable and production-relevant test coverage:\nBest practices\n¶\n✅ DO:\nTest against real Atlan tenants\n- Integration tests should interact with actual Atlan instances to validate real behavior\nUse environment variables\nfor all secrets and configuration values\nLoad configuration safely\nvia\n.env\nfiles, CI/CD secrets, or shell configs — never hardcode sensitive data\n🔄 MOCK ONLY WHEN NECESSARY:\nUse mocking or patching sparingly, and only for:\nExternal/third-party API calls\n(non-Atlan services)\nDatabase interactions\nnot managed by Atlan\nNon-deterministic behavior\n(e.g., random data, time-based logic)\n❌ AVOID:\nMocking\npyatlan\nclients or any Atlan interactions unless absolutely necessary\nCommon pitfalls to avoid\n¶\n❌\nDon't hardcode sensitive values\nNever hardcode API keys, user-specific secrets, or test asset names\nInstead:\nUse environment variables and\npyatlan.test_utils.TestId.make_unique()\nfor unique naming\nBest practice:\nGenerate test objects in fixtures for reusability and proper cleanup\n❌",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Instead:\nUse environment variables and\npyatlan.test_utils.TestId.make_unique()\nfor unique naming\nBest practice:\nGenerate test objects in fixtures for reusability and proper cleanup\n❌\nDon't use fake data\nAvoid placeholder data that doesn't reflect real Atlan entity structures\nInstead:\nUse data that closely mirrors production for meaningful tests\n❌\nDon't mock Atlan client methods\nIntegration tests must execute\nreal operations\nagainst live Atlan tenants\nWhy:\nMocking undermines the purpose of integration testing and may miss regressions\nRemember:\nYou're testing the integration, not the individual components\nFull example (expand for details)\ntest_main.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n92\n93\n94\n95\n96\n97\n98\n99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n114\n115\n116\n117\n118\n119\n120\n121\n122\n123\n124\n125\nimport\npytest\nfrom\ntypes\nimport\nSimpleNamespace\nfrom\npyatlan.pkg.utils\nimport\nget_client\n,\nset_package_headers\nimport\npandas\nas\npd\nfrom",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "110\n111\n112\n113\n114\n115\n116\n117\n118\n119\n120\n121\n122\n123\n124\n125\nimport\npytest\nfrom\ntypes\nimport\nSimpleNamespace\nfrom\npyatlan.pkg.utils\nimport\nget_client\n,\nset_package_headers\nimport\npandas\nas\npd\nfrom\nscripts.designation_based_group_provisioning.main\nimport\n(\nreview_groups\n,\nget_default_groups\n,\nget_ungrouped_users\n,\nmap_users_by_designation\n,\nmain\n,\n)\nfrom\npyatlan.model.group\nimport\nAtlanGroup\n,\nCreateGroupResponse\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.test_utils\nimport\nTestId\nfrom\ntyping\nimport\nGenerator\nimport\nos\nfrom\npathlib\nimport\nPath\nTEST_PATH\n=\nPath\n(\n__file__\n)\n.\nparent\nTEST_GROUP_NAME\n=\nTestId\n.\nmake_unique\n(\n\"csa-dbgp-test\"\n)\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\nconfig\n()\n->\nSimpleNamespace\n:\nreturn\nSimpleNamespace\n(\nuser_id\n=\nos\n.\nenviron\n.\nget\n(\n\"ATLAN_USER_ID\"\n),\nmapping_file\n=\nf\n\"\n{\nTEST_PATH\n}\n/test_mapping.csv\"\n,\nmissing_groups_handler\n=\n\"SKIP\"\n,\nremove_from_default_group\n=\n\"\"\n,\ndomain_name\n=\n\"mock-tenant.atlan.com\"\n,\n)\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\nclient\n(\nconfig\n):\nif\nconfig\n.\nuser_id\n:\nclient\n=\nget_client\n(\nimpersonate_user_id\n=\nconfig\n.\nuser_id\n)\nelse\n:\nclient\n=\nAtlanClient\n()\nclient\n=\nset_package_headers\n(\nclient\n)",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "(\nscope\n=\n\"module\"\n)\ndef\nclient\n(\nconfig\n):\nif\nconfig\n.\nuser_id\n:\nclient\n=\nget_client\n(\nimpersonate_user_id\n=\nconfig\n.\nuser_id\n)\nelse\n:\nclient\n=\nAtlanClient\n()\nclient\n=\nset_package_headers\n(\nclient\n)\nreturn\nclient\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\ngroup\n(\nclient\n:\nAtlanClient\n)\n->\nGenerator\n[\nCreateGroupResponse\n,\nNone\n,\nNone\n]:\nto_create\n=\nAtlanGroup\n.\ncreate\n(\nTEST_GROUP_NAME\n)\ng\n=\nclient\n.\ngroup\n.\ncreate\n(\ngroup\n=\nto_create\n)\n# Read the CSV file\ndf\n=\npd\n.\nread_csv\n(\nf\n\"\n{\nTEST_PATH\n}\n/mapping.csv\"\n)\n# Replace values in the 'GROUP_NAME' column with the test group name\ndf\n[\n\"GROUP_NAME\"\n]\n=\ndf\n[\n\"GROUP_NAME\"\n]\n.\nreplace\n(\n\"Data Engineers and Scientists\"\n,\nTEST_GROUP_NAME\n)\n# Save the updated test CSV\ndf\n.\nto_csv\n(\nf\n\"\n{\nTEST_PATH\n}\n/test_mapping.csv\"\n,\nindex\n=\nFalse\n)\nassert\nos\n.\npath\n.\nexists\n(\nf\n\"\n{\nTEST_PATH\n}\n/test_mapping.csv\"\n)\nyield\ng\nclient\n.\ngroup\n.\npurge\n(\ng\n.\ngroup\n)\nos\n.\nremove\n(\nf\n\"\n{\nTEST_PATH\n}\n/test_mapping.csv\"\n)\ndef\ntest_main_functions\n(\nconfig\n:\nSimpleNamespace\n,\nclient\n:\nAtlanClient\n,\ngroup\n:\nAtlanGroup\n,\ncaplog\n:\npytest\n.\nLogCaptureFixture\n,\n):\n# Test configuration validation\nassert\nconfig\n.\nmapping_file\n.\nendswith\n(\n\".csv\"\n)",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "(\nconfig\n:\nSimpleNamespace\n,\nclient\n:\nAtlanClient\n,\ngroup\n:\nAtlanGroup\n,\ncaplog\n:\npytest\n.\nLogCaptureFixture\n,\n):\n# Test configuration validation\nassert\nconfig\n.\nmapping_file\n.\nendswith\n(\n\".csv\"\n)\n# Test group review functionality\nverified_groups\n=\nreview_groups\n(\nconfig\n.\nmapping_file\n,\nconfig\n.\nmissing_groups_handler\n,\nclient\n)\nassert\ncaplog\n.\nrecords\n[\n0\n]\n.\nlevelname\n==\n\"INFO\"\nassert\n\"-> Source information procured.\"\nin\ncaplog\n.\nrecords\n[\n0\n]\n.\nmessage\nassert\nisinstance\n(\nverified_groups\n,\nset\n)\ndefault_groups\n=\nget_default_groups\n(\nclient\n)\nassert\ncaplog\n.\nrecords\n[\n6\n]\n.\nlevelname\n==\n\"INFO\"\nassert\n\"DEFAULT groups found:\"\nin\ncaplog\n.\nrecords\n[\n6\n]\n.\nmessage\nassert\nisinstance\n(\ndefault_groups\n,\nlist\n)\nand\nlen\n(\ndefault_groups\n)\n>\n0\ngroupless_users\n=\nget_ungrouped_users\n(\ndefault_groups\n=\ndefault_groups\n,\nclient\n=\nclient\n)\nassert\nisinstance\n(\ngroupless_users\n,\nlist\n)\nand\nlen\n(\ngroupless_users\n)\n>\n0\nunmappable_users\n=\nmap_users_by_designation\n(\nuser_list\n=\ngroupless_users\n,\nmapping_file\n=\nconfig\n.\nmapping_file\n,\nverified_groups\n=\nverified_groups\n,\nclient\n=\nclient\n,\n)\nassert\nisinstance\n(\nunmappable_users\n,\nlist\n)\nand\nlen\n(\nunmappable_users\n)\n>\n0\ndef\ntest_main\n(\nconfig\n:",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "mapping_file\n=\nconfig\n.\nmapping_file\n,\nverified_groups\n=\nverified_groups\n,\nclient\n=\nclient\n,\n)\nassert\nisinstance\n(\nunmappable_users\n,\nlist\n)\nand\nlen\n(\nunmappable_users\n)\n>\n0\ndef\ntest_main\n(\nconfig\n:\nSimpleNamespace\n,\nclient\n:\nAtlanClient\n,\ngroup\n:\nAtlanGroup\n,\ncaplog\n:\npytest\n.\nLogCaptureFixture\n,\n):\n# Test end-to-end main function execution\nmain\n(\nconfig\n)\n# Verify expected log messages\nassert\ncaplog\n.\nrecords\n[\n0\n]\n.\nlevelname\n==\n\"INFO\"\nassert\n\"SDK Client initialized for tenant\"\nin\ncaplog\n.\nrecords\n[\n0\n]\n.\nmessage\nassert\n\"Input file path -\"\nin\ncaplog\n.\nrecords\n[\n1\n]\n.\nmessage\nassert\n\"-> Source information procured.\"\nin\ncaplog\n.\nrecords\n[\n2\n]\n.\nmessage\nassert\n\"Total distinct groups in the input:\"\nin\ncaplog\n.\nrecords\n[\n3\n]\n.\nmessage\n@pytest\n.\nmark\n.\norder\n(\nafter\n=\n\"test_main\"\n)\ndef\ntest_after_main\n(\nclient\n:\nAtlanClient\n,\ngroup\n:\nCreateGroupResponse\n):\nresult\n=\nclient\n.\ngroup\n.\nget_by_name\n(\nTEST_GROUP_NAME\n)\nassert\nresult\nand\nlen\n(\nresult\n)\n==\n1\ntest_group\n=\nresult\n[\n0\n]\nassert\ntest_group\n.\npath\nassert\ntest_group\n.\nname\nassert\ntest_group\n.\nid\n==\ngroup\n.\ngroup\nassert\ntest_group\n.\nattributes\nassert\nnot\ntest_group\n.\nattributes\n.\ndescription",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "1\ntest_group\n=\nresult\n[\n0\n]\nassert\ntest_group\n.\npath\nassert\ntest_group\n.\nname\nassert\ntest_group\n.\nid\n==\ngroup\n.\ngroup\nassert\ntest_group\n.\nattributes\nassert\nnot\ntest_group\n.\nattributes\n.\ndescription\n# Make sure users are successfully assigned\n# to the test group after running the workflow\nassert\ntest_group\n.\nuser_count\nand\ntest_group\n.\nuser_count\n>=\n1\nWriting tests for non-toolkit based scripts using Cursor AI code editor\n¶\nYou can leverage AI code editors like\nCursor\nto help with refactoring existing scripts and generating integration tests for the\nmarketplace-csa-scripts\nrepository. However, it's important to be aware of the potential issues and risks that may arise.\nStep 1: Setup Cursor rules\n¶\nTo ensure the AI agent provides the desired results based on your prompts, you need to set up custom rules for your code editor.\nCreate a rules file:\nCreate the file\n.cursor/rules/csa-scripts-tests.mdc\nin your project directory.\nYou can start by copying the\nexample rule\nand modifying them to match your needs.\nRefine rules over time:",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "Create the file\n.cursor/rules/csa-scripts-tests.mdc\nin your project directory.\nYou can start by copying the\nexample rule\nand modifying them to match your needs.\nRefine rules over time:\nAs you use AI for refactoring and generating tests, you can refine the rules. By adding more context (e.g: multiple packages and varied test patterns), the AI will become more effective over time, improving its results.\nStep 2: Running the agent with the defined Rules\n¶\nTo run the AI agent with the defined rules, follow these steps:\nOpen the cursor chat:\nPress\ncmd + L\nto open a new chat in the Cursor IDE.\nClick on\nAdd Context\n, then select\ncsa-scripts-tests.mdc\nto load the rules you defined.\nProvide a clear prompt:\nAfter loading the rules, provide a clear prompt like the following to refactor your script and add integration tests:\nRefactor `scripts/asset-change-notification/main.py` using the latest Cursor rules and add integration tests in `scripts/asset_change_notification/tests/test_main.py` to ensure functionality and coverage.\nReview results:",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Review results:\nOnce the AI completes the task, review the generated results carefully. You may need to accept or reject parts of the refactoring based on your preferences and quality standards.\nCommon Issues\n¶\nLow accuracy across models:\nAI results can be highly inconsistent, even after experimenting with different combinations of rules and prompts. In many cases, only a small fraction of attempts yield satisfactory results.\nInconsistent output:\nRegardless of using detailed or minimal rules, and trying various AI models (\nClaude 3.7, Sonnet 3.5, Gemini, OpenAI\n), the output often lacks consistency, leading to unsatisfactory refactorings.\nRisks in refactoring\n¶\nCode deletion:\nAI can unintentionally remove important parts of the original code during refactoring.\nUnnecessary code addition:\nAI might add code that changes the behavior of the script, potentially introducing bugs.\nFlaky or insufficient tests:\nGenerated tests are often overly simplistic or unreliable. AI may also mock components that should not be mocked, leading to incomplete test coverage.\nMocking / Patching third party HTTP interactions\n¶\nWhen do you need this?\n¶",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Mocking / Patching third party HTTP interactions\n¶\nWhen do you need this?\n¶\nThis approach is essential when building connectors or utility packages that interact with external systems, such as:\nFetching data from third-party APIs\nIntegrating with external databases\nCalling web services that require authentication\nThe problem with real API calls in tests\n¶\n❌\nChallenges with direct API testing:\n- Requires credentials and environment configurations\n- Difficult to integrate into automated test suites\n- Slow execution times, especially in CI/CD pipelines\n- Hard to maintain as more integrations are added\n- External service availability can break tests\nThe solution: VCR (Video Cassette Recorder)\n¶\n✅\nBenefits of using VCR:\n- Record real API interactions once during development\n- Replay saved responses in tests without network calls\n- Fast, reliable, and reproducible tests\n- Works offline and in CI environments\nThe\nvcrpy\nlibrary captures and saves HTTP interactions in files called\n\"cassettes\"\nduring development.\nHow VCR works\n¶\nThe workflow:\nRecord\n→ Run tests once with real API calls to record interactions\nSave\n→ Store responses in local \"cassette\" files (\nYAML\nor\nJSON\n)\nReplay",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "during development.\nHow VCR works\n¶\nThe workflow:\nRecord\n→ Run tests once with real API calls to record interactions\nSave\n→ Store responses in local \"cassette\" files (\nYAML\nor\nJSON\n)\nReplay\n→ Future test runs use saved responses instead of real HTTP requests\nCustomize\n→ Optionally modify saved responses to simulate different scenarios\nThe benefits:\n🚀\nFaster tests\n- No network latency\n🔒\nReliable\n- No dependency on external service availability\n🔄\nReproducible\n- Same responses every time\n🛠️\nConfigurable\n- Easy to simulate edge cases and error conditions\nHybrid approach\nVCR sits between integration and unit tests — it uses real API behavior but avoids needing a live environment every time. This makes tests easier to maintain, faster to run, and more configurable as your project grows.\nWrite VCR-based integration tests\n¶\n6.0.6\nFor this example, we are using\nhttpbin.org\n, which provides a simple and fast way to test\nvcrpy\nby recording HTTP request and response interactions.\nHave you installed test dependencies?\nBefore writing tests, make sure you've installed the test dependencies\nin your local environment. You can do that by running the following command:\npip\ninstall\n-e\n\".[test]\"",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Before writing tests, make sure you've installed the test dependencies\nin your local environment. You can do that by running the following command:\npip\ninstall\n-e\n\".[test]\"\nAlternatively, you can explicitly install the required packages\nby creating a\nrequirements-test.txt\nfile and installing them using:\nrequirements-test.txt\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\npytest>=7.4.0\ncoverage>=7.6.1\n# pytest plugins (optional but recommended)\npytest-order>=1.3.0\npytest-sugar>=1.0.0\npytest-timer[termcolor]>=1.0.0\npytest-vcr~=1.0.2\n# pinned vcrpy to v6.x since vcrpy>=7.0 requires urllib3>=2.0\n# which breaks compatibility with Python 3.8\nvcrpy~=6.0.2\npython\ntests/integration/test_http_bin.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\nimport\npytest\nimport\nrequests\nimport\nos\nfrom\npyatlan.test_utils.base_vcr\nimport\nBaseVCR\n# (1)\nclass\nTestHTTPBin\n(\nBaseVCR\n):\n\"\"\"\nIntegration tests to demonstrate VCR.py capabilities\nby recording and replaying HTTP interactions using",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "os\nfrom\npyatlan.test_utils.base_vcr\nimport\nBaseVCR\n# (1)\nclass\nTestHTTPBin\n(\nBaseVCR\n):\n\"\"\"\nIntegration tests to demonstrate VCR.py capabilities\nby recording and replaying HTTP interactions using\nHTTPBin (https://httpbin.org) for GET, POST, PUT, and DELETE requests.\n\"\"\"\nBASE_URL\n=\n\"https://httpbin.org\"\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\n# (2)\ndef\nvcr_config\n(\nself\n):\n\"\"\"\nOverride the VCR configuration to use JSON serialization across the module.\n\"\"\"\nconfig\n=\nself\n.\n_BASE_CONFIG\n.\ncopy\n()\nconfig\n.\nupdate\n({\n\"serializer\"\n:\n\"pretty-json\"\n})\nreturn\nconfig\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\nvcr_cassette_dir\n(\nself\n,\nrequest\n):\n# (3)\n\"\"\"\nOverride the directory path for storing VCR cassettes.\nIf a custom cassette directory is set in the class, it is used;\notherwise, the default directory structure is created under \"tests/cassettes\".\n\"\"\"\nreturn\nself\n.\n_CASSETTES_DIR\nor\nos\n.\npath\n.\njoin\n(\n\"tests/vcr_cassettes\"\n,\nrequest\n.\nmodule\n.\n__name__\n)\n@pytest\n.\nmark\n.\nvcr\n()\ndef\ntest_httpbin_get\n(\nself\n):\n# (4)\n\"\"\"\nTest a simple GET request to httpbin.\n\"\"\"\nurl\n=\nf\n\"\n{\nself\n.\nBASE_URL\n}\n/get\"\nresponse\n=\nrequests\n.\nget\n(\nurl\n,\nparams\n=\n{\n\"test\"\n:\n\"value\"\n})\nassert\nresponse\n.\nstatus_code\n==",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "(\nself\n):\n# (4)\n\"\"\"\nTest a simple GET request to httpbin.\n\"\"\"\nurl\n=\nf\n\"\n{\nself\n.\nBASE_URL\n}\n/get\"\nresponse\n=\nrequests\n.\nget\n(\nurl\n,\nparams\n=\n{\n\"test\"\n:\n\"value\"\n})\nassert\nresponse\n.\nstatus_code\n==\n200\nassert\nresponse\n.\njson\n()[\n\"args\"\n][\n\"test\"\n]\n==\n\"value\"\n@pytest\n.\nmark\n.\nvcr\n()\ndef\ntest_httpbin_post\n(\nself\n):\n\"\"\"\nTest a simple POST request to httpbin.\n\"\"\"\nurl\n=\nf\n\"\n{\nself\n.\nBASE_URL\n}\n/post\"\npayload\n=\n{\n\"name\"\n:\n\"atlan\"\n,\n\"type\"\n:\n\"integration-test\"\n}\nresponse\n=\nrequests\n.\npost\n(\nurl\n,\njson\n=\npayload\n)\nassert\nresponse\n.\nstatus_code\n==\n200\nassert\nresponse\n.\njson\n()[\n\"json\"\n]\n==\npayload\n@pytest\n.\nmark\n.\nvcr\n()\ndef\ntest_httpbin_put\n(\nself\n):\n\"\"\"\nTest a simple PUT request to httpbin.\n\"\"\"\nurl\n=\nf\n\"\n{\nself\n.\nBASE_URL\n}\n/put\"\npayload\n=\n{\n\"update\"\n:\n\"value\"\n}\nresponse\n=\nrequests\n.\nput\n(\nurl\n,\njson\n=\npayload\n)\nassert\nresponse\n.\nstatus_code\n==\n200\nassert\nresponse\n.\njson\n()[\n\"json\"\n]\n==\npayload\n@pytest\n.\nmark\n.\nvcr\n()\ndef\ntest_httpbin_delete\n(\nself\n):\n\"\"\"\nTest a simple DELETE request to httpbin.\n\"\"\"\nurl\n=\nf\n\"\n{\nself\n.\nBASE_URL\n}\n/delete\"\nresponse\n=\nrequests\n.\ndelete\n(\nurl\n)\nassert\nresponse\n.\nstatus_code\n==\n200\n# HTTPBin returns an empty JSON object for DELETE\nassert\nresponse\n.\njson\n()[",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "\"\"\"\nurl\n=\nf\n\"\n{\nself\n.\nBASE_URL\n}\n/delete\"\nresponse\n=\nrequests\n.\ndelete\n(\nurl\n)\nassert\nresponse\n.\nstatus_code\n==\n200\n# HTTPBin returns an empty JSON object for DELETE\nassert\nresponse\n.\njson\n()[\n\"args\"\n]\n==\n{}\nStart by importing the\nBaseVCR\nclass from\npyatlan.test_utils.base_vcr\n,\nwhich already includes base/default configurations for VCR-based tests, such as\nvcr_config\n,\nvcr_cassette_dir\n, and custom serializers like\npretty-yaml\n(default for cassettes) and\npretty-json\n(another cassette format).\n(Optional) To override any default\nvcr_config()\n, you can redefine the\n@pytest.fixture\n->\nvcr_config()\ninside your test class.\nFor example, you can update the serializer to use the custom\npretty-json\nserializer.\n(Optional) To override the default\ncassette directory path\n,\nyou can redefine the\n@pytest.fixture\n->\nvcr_cassette_dir()\ninside your test class.\nWhen writing tests (e.g\ntest_my_scenario\n), make sure to add the\n@pytest.mark.vcr()\ndecorator to mark them as VCR test cases. For each test case, a separate cassette (HTTP recording) will created inside the\ntests/vcr_cassettes/\ndirectory.\nOnce you run all the tests using:\npytest\ntests/integration/test_http_bin.py",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "tests/vcr_cassettes/\ndirectory.\nOnce you run all the tests using:\npytest\ntests/integration/test_http_bin.py\nSince this is the first time running them, vcrpy will record all the HTTP interactions automatically and save them into the\ntests/vcr_cassettes/\ndirectory\nFor example, here's a saved cassette for the\nTestHTTPBin.test_httpbin_post\ntest:\ntests/vcr_cassettes/tests.integration.test_http_bin/TestHTTPBin.test_httpbin_post.yaml\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\ninteractions\n:\n-\nrequest\n:\nbody\n:\n|-\n{\n\"name\": \"atlan\",\n\"type\": \"integration-test\"\n}\nheaders\n:\n{}\nmethod\n:\nPOST\nuri\n:\nhttps://httpbin.org/post\nresponse\n:\nbody\n:\nstring\n:\n|-\n{\n\"args\": {},\n\"data\": \"{\\\"name\\\": \\\"atlan\\\", \\\"type\\\": \\\"integration-test\\\"}\",\n\"files\": {},\n\"form\": {},\n\"headers\": {\n\"Accept\": \"*/*\",\n\"Accept-Encoding\": \"gzip, deflate\",\n\"Content-Length\": \"45\",\n\"Content-Type\": \"application/json\",\n\"Host\": \"httpbin.org\",\n\"User-Agent\": \"python-requests/2.32.3\",\n\"X-Amzn-Trace-Id\": \"Root=1-680f7290-276efa7f015f83d24d9fdfc4\"\n},\n\"json\": {\n\"name\": \"atlan\",\n\"type\": \"integration-test\"\n},\n\"origin\": \"x.x.x.x\",\n\"url\": \"https://httpbin.org/post\"\n}\nheaders\n:\n{}",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "\"X-Amzn-Trace-Id\": \"Root=1-680f7290-276efa7f015f83d24d9fdfc4\"\n},\n\"json\": {\n\"name\": \"atlan\",\n\"type\": \"integration-test\"\n},\n\"origin\": \"x.x.x.x\",\n\"url\": \"https://httpbin.org/post\"\n}\nheaders\n:\n{}\nstatus\n:\ncode\n:\n200\nmessage\n:\nOK\nversion\n:\n1\nvcrpy\nnot sufficient for your use case?\nThere might be cases where VCR.py's recorded responses are not sufficient for your testing needs, even after applying custom configurations. In such scenarios, you can switch to using Python's built-in\nmock/patch object\nlibrary for greater flexibility and control over external dependencies.\nContainerizing marketplace scripts\n¶\nOverview\n¶\nWhen your script is ready for production deployment, you'll need to create package-specific Docker images for reliable and consistent execution across different environments.\nWhy containerize?\n- ✅\nConsistent execution\nacross all environments\n- ✅\nProper versioning\nand rollback capability\n- ✅\nIsolated dependencies\nprevent conflicts\n- ✅\nAutomated deployment\nvia CI/CD pipelines\nPrerequisites\n¶\nComplete these steps first\nBefore containerizing your script, ensure you have:\n✅\nCompleted script refactoring\nfrom the\nWriting tests for non-toolkit based scripts\nsection\n✅",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "Prerequisites\n¶\nComplete these steps first\nBefore containerizing your script, ensure you have:\n✅\nCompleted script refactoring\nfrom the\nWriting tests for non-toolkit based scripts\nsection\n✅\nWorking integration tests\nthat validate your script functionality\n✅\nScript directory renamed\nto\nsnake_case\nformat (if applicable)\nRequired files for containerization\n¶\nFile checklist\nFor each package script (e.g\nscripts/designation_based_group_provisioning/\n), you need to create\n5 essential files\n:\n📝\nversion.txt\n- Semantic versioning\n🐳\nDockerfile\n- Container image definition\n📦\nrequirements.txt\n- Package dependencies\n🧪\nrequirements-test.txt\n- Testing dependencies\n🔒 Vulnerability scan (using\nsnyk\nCLI)\nLet's create each file step by step:\n1.\nversion.txt\n- semantic versioning\n¶\nCreate a version file to track your package releases:\nversion.txt\n1\n1.0.0dev\nSemantic versioning guidelines\nYou should use\n.dev\nsuffix for development\nFollow\nsemantic versioning\nprinciples:\nMAJOR\nversion: incompatible API changes\nMINOR\nversion: backwards-compatible functionality additions\nPATCH\nversion: backwards-compatible bug fixes\n2.\nDockerfile\n- package-specific image\n¶",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "principles:\nMAJOR\nversion: incompatible API changes\nMINOR\nversion: backwards-compatible functionality additions\nPATCH\nversion: backwards-compatible bug fixes\n2.\nDockerfile\n- package-specific image\n¶\nCreate a production-ready Docker image for your script:\nDockerfile\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n# Use the latest pyatlan-wolfi-base image\nFROM\nghcr.io/atlanhq/pyatlan-wolfi-base:8.0.1-3.13\n# Build arguments\nARG\nPKG_DIR\nARG\nAPP_DIR\n=\n/app/designation_based_group_provisioning\n# Container metadata\nLABEL\norg.opencontainers.image.vendor\n=\n\"Atlan Pte. Ltd.\"\n\\\norg.opencontainers.image.source\n=\n\"https://github.com/atlanhq/marketplace-csa-scripts\"\n\\\norg.opencontainers.image.description\n=\n\"Atlan image for designation_based_group_provisioning custom package.\"\n\\\norg.opencontainers.image.licenses\n=\n\"Apache-2.0\"\n# Switch to root for package installation\nUSER\nroot\n# Copy and install package requirements\nCOPY\n${\nPKG_DIR\n}\n/requirements.txt\nrequirements.txt\n# Install additional requirements system-wide with caching\nRUN\n--mount\n=\ntype\n=\ncache,target\n=\n/root/.cache/uv\n\\\nuv\npip\ninstall\n--system\n-r\nrequirements.txt\n&&\n\\\nrm\nrequirements.txt",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "requirements.txt\n# Install additional requirements system-wide with caching\nRUN\n--mount\n=\ntype\n=\ncache,target\n=\n/root/.cache/uv\n\\\nuv\npip\ninstall\n--system\n-r\nrequirements.txt\n&&\n\\\nrm\nrequirements.txt\n# Copy application code and utilities\nCOPY\n${\nPKG_DIR\n}\n${\nAPP_DIR\n}\n/\nCOPY\nutils\n/app/scripts/utils/\n# Switch back to nonroot user for security\nUSER\nnonroot\n# Set working directory\nWORKDIR\n/app\nAbout\npyatlan-wolfi-base\nUse\npyatlan-wolfi-base\nimages for package scripts. The image is built on top of\nChainguard Wolfi image\nwith\npyatlan\n. We use it because it is a vulnerability-free open source image and this image will auto-publish to\nghcr\non every\npyatlan\nrelease (see image tag contains suffix e.g:\n8.0.1-3.13\n->\npyatlan_version-python-version\n). If you want to use a custom\npyatlan-wolfi-base\nfor development (with different\npyatlan version\n,\npyatlan branch\nor\npython version\n) you can also do this by manually triggering the\nGH workflow\n. Following are the inputs for that workflow:\nNavigate to\nBuild Pyatlan Wolfi Base Image\nworkflow\nClick\n\"Run workflow\"\nand provide the following inputs:\nInput\nDescription\nExample\nRequired\nBranch\nUse workflow from\nmain\n✅\nBuild type\nBuild type (\ndev\nuses",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "Build Pyatlan Wolfi Base Image\nworkflow\nClick\n\"Run workflow\"\nand provide the following inputs:\nInput\nDescription\nExample\nRequired\nBranch\nUse workflow from\nmain\n✅\nBuild type\nBuild type (\ndev\nuses\namd64\nonly,\nrelease\nuses\namd64+arm64\n)\ndev\n✅\nPython version\nPython version (leave empty for\n3.13\n)\n3.11\n❌\nPyatlan version\nPublished pyatlan version (pull from PyPI, (leave empty to use version.txt ie:\nlatest\n)\n7.2.0\n❌\nPyatlan git branch\nPyatlan git branch (overrides version - installs from\ngit://github.com/atlanhq/atlan-python.git@branch\n)\nAPP-1234\n❌\n3.\nrequirements.txt\n- package dependencies\n¶\nGenerate your package dependencies using\npipreqs\nand include required\nOTEL\nlogging dependencies:\nrequirements.txt\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n# Package-specific dependencies\n# Generated via: pipreqs /path/to/pkg --force\npyatlan>=8.0.0\npandas>=2.0.0\n# Add your specific dependencies here...\n# Required for OpenTelemetry logging\nopentelemetry-api~=1.29.0\nopentelemetry-sdk~=1.29.0\nopentelemetry-instrumentation-logging~=0.50b0\nopentelemetry-exporter-otlp~=1.29.0\nGenerating requirements automatically\nUse\npipreqs\nto automatically detect and generate your package dependencies:\n```bash",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "opentelemetry-exporter-otlp~=1.29.0\nGenerating requirements automatically\nUse\npipreqs\nto automatically detect and generate your package dependencies:\n```bash\n# Install pipreqs if not already installed\npip install pipreqs\n# Generate requirements for your package\npipreqs /path/to/your/package --force\n# Example for a specific script\npipreqs scripts/designation_based_group_provisioning --force\n```\n4.\nrequirements-test.txt\n- testing dependencies\n¶\nCreate testing-specific dependencies for CI/CD and local development:\nrequirements-test.txt\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n# Minimal required for testing\ncoverage~=7.6.1\npytest>=7.4.0\npytest-order~=1.3.0\npytest-timer[termcolor]~=1.0.0\npytest-sugar~=1.0.0\n# Add VCR support if using HTTP mocking\npytest-vcr~=1.0.2\nvcrpy~=6.0.2\n5. Run\nsnyk\nvulnerability scan:\n¶\nWe also recommend running a\nsnyk\nvulnerability scan on your requirements so that any issues can be fixed before doing a GA release.\nStep-by-step security scanning:\nAuthenticate with Snyk CLI:\nsnyk\nauth\nFollow the prompts to login via SSO and grant app access\nScan project dependencies:\n# Ensure your virtual environment is active and dependencies are installed\nsnyk\ntest\nScan Docker image (optional):",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "Follow the prompts to login via SSO and grant app access\nScan project dependencies:\n# Ensure your virtual environment is active and dependencies are installed\nsnyk\ntest\nScan Docker image (optional):\n# After building your Docker image locally\nsnyk\ncontainer\ntest\nghcr.io/atlanhq/designation_based_group_provisioning:1.0.0dev-0d35a91\n--file\n=\nDockerfile\nCreate exceptions policy (if needed):\nIf there are vulnerabilities that don't impact your project, create a\n.snyk\npolicy file\n:\n# designation_based_group_provisioning/.snyk\n# Snyk (https://snyk.io) policy file, patches or ignores known issues.\nversion\n:\nv1.0.0\n# ignores vulnerabilities until expiry date; change duration by modifying expiry date\nignore\n:\n'snyk:lic:pip:certifi:MPL-2.0'\n:\n-\n'*'\n:\nreason\n:\n'MPL-2.0\nlicense\nis\nacceptable\nfor\nthis\nproject\n-\ncertifi\nis\na\nwidely\nused\ncertificate\nbundle'\nDevelopment workflow\n¶\nTesting your containerized package\n¶\nUse the\nBuild Package Test Image\nworkflow for rapid development and testing:\nSteps:\nNavigate to the workflow:\nGo to\nBuild Package Test Image\nTrigger the build:\nClick\n\"Run workflow\"\nand provide the required inputs:\nInput\nDescription\nExample\nRequired\nBranch",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "Steps:\nNavigate to the workflow:\nGo to\nBuild Package Test Image\nTrigger the build:\nClick\n\"Run workflow\"\nand provide the required inputs:\nInput\nDescription\nExample\nRequired\nBranch\nSelect your development branch from dropdown\nAPP-001-containerize-dbgp\n✅\nPackage Directory\nName of the package directory\ndesignation_based_group_provisioning\n✅\nPackage Name\nImage name (defaults to kebab-case of directory)\ndesignation-based-group-provisioning\n❌\nVersion Tag\nCustom version tag (defaults to version.txt-GITHASH)\n1.0.0-dev\n❌\nThe workflow will build a dev image with tag format:\nghcr.io/atlanhq/designation-based-group-provisioning:1.0.0-dev-8799072\nBenefits of development testing\n🚀\nRapid iteration\n- Test containerized changes without affecting production\n🔄\nEnvironment consistency\n- Same container environment as production\n✅\nIntegration validation\n- Verify your script works in containerized context\nProduction release workflow\n¶\nStep 1: Prepare for GA release\n¶\nBefore creating your pull request:\nUpdate version.txt\n: Ensure the version reflects your changes (final GA version)\nversion.txt\n1.0.0\nUpdate HISTORY.md\n: Document all changes in this release\nHISTORY.md\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "Update version.txt\n: Ensure the version reflects your changes (final GA version)\nversion.txt\n1.0.0\nUpdate HISTORY.md\n: Document all changes in this release\nHISTORY.md\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n## 1.0.0 (July 1, 2025)\n### Features\n...\n### Bug Fixes\n...\n### Breaking Changes\n...\n### QOL Improvements\n-\nMigrated package to build specific docker image.\nVerify integration tests\n: Ensure all tests pass locally\npytest\ntests/\n-s\nOR run tests with coverage:\ncoverage\nrun\n-m\npytest\ntests\n&&\ncoverage\nreport\nStep 2: Create pull request\n¶\nCreate PR with your containerization changes:\nInclude all required files (\nDockerfile\n,\nversion.txt\n,\nrequirements.txt\n, etc.)\nAdd or update integration tests following the\ntesting guidelines\nUpdate documentation if needed\nPR validation: The automated CI pipeline will:\nRun unit and integration tests\nValidate Docker build process\nCheck code quality and coverage\nVerify all required files are present\nIntegration tests required\nIf your package doesn't have integration tests, this is the perfect time to add them following the\ntesting toolkit guidelines\n. The CI pipeline expects comprehensive test coverage for production releases.\nStep 3: Merge and deploy\n¶",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 28
+    }
+  },
+  {
+    "content": "testing toolkit guidelines\n. The CI pipeline expects comprehensive test coverage for production releases.\nStep 3: Merge and deploy\n¶\nReview and approval\n: Get your PR reviewed and approved\nMerge to main\n: Once merged, this automatically triggers:\nGA image build\n: Creates production image with semantic version tag\nRegistry publication\n: Publishes to GitHub Container Registry\nDeployment preparation\n: Image becomes available for Argo template updates\nFinal GA image\n: Your production image will be tagged as:\nghcr.io/atlanhq/designation-based-group-provisioning:1.0.0\nStep 4: Update Argo templates\n¶\nAfter the GA image is built, you need to update your package's Argo workflow template to use the new containerized image. This involves two main changes:\nRemove the git repository artifact\n(scripts are now embedded in the Docker image)\nUpdate the container configuration\nto use the new image and module path\nExample PR\n:\nmarketplace-packages/pull/18043\nKey changes required:\n¶\nRemove git artifact\nUpdate container config\nRemove scripts repository pull\ninputs:\nartifacts:\n-   - name: scripts\n-     path: \"/tmp/marketplace-csa-scripts\"\n-     git:",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 29
+    }
+  },
+  {
+    "content": "Key changes required:\n¶\nRemove git artifact\nUpdate container config\nRemove scripts repository pull\ninputs:\nartifacts:\n-   - name: scripts\n-     path: \"/tmp/marketplace-csa-scripts\"\n-     git:\n-       repo: git@github.com:atlanhq/marketplace-csa-scripts\n-       insecureIgnoreHostKey: true\n-       singleBranch: true\n-       branch: \"main\"\n-       revision: \"main\"\n-       sshPrivateKeySecret:\n-         name: \"git-ssh\"\n-         key: \"private-key\"\n- name: config\npath: \"/tmp/config\"\n# ... other artifacts remain unchanged\nUpdate container image and module path\ncontainer:\n+ image: ghcr.io/atlanhq/designation-based-group-provisioning:1.0.0\nimagePullPolicy: IfNotPresent\nenv:\n- name: OAUTHLIB_INSECURE_TRANSPORT\nvalue: \"1\"\n# ... other env vars remain unchanged\n- workingDir: \"/tmp/marketplace-csa-scripts\"\ncommand: [ \"python\" ]\nargs:\n- \"-m\"\n-   - \"scripts.designation_based_group_provisioning.main\"\n+   - \"designation_based_group_provisioning.main\"\nWhy these changes are needed:\n¶\nNo more git clone\n: Scripts are now embedded in the Docker image, eliminating the need to clone the repository at runtime\nSimplified module path\n: Direct import from the package directory instead of the nested\nscripts.",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 30
+    }
+  },
+  {
+    "content": "Simplified module path\n: Direct import from the package directory instead of the nested\nscripts.\npath\nCleaner execution\n: Container starts directly in the appropriate working directory (\n/app\n)\nBetter security\n: No SSH keys needed for git access during workflow execution\nOnce merged, this will automatically deploy your containerized script across all Atlan tenants via the\natlan-update\nworkflow\nProduction deployment complete\nYour script is now fully containerized and ready for production deployment across all Atlan tenants with:\n✅\nConsistent execution environment\n✅\nProper versioning and rollback capability\n✅\nComprehensive testing coverage\n✅\nAutomated CI/CD pipeline integration\nBest practices for containerized scripts\n¶\nDevelopment practices\n¶\nPractice\nDescription\n📝 Version management\nAlways update\nversion.txt\nbefore creating PRs\n🔒 Dependency pinning\nUse specific version ranges in\nrequirements.txt\nfor stability\n🧪 Comprehensive testing\nEnsure integration tests cover containerized execution paths\n📚 Documentation\nKeep\nHISTORY.md\nupdated with meaningful change descriptions\nSecurity considerations\n¶\nSecurity Area\nBest Practice\n🔄 Base image updates",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 31
+    }
+  },
+  {
+    "content": "📚 Documentation\nKeep\nHISTORY.md\nupdated with meaningful change descriptions\nSecurity considerations\n¶\nSecurity Area\nBest Practice\n🔄 Base image updates\nRegularly update your base Python image for security patches\n🔍 Dependency scanning\nMonitor for security vulnerabilities in your dependencies\n🔐 Secret management\nNever hardcode secrets in Docker images - use environment variables\n🔍 Image scanning\nEnable container scanning in your CI/CD pipeline\n2025-04-28\n2025-08-26\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits_testing.html",
+      "source_type": "sdk",
+      "file": "toolkits_testing.json",
+      "chunk_id": 32
+    }
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Model - Developer\nSkip to content\nData model metamodel\n¶\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage data model assets in Atlan. For that, we would suggest starting with the manage data model assets pattern (coming soon).\nThese model elements all deal with data model constructs.\nclassDiagram\ndirection RL\nclass Model {\n<<abstract>>\n}\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- Model : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass ModelDataModel\nlink ModelDataModel \"../entities/modeldatamodel\"\nModel <|-- ModelDataModel : extends\nclass ModelVersion\nlink ModelVersion \"../entities/modelversion\"\nModel <|-- ModelVersion : extends\nclass ModelEntity\nlink ModelEntity \"../entities/modelentity\"\nModel <|-- ModelEntity : extends\nclass ModelAttribute\nlink ModelAttribute \"../entities/modelattribute\"\nModel <|-- ModelAttribute : extends\nclass ModelEntityAssociation",
+    "metadata": {
+      "source_url": "models_model.html",
+      "source_type": "sdk",
+      "file": "models_model.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Model <|-- ModelEntity : extends\nclass ModelAttribute\nlink ModelAttribute \"../entities/modelattribute\"\nModel <|-- ModelAttribute : extends\nclass ModelEntityAssociation\nlink ModelEntityAssociation \"../entities/modelentityassociation\"\nModel <|-- ModelEntityAssociation : extends\nclass ModelAttributeAssociation\nlink ModelAttributeAssociation \"../entities/modelattributeassociation\"\nModel <|-- ModelAttributeAssociation : extends\nProperties\n¶\nThese attributes are unique to instances of\nModel\n(and all of its subtypes).\nmodelBusinessDate\n¶\nBusiness date for the asset.\nmodelDomain\n¶\nModel domain in which this asset exists.\nmodelEntityName\n¶\nSimple name of the entity in which this asset exists, or empty if it is itself a data model entity.\nmodelEntityQualifiedName\n¶\nUnique name of the entity in which this asset exists, or empty if it is itself a data model entity.\nmodelExpiredAtBusinessDate\n¶\nBusiness expiration date for the asset.\nmodelExpiredAtSystemDate\n¶\nSystem expiration date for the asset.\nmodelName\n¶\nSimple name of the model in which this asset exists, or empty if it is itself a data model.\nmodelNamespace\n¶\nModel namespace in which this asset exists.\nmodelQualifiedName\n¶",
+    "metadata": {
+      "source_url": "models_model.html",
+      "source_type": "sdk",
+      "file": "models_model.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "modelName\n¶\nSimple name of the model in which this asset exists, or empty if it is itself a data model.\nmodelNamespace\n¶\nModel namespace in which this asset exists.\nmodelQualifiedName\n¶\nUnique name of the model in which this asset exists, or empty if it is itself a data model.\nmodelSystemDate\n¶\nSystem date for the asset.\nmodelType\n¶\nType of the model asset (conceptual, logical, physical).\nmodelVersionAgnosticQualifiedName\n¶\nUnique name of the parent in which this asset exists, irrespective of the version (always implies the latest version).\nmodelVersionName\n¶\nSimple name of the version in which this asset exists, or empty if it is itself a data model version.\nmodelVersionQualifiedName\n¶\nUnique name of the version in which this asset exists, or empty if it is itself a data model version.\nRelationships\n¶\nThe following illustrates how the various data model objects inter-relate with each other:\nerDiagram\nConnection ||..o{ ModelDataModel : \"\"\nModelDataModel ||--o{ ModelVersion : modelVersions\nModelVersion }|--o{ ModelEntity : modelVersionEntities\nModelEntity ||--o{ ModelAttribute : modelEntityAttributes\nModelEntity ||--o{ ModelEntityAssociation: modelEntityRelatedToEntities",
+    "metadata": {
+      "source_url": "models_model.html",
+      "source_type": "sdk",
+      "file": "models_model.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "ModelVersion }|--o{ ModelEntity : modelVersionEntities\nModelEntity ||--o{ ModelAttribute : modelEntityAttributes\nModelEntity ||--o{ ModelEntityAssociation: modelEntityRelatedToEntities\nModelEntityAssociation }o--|| ModelEntity: modelEntityAssociationTo\nModelEntity }o--o{ ModelEntity: modelEntityMappedToEntities\nModelAttribute ||--o{ ModelAttributeAssociation: modelAttributeRelatedToAttributes\nModelAttributeAssociation }o--|| ModelAttribute: modelAttributeAssociationTo\nModelAttribute }o--o{ ModelAttribute: modelAttributeMappedToAttributes\n2024-11-29\n2024-11-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_model.html",
+      "source_type": "sdk",
+      "file": "models_model.json",
+      "chunk_id": 3
+    }
+  }
+]

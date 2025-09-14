@@ -1,0 +1,92 @@
+[
+  {
+    "content": "What does Atlan crawl from Snowflake? | Atlan Documentation\nSkip to main content\nOn this page\nAtlan crawls and maps the following assets and properties from Snowflake.\nOnce you've\ncrawled Snowflake\n, you can\nuse connector-specific filters\nfor quick asset discovery. The following filters are currently supported for Snowflake assets:\nStreams\n-  Source type and Stale filters\nFunctions\n-  Language, Function type, Is secure, and Is external filters\nSnowflake tags and tag values\nLineage\nâ\nAtlan supports lineage for the following asset types:\nExternal Named Stages\nâ\nTable\nPipe â Table\nExternal Table\nIceberg Table\nInternal Named Stages\nâ\nTable\nPipe â Table (auto-ingest not recommended)\nNot supported for External or Iceberg Tables\nDatabases\nâ\nAtlan maps databases from Snowflake to its\nDatabase\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nDATABASES.DATABASE_NAME\nname\nasset profile and overview sidebar\nDATABASE.COMMENT\ndescription\nasset profile and overview sidebar\nSCHEMATA\n(count)\nschemaCount\nasset preview and profile\nDATABASES.DATABASE_OWNER\nCreated (in Snowflake)\nproperties sidebar\nDATABASES.CREATED\nsourceCreatedAt\nproperties sidebar\nDATABASES.LAST_ALTERED",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "SCHEMATA\n(count)\nschemaCount\nasset preview and profile\nDATABASES.DATABASE_OWNER\nCreated (in Snowflake)\nproperties sidebar\nDATABASES.CREATED\nsourceCreatedAt\nproperties sidebar\nDATABASES.LAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nSchemas\nâ\nAtlan maps schemas from Snowflake to its\nSchema\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nSCHEMATA.SCHEMA_NAME\nname\nasset profile and overview sidebar\nSCHEMA.COMMENT\ndescription\nasset profile and overview sidebar\nTABLES\nof type %TABLE% (count)\ntableCount\nasset preview and profile\nTABLES\nof type %VIEW% (count)\nviewsCount\nasset preview and profile\nSCHEMATA.CATALOG_NAME\ndatabaseName\nasset preview and profile\nSCHEMATA.SCHEMA_OWNER\nCreated (in Snowflake)\nproperties sidebar\nSCHEMATA.CREATED\nsourceCreatedAt\nproperties sidebar\nSCHEMATA.LAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nTables\nâ\nAtlan maps tables from Snowflake to its\nTable\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLES.TABLE_NAME\nname\nasset profile and overview sidebar\nTABLES.COMMENT\ndescription\nasset profile and overview sidebar\nCOLUMNS\n(count)\ncolumnCount\nasset preview and profile, overview sidebar\nTABLES.ROW_COUNT\nrowCount",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "name\nasset profile and overview sidebar\nTABLES.COMMENT\ndescription\nasset profile and overview sidebar\nCOLUMNS\n(count)\ncolumnCount\nasset preview and profile, overview sidebar\nTABLES.ROW_COUNT\nrowCount\nasset preview and profile, overview sidebar\nTABLES.BYTES\nsizeBytes\nasset filter and overview sidebar\nTABLES.TABLE_OWNER\nCreated (in Snowflake)\nproperties sidebar\nTABLES.CREATED\nsourceCreatedAt\nproperties sidebar\nTABLES.LAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nFor Iceberg tables\nâ\nIn addition to the table metadata above, Atlan supports additional metadata for Iceberg tables crawled from Snowflake. Atlan currently supports fetching metadata for Iceberg tables only for the information schema extraction method.\nSource property\nAtlan property\nWhere in Atlan\nTABLES.IS_ICEBERG\ntableType\nasset preview, profile, and filter, and overview sidebar\nICEBERG_TABLES.CATALOG_NAME\nicebergCatalogName\noverview sidebar\nICEBERG_TABLES.ICEBERG_TABLE_TYPE\nicebergTableType\noverview sidebar\nCATALOG_INTEGRATION.CATALOG_SOURCE\nicebergCatalogSource\noverview sidebar\nICEBERG_TABLES.CATALOG_TABLE_NAME\nicebergCatalogTableName\noverview sidebar\nICEBERG_TABLES.CATALOG_NAMESPACE\nicebergCatalogTableNamespace",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "icebergCatalogSource\noverview sidebar\nICEBERG_TABLES.CATALOG_TABLE_NAME\nicebergCatalogTableName\noverview sidebar\nICEBERG_TABLES.CATALOG_NAMESPACE\nicebergCatalogTableNamespace\noverview sidebar\nICEBERG_TABLES.EXTERNAL_VOLUME_NAME\ntableExternalVolumeName\noverview sidebar\nICEBERG_TABLES.BASE_LOCATION\nicebergTableBaseLocation\noverview sidebar\nTABLES.RETENTION_TIME\ntableRetentionTime\noverview sidebar\nViews\nâ\nAtlan maps views from Snowflake to its\nView\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLES.TABLE_NAME\nname\nasset profile and overview sidebar\nTABLES.COMMENT\ndescription\nasset profile and overview sidebar\nCOLUMNS\n(count)\ncolumnCount\nasset preview and profile, overview sidebar\nVIEWS.VIEW_DEFINITION\ndefinition\nasset profile and overview sidebar\nTABLES.TABLE_OWNER\nCreated (in Snowflake)\nproperties sidebar\nTABLES.CREATED\nsourceCreatedAt\nproperties sidebar\nTABLES.LAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nMaterialized views\nâ\nAtlan maps materialized views from Snowflake to its\nMaterialisedView\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLES.TABLE_NAME\nname\nasset profile and overview sidebar\nTABLES.COMMENT\ndescription",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "MaterialisedView\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLES.TABLE_NAME\nname\nasset profile and overview sidebar\nTABLES.COMMENT\ndescription\nasset profile and overview sidebar\nCOLUMNS\n(count)\ncolumnCount\nasset preview and profile, overview sidebar\nTABLES.ROW_COUNT\nrowCount\nasset preview and profile, overview sidebar\nTABLES.BYTES\nsizeBytes\nasset filter and overview sidebar\nVIEWS.VIEW_DEFINITION\ndefinition\nasset profile and overview sidebar\nTABLES.TABLE_OWNER\nCreated (in Snowflake)\nproperties sidebar\nTABLES.CREATED\nsourceCreatedAt\nproperties sidebar\nTABLES.LAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nExternal tables\nâ\nAtlan maps external tables from Snowflake to its\nTable\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLES.TABLE_NAME\nname\nasset profile and overview sidebar\nTABLES.COMMENT\ndescription\nasset profile and overview sidebar\nCOLUMNS\n(count)\ncolumnCount\nasset preview and profile, overview sidebar\nTABLES.ROW_COUNT\nrowCount\nasset preview and profile, overview sidebar\nTABLES.BYTES\nsizeBytes\nasset filter and overview sidebar\nEXTERNAL_TABLES.LOCATION\nexternalLocation\noverview sidebar\nSTAGES.STAGE_REGION\nexternalLocationRegion\nAPI only",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "TABLES.BYTES\nsizeBytes\nasset filter and overview sidebar\nEXTERNAL_TABLES.LOCATION\nexternalLocation\noverview sidebar\nSTAGES.STAGE_REGION\nexternalLocationRegion\nAPI only\nEXTERNAL_TABLES.FILE_FORMAT_TYPE\nexternalLocationFormat\noverview sidebar\nTABLES.TABLE_OWNER\nCreated (in Snowflake)\nproperties sidebar\nTABLES.CREATED\nsourceCreatedAt\nproperties sidebar\nTABLES.LAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nColumns\nâ\nAtlan maps columns from Snowflake to its\nColumn\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nCOLUMNS.COLUMN_NAME\nname\nasset profile and overview sidebar\nCOLUMNS.COMMENT\ndescription\nasset profile and overview sidebar\nCOLUMNS.ORDINAL_POSITION\norder\nAPI only\nCOLUMNS.DATA_TYPE\ndataType\nasset filter, preview, and profile, overview sidebar\nPRIMARY KEY\nisPrimary\nasset preview and filter, overview sidebar\nCOLUMNS.IS_NULLABLE\nisNullable\noverview sidebar\nCOLUMNS.CHARACTER_MAXIMUM_LENGTH\nmaxLength\nproperties sidebar\nCOLUMNS.NUMERIC_PRECISION\nprecision\nproperties sidebar\nStages\nâ\nAtlan maps stages from Snowflake to its\nStage\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nStages.STAGE_NAME\nname\nasset profile and overview sidebar\nStages.COMMENT\ndescription",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Stages\nâ\nAtlan maps stages from Snowflake to its\nStage\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nStages.STAGE_NAME\nname\nasset profile and overview sidebar\nStages.COMMENT\ndescription\nasset profile and overview sidebar\nStages.STAGE_SCHEMA\nschemaName\nasset profile and overview sidebar\nStages.STAGE_CATALOG\ndatabaseName\nasset profile and overview sidebar\nStages.STAGE_URL\nsnowflakeStageExternalLocation\nasset profile and overview sidebar\nStages.STAGE_REGION\nsnowflakeStageExternalLocationRegion\nasset profile and overview sidebar\nStages.STAGE_TYPE\nsnowflakeStageType\nasset profile and overview sidebar\nStages.STAGE_OWNER\nsourceOwners\noverview sidebar\nStages.CREATED\nsourceCreatedAt\nproperties sidebar\nStages.LAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nStages.STORAGE_INTEGRATION\nsnowflakeStageStorageIntegration\nasset profile and overview sidebar\nStreams\nâ\nAtlan maps streams from Snowflake to its\nStream\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nSTREAMS.NAME\nname\nasset profile and overview sidebar\nSTREAMS.COMMENT\ndescription\nasset profile and overview sidebar\nSTREAMS.OWNER\nsourceOwners\nasset preview and profile, properties sidebar\nSTREAMS.DATABASE_NAME",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "name\nasset profile and overview sidebar\nSTREAMS.COMMENT\ndescription\nasset profile and overview sidebar\nSTREAMS.OWNER\nsourceOwners\nasset preview and profile, properties sidebar\nSTREAMS.DATABASE_NAME\ndatabaseName\nasset preview and profile\nSTREAMS.SCHEMA_NAME\nschemaName\nasset preview and profile\nSTREAMS.SOURCE_TYPE\nsnowflakeStreamSourceType\nasset filter and overview sidebar\nSTREAMS.STALE\nsnowflakeStreamIsStale\nasset filter and overview sidebar\nSTREAMS.MODE\nsnowflakeStreamMode\noverview sidebar\nSTREAMS.STALE_AFTER\nsnowflakeStreamStaleAfter\noverview sidebar\nPipes\nâ\nAtlan maps pipes from Snowflake to its\nPipe\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nPIPES.PIPE_NAME\nname\nasset profile and overview sidebar\nPIPES.COMMENT\ndescription\nasset profile and overview sidebar\nPIPES.DEFINITION\ndefinition\nasset profile and overview sidebar\nPIPES.PIPE_OWNER\nsourceOwners\nasset preview and profile, properties sidebar\nPIPES.PIPE_CATALOG\ndatabaseName\nasset preview and profile\nPIPES.PIPE_SCHEMA\nschemaName\nasset preview and profile\nPIPES.IS_AUTOINGEST_ENABLED\nsnowflakePipeIsAutoIngestEnabled\noverview sidebar\nPIPES.NOTIFICATION_CHANNEL_NAME\nsnowflakePipeNotificationChannelName",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "schemaName\nasset preview and profile\nPIPES.IS_AUTOINGEST_ENABLED\nsnowflakePipeIsAutoIngestEnabled\noverview sidebar\nPIPES.NOTIFICATION_CHANNEL_NAME\nsnowflakePipeNotificationChannelName\noverview sidebar\nUser-defined functions\nâ\nAtlan maps user-defined functions (UDFs) from Snowflake to its\nFunction\nasset type. Atlan currently does not support lineage for user-defined functions from Snowflake.\nSource property\nAtlan property\nWhere in Atlan\nNAME\nname\nasset profile and overview sidebar\nFUNCTION_DEFINITION\nfunctionDefinition\noverview sidebar\nCOMMENT\ndescription\nasset profile and overview sidebar\nFUNCTION_CATALOG\ndatabaseName\nasset preview and profile\nFUNCTION_SCHEMA\nschemaName\nasset preview and profile\nFUNCTION_OWNER\nCreated (in Snowflake)\nproperties sidebar\nCREATED\nsourceCreatedAt\nproperties sidebar\nLAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nFUNCTION_LANGUAGE\nfunctionLanguage\noverview sidebar\nDATA_TYPE\nfunctionReturnType\nAPI only\nIS_SECURE\nfunctionIsSecure\nasset filter and properties sidebar\nIS_EXTERNAL\nfunctionIsExternal\nasset filter and properties sidebar\nIS_MEMOIZABLE\nfunctionIsMemoizable\nAPI only\nARGUMENT_SIGNATURE\nfunctionArguments\nAPI only\nDynamic tables\nâ",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "IS_EXTERNAL\nfunctionIsExternal\nasset filter and properties sidebar\nIS_MEMOIZABLE\nfunctionIsMemoizable\nAPI only\nARGUMENT_SIGNATURE\nfunctionArguments\nAPI only\nDynamic tables\nâ\nAtlan maps dynamic tables from Snowflake to its\nDynamicTable\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLES.TABLE_NAME\nname\nasset profile and overview sidebar\nTABLES.COMMENT\ndescription\nasset profile and overview sidebar\nCOLUMNS\n(count)\ncolumnCount\nasset preview and profile, overview sidebar\nTABLES.DEFINITION\ndefinition\nasset profile and overview sidebar\nTABLES.ROW_COUNT\nrowCount\nasset preview and profile, overview sidebar\nTABLES.BYTES\nsizeBytes\nasset filter and overview sidebar\nTABLES.TABLE_OWNER\nCreated (in Snowflake)\nproperties sidebar\nTABLES.CREATED\nsourceCreatedAt\nproperties sidebar\nTABLES.LAST_ALTERED\nsourceUpdatedAt\nproperties sidebar\nLineage\nDatabases\nSchemas\nTables\nViews\nMaterialized views\nExternal tables\nColumns\nStages\nStreams\nPipes\nUser-defined functions\nDynamic tables",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_references_what-does-atlan-crawl-from-snowflake.json",
+      "chunk_id": 9
+    }
+  }
+]

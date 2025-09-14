@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Referenceable - Developer\nSkip to content\nReferenceable\n¶\nBase class for everything in Atlan.\nComplete reference\nThis is a complete reference for the\nReferenceable\nobject in Atlan, showing every possible property and relationship that can exist for these objects. For an introduction, you probably want to start with:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nReferenceable\nis the root of inheritance, and has no supertypes itself.\nProperties\n¶\nThese attributes are specific to instances of\nReferenceable\n(and all of its subtypes).\ntypeName\n¶\nType of this asset.\nguid\n¶\nGlobally-unique identifier for this asset.\nclassifications\n¶\nTags assigned to the asset. (1)\nUses a different name in SDKs\natlanTags\natlan_tags\nFor more information, see the\ntag assets\nsnippets.\nbusinessAttributes\n¶\nMap of custom metadata attributes and values defined on the asset. (1)\nUses a different name in SDKs\ncustomMetadataSets\ncustom_metadata\nFor more information, see the\nchange custom metadata\nsnippets.\nstatus\n¶\nStatus of the asset. (1)\nTreat as read-only\nYou should not try to\nset\nstatus",
+    "metadata": {
+      "source_url": "models_entities_referenceable.html",
+      "source_type": "sdk",
+      "file": "models_entities_referenceable.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "customMetadataSets\ncustom_metadata\nFor more information, see the\nchange custom metadata\nsnippets.\nstatus\n¶\nStatus of the asset. (1)\nTreat as read-only\nYou should not try to\nset\nstatus\non an asset. Instead, see the asset CRUD snippets on\ndeleting\nand\nrestoring\nassets.\ncreatedBy\n¶\nUser or account that created the asset.\nupdatedBy\n¶\nUser or account that last updated the asset.\ncreateTime\n¶\nTime (epoch) at which the asset was created, in milliseconds.\nupdateTime\n¶\nTime (epoch) at which the asset was last updated, in milliseconds.\ndeleteHandler\n¶\nDetails on the handler used for deletion of the asset. (1)\nTreat as read-only\nYou should not try to\nset\ndeleteHandler\non an asset. Instead, see the asset CRUD snippets on\ndeleting\nassets.\nclassificationNames\n¶\nHashed-string names of the Atlan tags that exist on the asset. (1)\nUses a different name in SDKs\natlanTagNames\natlan_tag_names\nUse\nclassifications\nto make changes to tags.\nisIncomplete\n¶\nUnused.\nmeaningNames\n¶\nHuman-readable names of terms that have been linked to this asset.\nmeanings\n¶\nDetails of terms that have been linked to this asset. (1)\nDo not use\nThese should not be used, as they can be inconsistent. Instead, see the",
+    "metadata": {
+      "source_url": "models_entities_referenceable.html",
+      "source_type": "sdk",
+      "file": "models_entities_referenceable.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "meanings\n¶\nDetails of terms that have been linked to this asset. (1)\nDo not use\nThese should not be used, as they can be inconsistent. Instead, see the\nlink terms and assets\nsnippets.\npendingTasks\n¶\nUnique identifiers (GUIDs) for any background tasks that are yet to operate on this asset.\nqualifiedName\n¶\nUnique name for this asset. This is typically a concatenation of the asset's name onto its parent's qualifiedName. This must be unique across all assets of the same type.\n2023-01-04\n2023-12-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_entities_referenceable.html",
+      "source_type": "sdk",
+      "file": "models_entities_referenceable.json",
+      "chunk_id": 2
+    }
+  }
+]

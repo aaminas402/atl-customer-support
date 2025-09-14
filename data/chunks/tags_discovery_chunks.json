@@ -1,0 +1,11 @@
+[
+  {
+    "content": "9 docs tagged with \"discovery\" | Atlan Documentation\nSkip to main content\nDiscovery\nFind, understand, and use data assets across your organization with powerful search, filtering, and browsing features.\nDiscovery FAQs\nFrequently asked questions about Atlan's Discovery capabilities.\nHow does Atlan handle lineage from Spark jobs?\nLearn about how does atlan handle lineage from spark jobs?.\nIs there a way to build lineage from NetSuite to Snowflake?\nLearn about is there a way to build lineage from netsuite to snowflake?.\nOpenLineage configuration and facets\nLearn about openlineage configuration and facets.\nTroubleshooting Amazon DynamoDB connectivity\nLearn about troubleshooting amazon dynamodb connectivity.\nTroubleshooting IBM Cognos Analytics connectivity\nLearn about troubleshooting ibm cognos analytics connectivity.\nTroubleshooting Tableau connectivity\nLearn about troubleshooting tableau connectivity.\nWhy is my Databricks lineage API not working?\nLearn about why is my databricks lineage api not working?.",
+    "metadata": {
+      "source_url": "tags_discovery.html",
+      "source_type": "docs",
+      "file": "tags_discovery.json",
+      "chunk_id": 0
+    }
+  }
+]

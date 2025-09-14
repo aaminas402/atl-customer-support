@@ -1,0 +1,362 @@
+[
+  {
+    "content": "Define typedefs via template - Developer\nSkip to content\nDefine typedefs via template\n¶\nHow to read this guide\nEach section of this guide provides 3 tabs, which are linked throughout (once you swap in one section, all other sections will automatically reflect that same level of detail):\nSimple\n— when you are just starting out, follow these tabs to understand the basic structure of the toolkit and the fundamental elements that you\nmust\nuse.\nDetailed\n— as you start to wonder about additional complexity, consider changing to these tabs, which cover additional (optional) possibilities.\nWith UX\n— when you are ready to start experimenting with the user interface for your typedefs, use this tab to provide inputs for generating a baseline set of UX code.\nRunning example (expand for details)\nThroughout the guide, anywhere we are creating portions of the\nrunning example\nyou will find a similar expandable section to this one, which explains in more detail what the specific section is adding.\nStart by creating a Pkl file that amends our published typedef toolkit model:\nMyCustomModel.pkl\n1\n2\namends\n\"package://developer.atlan.com/toolkits/typedef/model@7.0.0#/Typedefs.pkl\"\namends",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Start by creating a Pkl file that amends our published typedef toolkit model:\nMyCustomModel.pkl\n1\n2\namends\n\"package://developer.atlan.com/toolkits/typedef/model@7.0.0#/Typedefs.pkl\"\namends\n\"../toolkit/src/main/pkl/Typedefs.pkl\"\n// (1)!\nYou must use only one of these options, but when developing your typedefs directly in the\natlanhq/models\nrepository under the\ntypedefs\ndirectory, you can use this form to always be using the latest version of the toolkit (without ever needing to manually update the version number or separately download the toolkit).\nIf this is the first time you're creating a model, hover over that line and download the package.\nSet the overall structure\n¶\nThen you can start defining your model. All models must have at least two components:\nA\nnamespace\n, which uniquely prefixes all types and attributes in your model (to avoid any collisions with others).\nA collection of\ncustomAssetTypes\nthat define the objects in your model.\nIf you use only these two components, various other defaults will be generated for you automatically (such as the abstract supertype for your model). You can also override or extend aspects of these generated objects, if you look at the\nDetailed",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Detailed\ntab. (And finally, the\nWith UX\ntab shows further options for configuring the user interface that will be coupled to your model.)\nSimple\nDetailed\nWith UX\nMyCustomModel.pkl\n1\n2\n3\n4\n5\n6\n7\namends\n\"../toolkit/src/main/pkl/Typedefs.pkl\"\nnamespace\n=\n\"Custom\"\n// (1)\ncustomAssetTypes\n{\n// (2)\n...\n}\nThe namespace is used for every type in the model (PascalCase). It will also automatically be decapitalized for use as an attribute prefix.\ncustomAssetTypes\ndescribe the objects you want to instantiate in your model.\nMyCustomModel.pkl\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\namends\n\"../toolkit/src/main/pkl/Typedefs.pkl\"\nnamespace\n=\n\"Custom\"\n// (1)\nattrPrefix\n=\nt\n.\ndecapitalize\n()\n// (2)\ncustomEnumTypes\n{\n// (3)\n...\n}\ncustomStructTypes\n{\n// (4)\n...\n}\nsupertypeDefinition\n{\n// (5)\n...\n}\ncustomAssetTypes\n{\n// (6)\n...\n}\ncustomRelationshipTypes\n{\n// (7)\n...\n}\nThe namespace is used for every type in the model (PascalCase). It will also automatically be decapitalized for use as an attribute prefix.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "{\n// (6)\n...\n}\ncustomRelationshipTypes\n{\n// (7)\n...\n}\nThe namespace is used for every type in the model (PascalCase). It will also automatically be decapitalized for use as an attribute prefix.\n(Optional) You can override the attribute prefix, if you do not simply want to decapitalize the namespace. This prefix will be used for every attribute in the model (camelCase). Pkl provides methods like\ndecapitalize()\nto lowercase only the first letter of a string, or\ntoLowerCase()\nto convert an entire string to lowercase. Or you can of course use a literal string here.\n(Optional)\ncustomEnumTypes\ndescribe any lists of valid values (enumerations) you want to be able to use anywhere in your model.\n(Optional)\ncustomStructTypes\ndescribe any complex (nested) attributes you want to be able to use anywhere in your model.\n(Optional)\nsupertypeDefinition\nconfigures the abstract supertype for all other asset types you want to be able to instantiate. For example, you would use this section to define attributes that should exist across all objects in your model, or if you want your abstract supertype to extend something other than the default supertype (\nCatalog\n).\ncustomAssetTypes",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Catalog\n).\ncustomAssetTypes\ndescribe the objects you want to instantiate in your model.\n(Optional)\ncustomRelationshipTypes\ndescribe the relationships between objects in your model.\nMyCustomModel.pkl\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\namends\n\"../toolkit/src/main/pkl/Typedefs.pkl\"\nimport\n\"../toolkit/src/main/pkl/Frontend.pkl\"\n// (1)\nnamespace\n=\n\"Custom\"\n// (2)\nattrPrefix\n=\nt\n.\ndecapitalize\n()\n// (3)\ncustomEnumTypes\n{\n// (4)\n...\n}\ncustomStructTypes\n{\n// (5)\n...\n}\nsupertypeDefinition\n{\n// (6)\n...\n}\ncustomAssetTypes\n{\n// (7)\n...\n}\ncustomRelationshipTypes\n{\n// (8)\n...\n}\nui\n{\n// (9)\n...\n}\n(Optional) If you intend to include any front-end elements in your definition (such as icons), you will need to import the\nFrontend.pkl\nportion of the toolkit.\nCan also use the full online path\nIf you do not have access to the\natlanhq/models\nrepository, you can also use the full online path for the toolkit:\nimport\n\"package://developer.atlan.com/toolkits/typedef/model@7.0.0#/Frontend.pkl\"\nThe namespace is used for every type in the model (PascalCase). It will also automatically be decapitalized for use as an attribute prefix.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "The namespace is used for every type in the model (PascalCase). It will also automatically be decapitalized for use as an attribute prefix.\n(Optional) You can override the attribute prefix, if you do not simply want to decapitalize the namespace. This prefix will be used for every attribute in the model (camelCase). Pkl provides methods like\ndecapitalize()\nto lowercase only the first letter of a string, or\ntoLowerCase()\nto convert an entire string to lowercase. Or you can of course use a literal string here.\n(Optional)\ncustomEnumTypes\ndescribe any lists of valid values (enumerations) you want to be able to use anywhere in your model.\n(Optional)\ncustomStructTypes\ndescribe any complex (nested) attributes you want to be able to use anywhere in your model.\n(Optional)\nsupertypeDefinition\nconfigures the abstract supertype for all other asset types you want to be able to instantiate. For example, you would use this section to define attributes that should exist across all objects in your model, or if you want your abstract supertype to extend something other than the default supertype (\nCatalog\n).\ncustomAssetTypes\ndescribe the objects you want to instantiate in your model.\n(Optional)",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Catalog\n).\ncustomAssetTypes\ndescribe the objects you want to instantiate in your model.\n(Optional)\ncustomRelationshipTypes\ndescribe the relationships between objects in your model.\n(Optional)\nui\ndescribes overall user interface setup, such as the filters for the discovery page or the breadcrumb trails to use to show an asset's containment hierarchy.\nDefine reusable structures\n¶\n(Optional)\nUse the\ncustomEnumTypes\nand\ncustomStructTypes\nsections to define any reusable structures for your model.\nRunning example (expand for details)\nFrom the running example, the reusable structures define these two objects:\nerDiagram\n\"CustomTemperature(Enum)\" {\nval HOT \"highly available\"\nval COLD \"offline storage\"\n}\n\"CustomRating(Struct)\" {\nstring customRatingFrom\nlong customRatingOf\n}\nSimple\nDetailed\nWith UX\nIf you do not need these kinds of structures in your model, you can leave these sections out entirely.\nDefine local variables for your types\nTo be capable of being referenced as types for attributes elsewhere in your model, the type names for these structures\nmust\nbe prefixed with the namespace. The toolkit provides a helper method for you to enforce this —\ngetTypeName()\n.\nMyCustomModel.pkl\n6\n7\n8",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "must\nbe prefixed with the namespace. The toolkit provides a helper method for you to enforce this —\ngetTypeName()\n.\nMyCustomModel.pkl\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\nlocal\nTemperatureType\n=\ngetTypeName\n(\n\"TemperatureType\"\n)\n// (1)\nlocal\nRatings\n=\ngetTypeName\n(\n\"Ratings\"\n)\ncustomEnumTypes\n{\n// (2)\n[\nTemperatureType\n]\n{\n// (3)\ndescription\n=\n\"Valid values for \\(Table) temperatures.\"\nvalidValues\n{\n// (4)\n[\n\"COLD\"\n]\n{\ndescription\n=\n\"Lowest availability, can be offline storage.\"\n}\n[\n\"HOT\"\n]\n{\ndescription\n=\n\"Highest availability, must be on solid-state or in-memory storage.\"\n}\n}\n}\n}\ncustomStructTypes\n{\n// (5)\n[\nRatings\n]\n{\n// (6)\ndescription\n=\n\"Ratings for an asset from the source system.\"\nattributes\n{\n// (7)\n[\n\"ratingFrom\"\n]\n{\n// (8)\ndescription\n=\n\"Username of the user who left the rating.\"\ntype\n=\n\"\nstring\n\"\n}\n[\n\"ratingOf\"\n]\n{\ndescription\n=\n\"Numeric score for the rating left by the user.\"\ntype\n=\n\"\nlong\n\"\n}\n}\n}\n}\nDefine local variables (using the\nlocal\nkeyword) for the name of each of your reusable structures. You can ensure they are properly namespaced by using the\ngetTypeName()\nhelper method the toolkit provides.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "local\nkeyword) for the name of each of your reusable structures. You can ensure they are properly namespaced by using the\ngetTypeName()\nhelper method the toolkit provides.\n(Optional) You may define any number of lists of valid values that can be used to constrain values for some attribute elsewhere in your model within\ncustomEnumTypes\n.\nUse the local variables defined above in the form\n[VariableName] { }\nand provide at least a\ndescription\nand a map of\nvalidValues\nfor each enumeration.\nThe valid values should each be specified in the form\n[\"Value\"] { description = \"\" }\n, where the value in square brackets is one acceptable value for this enumeration, and the description gives the meaning of that value.\n(Optional) You may define any number of complex nested attribute structures that can be used as an attribute elsewhere in your model within\ncustomStructTypes\n.\nUse the local variables defined above in the form\n[VariableName] { }\nand provide at least a\ndescription\nand a map of\nattributes\nfor each struct.\nEach attribute should take the form of\n[\"name\"] { }\nand have at least a\ndescription\nand\ntype\n.\nThe name of the attribute will automatically be prefixed with the attribute prefix (",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "for each struct.\nEach attribute should take the form of\n[\"name\"] { }\nand have at least a\ndescription\nand\ntype\n.\nThe name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nDefine local variables for your types\nTo be capable of being referenced as types for attributes elsewhere in your model, the type names for these structures\nmust\nbe prefixed with the namespace. The toolkit provides a helper method for you to enforce this —\ngetTypeName()\n.\nMyCustomModel.pkl\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\nlocal\nTemperatureType\n=\ngetTypeName\n(\n\"TemperatureType\"\n)\n// (1)\nlocal\nRatings\n=\ngetTypeName\n(\n\"Ratings\"\n)\ncustomEnumTypes\n{\n// (2)\n[\nTemperatureType\n]\n{\n// (3)\ndescription\n=\n\"Valid values for \\(Table) temperatures.\"\nvalidValues\n{\n// (4)\n[\n\"COLD\"\n]\n{\ndescription\n=\n\"Lowest availability, can be offline storage.\"\n}\n[\n\"HOT\"\n]\n{\ndescription\n=\n\"Highest availability, must be on solid-state or in-memory storage.\"\n}\n}\n}\n}\ncustomStructTypes\n{\n// (5)\n[\nRatings\n]\n{\n// (6)\ndescription\n=\n\"Ratings for an asset from the source system.\"\nattributes\n{",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "\"Highest availability, must be on solid-state or in-memory storage.\"\n}\n}\n}\n}\ncustomStructTypes\n{\n// (5)\n[\nRatings\n]\n{\n// (6)\ndescription\n=\n\"Ratings for an asset from the source system.\"\nattributes\n{\n// (7)\n[\n\"ratingFrom\"\n]\n{\n// (8)\nlabel\n=\n\"From\"\n// (9)\ndescription\n=\n\"Username of the user who left the rating.\"\ntype\n=\n\"\nstring\n\"\n}\n[\n\"ratingOf\"\n]\n{\nlabel\n=\n\"Score\"\ndescription\n=\n\"Numeric score for the rating left by the user.\"\ntype\n=\n\"\nlong\n\"\n}\n}\n}\n}\nDefine local variables (using the\nlocal\nkeyword) for the name of each of your reusable structures. You can ensure they are properly namespaced by using the\ngetTypeName()\nhelper method the toolkit provides.\n(Optional) You may define any number of lists of valid values that can be used to constrain values for some attribute elsewhere in your model within\ncustomEnumTypes\n.\nUse the local variables defined above in the form\n[VariableName] { }\nand provide at least a\ndescription\nand a map of\nvalidValues\nfor each enumeration.\nThe valid values should each be specified in the form\n[\"Value\"] { description = \"\" }\n, where the value in square brackets is one acceptable value for this enumeration, and the description gives the meaning of that value.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "[\"Value\"] { description = \"\" }\n, where the value in square brackets is one acceptable value for this enumeration, and the description gives the meaning of that value.\n(Optional) You may define any number of complex nested attribute structures that can be used as an attribute elsewhere in your model within\ncustomStructTypes\n.\nUse the local variables defined above in the form\n[VariableName] { }\nand provide at least a\ndescription\nand a map of\nattributes\nfor each struct.\nEach attribute should take the form of\n[\"name\"] { }\nand have at least a\ndescription\nand\ntype\n.\nThe name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\n(Optional) Setting the\nlabel\nwill control how the attribute is labelled in the user interface.\nDefine abstract supertype\n¶\n(Optional)\nUse the\nsupertypeDefinition\nsection to define reusable attributes for your model. This supertype itself would never be directly instantiated, but will define attributes that are common across all types that can be instantiated.\nRunning example (expand for details)",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Running example (expand for details)\nFrom the running example, the common metadata was not originally illustrated. If you noticed the same 3 attributes were defined again at each level, here this abstract type defines those attributes just once (to be inherited by all the other levels).\nerDiagram\n\"Custom (Abstract)\" {\nstring customSourceId\nstring customDatasetName\nstring customDatasetQualifiedName\n}\nWill inherit all attributes from its own supertype\nRemember that this supertype will itself inherit all attributes from its supertype (by default,\nCatalog\n). So things like\nname\n,\ndescription\n,\nqualifiedName\n,\ncreatedBy\n,\nupdatedBy\n, and so on do not need to be redefined here.\nSimple\nDetailed\nWith UX\nIf you have no other attributes you need across the asset types in your model, you can leave this\nsupertypeDefinition\nout entirely and the toolkit will generate it for you.\nMyCustomModel.pkl\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\nsupertypeDefinition\n{\n// (1)\nname\n=\nnamespace\n// (2)\nsuperTypes\n=\nnew\nListing\n{\n\"Catalog\"\n}\n// (3)\nattributes\n{\n// (4)\n[\n\"sourceId\"\n]\n{\n// (5)\ndescription\n=\n\"Unique identifier for the \\(namespace) asset from the source system.\"\ntype\n=\n\"\nstring",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "// (2)\nsuperTypes\n=\nnew\nListing\n{\n\"Catalog\"\n}\n// (3)\nattributes\n{\n// (4)\n[\n\"sourceId\"\n]\n{\n// (5)\ndescription\n=\n\"Unique identifier for the \\(namespace) asset from the source system.\"\ntype\n=\n\"\nstring\n\"\n}\n[\n\"datasetName\"\n]\n{\ndescription\n=\n\"Simple name of the dataset in which this asset exists, or empty if it is itself a dataset.\"\ntype\n=\n\"\nstring\n\"\nindexAs\n=\n\"both\"\n// (6)\n}\n[\n\"datasetQualifiedName\"\n]\n{\ndescription\n=\n\"Unique name of the dataset in which this asset exists, or empty if it is itself a dataset.\"\ntype\n=\n\"\nstring\n\"\nindexAs\n=\n\"keyword\"\n// (7)\n}\n}\n}\nYou may define one (and only one)\nsupertypeDefinition\n.\n(Optional) Usually this should be the same as, or at least start with the type prefix (\nnamespace\n). If unspecified, it will default to the string used for\nnamespace\n.\n(Optional) You may specify an alternative supertype for your abstract type itself to extend. If unspecified, it will default to\nCatalog\n.\nCould vary depending on the supertype you want\nThe code shown here is for setting the supertype to\nCatalog\n. Because the toolkit would already default this value, it is necessary in this case to create an entirely new listing, to completely override the toolkit's defaults.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Catalog\n. Because the toolkit would already default this value, it is necessary in this case to create an entirely new listing, to completely override the toolkit's defaults.\nIf you want to instead use some other supertype entirely (like\nBI\n), you can simply use:\n37\nsupertypes\n{\n\"BI\"\n}\n(Optional) You can define any number of attributes that should be inherited by all custom asset types in the model. Each attribute should take the form of\n[\"name\"] { }\nand have at least a\ndescription\nand\ntype\n.\nThe name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\n(Optional) You can also control how the attribute will be indexed. For example,\nboth\nwill create both an exact-match-useful\nkeyword\nindex as well as a tokenized fuzzy-useful\ntext\nindex for that attribute.\n(Optional) By default, string attributes will be indexed as a tokenized fuzzy-useful\ntext\nindex. If you want to force them to use an exact-match-useful\nkeyword\nindex instead, you can set the\nindexAs\nto\nkeyword\n.\nWhy would I define these\nDatasetName\nand\nDatasetQualifiedName\nattributes as shared?",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "keyword\nindex instead, you can set the\nindexAs\nto\nkeyword\n.\nWhy would I define these\nDatasetName\nand\nDatasetQualifiedName\nattributes as shared?\nThis is necessary to ensure these attributes exist on\nall\nasset types within this area, so that the hierarchy filters on the asset discovery UI find all children objects across all levels of the containment hierarchy.\nThis is a common pattern for new asset types that have a hierarchy of containment. You'll see the same pattern in our out-of-the-box SQL asset types, for example, which have\ndatabaseQualifiedName\n,\ndatabaseName\n,\nschemaQualifiedName\n,\nschemaName\n,\ntableQualifiedName\n,\ntableName\n,\nviewQualifiedName\n, and\nviewName\nall defined at the shared supertype level (\nSQL\n).\nMyCustomModel.pkl\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\nsupertypeDefinition\n{\n// (1)\nname\n=\nnamespace\n// (2)\nsuperTypes\n=\nnew\nListing\n{\n\"Catalog\"\n}\n// (3)\nattributes\n{\n// (4)\n[\n\"sourceId\"\n]\n{\n// (5)\nlabel\n=\n\"Source ID\"\n// (6)\ndescription\n=\n\"Unique identifier for the \\(namespace) asset from the source system.\"\ntype\n=\n\"\nstring\n\"\n}\n[\n\"datasetName\"\n]\n{\nlabel\n=\n\"Dataset\"\ndescription\n=",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "]\n{\n// (5)\nlabel\n=\n\"Source ID\"\n// (6)\ndescription\n=\n\"Unique identifier for the \\(namespace) asset from the source system.\"\ntype\n=\n\"\nstring\n\"\n}\n[\n\"datasetName\"\n]\n{\nlabel\n=\n\"Dataset\"\ndescription\n=\n\"Simple name of the dataset in which this asset exists, or empty if it is itself a dataset.\"\ntype\n=\n\"\nstring\n\"\nindexAs\n=\n\"both\"\n// (7)\n}\n[\n\"datasetQualifiedName\"\n]\n{\ndescription\n=\n\"Unique name of the dataset in which this asset exists, or empty if it is itself a dataset.\"\ntype\n=\n\"\nstring\n\"\nindexAs\n=\n\"keyword\"\n// (8)\n}\n}\n}\nYou may define one (and only one)\nsupertypeDefinition\n.\n(Optional) Usually this should be the same as, or at least start with the type prefix (\nnamespace\n). If unspecified, it will default to the string used for\nnamespace\n.\n(Optional) You may specify an alternative supertype for your abstract type itself to extend. If unspecified, it will default to\nCatalog\n.\nCould vary depending on the supertype you want\nThe code shown here is for setting the supertype to\nCatalog\n. Because the toolkit would already default this value, it is necessary in this case to create an entirely new listing, to completely override the toolkit's defaults.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "Catalog\n. Because the toolkit would already default this value, it is necessary in this case to create an entirely new listing, to completely override the toolkit's defaults.\nIf you want to instead use some other supertype entirely (like\nBI\n), you can simply use:\n40\nsupertypes\n{\n\"BI\"\n}\n(Optional) You can define any number of attributes that should be inherited by all custom asset types in the model. Each attribute should take the form of\n[\"name\"] { }\nand have at least a\ndescription\nand\ntype\n.\nThe name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\n(Optional) Setting the\nlabel\nwill control how the attribute is labelled in the user interface.\n(Optional) You can also control how the attribute will be indexed. For example,\nboth\nwill create both an exact-match-useful\nkeyword\nindex as well as a tokenized fuzzy-useful\ntext\nindex for that attribute.\n(Optional) By default, string attributes will be indexed as a tokenized fuzzy-useful\ntext\nindex. If you want to force them to use an exact-match-useful\nkeyword\nindex instead, you can set the\nindexAs\nto\nkeyword\n.\nWhy would I define these",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "text\nindex. If you want to force them to use an exact-match-useful\nkeyword\nindex instead, you can set the\nindexAs\nto\nkeyword\n.\nWhy would I define these\nDatasetName\nand\nDatasetQualifiedName\nattributes as shared?\nThis is necessary to ensure these attributes exist on\nall\nasset types within this area, so that the hierarchy filters on the asset discovery UI find all children objects across all levels of the containment hierarchy.\nThis is a common pattern for new asset types that have a hierarchy of containment. You'll see the same pattern in our out-of-the-box SQL asset types, for example, which have\ndatabaseQualifiedName\n,\ndatabaseName\n,\nschemaQualifiedName\n,\nschemaName\n,\ntableQualifiedName\n,\ntableName\n,\nviewQualifiedName\n, and\nviewName\nall defined at the shared supertype level (\nSQL\n).\nDefine instantiate-able types\n¶\nThen, define the types in your custom model that you want to be able to instantiate.\nDefine local variables for your types and key attributes\nTo be capable of being referenced in relationships and in the generated UI code, both your type names and certain attributes\nmust",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "Define local variables for your types and key attributes\nTo be capable of being referenced in relationships and in the generated UI code, both your type names and certain attributes\nmust\nbe prefixed with the namespace (or attribute prefix). The toolkit provides helper methods for you to get these —\ngetTypeName()\nand\ngetAttributeName()\n.\nNew types of assets\n¶\nDescribe the new types of assets you want to be able to create and manage (and their attributes) under the\ncustomAssetTypes\nsection.\nRunning example (expand for details)\nFrom the running example, the new asset types define these three objects:\nerDiagram\nCustomDataset {\nstring customSourceId \"from Custom\"\nstring customDatasetName \"from Custom\"\nstring customDatasetQualifiedName \"from Custom\"\n}\nCustomTable {\nstring customSourceId \"from Custom\"\nstring customDatasetName \"from Custom\"\nstring customDatasetQualifiedName \"from Custom\"\nstruct[] customRatings\n}\nCustomField {\nstring customSourceId \"from Custom\"\nstring customDatasetName \"from Custom\"\nstring customDatasetQualifiedName \"from Custom\"\nstring tableName \"from Column\"\nstring tableQualifiedName \"from Column\"\nenum customTemperature\n}",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "string customDatasetName \"from Custom\"\nstring customDatasetQualifiedName \"from Custom\"\nstring tableName \"from Column\"\nstring tableQualifiedName \"from Column\"\nenum customTemperature\n}\n\"CustomTemperature(Enum)\" |o--o{ CustomField : \"\"\n\"CustomRating(Struct)\" |o--o{ CustomTable : \"\"\nSimple\nDetailed\nWith UX\nMyCustomModel.pkl\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nlocal\nDataset\n=\ngetTypeName\n(\n\"Dataset\"\n)\n// (1)\nlocal\nTable\n=\ngetTypeName\n(\n\"Table\"\n)\nlocal\nField\n=\ngetTypeName\n(\n\"Field\"\n)\ncustomAssetTypes\n{\n// (2)\n[\nDataset\n]\n{\n// (3)\ndescription\n=\n\"Instances of \\(Dataset) in Atlan.\"\n}\n[\nTable\n]\n{\ndescription\n=\n\"Instances of \\(Table) in Atlan.\"\n}\n[\nField\n]\n{\ndescription\n=\n\"Instances of \\(Field) in Atlan.\"\n}\n}\nDefine local variables (using the\nlocal\nkeyword) for each of your types. You can ensure they are properly namespaced by using the\ngetTypeName()\nhelper method the toolkit provides.\nYou can define any number of custom types that can be instantiated within\ncustomAssetTypes\n.\nUse the local variables defined above in the form\n[VariableName] { }\nand provide at least a\ndescription\nfor that custom asset type.\nMyCustomModel.pkl\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "[VariableName] { }\nand provide at least a\ndescription\nfor that custom asset type.\nMyCustomModel.pkl\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\nlocal\nDataset\n=\ngetTypeName\n(\n\"Dataset\"\n)\n// (1)\nlocal\nTable\n=\ngetTypeName\n(\n\"Table\"\n)\nlocal\nField\n=\ngetTypeName\n(\n\"Field\"\n)\ncustomAssetTypes\n{\n// (2)\n[\nDataset\n]\n{\n// (3)\ndescription\n=\n\"Instances of \\(Dataset) in Atlan.\"\n}\n[\nTable\n]\n{\ndescription\n=\n\"Instances of \\(Table) in Atlan.\"\nattributes\n{\n// (4)\n[\n\"ratings\"\n]\n{\n// (5)\ndescription\n=\n\"Ratings for the \\(Table) asset from the source system.\"\ntype\n=\n\"\nstruct\n\"\n// (6)\nstructName\n=\nRatings\n// (7)\nmultiValued\n=\ntrue\n// (8)\n}\n}\nsuperTypes\n{\n\"Table\"\n}\n// (9)\n}\n[\nField\n]\n{\ndescription\n=\n\"Instances of \\(Field) in Atlan.\"\nattributes\n{\n[\n\"temperature\"\n]\n{\ndescription\n=\n\"Temperature of the \\(Field) asset.\"\ntype\n=\n\"\nenum\n\"\n// (10)\nenumName\n=\nTemperatureType\n// (11)\n}\n}\nsuperTypes\n{\n\"Column\"\n}\n}\n}\nDefine local variables (using the\nlocal\nkeyword) for each of your types. You can ensure they are properly namespaced by using the\ngetTypeName()\nhelper method the toolkit provides.\nYou can define any number of custom types that can be instantiated within",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "getTypeName()\nhelper method the toolkit provides.\nYou can define any number of custom types that can be instantiated within\ncustomAssetTypes\n.\nUse the local variables defined above in the form\n[VariableName] { }\nand provide at least a\ndescription\nfor that custom asset type.\nYou can specify any attributes specific to this custom asset here. (Remember any common attributes will be inherited automatically from the supertype.)\nThe name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nThe\ntype\ncan either be primitive or point to a complex definition like\nstruct\nor\nenum\n.\nWhen the\ntype\nis\nstruct\n, you must also provide the name of the struct in\nstructName\n.\nUse that local variable you created to define the struct!\n(Optional) If you want to allow multiple instances of this attribute to be stored on each asset, set\nmultiValued\nto\ntrue\n.\n(Optional) You can specify any additional supertypes your custom type should have. The top-level supertype defined under\nsupertypeDefinition\n(or generated from the\nnamespace",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "multiValued\nto\ntrue\n.\n(Optional) You can specify any additional supertypes your custom type should have. The top-level supertype defined under\nsupertypeDefinition\n(or generated from the\nnamespace\n) will be set automatically, so you only need to include this if you want your new custom type to have multiple supertypes.\nThe\ntype\ncan be\nenum\nto restrict its values to a set of predefined values.\nWhen the\ntype\nis\nenum\n, you must also provide the name of the enumeration that defines the valid values in\nenumName\n.\nUse that local variable you created to define the enum!\nMyCustomModel.pkl\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n92\n93\n94\n95\n96\n97\n98\n99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n114\n115\n116\n117\n118\n119\n120\n121\n122\n123\n124\n125\n126\n127\n128\n129\n130\n131\n132\n133\n134\n135\n136\n137\n138\n139\n140\n141\n142\n143\n144\n145\n146\n147\nlocal\nDataset\n=\ngetTypeName\n(\n\"Dataset\"\n)\n// (1)\nlocal\nTable\n=\ngetTypeName\n(\n\"Table\"\n)\nlocal\nField\n=\ngetTypeName\n(\n\"Field\"\n)\nlocal\ndatasetQN\n=\ngetAttributeName\n(\n\"datasetQualifiedName\"\n)\n// (2)\nlocal\ndatasetN\n=\ngetAttributeName\n(\n\"datasetName\"\n)\nlocal\ntableQN\n=\ngetAttributeName\n(\n\"tableQualifiedName\"\n)",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "(\n\"Field\"\n)\nlocal\ndatasetQN\n=\ngetAttributeName\n(\n\"datasetQualifiedName\"\n)\n// (2)\nlocal\ndatasetN\n=\ngetAttributeName\n(\n\"datasetName\"\n)\nlocal\ntableQN\n=\ngetAttributeName\n(\n\"tableQualifiedName\"\n)\nlocal\ntableN\n=\ngetAttributeName\n(\n\"tableName\"\n)\nlocal\ndatasetIcon\n=\nnew\nIcon\n{\n// (3)\nname\n=\n\"DatabaseGray\"\n// (4)\nnameActive\n=\n\"Database\"\n// (5)\nsvg\n=\n\"database-gray.svg\"\n// (6)\nsvgActive\n=\n\"database.svg\"\n// (7)\n}\nlocal\ntableIcon\n=\nnew\nIcon\n{\nname\n=\n\"TableGray\"\nnameActive\n=\n\"Table\"\nsvg\n=\n\"table-gray.svg\"\nsvgActive\n=\n\"table.svg\"\n}\nlocal\nfieldIcon\n=\nnew\nIcon\n{\nname\n=\n\"ColumnGray\"\nnameActive\n=\n\"Column\"\nsvg\n=\n\"column-gray.svg\"\nsvgActive\n=\n\"column.svg\"\n}\ncustomAssetTypes\n{\n// (8)\n[\nDataset\n]\n{\n// (9)\nlabel\n=\n\"Dataset\"\n// (10)\nicon\n=\ndatasetIcon\n// (11)\ndescription\n=\n\"Instances of \\(Dataset) in Atlan.\"\n}\n[\nTable\n]\n{\nlabel\n=\n\"Table\"\nicon\n=\ntableIcon\ndescription\n=\n\"Instances of \\(Table) in Atlan.\"\nparentQualifiedName\n=\ndatasetQN\n// (12)\nattributes\n{\n// (13)\n[\n\"ratings\"\n]\n{\n// (14)\nlabel\n=\n\"Rating\"\n// (15)\ndescription\n=\n\"Ratings for the \\(Table) asset from the source system.\"\ntype\n=\n\"\nstruct\n\"\n// (16)\nstructName\n=\nRatings\n// (17)\nmultiValued\n=\ntrue\n// (18)\n}\n}\nsuperTypes\n{\n\"Table\"\n}\n// (19)\n}\n[\nField",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "description\n=\n\"Ratings for the \\(Table) asset from the source system.\"\ntype\n=\n\"\nstruct\n\"\n// (16)\nstructName\n=\nRatings\n// (17)\nmultiValued\n=\ntrue\n// (18)\n}\n}\nsuperTypes\n{\n\"Table\"\n}\n// (19)\n}\n[\nField\n]\n{\nlabel\n=\n\"Field\"\nicon\n=\nfieldIcon\ndescription\n=\n\"Instances of \\(Field) in Atlan.\"\nparentQualifiedName\n=\ntableQN\nattributes\n{\n[\n\"temperature\"\n]\n{\nlabel\n=\n\"Temperature\"\ndescription\n=\n\"Temperature of the \\(Table) asset.\"\ntype\n=\n\"\nenum\n\"\n// (20)\nenumName\n=\nTemperatureType\n// (21)\n}\n}\nsuperTypes\n{\n\"Column\"\n}\n}\n}\nui\n{\n// (22)\nsvgName\n=\n\"\\(namespace).svg\"\n// (23)\nfilters\n{\n// (24)\n[\nDataset\n]\n{\n// (25)\nattribute\n=\ndatasetQN\n}\n}\nbreadcrumb\n{\n// (26)\n[\nDataset\n]\n{\nq\n=\ndatasetQN\nn\n=\ndatasetN\n}\n[\nTable\n]\n{\nq\n=\ntableQN\nn\n=\ntableN\n}\n}\n}\nDefine local variables (using the\nlocal\nkeyword) for each of your types. You can ensure they are properly namespaced by using the\ngetTypeName()\nhelper method the toolkit provides.\nDefine local variables (using the\nlocal\nkeyword) for each attribute you will reference for the UI. You can ensure they are properly namespaced by using the\ngetAttributeName()\nhelper method the toolkit provides.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "local\nkeyword) for each attribute you will reference for the UI. You can ensure they are properly namespaced by using the\ngetAttributeName()\nhelper method the toolkit provides.\nYou may define further local variables to represent the various icons you want to use in the UI.\nEach icon must have a\nname\nthat will be used to refer to it in the generated code. When you want to reuse an existing icon, this must match the name of the existing icon in the existing front-end code.\n(Optional) Each icon can also have an alternate variation that is used when the icon is selected, which also must be named. (Again, if you want to reuse an existing icon, this must match the name of the existing icon in the existing front-end code.)\nEach icon must have an SVG file that provides the actual image for the icon. You'll need to copy this image file into the appropriate location later, but the filename must be accurate here.\n(Optional) When you want an alternate variation of the icon to use when the icon is selected, specify the SVG filename for that alternative image. (Again, you'll need to copy this image file into the appropriate location later, but the filename must be accurate here.)",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "You can define any number of custom types that can be instantiated within\ncustomAssetTypes\n.\nUse the local variables defined above in the form\n[VariableName] { }\nand provide at least a\ndescription\nfor that custom asset type.\nSetting the\nlabel\nwill control how the type is labelled in the user interface.\nSetting the\nicon\nwill control the icon to display for this type in the user interface. These are themselves an object, which could either be defined inline here or (as in this example) as a separate local variable.\nFor types that are contained within another type, specify the name of the de-normalized attribute that contains the\nqualifiedName\nof the parent asset. This will be used to efficiently render parent-child relationships in the UI.\nUse that local variable you created for the attribute!\nYou can specify any attributes specific to this custom asset here. (Remember any common attributes will be inherited automatically from the supertype.)\nThe name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nYou can also set the\nlabel",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "The name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nYou can also set the\nlabel\nto control how each attribute is labelled in the user interface.\nThe\ntype\ncan either be primitive or point to a complex definition like\nstruct\nor\nenum\n.\nWhen the\ntype\nis\nstruct\n, you must also provide the name of the struct in\nstructName\n.\nUse that local variable you created to define the struct!\n(Optional) If you want to allow multiple instances of this attribute to be stored on each asset, set\nmultiValued\nto\ntrue\n.\n(Optional) You can specify any additional supertypes your custom type should have. The top-level supertype defined under\nsupertypeDefinition\n(or generated from the\nnamespace\n) will be set automatically, so you only need to include this if you want your new custom type to have multiple supertypes.\nThe\ntype\ncan be\nenum\nto restrict its values to a set of predefined values.\nWhen the\ntype\nis\nenum\n, you must also provide the name of the enumeration that defines the valid values in\nenumName\n.\nUse that local variable you created to define the enum!",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 28
+    }
+  },
+  {
+    "content": "When the\ntype\nis\nenum\n, you must also provide the name of the enumeration that defines the valid values in\nenumName\n.\nUse that local variable you created to define the enum!\n(Optional) You can also define UI aspects that should apply across all assets of these types under the\nui\nsection.\nProvide the filename for an SVG image you want to use as the icon to visually present all of these assets. This could be a branded logo of the source system that these assets represent, for example.\n(Optional) You can define the hierarchy of filters that users can apply on the asset discovery page.\nThese are applicable in top-down order after a connection has been selected, and can include at most the top 2 levels of the asset containment hierarchy.\nEach entry should be keyed by the type name, and have as a value the name of the denormalized attribute that every asset must have populated to be contained within that level of the hierarchy.\nUse those local variables again!\n(Optional) You can define the \"breadcrumb trail\" that should be shown for assets to indicate their containment hierarchy.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 29
+    }
+  },
+  {
+    "content": "Use those local variables again!\n(Optional) You can define the \"breadcrumb trail\" that should be shown for assets to indicate their containment hierarchy.\nThese define the breadcrumb in top-down order, and should generally not include more than 3 levels (or they will overrun the UI).\nEach entry should be keyed by the type name, and have two values:\nq\ngiving the name of the denormalized attribute that has the unique name of the asset this one is contained within\na\ngiving the name of the denormalized attribute that has the simple name of the asset this one is contained within\nNew asset relationships\n¶\nDescribe the new relationships you want to be able to create and manage between assets under the\ncustomRelationshipTypes\nsection.\nRunning example (expand for details)\nFrom the running example, the new relationships define these linkages between the assets:\nerDiagram\nCustomDataset ||--o{ CustomTable : \"customTables / customDataset\"\nCustomTable ||--o{ CustomField : \"customFields / customTable\"\nCustomField }o--o{ CustomField : \"customToFields / customFromFields\"\nSimple\nDetailed\nWith UX",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 30
+    }
+  },
+  {
+    "content": "CustomTable ||--o{ CustomField : \"customFields / customTable\"\nCustomField }o--o{ CustomField : \"customToFields / customFromFields\"\nSimple\nDetailed\nWith UX\nIf you have no relationships you need between the new asset types in your model and any other asset types, you can leave this customRelationshipTypes section out entirely.\nMyCustomModel.pkl\n89\n90\n91\n92\n93\n94\n95\n96\n97\n98\n99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n114\n115\n116\n117\n118\n119\n120\n121\n122\n123\n124\n125\n126\n127\n128\n129\ncustomRelationshipTypes\n{\n// (1)\n[\n\"datasetAndItsTables\"\n]\n=\nnew\nContainmentRelationship\n{\n// (2)\nparent\n{\n// (3)\ntype\n=\nDataset\n// (4)\nattribute\n=\n\"dataset\"\n// (5)\ndescription\n=\n\"Dataset containing the Table.\"\n// (6)\n}\nchildren\n{\n// (7)\ntype\n=\nTable\nattribute\n=\n\"tables\"\ndescription\n=\n\"Tables contained within the Dataset.\"\n}\n}\n[\n\"tableAndItsFields\"\n]\n=\nnew\nContainmentRelationship\n{\nparent\n{\ntype\n=\nTable\nattribute\n=\n\"table\"\ndescription\n=\n\"Table containing the Field.\"\n}\nchildren\n{\ntype\n=\nField\nattribute\n=\n\"fields\"\ndescription\n=\n\"Fields contained within the Table.\"\n}\n}\n[\n\"interrelatedFields\"\n]\n=\nnew\nPeerToPeerRelationship\n{\n// (8)\ndescription\n=",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 31
+    }
+  },
+  {
+    "content": "}\nchildren\n{\ntype\n=\nField\nattribute\n=\n\"fields\"\ndescription\n=\n\"Fields contained within the Table.\"\n}\n}\n[\n\"interrelatedFields\"\n]\n=\nnew\nPeerToPeerRelationship\n{\n// (8)\ndescription\n=\n\"Many-to-many peer-to-peer relationship between \\(Field)s.\"\npeers\n{\n// (9)\nnew\n{\ntype\n=\nField\n// (10)\nattribute\n=\n\"fromFields\"\n// (11)\ndescription\n=\n\"\\(Field)s from which this \\(Field) is related.\"\n// (12)\n}\nnew\n{\ntype\n=\nField\nattribute\n=\n\"toFields\"\ndescription\n=\n\"\\(Field)s to which this \\(Field) is related.\"\n}\n}\n}\n}\nYou can also specify any number of custom relationships. These should be listed under\ncustomRelationshipTypes\nand each take the form of\n[\"name\"] = new Relationship { }\n. There are two kinds of Relationship that can be created:\nContainmentRelationship\ndefines a parent-child (hierarchical) relationship. Each parent can have many children, but each child can refer to only a single parent.\nPeerToPeerRelationship\ndefines an association relationship, which is many-to-many by default.\nMake the name as informational as you want\nThe name is not actually used other than to keep the relationships unique, so feel free to use as informational a name as you want.",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 32
+    }
+  },
+  {
+    "content": "Make the name as informational as you want\nThe name is not actually used other than to keep the relationships unique, so feel free to use as informational a name as you want.\nThis example starts by creating a new parent-child\nContainmentRelationship\nbetween a dataset (the parent) and its tables (the children).\nA\nContainmentRelationship\nmust have one and only one\nparent\n, which describes the parent end of the relationship.\nEach end of the relationship must have a\ntype\n, defining the asset type for that end of the relationship.\nEach end of the relationship must also define an\nattribute\n, which is how this end of the relationship will be referred to by the other end of the relationship. The name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nEach end of the relationship must also provide a\ndescription\nfor the\nattribute\n.\nA\nContainerRelationship\nmust also have one and only one\nchildren\ndefinition, which describes the end of the relationship containing the children.\nThis example shows how you can define a new many-to-many relationship between assets.\nA\nPeerToPeerRelationship",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 33
+    }
+  },
+  {
+    "content": "definition, which describes the end of the relationship containing the children.\nThis example shows how you can define a new many-to-many relationship between assets.\nA\nPeerToPeerRelationship\nmust have a listing of exactly two\npeers\n, each of which describes one end of the relationship.\nEach end of the relationship must have a\ntype\n, defining the asset type for that end of the relationship.\nEach end of the relationship must also define an\nattribute\n, which is how this end of the relationship will be referred to by the other end of the relationship. The name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nEach end of the relationship must also provide a\ndescription\nfor the\nattribute\n.\nMyCustomModel.pkl\n149\n150\n151\n152\n153\n154\n155\n156\n157\n158\n159\n160\n161\n162\n163\n164\n165\n166\n167\n168\n169\n170\n171\n172\n173\n174\n175\n176\n177\n178\n179\n180\n181\n182\n183\n184\n185\n186\n187\n188\n189\ncustomRelationshipTypes\n{\n// (1)\n[\n\"datasetAndItsTables\"\n]\n=\nnew\nContainmentRelationship\n{\n// (2)\nparent\n{\n// (3)\ntype\n=\nDataset\n// (4)\nattribute\n=\n\"dataset\"\n// (5)\ndescription\n=\n\"Dataset containing the Table.\"",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 34
+    }
+  },
+  {
+    "content": "{\n// (1)\n[\n\"datasetAndItsTables\"\n]\n=\nnew\nContainmentRelationship\n{\n// (2)\nparent\n{\n// (3)\ntype\n=\nDataset\n// (4)\nattribute\n=\n\"dataset\"\n// (5)\ndescription\n=\n\"Dataset containing the Table.\"\n// (6)\n}\nchildren\n{\n// (7)\ntype\n=\nTable\nattribute\n=\n\"tables\"\ndescription\n=\n\"Tables contained within the Dataset.\"\n}\n}\n[\n\"tableAndItsFields\"\n]\n=\nnew\nContainmentRelationship\n{\nparent\n{\ntype\n=\nTable\nattribute\n=\n\"table\"\ndescription\n=\n\"Table containing the Field.\"\n}\nchildren\n{\ntype\n=\nField\nattribute\n=\n\"fields\"\ndescription\n=\n\"Fields contained within the Table.\"\n}\n}\n[\n\"interrelatedFields\"\n]\n=\nnew\nPeerToPeerRelationship\n{\n// (8)\ndescription\n=\n\"Many-to-many peer-to-peer relationship between \\(Field)s.\"\npeers\n{\n// (9)\nnew\n{\ntype\n=\nField\n// (10)\nattribute\n=\n\"fromFields\"\n// (11)\ndescription\n=\n\"\\(Field)s from which this \\(Field) is related.\"\n// (12)\n}\nnew\n{\ntype\n=\nField\nattribute\n=\n\"toFields\"\ndescription\n=\n\"\\(Field)s to which this \\(Field) is related.\"\n}\n}\n}\n}\nYou can also specify any number of custom relationships. These should be listed under\ncustomRelationshipTypes\nand each take the form of\n[\"name\"] = new Relationship { }\n. There are two kinds of Relationship that can be created:\nContainmentRelationship",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 35
+    }
+  },
+  {
+    "content": "customRelationshipTypes\nand each take the form of\n[\"name\"] = new Relationship { }\n. There are two kinds of Relationship that can be created:\nContainmentRelationship\ndefines a parent-child (hierarchical) relationship. Each parent can have many children, but each child can refer to only a single parent.\nPeerToPeerRelationship\ndefines an association relationship, which is many-to-many by default.\nMake the name as informational as you want\nThe name is not actually used other than to keep the relationships unique, so feel free to use as informational a name as you want.\nThis example starts by creating a new parent-child\nContainmentRelationship\nbetween a dataset (the parent) and its tables (the children).\nA\nContainmentRelationship\nmust have one and only one\nparent\n, which describes the parent end of the relationship.\nEach end of the relationship must have a\ntype\n, defining the asset type for that end of the relationship.\nEach end of the relationship must also define an\nattribute\n, which is how this end of the relationship will be referred to by the other end of the relationship. The name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 36
+    }
+  },
+  {
+    "content": ", which is how this end of the relationship will be referred to by the other end of the relationship. The name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nEach end of the relationship must also provide a\ndescription\nfor the\nattribute\n.\nA\nContainerRelationship\nmust also have one and only one\nchildren\ndefinition, which describes the end of the relationship containing the children.\nThis example shows how you can define a new many-to-many relationship between assets.\nA\nPeerToPeerRelationship\nmust have a listing of exactly two\npeers\n, each of which describes one end of the relationship.\nEach end of the relationship must have a\ntype\n, defining the asset type for that end of the relationship.\nEach end of the relationship must also define an\nattribute\n, which is how this end of the relationship will be referred to by the other end of the relationship. The name of the attribute will automatically be prefixed with the attribute prefix (\nattrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nEach end of the relationship must also provide a\ndescription",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 37
+    }
+  },
+  {
+    "content": "attrPrefix\n) for you, so you can focus on just a simple name for the attribute.\nEach end of the relationship must also provide a\ndescription\nfor the\nattribute\n.\nAdvanced attribute options\n¶\nThere are further advanced options you can use when defining each attribute. These will all be set to sensible defaults based on the options outlined in the example above, but you can also directly set or override them if needed.\nProperty\nUsage\nDefault\ndefaultValue\nDefault value for the attribute.\nisDefaultValueNull\nIndicates whether the attribute has a default value of being empty (true) or not (false).\nisOptional\nIndicates whether the attribute is mandatory (false) or optional (true).\ntrue\nvaluesMinCount\nMinimum number of values the attribute should have.\nvaluesMaxCount\nMaximum number of values the attribute should have.\nisUnique\nWhether the attribute is unique (true) or not (false).\nfalse\nisIndexable\nWhether the attribute is indexed in-memory via Cassandra (true) or not (false).\nfalse\nincludeInNotification\nWhether the attribute should generate a notification when its value changes (true) or not (false).\ntrue\nskipScrubbing\nTBC\ntrue\nsearchWeight\nTBC\nindexAs",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 38
+    }
+  },
+  {
+    "content": "false\nincludeInNotification\nWhether the attribute should generate a notification when its value changes (true) or not (false).\ntrue\nskipScrubbing\nTBC\ntrue\nsearchWeight\nTBC\nindexAs\nWhat kind of index(es) to create in Elastic for this attribute:\nkeyword\n,\ntext\n,\nboth\n.\ndefault\n2025-03-11\n2025-06-24\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits_typedef_define.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_define.json",
+      "chunk_id": 39
+    }
+  }
+]

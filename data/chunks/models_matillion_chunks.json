@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Matillion - Developer\nSkip to content\nMatillion\n¶\nBase class for Matillion assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand managing Matillion assets in Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass MatillionComponent\nlink MatillionComponent \"../entities/matillioncomponent\"\nMatillion <|-- MatillionComponent : extends\nclass MatillionGroup\nlink MatillionGroup \"../entities/matilliongroup\"\nMatillion <|-- MatillionGroup : extends\nclass MatillionJob\nlink MatillionJob \"../entities/matillionjob\"\nMatillion <|-- MatillionJob : extends\nclass MatillionProject\nlink MatillionProject \"../entities/matillionproject\"\nMatillion <|-- MatillionProject : extends\nclass Matillion {\n<<abstract>>\n}\nlink Matillion \"../entities/matillion\"\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- Matillion : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends",
+    "metadata": {
+      "source_url": "models_matillion.html",
+      "source_type": "sdk",
+      "file": "models_matillion.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "class Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- Matillion : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nProperties\n¶\nThese attributes are specific to instances of\nMatillion\n(and all of its subtypes).\nmatillionVersion\n¶\nCurrent point in time state of a project.\nRelationships\n¶\nThe following illustrates how the various Matillion objects inter-relate with each other:\nerDiagram\nConnection ||..o{ MatillionGroup : \"\"\nMatillionGroup |o--o{ MatillionProject : matillionProjects\nMatillionProject |o--o{ MatillionJob : matillionJobs\nMatillionJob |o--o{ MatillionComponent : matillionComponents\nMatillionComponent |o--o| LineageProcess : matillionProcess\n2023-09-18\n2024-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot",
+    "metadata": {
+      "source_url": "models_matillion.html",
+      "source_type": "sdk",
+      "file": "models_matillion.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "feedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_matillion.html",
+      "source_type": "sdk",
+      "file": "models_matillion.json",
+      "chunk_id": 2
+    }
+  }
+]

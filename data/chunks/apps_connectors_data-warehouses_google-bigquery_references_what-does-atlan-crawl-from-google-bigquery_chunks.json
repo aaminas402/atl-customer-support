@@ -1,0 +1,56 @@
+[
+  {
+    "content": "What does Atlan crawl from Google BigQuery? | Atlan Documentation\nSkip to main content\nOn this page\nOnce you have\ncrawled Google BigQuery\n, you can\nuse connector-specific filters\nfor quick asset discovery. The following filters are currently supported for these assets:\nTables\n-  BigQuery labels and\nIs sharded\nfilters\nAtlan doesn't run any table scans. Atlan leverages the table preview options from\nGoogle BigQuery\nÂ that enable you to view data for free and without affecting any quotas using the\ntabledata.list\nAPI. Hence,\ntable\nasset previews in Atlan are already cost-optimized. However, this doesn't apply to\nviews\nand\nmaterialized views\n.\nFor Google BigQuery\nviews\nand\nmaterialized views\n, Atlan sends you a cost nudge before viewing a sample data preview. This informs you about the precise bytes that are spent during the execution of the query, helping you decide if you still want to run the preview.\nDid you know?\nYou also receive a cost nudge before\nquerying your Google BigQuery assets\n.\nAtlan crawls and maps the following assets and properties from Google BigQuery.\nDatabases\nâ\nAtlan maps projects from Google BigQuery to its\nDatabase\nasset type.\nSource property\nAtlan property",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ".\nAtlan crawls and maps the following assets and properties from Google BigQuery.\nDatabases\nâ\nAtlan maps projects from Google BigQuery to its\nDatabase\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nProject ID\nname\nasset preview, profile, and filter, overview sidebar\nSchemas\nâ\nAtlan maps datasets from Google BigQuery to its\nSchema\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_SCHEMA\nname\nasset preview and profile, overview sidebar\nTABLE_COUNT\ntableCount\nasset preview and profile\nVIEW_COUNT\nviewsCount\nasset preview and profile, overview sidebar\nTABLE_CATALOG\ndatabaseName\nasset preview\nREMARKS\ndescription\nasset preview and profile, overview sidebar\nCREATED\nsourceCreatedAt\nasset profile and properties sidebar\nMODIFIED\nsourceUpdatedAt\nasset profile and properties sidebar\nTables\nâ\nDid you know?\nTable\nasset previews are already cost-optimized.\nGoogle BigQuery\nenables you to use the table preview options to view data for free and without affecting any quotas. Note that this isn't currently supported for\nGoogle BigQuery views and materialized views\nin Atlan.\nAtlan maps tables from Google BigQuery to its\nTable\nasset type.\nSource property\nAtlan property",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Google BigQuery views and materialized views\nin Atlan.\nAtlan maps tables from Google BigQuery to its\nTable\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_NAME\nname\nasset preview and profile, overview sidebar\nREMARKS\ndescription\nasset preview and profile, overview sidebar\nCOLUMN_COUNT\ncolumnCount\nasset preview and profile, overview sidebar\nROW_COUNT\nrowCount\nasset preview, profile, and filter, overview sidebar\nSIZE_BYTES\nsizeBytes\nasset filter and overview sidebar\nTABLE_TYPE\nsubType\nasset preview and profile\nLABELS\nassetTags\noverview sidebar\nCREATED\nsourceCreatedAt\nasset profile and properties sidebar\nMODIFIED\nsourceUpdatedAt\nasset profile and properties sidebar\nOPTION_NAMES (require_partition_filter)\nisPartitioned\nAPI only\nViews\nâ\nAtlan maps views from Google BigQuery to its\nView\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_NAME\nname\nasset preview and profile, overview sidebar\nREMARKS\ndescription\nasset preview and profile, overview sidebar\nCOLUMN_COUNT\ncolumnCount\nasset preview and profile, overview sidebar\nTABLE_TYPE\nsubType\nasset preview and profile\nCREATED\nsourceCreatedAt\nasset profile and properties sidebar\nMODIFIED\nsourceUpdatedAt",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "COLUMN_COUNT\ncolumnCount\nasset preview and profile, overview sidebar\nTABLE_TYPE\nsubType\nasset preview and profile\nCREATED\nsourceCreatedAt\nasset profile and properties sidebar\nMODIFIED\nsourceUpdatedAt\nasset profile and properties sidebar\nOPTION_NAMES (require_partition_filter)\nisPartitioned\nAPI only\nDDL\ndefinition\nasset profile and overview sidebar\nMaterialized views\nâ\nAtlan maps materialized views from Google BigQuery to its\nMaterialisedView\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nTABLE_NAME\nname\nasset preview and profile, overview sidebar\nREMARKS\ndescription\nasset preview and profile, overview sidebar\nCOLUMN_COUNT\ncolumnCount\nasset preview and profile, overview sidebar\nROW_COUNT\nrowCount\nasset preview, profile, and filter, overview sidebar\nSIZE_BYTES\nsizeBytes\nasset filter and overview sidebar\nTABLE_TYPE\nsubType\nasset preview and profile\nCREATED\nsourceCreatedAt\nasset profile and properties sidebar\nMODIFIED\nsourceUpdatedAt\nasset profile and properties sidebar\nOPTION_NAMES (require_partition_filter)\nisPartitioned\nAPI only\nDDL\ndefinition\nasset profile and overview sidebar\nColumns\nâ\nAtlan supports\nnested columns up to level 1",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "OPTION_NAMES (require_partition_filter)\nisPartitioned\nAPI only\nDDL\ndefinition\nasset profile and overview sidebar\nColumns\nâ\nAtlan supports\nnested columns up to level 1\nfor Google BigQuery to help you enrich your semi-structured data types. You can view nested columns in the asset sidebar for your table assets. Atlan maps columns from Google BigQuery to its\nColumn\nasset type.\nImportant\nAtlan doesn't crawl primary key (PK) and foreign key (FK) information from Google BigQuery.\nSource property\nAtlan property\nWhere in Atlan\nCOLUMN_NAME\nname\nasset preview and profile, overview sidebar\nREMARKS, DESCRIPTION\ndescription\nasset preview and profile, overview sidebar\nORDINAL_POSITION\norder\nasset profile\nTYPE_NAME\ndataType\nasset preview, profile, and filter, overview sidebar\nIS_NULLABLE\nisNullable\nAPI only\nIS_PARTITIONING_COLUMN\nisPartition\nasset preview, profile, and filter\nCLUSTERING_COLUMN_LIST\nisClustered\nasset preview, profile, and filter\nStored procedures\nâ\nAtlan maps stored procedures from Google BigQuery to its\nProcedure\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nPROCEDURE_NAME\nname\nAPI only\nREMARKS\ndescription\nAPI only\nPROCEDURE_TYPE\nsubType\nAPI only",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Procedure\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nPROCEDURE_NAME\nname\nAPI only\nREMARKS\ndescription\nAPI only\nPROCEDURE_TYPE\nsubType\nAPI only\nROUTINE_DEFINITION\ndefinition\nAPI only\nCREATED\nsourceCreatedAt\nAPI only\nMODIFIED\nsourceUpdatedAt\nAPI only\nDatabases\nSchemas\nTables\nViews\nMaterialized views\nColumns\nStored procedures",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_google-bigquery_references_what-does-atlan-crawl-from-google-bigquery.json",
+      "chunk_id": 5
+    }
+  }
+]

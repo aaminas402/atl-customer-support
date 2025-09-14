@@ -1,0 +1,11 @@
+[
+  {
+    "content": "Custom metadata structures overview - Developer\nSkip to content\nCustom metadata structures overview\n¶\nCustom metadata in Atlan is structurally composed of two levels:\nThe custom metadata definition (sometimes referred to as\nset\n) itself, defined as a\nCustomMetadataDef\nThe\nattributes\n(or properties) within that custom metadata set, each defined as an\nAttributeDef\nerDiagram\nCustomMetadataDef ||--o{ AttributeDef : contains\nThrough Atlan's APIs, you can\ncreate your own custom metadata\nsets and attributes programmatically.\nOnce the structures exist, you can then also\nchange custom metadata values\non assets themselves.\n2022-09-09\n2024-03-14\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata.json",
+      "chunk_id": 0
+    }
+  }
+]

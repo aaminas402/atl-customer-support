@@ -1,0 +1,29 @@
+[
+  {
+    "content": "IBM - Developer\nSkip to content\nIBM\nIBM model\n¶\nBase class for IBM assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand integrating IBM assets with Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../catalog\"\nCatalog <|-- BI : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass Cognos {\n<<abstract>>\n}\nlink Cognos \"../cognos\"\nclass BI {\n<<abstract>>\n}\nlink BI \"../bi\"\nBI <|-- Cognos : extends\nclass CognosExploration\nlink CognosExploration \"../entities/cognosexploration\"\nCognos <|-- CognosExploration : extends\nclass CognosDashboard\nlink CognosDashboard \"../entities/cognosdashboard\"\nCognos <|-- CognosDashboard : extends\nclass CognosReport\nlink CognosReport \"../entities/cognosreport\"\nCognos <|-- CognosReport : extends",
+    "metadata": {
+      "source_url": "models_ibm.html",
+      "source_type": "sdk",
+      "file": "models_ibm.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "link CognosDashboard \"../entities/cognosdashboard\"\nCognos <|-- CognosDashboard : extends\nclass CognosReport\nlink CognosReport \"../entities/cognosreport\"\nCognos <|-- CognosReport : extends\nclass CognosModule\nlink CognosModule \"../entities/cognosmodule\"\nCognos <|-- CognosModule : extends\nclass CognosFile\nlink CognosFile \"../entities/cognosfile\"\nCognos <|-- CognosFile : extends\nclass CognosFolder\nlink CognosFolder \"../entities/cognosfolder\"\nCognos <|-- CognosFolder : extends\nclass CognosPackage\nlink CognosPackage \"../entities/cognospackage\"\nCognos <|-- CognosPackage : extends\nclass CognosDatasource\nlink CognosDatasource \"../entities/cognosdatasource\"\nCognos <|-- CognosDatasource : extends\n2024-06-18\n2024-06-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.",
+    "metadata": {
+      "source_url": "models_ibm.html",
+      "source_type": "sdk",
+      "file": "models_ibm.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Allow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_ibm.html",
+      "source_type": "sdk",
+      "file": "models_ibm.json",
+      "chunk_id": 2
+    }
+  }
+]

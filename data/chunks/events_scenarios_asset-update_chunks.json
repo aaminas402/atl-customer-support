@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Asset is updated - Developer\nSkip to content\nEvents when an asset is updated\n¶\nWhen an\nasset\nis updated in Atlan, the following events can be emitted.\nENTITY_UPDATE\n¶\nAtlan always emits an\nENTITY_UPDATE\nevent when an asset is updated.\n1\nThe details in the event are for the asset that was updated.\nWhen a relationship is defined as part of an asset update, Atlan will also emit an\nENTITY_UPDATE\nevent for that related asset. The details in this event cover the related asset.\nMore details\nParent-child relationships\nUnlike with asset creation, typically the parent-child relationship already exists when an asset is updated and thus does not need to be redefined. So it is rare that you would see Atlan emitting\nENTITY_UPDATE\nevents for parent-child relationships during an asset update.\nPeer-to-peer relationships\nFor example, specifying a term to link to a column when updating the column.\nAn\nENTITY_UPDATE\nevent will be emitted for the term that is specified.\nNote: this means a single asset creation (single\nENTITY_CREATE\nevent) could emit any number of\nENTITY_UPDATE\nevents.\nNote that events are only emitted when an asset is\nactually\nupdated. Since Atlan's\nsave operation",
+    "metadata": {
+      "source_url": "events_scenarios_asset-update.html",
+      "source_type": "sdk",
+      "file": "events_scenarios_asset-update.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "ENTITY_CREATE\nevent) could emit any number of\nENTITY_UPDATE\nevents.\nNote that events are only emitted when an asset is\nactually\nupdated. Since Atlan's\nsave operation\nis idempotent, when no changes are actually sent in the payload it behaves as a NOOP — the asset is not actually changed or updated. In these cases, no events are emitted, either.\n↩\n2022-11-07\n2024-10-01\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "events_scenarios_asset-update.html",
+      "source_type": "sdk",
+      "file": "events_scenarios_asset-update.json",
+      "chunk_id": 1
+    }
+  }
+]

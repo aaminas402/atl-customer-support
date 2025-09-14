@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Workflows - Developer\nSkip to content\nWorkflow\n¶\nThese are the model elements in Atlan related to governance workflows.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage resources in Atlan.\nclassDiagram\ndirection RL\nclass Workflow\nlink Workflow \"../workflow\"\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../asset\"\nAsset <|-- Workflow : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../referenceable\"\nReferenceable <|-- Asset : extends\nclass WorkflowRun\nlink WorkflowRun \"../entities/workflowrun\"\nAsset <|-- WorkflowRun : extends\nclass Task\nlink Task \"../entities/task\"\nAsset <|-- Task : extends\nProperties\n¶\nThese attributes are specific to instances of\nWorkflow\n(and all of its subtypes).\nworkflowActionChoices\n¶\nList of workflow action choices.\nworkflowConfig\n¶\nDetails of the workflow.\nworkflowCreatedBy\n¶\nUsername of the user who created this workflow.\nworkflowDeletedAt\n¶\nDeletion time of this workflow.\nworkflowRunExpiresIn\n¶\nTime duration after which a run of this workflow will expire.\nworkflowStatus\n¶\nStatus of the workflow.\nworkflowTemplateGuid\n¶",
+    "metadata": {
+      "source_url": "models_workflow.html",
+      "source_type": "sdk",
+      "file": "models_workflow.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "¶\nDeletion time of this workflow.\nworkflowRunExpiresIn\n¶\nTime duration after which a run of this workflow will expire.\nworkflowStatus\n¶\nStatus of the workflow.\nworkflowTemplateGuid\n¶\nGUID of the workflow template from which this workflow was created.\nworkflowType\n¶\nType of the workflow.\nworkflowUpdatedBy\n¶\nUsername of the user who updated this workflow.\n2024-06-18\n2024-06-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_workflow.html",
+      "source_type": "sdk",
+      "file": "models_workflow.json",
+      "chunk_id": 1
+    }
+  }
+]

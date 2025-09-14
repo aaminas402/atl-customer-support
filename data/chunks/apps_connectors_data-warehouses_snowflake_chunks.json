@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Snowflake | Atlan Documentation\nSkip to main content\nOn this page\nOverview:\nCatalog Snowflake databases, schemas, tables, and views in Atlan. Gain visibility into lineage, usage, and governance for your cloud data warehouse assets.\nGet started\nâ\nFollow these steps to connect and catalog Snowflake assets in Atlan:\nSet up the connector\nCrawl Snowflake assets\nGuides\nâ\nAuthentication\nâ\nEnable Snowflake OAuth\n: Set up OAuth authentication for Snowflake connections.\nMetadata & lineage\nâ\nMine Snowflake\n: Learn how to mine query history and construct lineage for Snowflake assets.\nTag management\nâ\nManage Snowflake tags\n: Configure and manage tags and policy tags in Snowflake.\nAdvanced features\nâ\nConfigure Snowflake data metric functions\n: Configure and use data metric functions in Snowflake.\nPrivate networking\nâ\nSet up an AWS private network link to Snowflake\n: Establish a secure, private network connection to Snowflake on AWS.\nSet up an Azure private network link to Snowflake\n: Establish a secure, private network connection to Snowflake on Azure.\nReferences\nâ\nWhat does Atlan crawl from Snowflake",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Set up an Azure private network link to Snowflake\n: Establish a secure, private network connection to Snowflake on Azure.\nReferences\nâ\nWhat does Atlan crawl from Snowflake\n: Learn about the Snowflake assets and metadata that Atlan discovers and catalogs.\nPreflight checks for Snowflake\n: Verify prerequisites before setting up the Snowflake connector.\nTroubleshooting\nâ\nTroubleshooting connectivity\n: Resolve common Snowflake connection issues and errors.\nBest practices\nâ\nSnowflake warehouse configuration\n: Recommended Snowflake warehouse configuration to enable reliable Atlan workflow execution.\nGet started\nGuides\nReferences\nTroubleshooting\nBest practices",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake.json",
+      "chunk_id": 1
+    }
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "content": "Databricks assets package - Developer\nSkip to content\nDatabricks assets package\n¶\nThe\nDatabricks assets package\ncrawls databricks assets and publishes them to Atlan for discovery.\nDirect extraction\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method\nit will create a new connection and new assets within that connection — which could lead to duplicate\nassets if you run the workflow this way multiple times with the same settings.\nInstead, when you want to re-crawl assets, re-run the existing workflow\n(see\nRe-run existing workflow\nbelow).\n7.0.0\nTo crawl assets directly from databricks:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nDirect extraction from databricks\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nDatabricksCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nDatabricksCrawler\n(\n# (1)\nclient\n=\nclient\n,\n# (2)\nconnection_name\n=\n\"production\"\n,\n# (3)\nadmin_roles\n=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (4)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\nrow_limit\n=\n10000\n,\n# (5)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "=\nclient\n,\n# (2)\nconnection_name\n=\n\"production\"\n,\n# (3)\nadmin_roles\n=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (4)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\nrow_limit\n=\n10000\n,\n# (5)\nallow_query\n=\nTrue\n,\n# (6)\nallow_query_preview\n=\nTrue\n,\n# (7)\n)\n.\ndirect\n(\nhostname\n=\n\"test-hostname\"\n,\nport\n=\n443\n)\n# (8)\n.\nbasic_auth\n(\n# (9)\npersonal_access_token\n=\n\"test-pat\"\n,\nhttp_path\n=\n\"test-http-path\"\n,\n)\n.\nmetadata_extraction_method\n(\ntype\n=\nDatabricksCrawler\n.\nExtractionMethod\n.\nJDBC\n)\n# (10)\n.\ninclude\n(\nassets\n=\n{\n\"test-include\"\n:\n[\n\"ti1\"\n,\n\"ti2\"\n]})\n# (11)\n.\nexclude\n(\nassets\n=\n{\n\"test-exclude\"\n:\n[\n\"te1\"\n,\n\"te2\"\n]})\n# (12)\n.\nexclude_regex\n(\nregex\n=\n\"TEST*\"\n)\n# (13)\n.\nenable_view_lineage\n(\nFalse\n)\n# (14)\n.\nenable_source_level_filtering\n(\nTrue\n)\n# (15)\n.\nto_workflow\n()\n# (16)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\ncrawler\n)\n# (17)\nBase configuration for a new Databricks crawler.\nYou must provide a client instance.\nYou must provide a name for the connection that the Databricks assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers).\na list of groups (names) that will be connection admins.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "You must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers).\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nYou can specify a maximum number of rows that can be accessed for any asset in the connection. defaults to\n10000\n.\nYou can specify whether you want to allow queries to this connection\n(default:\nTrue\n, as in this example) or deny all query access to the connection (\nFalse\n).\nYou can specify whether you want to allow data previews on this connection\n(default:\nTrue\n, as in this example) or deny all sample data previews to the connection (\nFalse\n).\nWhen crawling assets directly from Databricks,\nyou are required to provide the following information:\nhostname of the Databricks instance.\nport number of the Databricks instance. default:\n443\n.\nWhen using basic authentication,\nyou are required to provide the following information:\npersonal access token through which to access Databricks instance.\nHTTP path of your Databricks instance\nYou can also utilize any of the following authentication methods:\naws_service()\nclient_id:\nclient ID for your AWS service principal.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "HTTP path of your Databricks instance\nYou can also utilize any of the following authentication methods:\naws_service()\nclient_id:\nclient ID for your AWS service principal.\nclient_secret:\nclient secret for your AWS service principal.\nazure_service()\nclient_id:\nclient ID for Azure service principal.\nclient_secret:\nclient secret for your Azure service principal.\ntenant_id:\ntenant ID (directory ID) for Azure service principal.\nDetermines the interface that the package\nwill use to extract metadata from Databricks.\nJDBC is the recommended method (\ndefault\n).\nREST API method is supported only by Unity Catalog enabled instances.\nYou can also optionally specify the list of assets to include in crawling.\nFor Databricks assets, this should be specified as a list of database names.\nIf set to\n[]\n, all databases will be crawled.\nRecommendation\nWhen using the\nDatabricksCrawler.ExtractionMethod.REST\nextraction method, ensure that you use the\ninclude_for_rest_api()\nmethod, which accepts a list of database names to include during crawling.\nYou can also optionally specify the list of assets to exclude from crawling.\nFor Databricks assets, this should be specified as a list of database GUIDs.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "You can also optionally specify the list of assets to exclude from crawling.\nFor Databricks assets, this should be specified as a list of database GUIDs.\nIf set to\n[]\n, no databases will be excluded.\nRecommendation\nWhen using the\nDatabricksCrawler.ExtractionMethod.REST\nextraction method, ensure that you use the\nexclude_for_rest_api()\nmethod, which accepts a list of database names to exclude during crawling.\nYou can also optionally specify the exclude regex for the crawler\nto ignore collections based on a naming convention.\nYou can configure whether to enable view lineage as part of crawling Databricks (default:\nTrue\n).\nYou can configure advanced settings to enable\n(\nTrue\n) or disable (\nFalse\n) schema-level filtering on the source.\nSchemas specified in the include filter will be fetched.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how you can check the status\nand wait until the workflow has been completed.\nComing soon",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Remember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how you can check the status\nand wait until the workflow has been completed.\nComing soon\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI. To rerun an existing workflow, see the steps below.\nOffline extraction\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method\nit will create a new connection and new assets within that connection — which could lead to duplicate\nassets if you run the workflow this way multiple times with the same settings.\nInstead, when you want to re-crawl assets, re-run the existing workflow\n(see\nRe-run existing workflow\nbelow).\n7.0.0\nTo crawl databricks assets from the S3 bucket:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCrawling databricks assets from a bucket\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nDatabricksCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nDatabricksCrawler\n(\n# (1)\nclient\n=\nclient\n,\n# (2)\nconnection_name\n=\n\"production\"\n,\n# (3)\nadmin_roles",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "from\npyatlan.model.packages\nimport\nDatabricksCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nDatabricksCrawler\n(\n# (1)\nclient\n=\nclient\n,\n# (2)\nconnection_name\n=\n\"production\"\n,\n# (3)\nadmin_roles\n=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (4)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\nrow_limit\n=\n10000\n,\n# (5)\nallow_query\n=\nTrue\n,\n# (6)\nallow_query_preview\n=\nTrue\n,\n# (7)\n)\n.\ns3\n(\n# (8)\nbucket_name\n=\n\"test-bucket\"\n,\nbucket_prefix\n=\n\"test-prefix\"\n,\nbucket_region\n=\n\"test-region\"\n,\n)\n.\nto_workflow\n()\n# (9)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\ncrawler\n)\n# (10)\nBase configuration for a new Databricks crawler.\nYou must provide a client instance.\nYou must provide a name for the connection that the Databricks assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers).\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nYou can specify a maximum number of rows that can be accessed for any asset in the connection. defaults to\n10000\n.\nYou can specify whether you want to allow queries to this connection\n(default:\nTrue",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "You can specify a maximum number of rows that can be accessed for any asset in the connection. defaults to\n10000\n.\nYou can specify whether you want to allow queries to this connection\n(default:\nTrue\n, as in this example) or deny all query access to the connection (\nFalse\n).\nYou can specify whether you want to allow data previews on this connection\n(default:\nTrue\n, as in this example) or deny all sample data previews to the connection (\nFalse\n).\nWhen using\ns3()\n, you need to provide the following information:\nname of the bucket/storage that contains the extracted metadata files.\nprefix is everything after the bucket/storage name, including the\npath\n.\n(Optional) name of the region if applicable.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how you can check the status\nand wait until the workflow has been completed.\nComing soon\nCreate the workflow via UI only",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "See the\npackages and workflows introduction\nfor details on how you can check the status\nand wait until the workflow has been completed.\nComing soon\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI. To rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶\n1.1.0\nTo re-run an existing workflow for databricks assets:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nRe-run existing databricks workflow\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nDATABRICKS\n,\nmax_results\n=\n5\n)\n# Determine which Databricks workflow (n)\n# from the list of results you want to re-run.\nresponse\n=\nclient\n.\nworkflow\n.\nrerun\n(\nexisting\n[\nn\n])\n# (2)\nYou can find workflows by their type using the workflow client\nfind_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nDatabricksCrawler\n. (You can also specify\nthe\nmaximum number of resulting workflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "DatabricksCrawler\n. (You can also specify\nthe\nmaximum number of resulting workflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,\nyou can simply call the workflow client\nrerun()\nmethod.\nOptionally, you can use\nrerun(idempotent=True)\nto avoid re-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nRequires multiple steps through the raw REST API\nFind the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-databricks\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-databricks\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n},\n\"order\"\n:\n\"desc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\nSearching by the\natlan-databricks\nprefix will ensure you only find existing Databricks assets workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name\nproperty of the response object.\n(Remember since this is a search, there could be multiple results, so you may want to use the other\ndetails in each result to determine which workflow you really want.)\nPOST /api/service/workflows/submit\n100\n101\n102\n103\n104\n{\n\"namespace\"\n:\n\"default\"\n,\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"atlan-databricks-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2025-01-13\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "Thanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_databricks-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_databricks-assets.json",
+      "chunk_id": 11
+    }
+  }
+]

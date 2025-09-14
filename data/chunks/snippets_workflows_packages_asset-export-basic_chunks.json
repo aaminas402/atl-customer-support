@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Asset export basic - Developer\nSkip to content\nAsset export (basic) package\n¶\nThe\nasset export (basic) package\nidentifies all assets that could have been enriched in some way through Atlan's UI and extracts them. The resulting CSV file can be modified or enriched, and then loaded back using the\nasset import package\n.\nAll assets\n¶\n2.6.0\nIn this example, we’re building and running the\nasset-export\nworkflow to export all assets.\nHowever, you can also use one of the following methods to customize the scope of your asset export workflow:\nenriched_only()\n: sets up the package to export only assets enriched by users.\nglossaries_only()\n: sets up the package to export only glossaries.\nproducts_only()\n: sets up the package to export only data products.\nall_assets()\n: sets up the package to export all assets, whether enriched by users or not, will be exported.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nImport assets from the object store\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nAssetExportBasic\nclient\n=\nAtlanClient\n()\nworkflow\n=\n(\nAssetExportBasic\n()\n# (1)\n.\nall_assets\n(\n# (2)\nprefix\n=",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_asset-export-basic.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_asset-export-basic.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "22\n23\n24\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nAssetExportBasic\nclient\n=\nAtlanClient\n()\nworkflow\n=\n(\nAssetExportBasic\n()\n# (1)\n.\nall_assets\n(\n# (2)\nprefix\n=\n\"default\"\n,\ninclude_description\n=\nTrue\n,\ninclude_glossaries\n=\nTrue\n,\ninclude_data_products\n=\nTrue\n,\ninclude_archived\n=\nTrue\n,\n)\n.\nobject_store\n(\nprefix\n=\n\"/test/prefix\"\n)\n# (3)\n.\ns3\n(\n# (4)\naccess_key\n=\n\"test-access-key\"\n,\nsecret_key\n=\n\"test-secret-key\"\n,\nbucket\n=\n\"my-bucket\"\n,\nregion\n=\n\"us-west-1\"\n,\n)\n)\n.\nto_workflow\n()\n# (5)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nworkflow\n)\n# (6)\nThe\nAssetExportBasic\npackage exports assets from Atlan.\nIn this example, we’re building a workflow to export\nall_assets()\n.\nHowever, you can also use one of the following methods to\ncustomize the scope of your asset export workflow:\nenriched_only()\n: sets up the package to export only assets enriched by users.\nglossaries_only()\n: sets up the package to export only glossaries.\nproducts_only()\n: sets up the package to export only data products.\nall_assets()\n: sets up the package to export all assets, whether\nenriched by users or not, will be exported.\nFor\nall_assets()\n, you need to provide following:\nprefix",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_asset-export-basic.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_asset-export-basic.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "all_assets()\n: sets up the package to export all assets, whether\nenriched by users or not, will be exported.\nFor\nall_assets()\n, you need to provide following:\nprefix\n: starting value for a\nqualifiedName\nthat\nwill determine which assets to export, default:\ndefault\n(all data assets).\ninclude_description\n: whether to extract only user-entered description\n(\nFalse\n), or to also include system-level description (\nTrue\n).\ninclude_glossaries\n: whether glossaries (and their terms\nand categories) should be exported (\nTrue\n) or not (\nFalse\n).\ninclude_data_products\n: whether data products\n(and their domains) should be exported (\nTrue\n) or not (\nFalse\n).\ninclude_archived\n: whether to include archived\nassets in the export (\nTrue\n) or only active assets (\nFalse\n).\nTo set up the package to export to an object storage location, you need to provide\nprefix\n: directory (path) within the object store\nwhere the exported file will be uploaded.\nIn this example, we're exporting assets to an object storage location using\ns3()\n.\nHowever, you can use different object storage methods such as\ngcs()\nor\nadls()\n.\nYou can also configure different export delivery methods using one of the following methods:\nemail()",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_asset-export-basic.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_asset-export-basic.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "s3()\n.\nHowever, you can use different object storage methods such as\ngcs()\nor\nadls()\n.\nYou can also configure different export delivery methods using one of the following methods:\nemail()\n: sets up the package to deliver the export via email.\ndirect()\n: sets up the package to deliver the export via direct download.\nFor\ns3()\n, you need to provide following:\naccess_key\n: AWS access key.\nsecret_key\n: AWS secret key.\nbucket\n: S3 bucket to upload the export file to.\nregion\n: name of the AWS region.\nConvert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod\non the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how to check the status and wait\nuntil the workflow has been completed.\nComing soon\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI.\nTo rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶\n2.6.0\nTo re-run an existing asset export basic workflow:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nRe-run existing asset export basic workflow\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_asset-export-basic.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_asset-export-basic.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "¶\n2.6.0\nTo re-run an existing asset export basic workflow:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nRe-run existing asset export basic workflow\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nASSET_EXPORT_BASIC\n,\nmax_results\n=\n5\n)\n# Determine which asset export basic workflow (n)\n# from the list of results you want to re-run.\nresponse\n=\nclient\n.\nworkflow\n.\nrerun\n(\nexisting\n[\nn\n])\n# (2)\nYou can find workflows by their type using the workflow client\nfind_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nAssetExportBasic\n. (You can also specify\nthe\nmaximum number of resulting workflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,\nyou can simply call the workflow client\nrerun()\nmethod.\nOptionally, you can use\nrerun(idempotent=True)\nto avoid re-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_asset-export-basic.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_asset-export-basic.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "to avoid re-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nRequires multiple steps through the raw REST API\nFind the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"csa-asset-export-basic\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n},\n\"order\"\n:\n\"desc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\nSearching by the\ncsa-asset-export-basic\nprefix will ensure you only find existing asset export basic workflows.\nName of the workflow\nThe name of the workflow will be nested within the",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_asset-export-basic.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_asset-export-basic.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": ":\ntrue\n}\nSearching by the\ncsa-asset-export-basic\nprefix will ensure you only find existing asset export basic workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name\nproperty of the response object.\n(Remember since this is a search, there could be multiple results, so you may want to use the other\ndetails in each result to determine which workflow you really want.)\nPOST /api/service/workflows/submit\n100\n101\n102\n103\n104\n{\n\"namespace\"\n:\n\"default\"\n,\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"csa-asset-export-basic-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2024-11-20\n2025-01-28\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_asset-export-basic.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_asset-export-basic.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Any personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_asset-export-basic.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_asset-export-basic.json",
+      "chunk_id": 7
+    }
+  }
+]

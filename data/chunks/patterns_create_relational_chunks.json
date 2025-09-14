@@ -1,0 +1,488 @@
+[
+  {
+    "content": "Manage RDMS assets - Developer\nSkip to content\nManage relational assets\n¶\nYou can represent most relational database and data warehousing objects through a common set of relational assets. You can use this structure to create assets for any relational system you like:\nerDiagram\nConnection ||--o{ Database : contains\nDatabase ||--o{ Schema : schemas\nSchema ||--o{ Table : tables\nSchema ||--o{ View : views\nSchema ||--o{ MaterialisedView : materialisedViews\nTable |o--o{ TablePartition : partitions\nTable }o--o{ Query : queries\nTable |o--o{ Column : columns\nTable }o--o{ DbtModel : dbtModels\nView }o--o{ Query : queries\nView |o--o{ Column : columns\nView }o--o{ DbtModel : dbtModels\nMaterialisedView |o--o{ Column : columns\nTablePartition |o--o{ Column : columns\nColumn }o--o{ Query : queries\nColumn }o--o{ DbtMetric : dbtMetrics\nColumn |o--o{ Metric : dataQualityMetricDimensions\nColumn |o--o{ DbtModelColumn : dbtModelColumns\nIn general, these should be:\nCreated in top-down order\n(connection, then database, then schema, and so on)\nDeleted in bottom-up order (columns, then tables, then schema, then database, then connection)\n1\nWhere do the icons come from?",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "(connection, then database, then schema, and so on)\nDeleted in bottom-up order (columns, then tables, then schema, then database, then connection)\n1\nWhere do the icons come from?\nAtlan will display icons for these assets based on the\ntype of connector\nyou define in the Connection. You can use out-of-the-box types like\nathena\n, or API-first types like\nnetsuite\nand\nvertica\n.\nHowever, note that in all cases the same structure (and types) as illustrated above are used — there are no differences in types between these relational assets across different systems.\nAsset structure\n¶\nConnection\n¶\n7.0.0\n4.0.0\nA\nconnection\nrequires a\nname\nand\nqualifiedName\n. As noted above, a specific setting is also required to determine the icons to use for assets in the connection. In addition,\nat least one\nof\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nString\nadminRoleGuid\n=\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"$admin\"\n);\n// (1)\nConnection\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"relational-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nVERTICA\n,\n// (4)\nList\n.\nof\n(\nadminRoleGuid\n),\n// (5)\nList\n.\nof\n(",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "(\n\"$admin\"\n);\n// (1)\nConnection\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"relational-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nVERTICA\n,\n// (4)\nList\n.\nof\n(\nadminRoleGuid\n),\n// (5)\nList\n.\nof\n(\n\"group2\"\n),\n// (6)\nList\n.\nof\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nconnection\n.\nsave\n(\nclient\n);\n// (8)\nString\nconnectionQualifiedName\n=\nresponse\n.\ngetCreatedAssets\n().\nget\n(\n0\n).\ngetQualifiedName\n();\n// (9)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection.\nDetermines the icon\nThis determines the icon that Atlan will use for all the assets in the connection.\nList the workspace roles that should be able to administer the connection (or null if none). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "At least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the group names that can administer this connection (or null if none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the user names that can administer this connection (or null if none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a relational connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nConnection\n,\nDatabase\n,\nSchema\n,\nTable\n,\nView\n,\nMaterialisedView\n,\nColumn\nfrom\npyatlan.model.enums\nimport\nAtlanConnectorType\nclient\n=\nAtlanClient\n()\nadmin_role_guid\n=",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "from\npyatlan.model.assets\nimport\nConnection\n,\nDatabase\n,\nSchema\n,\nTable\n,\nView\n,\nMaterialisedView\n,\nColumn\nfrom\npyatlan.model.enums\nimport\nAtlanConnectorType\nclient\n=\nAtlanClient\n()\nadmin_role_guid\n=\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)\n# (1)\nconnection\n=\nConnection\n.\ncreator\n(\n# (2)\nclient\n=\nclient\n,\n# (3)\nname\n=\n\"relational-connection\"\n,\n# (4)\nconnector_type\n=\nAtlanConnectorType\n.\nVERTICA\n,\n# (5)\nadmin_roles\n=\n[\nadmin_role_guid\n],\n# (6)\nadmin_groups\n=\n[\n\"group2\"\n],\n# (7)\nadmin_users\n=\n[\n\"jsmith\"\n],\n# (8)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nconnection\n)\n# (9)\nconnection_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nConnection\n)[\n0\n]\n.\nqualified_name\n# (10)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nYou must provide a client instance.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection.\nDetermines the icon\nThis determines the icon that Atlan will use for all the assets in the connection.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "production\nor\ndevelopment\n.\nSet the type of connection.\nDetermines the icon\nThis determines the icon that Atlan will use for all the assets in the connection.\nList the workspace roles that should be able to administer the connection (if any, defaults to\nNone\n). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the group names that can administer this connection (if any, defaults to\nNone\n). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the user names that can administer this connection (if any, defaults to\nNone\n). Note that the values here are the username(s) of the user(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nActually call Atlan to create the connection.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "None\n). Note that the values here are the username(s) of the user(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nActually call Atlan to create the connection.\nRetrieve the qualified_name for use in subsequent creation calls. (You'd probably want to do some checks first.)\nCreate a relational connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nval\nadminRoleGuid\n=\nclient\n.\nroleCache\n.\ngetIdForName\n(\n\"\\\n$\nadmin\n\"\n);\n// (1)\nval\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"relational-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nVERTICA\n,\n// (4)\nlistOf\n(\nadminRoleGuid\n),\n// (5)\nlistOf\n(\n\"group2\"\n),\n// (6)\nlistOf\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n()\nvar\nresponse\n=\nconnection\n.\nsave\n(\nclient\n)\n// (8)\nval\nconnectionQualifiedName\n=\nresponse\n.\ncreatedAssets\n[\n0\n]\n.\nqualifiedName\n// (9)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection.\nDetermines the icon\nThis determines the icon that Atlan will use for all the assets in the connection.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "production\nor\ndevelopment\n.\nSet the type of connection.\nDetermines the icon\nThis determines the icon that Atlan will use for all the assets in the connection.\nList the workspace roles that should be able to administer the connection (or null if none). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the group names that can administer this connection (or null if none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the user names that can administer this connection (or null if none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "must be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Connection\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"relational-connection\"\n,\n// (2)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"category\"\n:\n\"warehouse\"\n,\n// (5)\n\"adminRoles\"\n:\n[\n// (6)\n\"e7ae0295-c60a-469a-bd2c-fb903943aa02\"\n],\n\"adminGroups\"\n:\n[\n// (7)\n\"group2\"\n],\n\"adminUsers\"\n:\n[\n// (8)\n\"jsmith\"\n]\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nConnection\n.\nHuman-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nThe\nconnectorName\nshould be a known value, such as\nvertica\n.\nDetermines the icon\nThis determines the icon that Atlan will use for all the assets in the connection. If you use a value that is\nnot\na known value, you will have a default gear icon instead.\nThe\nqualifiedName\nshould follow the pattern:",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "not\na known value, you will have a default gear icon instead.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>\n, where\n<epoch>\nis the time in milliseconds at which the connection is being created, and\n<connectorName>\nexactly matches the value used for\nconnectorName\n(above).\nThe\ncategory\nshould also be a known value, that defines the kind of relational store. This could for example be\nwarehouse\nor\nrdbms\n.\nList any workspace roles that can administer this connection. All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any groups that can administer this connection. All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any users that can administer this connection. Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "adminUsers\nmust be provided.\nList any users that can administer this connection. Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nAccess policies\nAtlan creates the policies that grant access to a connection, including the ability to retrieve the connection and to create assets within it, asynchronously. It can take several seconds (even up to approximately 30 seconds) before these are in place after creating the connection.\nYou may therefore need to wait before you'll be able to create the assets below within the connection.\nTo confirm access,\nretrieve the connection\nafter it has been created. The SDKs' retry loops will automatically retry until the connection can be successfully retrieved. At that point, your API token has permission to create the other assets.\nNote: if you are\nreusing\nan existing connection rather than creating one via your API token, you must give your API token a persona that has access to that connection. Otherwise all attempts to create, read, update, or delete assets within that connection will fail due to a lack of permissions.\nDatabase\n¶\n2.0.0\n4.0.0\nA\ndatabase",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "Database\n¶\n2.0.0\n4.0.0\nA\ndatabase\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the database.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational database\n11\n12\n13\n14\n15\n16\n17\nDatabase\ndatabase\n=\nDatabase\n.\ncreator\n(\n// (1)\n\"reln_db\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\nschemaCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ndatabase\n.\nsave\n(\nclient\n);\n// (5)\ndatabase\n=\nresponse\n.\ngetResult\n(\ndatabase\n);\n// (6)\nBuild up the minimum request to create a database.\nProvide a human-readable name for your database.\nProvide the qualifiedName of the connection for this database.\n(Optional) To ensure the UI displays the correct count of\nSchema\n's, set the\nschemaCount\ndirectly on the\nDatabase\ninstance.\nActually call Atlan to create the database. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created database for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a relational database\n17\n18\n19\n20\n21\n22\n23\ndatabase\n=\nDatabase\n.\ncreator\n(\n# (1)\nname\n=",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Create a relational database\n17\n18\n19\n20\n21\n22\n23\ndatabase\n=\nDatabase\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_db\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n# (3)\n)\ndatabase\n.\nschema_count\n=\n10\n# (4)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ndatabase\n)\n# (5)\ndatabase_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nDatabase\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a database.\nProvide a human-readable name for your database.\nProvide the qualified_name of the connection for this database.\n(Optional) To ensure the UI displays the correct count of\nSchema\n's, set the\nschema_count\ndirectly on the\nDatabase\ninstance.\nActually call Atlan to create the database.\nRetrieve the qualified_name for use in subsequent creation calls. (You'd probably want to do some checks first.)\nCreate a relational database\n11\n12\n13\n14\n15\n16\n17\nvar\ndatabase\n=\nDatabase\n.\ncreator\n(\n// (1)\n\"reln_db\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\nschemaCount\n(\n10\n)\n// (4)\n.\nbuild\n()\nvar\nar\n=\ndatabase\n.\nsave\n(\nclient\n)\n// (5)\ndatabase\n=\nar\n.\ngetResult\n(\ndatabase\n)\n// (6)\nBuild up the minimum request to create a database.\nProvide a human-readable name for your database.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": ".\nbuild\n()\nvar\nar\n=\ndatabase\n.\nsave\n(\nclient\n)\n// (5)\ndatabase\n=\nar\n.\ngetResult\n(\ndatabase\n)\n// (6)\nBuild up the minimum request to create a database.\nProvide a human-readable name for your database.\nProvide the qualifiedName of the connection for this database.\n(Optional) To ensure the UI displays the correct count of\nSchema\n's, set the\nschemaCount\ndirectly on the\nDatabase\ninstance.\nActually call Atlan to create the database. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created database for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Database\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_db\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"schemaCount\"\n:\n10\n// (6)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nDatabase\n.\nHuman-readable name for your database.\nThe\nqualifiedName\nshould follow the pattern:",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"schemaCount\"\n:\n10\n// (6)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nDatabase\n.\nHuman-readable name for your database.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>/<db_name>\n, where\ndefault/<connectorName>/<epoch>\nis the qualifiedName of the connection for this database and\n<db_name>\nis the name of this database.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this database.\nThe\nconnectorName\nmust be exactly as used when defining the connection.\n(Optional) To ensure the UI displays the correct count of\nSchema\n's, set the\nschemaCount\ndirectly on the\nDatabase\ninstance.\nSchema\n¶\n2.0.0\n4.0.0\nA\nschema\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the schema, and the names and qualifiedNames of the schema's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational schema\n18\n19\n20\n21\n22\n23\n24\n25\nSchema\nschema\n=\nSchema\n.\ncreator\n(\n// (1)\n\"reln_schema\"\n,\n// (2)\ndatabase\n)\n// (3)\n.\ntableCount\n(\n10\n)\n// (4)\n.\nviewCount\n(\n10\n)\n// (5)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nschema\n.\nsave\n(\nclient\n);\n// (6)",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "=\nSchema\n.\ncreator\n(\n// (1)\n\"reln_schema\"\n,\n// (2)\ndatabase\n)\n// (3)\n.\ntableCount\n(\n10\n)\n// (4)\n.\nviewCount\n(\n10\n)\n// (5)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nschema\n.\nsave\n(\nclient\n);\n// (6)\nschema\n=\nresponse\n.\ngetResult\n(\nschema\n);\n// (7)\nBuild up the minimum request to create a schema.\nProvide a human-readable name for your schema.\nProvide the database for this schema. If you did not already have the object, you could also use\nDatabase.refByGuid()\nwith the GUID of the database, or\nDatabase.refByQualifiedName()\nwith the\nqualifiedName\nof the database.\n(Optional) To ensure the UI displays the correct count of\nTable\n's, set the\ntableCount\ndirectly on the\nSchema\ninstance.\n(Optional) To ensure the UI displays the correct count of\nView\n's,\nset the\nviewCount\ndirectly on the\nSchema\ninstance.\nActually call Atlan to create the schema. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created schema for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a relational schema\n24\n25\n26\n27\n28\n29\n30\n31\nschema\n=\nSchema\n.\ncreator\n(\n# (1)\nname\n=",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "Create a relational schema\n24\n25\n26\n27\n28\n29\n30\n31\nschema\n=\nSchema\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_schema\"\n,\n# (2)\ndatabase_qualified_name\n=\ndatabase_qualified_name\n# (3)\n)\nschema\n.\ntable_count\n=\n10\n# (4)\nschema\n.\nviews_count\n=\n10\n# (5)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nschema\n)\n# (6)\nschema_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nSchema\n)[\n0\n]\n.\nqualified_name\n# (7)\nBuild up the minimum request to create a schema.\nProvide a human-readable name for your schema.\nProvide the qualified_name of the database for this schema.\n(Optional) To ensure the UI displays the correct count of\nTable\n's, set the\ntable_count\ndirectly on the\nSchema\ninstance.\n(Optional) To ensure the UI displays the correct count of\nView\n's, set the\nviews_count\ndirectly on the\nSchema\ninstance.\nActually call Atlan to create the schema.\nRetrieve the qualified_name for use in subsequent creation calls. (You'd probably want to do some checks first.)\nCreate a relational schema\n18\n19\n20\n21\n22\n23\n24\n25\nvar\nschema\n=\nSchema\n.\ncreator\n(\n// (1)\n\"reln_schema\"\n,\n// (2)\ndatabase\n)\n// (3)\n.\ntableCount\n(\n10\n)\n// (4)\n.\nviewCount\n(\n10\n)\n// (5)\n.\nbuild\n()\nar\n=\nschema\n.\nsave\n(\nclient\n)\n// (6)\nschema\n=\nar\n.\ngetResult\n(",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "=\nSchema\n.\ncreator\n(\n// (1)\n\"reln_schema\"\n,\n// (2)\ndatabase\n)\n// (3)\n.\ntableCount\n(\n10\n)\n// (4)\n.\nviewCount\n(\n10\n)\n// (5)\n.\nbuild\n()\nar\n=\nschema\n.\nsave\n(\nclient\n)\n// (6)\nschema\n=\nar\n.\ngetResult\n(\nschema\n)\n// (7)\nBuild up the minimum request to create a schema.\nProvide a human-readable name for your schema.\nProvide the database for this schema. If you did not already have the object, you could also use\nDatabase.refByGuid()\nwith the GUID of the database, or\nDatabase.refByQualifiedName()\nwith the\nqualifiedName\nof the database.\n(Optional) To ensure the UI displays the correct count of\nTable\n's,\nset the\ntableCount\ndirectly on the\nSchema\ninstance.\n(Optional) To ensure the UI displays the correct count of\nView\n's, set the\nviewCount\ndirectly on the\nSchema\ninstance.\nActually call Atlan to create the schema. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created schema for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Schema\"\n,\n// (1)",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "POST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Schema\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_schema\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"database\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"Database\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n}\n},\n\"databaseName\"\n:\n\"reln_db\"\n,\n// (9)\n\"databaseQualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n// (10)\n\"viewCount\"\n:\n10\n// (11)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nSchema\n.\nHuman-readable name for your schema.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>\n, where\ndefault/<connectorName>/<epoch>/<db_name>\nis the qualifiedName of the database for this schema, and\n<schema_name>\nis the name of the schema.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this schema.\nThe\nconnectorName\nmust be exactly as used when defining the connection.\nThe database in which this schema exists is embedded in the",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "must be the exact qualifiedName of the connection for this schema.\nThe\nconnectorName\nmust be exactly as used when defining the connection.\nThe database in which this schema exists is embedded in the\ndatabase\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nDatabase\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the database. Note: the database must already exist in Atlan before creating the schema.\nThe\ndatabaseName\nshould be the human-readable name of the database.\nThe\ndatabaseQualifiedName\nshould be the qualifiedName of the database.\n(Optional) To ensure the UI displays the correct count of\nView\n's, set the\nviewCount\ndirectly on the\nSchema\ninstance.\nTable\n¶\n2.0.0\n4.0.0\nA\ntable\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the table, and the names and qualifiedNames of the table's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational table\n26\n27\n28\n29\n30\n31\n32\nTable\ntable\n=\nTable\n.\ncreator\n(\n// (1)\n\"reln_table\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ntable\n.\nsave\n(\nclient\n);",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "26\n27\n28\n29\n30\n31\n32\nTable\ntable\n=\nTable\n.\ncreator\n(\n// (1)\n\"reln_table\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ntable\n.\nsave\n(\nclient\n);\n// (5)\ntable\n=\nresponse\n.\ngetResult\n(\ntable\n).\nget\n(\n0\n).\ngetQualifiedName\n();\n// (6)\nBuild up the minimum request to create a table.\nProvide a human-readable name for your table.\nProvide the schema for this table. If you did not already have the object, you could also use\nSchema.refByGuid()\nwith the GUID of the schema, or\nSchema.refByQualifiedName()\nwith the\nqualifiedName\nof the schema.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nTable\ninstance.\nActually call Atlan to create the table. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created table for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a relational table\n32\n33\n34\n35\n36\n37\n38\ntable\n=\nTable\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_table\"\n,\n# (2)\nschema_qualified_name\n=\nschema_qualified_name\n# (3)\n)\ntable\n.\ncolumn_count\n=\n10\n# (4)",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "Create a relational table\n32\n33\n34\n35\n36\n37\n38\ntable\n=\nTable\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_table\"\n,\n# (2)\nschema_qualified_name\n=\nschema_qualified_name\n# (3)\n)\ntable\n.\ncolumn_count\n=\n10\n# (4)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ntable\n)\n# (5)\ntable_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nTable\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a table.\nProvide a human-readable name for your table.\nProvide the qualified_name of the schema for this table.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumn_count\ndirectly on the\nTable\ninstance.\nActually call Atlan to create the table.\nRetrieve the qualified_name for use in subsequent creation calls. (You'd probably want to do some checks first.)\nCreate a relational table\n26\n27\n28\n29\n30\n31\n32\nvar\ntable\n=\nTable\n.\ncreator\n(\n// (1)\n\"reln_table\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n()\nar\n=\ntable\n.\nsave\n(\nclient\n)\n// (5)\ntable\n=\nar\n.\ngetResult\n(\ntable\n)\n// (6)\nBuild up the minimum request to create a table.\nProvide a human-readable name for your table.\nProvide the schema for this table. If you did not already have the object, you could also use",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": ")\n// (6)\nBuild up the minimum request to create a table.\nProvide a human-readable name for your table.\nProvide the schema for this table. If you did not already have the object, you could also use\nSchema.refByGuid()\nwith the GUID of the schema, or\nSchema.refByQualifiedName()\nwith the\nqualifiedName\nof the schema.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nTable\ninstance.\nActually call Atlan to create the table. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created table for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_table\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"atlanSchema\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"Schema\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": ",\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"atlanSchema\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"Schema\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n}\n},\n\"schemaName\"\n:\n\"reln_schema\"\n,\n// (9)\n\"schemaQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n,\n// (10)\n\"databaseName\"\n:\n\"reln_db\"\n,\n// (11)\n\"databaseQualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n// (12)\n\"columnCount\"\n:\n10\n// (13)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nTable\n.\nHuman-readable name for your table.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>/<table_name>\n, where\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>\nis the qualifiedName of the schema for this table, and\n<table_name>\nis the name of the table.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this table.\nThe\nconnectorName\nmust be exactly as used when defining the connection.\nThe schema in which this table exists is embedded in the\natlanSchema\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nSchema\n.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "must be exactly as used when defining the connection.\nThe schema in which this table exists is embedded in the\natlanSchema\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nSchema\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the schema. Note: the schema must already exist in Atlan before creating the table.\nThe\nschemaName\nshould be the human-readable name of the schema.\nThe\nschemaQualifiedName\nshould be the qualifiedName of the schema.\nThe\ndatabaseName\nshould be the human-readable name of the database.\nThe\ndatabaseQualifiedName\nshould be the qualifiedName of the database.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nTable\ninstance.\nView\n¶\n2.0.0\n4.0.0\nA\nview\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the view, and the names and qualifiedNames of the view's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational view\n26\n27\n28\n29\n30\n31\n32\nView\nview\n=\nView\n.\ncreator\n(\n// (1)\n\"reln_view\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "Raw REST API\nCreate a relational view\n26\n27\n28\n29\n30\n31\n32\nView\nview\n=\nView\n.\ncreator\n(\n// (1)\n\"reln_view\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nview\n.\nsave\n(\nclient\n);\n// (5)\nview\n=\nresponse\n.\ngetResult\n(\nview\n);\n// (6)\nBuild up the minimum request to create a view.\nProvide a human-readable name for your view.\nProvide the schema for this table. If you did not already have the object, you could also use\nSchema.refByGuid()\nwith the GUID of the schema, or\nSchema.refByQualifiedName()\nwith the\nqualifiedName\nof the schema.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nView\ninstance.\nActually call Atlan to create the view. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created view for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a relational view\n32\n33\n34\n35\n36\n37\n38\nview\n=\nView\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_view\"\n,\n# (2)\nschema_qualified_name\n=\nschema_qualified_name\n# (3)\n)\nview\n.\ncolumn_count\n=\n10\n# (4)\nresponse\n=\nclient",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "32\n33\n34\n35\n36\n37\n38\nview\n=\nView\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_view\"\n,\n# (2)\nschema_qualified_name\n=\nschema_qualified_name\n# (3)\n)\nview\n.\ncolumn_count\n=\n10\n# (4)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nview\n)\n# (5)\nview_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nView\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a view.\nProvide a human-readable name for your view.\nProvide the qualified_name of the schema for this view.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumn_count\ndirectly on the\nView\ninstance.\nActually call Atlan to create the view.\nRetrieve the qualified_name for use in subsequent creation calls. (You'd probably want to do some checks first.)\nCreate a relational view\n26\n27\n28\n29\n30\n31\n32\nvar\nview\n=\nView\n.\ncreator\n(\n// (1)\n\"reln_view\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n()\nar\n=\nview\n.\nsave\n(\nclient\n)\n// (5)\nview\n=\nar\n.\ngetResult\n(\nview\n)\n// (6)\nBuild up the minimum request to create a view.\nProvide a human-readable name for your view.\nProvide the schema for this table. If you did not already have the object, you could also use\nSchema.refByGuid()\nwith the GUID of the schema, or",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "Provide a human-readable name for your view.\nProvide the schema for this table. If you did not already have the object, you could also use\nSchema.refByGuid()\nwith the GUID of the schema, or\nSchema.refByQualifiedName()\nwith the\nqualifiedName\nof the schema.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nView\ninstance.\nActually call Atlan to create the view. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created view for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"View\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_view\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"atlanSchema\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"Schema\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n}\n},",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"atlanSchema\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"Schema\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n}\n},\n\"schemaName\"\n:\n\"reln_schema\"\n,\n// (9)\n\"schemaQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n,\n// (10)\n\"databaseName\"\n:\n\"reln_db\"\n,\n// (11)\n\"databaseQualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n// (12)\n\"columnCount\"\n:\n10\n// (13)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nView\n.\nHuman-readable name for your view.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>/<view_name>\n, where\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>\nis the qualifiedName of the schema for this view, and\n<view_name>\nis the name of the view.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this view.\nThe\nconnectorName\nmust be exactly as used when defining the connection.\nThe schema in which this view exists is embedded in the\natlanSchema\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nSchema\n.\nTo complete the reference, you must include a\nuniqueAttributes",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 28
+    }
+  },
+  {
+    "content": "The schema in which this view exists is embedded in the\natlanSchema\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nSchema\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the schema. Note: the schema must already exist in Atlan before creating the view.\nThe\nschemaName\nshould be the human-readable name of the schema.\nThe\nschemaQualifiedName\nshould be the qualifiedName of the schema.\nThe\ndatabaseName\nshould be the human-readable name of the database.\nThe\ndatabaseQualifiedName\nshould be the qualifiedName of the database.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nView\ninstance.\nMaterialisedView\n¶\n2.0.0\n4.0.0\nA\nmaterialized view\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the materialized view, and the names and qualifiedNames of the materialized view's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational materialized view\n26\n27\n28\n29\n30\n31\n32\nMaterializedView\nmview\n=\nMaterializedView\n.\ncreator\n(\n// (1)\n\"reln_mat_view\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 29
+    }
+  },
+  {
+    "content": "Create a relational materialized view\n26\n27\n28\n29\n30\n31\n32\nMaterializedView\nmview\n=\nMaterializedView\n.\ncreator\n(\n// (1)\n\"reln_mat_view\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nmview\n.\nsave\n(\nclient\n);\n// (5)\nmview\n=\nresponse\n.\ngetResult\n(\nmview\n);\n// (6)\nBuild up the minimum request to create a materialized view.\nProvide a human-readable name for your materialized view.\nProvide the schema for this table. If you did not already have the object, you could also use\nSchema.refByGuid()\nwith the GUID of the schema, or\nSchema.refByQualifiedName()\nwith the\nqualifiedName\nof the schema.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nMaterializedView\ninstance.\nActually call Atlan to create the materialized view. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created materialized view for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a relational materialized view\n32\n33\n34\n35\n36\n37\n38\nmview\n=\nMaterialisedView\n.\ncreator\n(\n# (1)\nname\n=",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 30
+    }
+  },
+  {
+    "content": "Create a relational materialized view\n32\n33\n34\n35\n36\n37\n38\nmview\n=\nMaterialisedView\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_mat_view\"\n,\n# (2)\nschema_qualified_name\n=\nschema_qualified_name\n# (3)\n)\nmview\n.\ncolumn_count\n=\n10\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nmview\n)\n# (5)\nmview_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nMaterialisedView\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a materialized view.\nProvide a human-readable name for your materialized view.\nProvide the qualified_name of the schema for this materialized view.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumn_count\ndirectly on the\nMaterializedView\ninstance.\nActually call Atlan to create the materialized view.\nRetrieve the qualified_name for use in subsequent creation calls. (You'd probably want to do some checks first.)\nCreate a relational materialized view\n26\n27\n28\n29\n30\n31\n32\nvar\nmview\n=\nMaterializedView\n.\ncreator\n(\n// (1)\n\"reln_mat_view\"\n,\n// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nar\n=\nmview\n.\nsave\n(\nclient\n)\n// (5)\nmview\n=\nar\n.\ngetResult\n(\nmview\n)\n// (6)\nBuild up the minimum request to create a materialized view.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 31
+    }
+  },
+  {
+    "content": "// (2)\nschema\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nar\n=\nmview\n.\nsave\n(\nclient\n)\n// (5)\nmview\n=\nar\n.\ngetResult\n(\nmview\n)\n// (6)\nBuild up the minimum request to create a materialized view.\nProvide a human-readable name for your materialized view.\nProvide the schema for this table. If you did not already have the object, you could also use\nSchema.refByGuid()\nwith the GUID of the schema, or\nSchema.refByQualifiedName()\nwith the\nqualifiedName\nof the schema.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nMaterializedView\ninstance.\nActually call Atlan to create the materialized view. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created materialized view for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"MaterialisedView\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_mat_view\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_mat_view\"\n,",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 32
+    }
+  },
+  {
+    "content": "23\n24\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"MaterialisedView\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_mat_view\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_mat_view\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"atlanSchema\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"Schema\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n}\n},\n\"schemaName\"\n:\n\"reln_schema\"\n,\n// (9)\n\"schemaQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n,\n// (10)\n\"databaseName\"\n:\n\"reln_db\"\n,\n// (11)\n\"databaseQualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n// (12)\n\"columnCount\"\n:\n10\n// (13)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nMaterialisedView\n. (Yes, the\nspelling, with an\ns\nnot a\nz\n.)\nHuman-readable name for your materialized view.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>/<view_name>\n, where\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>\nis the qualifiedName of the schema for this materialized view, and\n<view_name>\nis the name of the materialized view.\nThe\nconnectionQualifiedName",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 33
+    }
+  },
+  {
+    "content": "is the qualifiedName of the schema for this materialized view, and\n<view_name>\nis the name of the materialized view.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this materialized view.\nThe\nconnectorName\nmust be exactly as used when defining the connection.\nThe schema in which this materialized view exists is embedded in the\natlanSchema\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nSchema\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the schema. Note: the schema must already exist in Atlan before creating the materialized view.\nThe\nschemaName\nshould be the human-readable name of the schema.\nThe\nschemaQualifiedName\nshould be the qualifiedName of the schema.\nThe\ndatabaseName\nshould be the human-readable name of the database.\nThe\ndatabaseQualifiedName\nshould be the qualifiedName of the database.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nMaterializedView\ninstance.\nTablePartition\n¶\n4.0.1\n4.2.0\nA\ntable partition\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 34
+    }
+  },
+  {
+    "content": "directly on the\nMaterializedView\ninstance.\nTablePartition\n¶\n4.0.1\n4.2.0\nA\ntable partition\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the table partition, and the names and qualifiedNames of the table partition's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational table partition\n26\n27\n28\n29\n30\n31\n32\nTablePartition\ntpartition\n=\nTablePartition\n.\ncreator\n(\n// (1)\n\"reln_table_partition\"\n,\n// (2)\ntable\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ntpartition\n.\nsave\n();\n// (5)\ntpartition\n=\nresponse\n.\ngetResult\n(\ntpartition\n);\n// (6)\nBuild up the minimum request to create a table partition.\nProvide a human-readable name for your table partition.\nProvide the table for this table partition. If you did not already have the object, you could also use\nTable.refByGuid()\nwith the GUID of the table, or\nTable.refByQualifiedName()\nwith the\nqualifiedName\nof the table.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nTablePartition\ninstance.\nActually call Atlan to create the table partition.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 35
+    }
+  },
+  {
+    "content": "of the table.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nTablePartition\ninstance.\nActually call Atlan to create the table partition.\nRetrieve the created table partition for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a relational table partition\n32\n33\n34\n35\n36\n37\n38\ntpartition\n=\nTablePartition\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_table_partition\"\n,\n# (2)\ntable_qualified_name\n=\ntable_qualified_name\n# (3)\n)\ntpartition\n.\ncolumn_count\n=\n10\n# (4)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ntpartition\n)\n# (5)\ntpartition_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nTablePartition\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a table partition.\nProvide a human-readable name for your table partition.\nProvide the qualified_name of the table for this table partition.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumn_count\ndirectly on the\nTablePartition\ninstance.\nActually call Atlan to create the table partition.\nRetrieve the qualified_name for use in subsequent creation calls. (You'd probably want to do some checks first.)",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 36
+    }
+  },
+  {
+    "content": "TablePartition\ninstance.\nActually call Atlan to create the table partition.\nRetrieve the qualified_name for use in subsequent creation calls. (You'd probably want to do some checks first.)\nCreate a relational table partition\n26\n27\n28\n29\n30\n31\n32\nvar\ntpartition\n=\nTablePartition\n.\ncreator\n(\n// (1)\n\"reln_table_partition\"\n,\n// (2)\ntable\n)\n// (3)\n.\ncolumnCount\n(\n10\n)\n// (4)\n.\nbuild\n()\nar\n=\ntpartition\n.\nsave\n()\n// (4)\ntpartition\n=\nar\n.\ngetResult\n(\ntpartition\n)\n// (5)\nBuild up the minimum request to create a table partition.\nProvide a human-readable name for your table partition.\nProvide the table for this table partition. If you did not already have the object, you could also use\nTable.refByGuid()\nwith the GUID of the table, or\nTable.refByQualifiedName()\nwith the\nqualifiedName\nof the table.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nTablePartition\ninstance.\nActually call Atlan to create the table partition.\nRetrieve the created table partition for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n{\n\"entities\"\n:",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 37
+    }
+  },
+  {
+    "content": "POST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"TablePartition\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_table_partition\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table_partition\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"schemaName\"\n:\n\"reln_schema\"\n,\n// (6)\n\"schemaQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n,\n// (7)\n\"databaseName\"\n:\n\"reln_db\"\n,\n// (8)\n\"databaseQualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n// (9)\n\"tableName\"\n:\n\"reln_table\"\n,\n\"tableQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n,\n\"columnCount\"\n:\n10\n// (12)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nTablePartition\n.\nHuman-readable name for your table partition.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>/<table _partition_name>\n, where\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>\nis the qualifiedName of the schema for this table partition, and\n<table _partition_name>\nis the name of the table partition.\nThe\nconnectionQualifiedName",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 38
+    }
+  },
+  {
+    "content": "is the qualifiedName of the schema for this table partition, and\n<table _partition_name>\nis the name of the table partition.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this table partition.\nThe\nconnectorName\nmust be exactly as used when defining the connection.\nThe\nschemaName\nshould be the human-readable name of the schema.\nThe\nschemaQualifiedName\nshould be the qualifiedName of the schema.\nThe\ndatabaseName\nshould be the human-readable name of the database.\nThe\ndatabaseQualifiedName\nshould be the qualifiedName of the database.\nThe\ntableName\nshould be the human-readable name of the table.\nThe\ntableQualifiedName\nshould be the qualifiedName of the table.\n(Optional) To ensure the UI displays the correct count of\nColumn\n's, set the\ncolumnCount\ndirectly on the\nTablePartition\ninstance.\nColumn\n¶\n2.0.0\n4.0.0\nA\ncolumn\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the column, the column's\norder\n(position) within its parent, and the names and qualifiedNames of the column's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational column\n33\n34\n35\n36\n37\n38\nColumn\ncolumn\n=",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 39
+    }
+  },
+  {
+    "content": "order\n(position) within its parent, and the names and qualifiedNames of the column's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a relational column\n33\n34\n35\n36\n37\n38\nColumn\ncolumn\n=\nColumn\n.\ncreator\n(\n// (1)\n\"reln_col1\"\n,\n// (2)\ntable\n,\n// (3)\n1\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ncolumn\n.\nsave\n(\nclient\n);\n// (5)\nBuild up the minimum request to create a column.\nProvide a human-readable name for your column.\nProvide the parent container for this column. If you did not already have the object, you could also use\nTable.refByGuid()\nwith the GUID of a table (or\nView.refByGuid()\n, etc), or\nTable.refByQualifiedName()\nwith the\nqualifiedName\nof a table (or\nView.refByQualifiedName()\n, etc).\nThe order (position) of the column within the table.\nActually call Atlan to create the column. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a relational column\n39\n40\n41\n42\n43\n44\n45\ncolumn\n=\nColumn\n.\ncreator\n(\n# (1)\nname\n=\n\"reln_col1\"\n,\n# (2)\nparent_type\n=\nTable\n,\n# (3)\nparent_qualified_name\n=\ntable_qualified_name\n,\n# (4)\norder\n=\n1\n# (5)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ncolumn\n)\n# (6)",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 40
+    }
+  },
+  {
+    "content": ".\ncreator\n(\n# (1)\nname\n=\n\"reln_col1\"\n,\n# (2)\nparent_type\n=\nTable\n,\n# (3)\nparent_qualified_name\n=\ntable_qualified_name\n,\n# (4)\norder\n=\n1\n# (5)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ncolumn\n)\n# (6)\nBuild up the minimum request to create a column.\nProvide a human-readable name for your column.\nSpecify the type of the parent asset for the column (table, view, or materialized view).\nProvide the qualified_name of the parent asset for this column. In this example you're defining a column in a table, so you can use the\ntable_qualified_name\ncreated above. If the parent asset type were\nView\nyou would want to use the\nview_qualified_name\ncreated above.\nThe order (position) of the column within the table.\nActually call Atlan to create the column.\nCreate a relational column\n33\n34\n35\n36\n37\n38\nval\ncolumn\n=\nColumn\n.\ncreator\n(\n// (1)\n\"reln_col1\"\n,\n// (2)\ntable\n,\n// (3)\n1\n)\n// (4)\n.\nbuild\n()\nar\n=\ncolumn\n.\nsave\n(\nclient\n)\n// (5)\nBuild up the minimum request to create a column.\nProvide a human-readable name for your column.\nProvide the parent container for this column. If you did not already have the object, you could also use\nTable.refByGuid()\nwith the GUID of a table (or\nView.refByGuid()\n, etc), or",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 41
+    }
+  },
+  {
+    "content": "Provide the parent container for this column. If you did not already have the object, you could also use\nTable.refByGuid()\nwith the GUID of a table (or\nView.refByGuid()\n, etc), or\nTable.refByQualifiedName()\nwith the\nqualifiedName\nof a table (or\nView.refByQualifiedName()\n, etc).\nThe order (position) of the column within the table.\nActually call Atlan to create the column. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Column\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_col1\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table/reln_col1\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"vertica\"\n,\n// (5)\n\"table\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"Table\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n}\n},\n\"view\"\n:\n{\n// (9)\n\"typeName\"\n:\n\"View\"\n,\n// (10)\n\"uniqueAttributes\"\n:\n{\n// (11)\n\"qualifiedName\"\n:",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 42
+    }
+  },
+  {
+    "content": ":\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n}\n},\n\"view\"\n:\n{\n// (9)\n\"typeName\"\n:\n\"View\"\n,\n// (10)\n\"uniqueAttributes\"\n:\n{\n// (11)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n}\n},\n\"materialisedView\"\n:\n{\n// (12)\n\"typeName\"\n:\n\"MaterialisedView\"\n,\n// (13)\n\"uniqueAttributes\"\n:\n{\n// (14)\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_mat_view\"\n}\n},\n\"tableName\"\n:\n\"reln_table\"\n,\n// (15)\n\"tableQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n,\n// (16)\n\"viewName\"\n:\n\"reln_view\"\n,\n// (17)\n\"viewQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n,\n// (18)\n\"schemaName\"\n:\n\"reln_schema\"\n,\n// (19)\n\"schemaQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n,\n// (20)\n\"databaseName\"\n:\n\"reln_db\"\n,\n// (21)\n\"databaseQualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n// (22)\n\"order\"\n:\n1\n// (23)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nColumn\n.\nHuman-readable name for your column.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>/<parent_name>/<column_name>\n, where",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 43
+    }
+  },
+  {
+    "content": "must be exactly\nColumn\n.\nHuman-readable name for your column.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>/<parent_name>/<column_name>\n, where\ndefault/<connectorName>/<epoch>/<db_name>/<schema_name>/<parent_name>\nis the qualifiedName of the parent container (table, view, materialized view) for this column, and\n<column_name>\nis the name of the column.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this column.\nThe\nconnectorName\nmust be exactly as used when defining the connection.\nIf the column exists in a table, the table in which it exists is embedded in the\ntable\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nTable\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the table. Note: the table must already exist in Atlan before creating the column.\nIf the column exists in a view, the view in which it exists is embedded in the\nview\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nView\n.\nTo complete the reference, you must include a\nuniqueAttributes",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 44
+    }
+  },
+  {
+    "content": "view\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nView\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the view. Note: the view must already exist in Atlan before creating the column.\nIf the column exists in a materialized view, the materialized view in which it exists is embedded in the\nmaterialisedView\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nMaterialisedView\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the materialized view. Note: the materialized view must already exist in Atlan before creating the column.\nIf the column exists in a table, the\ntableName\nshould be the human-readable name of the table.\nIf the column exists in a table, the\ntableQualifiedName\nshould be the qualifiedName of the table.\nIf the column exists in either a view or materialized view, the\nviewName\nshould be the human-readable name of the (materialized) view.\nIf the column exists in either a view or materialized view, the\nviewQualifiedName\nshould be the qualifiedName of the (materialized) view.\nThe\nschemaName\nshould be the human-readable name of the schema.\nThe",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 45
+    }
+  },
+  {
+    "content": "viewQualifiedName\nshould be the qualifiedName of the (materialized) view.\nThe\nschemaName\nshould be the human-readable name of the schema.\nThe\nschemaQualifiedName\nshould be the qualifiedName of the schema.\nThe\ndatabaseName\nshould be the human-readable name of the database.\nThe\ndatabaseQualifiedName\nshould be the qualifiedName of the database.\nThe order (position) of the column within the table.\nAvailable relationships\n¶\nEvery level of the relational structure is also an\nAsset\n, and can therefore be related to the following other assets.\nerDiagram\nAsset }o--o{ AtlasGlossaryTerm : meanings\nAsset ||--o{ Link : links\nAsset ||--o| Readme : readme\nAsset }o--o{ Process : inputToProcesses\nAsset }o--o{ Process : outputFromProcesses\nAtlasGlossaryTerm\n¶\nA\nglossary term\nprovides meaning to an asset. The\nlink terms to assets snippet\nprovides more detail on setting this relationship.\nLink\n¶\nA\nlink\nprovides additional context to an asset, by providing a URL to additional information.\nReadme\n¶\nA\nREADME\nprovides rich documentation for an asset. The\nadd asset READMEs snippet\nprovides more detail on setting this relationship.\nProcess\n¶\nA\nprocess",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 46
+    }
+  },
+  {
+    "content": "Readme\n¶\nA\nREADME\nprovides rich documentation for an asset. The\nadd asset READMEs snippet\nprovides more detail on setting this relationship.\nProcess\n¶\nA\nprocess\nprovides lineage information for an asset. An asset can be both an input and an output for one or more processes. The\nlineage snippets\nprovide more detail on creating and working with lineage.\nPrimary keys\n¶\n2.0.0\n4.0.0\nYou can define a column as a primary key by setting the\nisPrimary\nattribute to\ntrue\n:\nJava\nPython\nKotlin\nRaw REST API\nCreate a primary key column\n33\n34\n35\n36\n37\n38\n39\nColumn\ncolumn\n=\nColumn\n.\ncreator\n(\n\"reln_col1\"\n,\ntable\n,\n1\n)\n.\nisPrimary\n(\ntrue\n)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ncolumn\n.\nsave\n(\nclient\n);\nCreate a primary key column\n39\n40\n41\n42\n43\n44\n45\n46\ncolumn\n=\nColumn\n.\ncreator\n(\nname\n=\n\"reln_col1\"\n,\nparent_type\n=\nTable\n,\nparent_qualified_name\n=\ntable_qualified_name\n,\norder\n=\n1\n)\ncolumn\n.\nis_primary\n=\nTrue\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ncolumn\n)\nCreate a primary key column\n33\n34\n35\n36\n37\n38\n39\nval\ncolumn\n=\nColumn\n.\ncreator\n(\n\"reln_col1\"\n,\ntable\n,\n1\n)\n.\nisPrimary\n(\ntrue\n)\n.\nbuild\n()\nar\n=\ncolumn\n.\nsave\n(\nclient\n)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 47
+    }
+  },
+  {
+    "content": "39\nval\ncolumn\n=\nColumn\n.\ncreator\n(\n\"reln_col1\"\n,\ntable\n,\n1\n)\n.\nisPrimary\n(\ntrue\n)\n.\nbuild\n()\nar\n=\ncolumn\n.\nsave\n(\nclient\n)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Column\"\n,\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_col1\"\n,\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table/reln_col1\"\n,\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n\"connectorName\"\n:\n\"vertica\"\n,\n\"table\"\n:\n{\n\"typeName\"\n:\n\"Table\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n}\n},\n\"view\"\n:\n{\n\"typeName\"\n:\n\"View\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n}\n},\n\"materialisedView\"\n:\n{\n\"typeName\"\n:\n\"MaterialisedView\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_mat_view\"\n}\n},\n\"tableName\"\n:\n\"reln_table\"\n,\n\"tableQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n,\n\"viewName\"\n:\n\"reln_view\"\n,\n\"viewQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n,",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 48
+    }
+  },
+  {
+    "content": ",\n\"tableQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n,\n\"viewName\"\n:\n\"reln_view\"\n,\n\"viewQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n,\n\"schemaName\"\n:\n\"reln_schema\"\n,\n\"schemaQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n,\n\"databaseName\"\n:\n\"reln_db\"\n,\n\"databaseQualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n\"order\"\n:\n1\n,\n\"isPrimary\"\n:\ntrue\n}\n}\n]\n}\nForeign keys\n¶\n2.0.0\n4.0.0\nYou can link one column to another, as a foreign key, by setting the\nisForeign\nattribute to\ntrue\nand creating a relationship to another column through the\nforeignKeyFrom\nattribute:\nJava\nPython\nKotlin\nRaw REST API\nCreate a foreign key relationship\n33\n34\n35\n36\n37\n38\n39\n40\nColumn\ncolumn\n=\nColumn\n.\ncreator\n(\n\"reln_col1\"\n,\ntable\n,\n1\n)\n.\nisForeign\n(\ntrue\n)\n// (1)\n.\nforeignKeyFrom\n(\nColumn\n.\nrefByGuid\n(\n\"e31c5cec-54fa-4f99-8157-d845082561e2\"\n))\n// (2)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ncolumn\n.\nsave\n(\nclient\n);\nMark the column that whose values are foreign keys pointing to another column.\nUse the\nforeignKeyFrom\nattribute to specify the other column that this column's values point to.\nCreate a foreign key relationship\n39\n40\n41",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 49
+    }
+  },
+  {
+    "content": "Use the\nforeignKeyFrom\nattribute to specify the other column that this column's values point to.\nCreate a foreign key relationship\n39\n40\n41\n42\n43\n44\n45\n46\n47\ncolumn\n=\nColumn\n.\ncreator\n(\nname\n=\n\"reln_col1\"\n,\nparent_type\n=\nTable\n,\nparent_qualified_name\n=\ntable_qualified_name\n,\norder\n=\n1\n)\ncolumn\n.\nis_foreign\n=\nTrue\n# (1)\ncolumn\n.\nforeign_key_from\n(\nColumn\n.\nref_by_guid\n(\n\"e31c5cec-54fa-4f99-8157-d845082561e2\"\n))\n# (2)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ncolumn\n)\nMark the column that whose values are foreign keys pointing to another column.\nUse the\nforeign_key_from\nattribute to specify the other column that this column's values point to.\nCreate a foreign key relationship\n33\n34\n35\n36\n37\n38\n39\n40\nval\ncolumn\n=\nColumn\n.\ncreator\n(\n\"reln_col1\"\n,\ntable\n,\n1\n)\n.\nisForeign\n(\ntrue\n)\n// (1)\n.\nforeignKeyFrom\n(\nColumn\n.\nrefByGuid\n(\n\"e31c5cec-54fa-4f99-8157-d845082561e2\"\n))\n// (2)\n.\nbuild\n()\nar\n=\ncolumn\n.\nsave\n(\nclient\n)\nMark the column that whose values are foreign keys pointing to another column.\nUse the\nforeignKeyFrom\nattribute to specify the other column that this column's values point to.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 50
+    }
+  },
+  {
+    "content": "foreignKeyFrom\nattribute to specify the other column that this column's values point to.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Column\"\n,\n\"attributes\"\n:\n{\n\"name\"\n:\n\"reln_col1\"\n,\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table/reln_col1\"\n,\n\"connectionQualifiedName\"\n:\n\"default/vertica/123456789\"\n,\n\"connectorName\"\n:\n\"vertica\"\n,\n\"table\"\n:\n{\n\"typeName\"\n:\n\"Table\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n}\n},\n\"view\"\n:\n{\n\"typeName\"\n:\n\"View\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n}\n},\n\"materialisedView\"\n:\n{\n\"typeName\"\n:\n\"MaterialisedView\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_mat_view\"\n}\n},\n\"tableName\"\n:\n\"reln_table\"\n,\n\"tableQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_table\"\n,\n\"viewName\"\n:\n\"reln_view\"\n,\n\"viewQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n,\n\"schemaName\"\n:\n\"reln_schema\"\n,",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 51
+    }
+  },
+  {
+    "content": ",\n\"viewName\"\n:\n\"reln_view\"\n,\n\"viewQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema/reln_view\"\n,\n\"schemaName\"\n:\n\"reln_schema\"\n,\n\"schemaQualifiedName\"\n:\n\"default/vertica/123456789/reln_db/reln_schema\"\n,\n\"databaseName\"\n:\n\"reln_db\"\n,\n\"databaseQualifiedName\"\n:\n\"default/vertica/123456789/reln_db\"\n,\n\"order\"\n:\n1\n,\n\"isForeign\"\n:\ntrue\n,\n// (1)\n\"foreignKeyFrom\"\n:\n{\n// (2)\n\"typeName\"\n:\n\"Column\"\n,\n\"guid\"\n:\n\"e31c5cec-54fa-4f99-8157-d845082561e2\"\n}\n}\n}\n]\n}\nMark the column that whose values are foreign keys pointing to another column.\nUse the\nforeignKeyFrom\nattribute to specify the other column that this column's values point to.\nAlthough if you want to delete everything in a connection, your better avenue is the packaged\nconnection delete utility\nin the UI.\n↩\n2022-09-16\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 52
+    }
+  },
+  {
+    "content": "Cookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_create_relational.html",
+      "source_type": "sdk",
+      "file": "patterns_create_relational.json",
+      "chunk_id": 53
+    }
+  }
+]

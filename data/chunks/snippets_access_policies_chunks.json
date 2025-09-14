@@ -1,0 +1,290 @@
+[
+  {
+    "content": "Managing policies - Developer\nSkip to content\nPolicies\n¶\nPolicies control which assets users can access, and what operations they can carry out on those assets.\nRetrieve policies\n¶\nFrom a persona\n¶\n0.0.15\n1.4.0\n4.0.0\nTo retrieve a policy from a persona, you need to search for the policy by some characteristic:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nAuthPolicy\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\neq\n(\n\"persona\"\n))\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nstartsWith\n(\n\"entity:default/snowflake/1696324735\"\n))\n// (2)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nNAME\n)\n// (3)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nACCESS_CONTROL\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nCONNECTION_QUALIFIED_NAME\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nPOLICY_TYPE\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nPOLICY_SUB_CATEGORY\n)\n.\nincludeOnRelations\n(\nIAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n)\n// (4)\n.\nincludeOnRelations\n(\nAsset\n.\nNAME\n)\n.\nstream\n()\n// (5)\n.\nfilter\n(\na\n->\na\ninstanceof\nAuthPolicy\n)\n.\nforEach\n(\np\n->\n{\n// (6)\nAuthPolicy\npolicy\n=\n(\nAuthPolicy\n)\np\n;\n});",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ")\n// (4)\n.\nincludeOnRelations\n(\nAsset\n.\nNAME\n)\n.\nstream\n()\n// (5)\n.\nfilter\n(\na\n->\na\ninstanceof\nAuthPolicy\n)\n.\nforEach\n(\np\n->\n{\n// (6)\nAuthPolicy\npolicy\n=\n(\nAuthPolicy\n)\np\n;\n});\nStart by selecting policies, here using a FluentSearch-based approach. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example any assets in a particular snowflake connection).\nInclude details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the persona).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that persona is enabled or not.\nYou can then directly stream the results of the search.\nFor each result of the search (itself an AuthPolicy), you can then decide what to do with it.\nRetrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\nfrom\ntyping\nimport\ncast\nfrom",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Retrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\nfrom\ntyping\nimport\ncast\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAuthPolicy\n,\nAccessControl\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nclient\n=\nAtlanClient\n()\nrequest\n=\n(\nFluentSearch\n()\n.\nwhere\n(\nFluentSearch\n.\nasset_type\n(\nAuthPolicy\n))\n# (1)\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\neq\n(\n\"persona\"\n))\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nstartswith\n(\n\"entity:default/snowflake/1696324735\"\n))\n# (2)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nNAME\n)\n# (3)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nACCESS_CONTROL\n)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nCONNECTION_QUALIFIED_NAME\n)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nPOLICY_TYPE\n)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nPOLICY_SUB_CATEGORY\n)\n.\ninclude_on_relations\n(\nAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n)\n# (4)\n.\ninclude_on_relations\n(\nAccessControl\n.\nNAME\n)\n)\n.\nto_request\n()\n# (5)\nresponse\n=\nclient\n.\nasset\n.\nsearch\n(\nrequest\n)\n# (6)\nfor\np\nin\nresponse\n:\n# (7)\npolicy\n=\ncast\n(\nAuthPolicy\n,\np\n)\nStart by selecting policies, here using a FluentSearch-based approach.",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "()\n# (5)\nresponse\n=\nclient\n.\nasset\n.\nsearch\n(\nrequest\n)\n# (6)\nfor\np\nin\nresponse\n:\n# (7)\npolicy\n=\ncast\n(\nAuthPolicy\n,\np\n)\nStart by selecting policies, here using a FluentSearch-based approach.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example any assets in a particular snowflake connection).\nInclude details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the persona).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that persona is enabled or not.\nYou can then translate the FluentSearch into a search request.\nRun a search using the search request.\nFor each result of the search (itself an AuthPolicy), you can then decide what to do with it.\nRetrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nAuthPolicy\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\neq\n(\n\"persona\"\n))\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nstartsWith\n(\n\"entity:default/snowflake/1696324735\"\n))\n// (2)\n.\nincludeOnResults\n(",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "client\n)\n// (1)\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\neq\n(\n\"persona\"\n))\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nstartsWith\n(\n\"entity:default/snowflake/1696324735\"\n))\n// (2)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nNAME\n)\n// (3)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nACCESS_CONTROL\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nCONNECTION_QUALIFIED_NAME\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nPOLICY_TYPE\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nPOLICY_SUB_CATEGORY\n)\n.\nincludeOnRelations\n(\nIAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n)\n// (4)\n.\nincludeOnRelations\n(\nAsset\n.\nNAME\n)\n.\nstream\n()\n// (5)\n.\nfilter\n{\nit\nis\nAuthPolicy\n}\n.\nforEach\n{\n// (6)\nval\npolicy\n=\nit\nas\nAuthPolicy\n}\nStart by selecting policies, here using a FluentSearch-based approach. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example any assets in a particular snowflake connection).",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "You can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example any assets in a particular snowflake connection).\nInclude details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the persona).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that persona is enabled or not.\nYou can then directly stream the results of the search.\nFor each result of the search (itself an AuthPolicy), you can then decide what to do with it.\nRetrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\nresponse\n,\natlanErr\n:=\nassets\n.\nNewFluentSearch\n().\nAssetType\n(\n\"AuthPolicy\"\n).\n// (1)\nWhere\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\nEq\n(\n\"persona\"\n)).\nWhere\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nStartsWith\n(\n\"entity:default/snowflake/1696324735\"\n,\nnil\n)).\n// (2)\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nNAME\n.\nGetAtlanFieldName\n()).\n// (3)\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nACCESS_CONTROL\n.\nGetAtlanFieldName\n()).\nIncludeOnResults\n(\nctx\n.",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": ",\nnil\n)).\n// (2)\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nNAME\n.\nGetAtlanFieldName\n()).\n// (3)\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nACCESS_CONTROL\n.\nGetAtlanFieldName\n()).\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nGetAtlanFieldName\n()).\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nCONNECTION_QUALIFIED_NAME\n.\nGetAtlanFieldName\n()).\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_TYPE\n.\nGetAtlanFieldName\n()).\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_SUB_CATEGORY\n.\nGetAtlanFieldName\n()).\nIncludeOnRelations\n(\nctx\n.\nAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n.\nGetAtlanFieldName\n()).\n// (4)\nIncludeOnRelations\n(\nctx\n.\nAccessControl\n.\nNAME\n.\nGetAtlanFieldName\n()).\nExecute\n()\n// (5)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error: %v\"\n,\natlanErr\n)\n}\nfor\n_\n,\nentity\n:=\nrange\nresponse\n[\n0\n].\nEntities\n{\n// (6)\nif\nentity\n.\nTypeName\n!=\nnil\n&&\n*\nentity\n.\nTypeName\n==\n\"AuthPolicy\"\n{\n// Do something with the policy\n}\n}\nStart by selecting policies, here using a FluentSearch-based approach.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example any assets in a particular snowflake connection).",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "You can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example any assets in a particular snowflake connection).\nInclude details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the persona).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that persona is enabled or not.\nRun a search using the search request.\nFor each result of the search (itself an AuthPolicy), you can then decide what to do with it.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n{\n\"dsl\"\n:\n{\n// (1)\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"__typeName.keyword\"\n:\n{\n\"value\"\n:\n\"AuthPolicy\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"__state\"\n:\n{\n\"value\"\n:\n\"ACTIVE\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"policyCategory\"\n:\n{\n\"value\"\n:\n\"persona\"\n}\n}\n},\n{\n\"prefix\"\n:\n{\n\"policyResources\"\n:\n{\n// (2)\n\"value\"\n:",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "{\n\"value\"\n:\n\"AuthPolicy\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"__state\"\n:\n{\n\"value\"\n:\n\"ACTIVE\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"policyCategory\"\n:\n{\n\"value\"\n:\n\"persona\"\n}\n}\n},\n{\n\"prefix\"\n:\n{\n\"policyResources\"\n:\n{\n// (2)\n\"value\"\n:\n\"entity:default/snowflake/1696324735\"\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"__guid\"\n:\n{\n\"order\"\n:\n\"asc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n},\n\"attributes\"\n:\n[\n\"name\"\n,\n\"accessControl\"\n,\n// (3)\n\"policyResources\"\n,\n\"connectionQualifiedName\"\n,\n\"policyType\"\n,\n\"policySubCategory\"\n],\n\"relationAttributes\"\n:\n[\n// (4)\n\"isAccessControlEnabled\"\n,\n\"name\"\n],\n\"suppressLogs\"\n:\ntrue\n,\n\"showSearchScore\"\n:\nfalse\n,\n\"excludeMeanings\"\n:\nfalse\n,\n\"excludeClassifications\"\n:\nfalse\n}\nStart by running a search for policies.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls.\nInclude details about the policy itself in each search result, such as the\naccessControl\nmechanism the policy is defined within (the persona).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that persona is enabled or not.\nFrom a purpose\n¶\n0.0.15\n6.0.0\n4.0.0",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "From a purpose\n¶\n0.0.15\n6.0.0\n4.0.0\nSimilarly, to retrieve a policy from a purpose you need to search for the policy by some characteristic:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\nString\ntagId\n=\nclient\n.\ngetAtlanTagCache\n().\ngetIdForName\n(\n\"Issue\"\n);\n// (1)\nAuthPolicy\n.\nselect\n(\nclient\n)\n// (2)\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\neq\n(\n\"purpose\"\n))\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nstartsWith\n(\n\"tag:\"\n+\ntagId\n))\n// (3)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nNAME\n)\n// (4)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nACCESS_CONTROL\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n)\n.\nincludeOnRelations\n(\nIAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n)\n// (5)\n.\nincludeOnRelations\n(\nAsset\n.\nNAME\n)\n.\nstream\n()\n// (6)\n.\nfilter\n(\na\n->\na\ninstanceof\nAuthPolicy\n)\n.\nforEach\n(\np\n->\n{\n// (7)\nAuthPolicy\npolicy\n=\n(\nAuthPolicy\n)\np\n;\n});\nSince purposes work around Atlan tags, you may first want to retrieve the tag of interest (you need its internal ID rather than human-readable name).\nStart by selecting policies, here using a FluentSearch-based approach. Because this operation may need to retrieve information from Atlan, you must\nprovide it an",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Start by selecting policies, here using a FluentSearch-based approach. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example the tag we retrieved earlier).\nInclude details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the purpose).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that purpose is enabled or not.\nYou can then directly stream the results of the search.\nFor each result of the search (itself an AuthPolicy), you can then decide what to do with it.\nRetrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\nfrom\ntyping\nimport\ncast\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAuthPolicy\n,\nAccessControl\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nclient\n=\nAtlanClient\n()\ntag_id\n=\nclient\n.\natlan_tag_cache\n.",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "import\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAuthPolicy\n,\nAccessControl\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nclient\n=\nAtlanClient\n()\ntag_id\n=\nclient\n.\natlan_tag_cache\n.\nget_id_for_name\n(\n\"Issue\"\n)\n# (1)\nrequest\n=\n(\nFluentSearch\n()\n.\nwhere\n(\nFluentSearch\n.\nasset_type\n(\nAuthPolicy\n))\n# (2)\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\neq\n(\n\"purpose\"\n))\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nstartswith\n(\nf\n\"tag:\n{\ntag_id\n}\n\"\n))\n# (3)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nNAME\n)\n# (4)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nACCESS_CONTROL\n)\n.\ninclude_on_results\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n)\n.\ninclude_on_relations\n(\nAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n)\n# (5)\n.\ninclude_on_relations\n(\nAccessControl\n.\nNAME\n)\n)\n.\nto_request\n()\n# (6)\nresponse\n=\nclient\n.\nasset\n.\nsearch\n(\nrequest\n)\n# (7)\nfor\np\nin\nresponse\n:\n# (8)\npolicy\n=\ncast\n(\nAuthPolicy\n,\np\n)\nSince purposes work around Atlan tags, you may first want to retrieve the tag of interest (you need its internal ID rather than human-readable name).\nStart by selecting policies, here using a FluentSearch-based approach.",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Start by selecting policies, here using a FluentSearch-based approach.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example the tag we retrieved earlier).\nInclude details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the purpose).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that purpose is enabled or not.\nYou can then translate the FluentSearch into a search request.\nRun a search using the search request.\nFor each result of the search (itself an AuthPolicy), you can then decide what to do with it.\nRetrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\nval\ntagId\n=\nclient\n.\natlanTagCache\n.\ngetIdForName\n(\n\"Issue\"\n)\n// (1)\nAuthPolicy\n.\nselect\n(\nclient\n)\n// (2)\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\neq\n(\n\"purpose\"\n))\n.\nwhere\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nstartsWith\n(\n\"tag:\n$\ntagId\n\"\n))\n// (3)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nNAME\n)\n// (4)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nACCESS_CONTROL\n)\n.\nincludeOnResults\n(",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "where\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nstartsWith\n(\n\"tag:\n$\ntagId\n\"\n))\n// (3)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nNAME\n)\n// (4)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nACCESS_CONTROL\n)\n.\nincludeOnResults\n(\nAuthPolicy\n.\nPOLICY_RESOURCES\n)\n.\nincludeOnRelations\n(\nIAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n)\n// (5)\n.\nincludeOnRelations\n(\nAsset\n.\nNAME\n)\n.\nstream\n()\n// (6)\n.\nfilter\n{\nit\nis\nAuthPolicy\n}\n.\nforEach\n{\n// (7)\nval\npolicy\n=\nit\nas\nAuthPolicy\n}\nSince purposes work around Atlan tags, you may first want to retrieve the tag of interest (you need its internal ID rather than human-readable name).\nStart by selecting policies, here using a FluentSearch-based approach. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example the tag we retrieved earlier).\nInclude details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the purpose).",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Include details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the purpose).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that purpose is enabled or not.\nYou can then directly stream the results of the search.\nFor each result of the search (itself an AuthPolicy), you can then decide what to do with it.\nRetrieve policies\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\ntagID\n,\n_\n:=\nassets\n.\nGetAtlanTagIDForName\n(\n\"Issue\"\n)\n// (1)\nresponse\n,\natlanErr\n:=\nassets\n.\nNewFluentSearch\n().\nAssetType\n(\n\"AuthPolicy\"\n).\n// (2)\nWhere\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_CATEGORY\n.\nEq\n(\n\"purpose\"\n)).\nWhere\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nStartsWith\n(\n\"tag:\"\n+\ntagID\n,\nnil\n)).\n// (3)\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nNAME\n.\nGetAtlanFieldName\n()).\n// (4)\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nACCESS_CONTROL\n.\nGetAtlanFieldName\n()).\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nGetAtlanFieldName\n()).\nIncludeOnRelations\n(\nctx\n.\nAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n.\nGetAtlanFieldName\n()).\n// (5)",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "()).\nIncludeOnResults\n(\nctx\n.\nAuthPolicy\n.\nPOLICY_RESOURCES\n.\nGetAtlanFieldName\n()).\nIncludeOnRelations\n(\nctx\n.\nAccessControl\n.\nIS_ACCESS_CONTROL_ENABLED\n.\nGetAtlanFieldName\n()).\n// (5)\nIncludeOnRelations\n(\nctx\n.\nAccessControl\n.\nNAME\n.\nGetAtlanFieldName\n()).\nExecute\n()\n// (6)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error: %v\"\n,\natlanErr\n)\n}\nfor\n_\n,\nentity\n:=\nrange\nresponse\n[\n0\n].\nEntities\n{\n// (7)\nif\nentity\n.\nTypeName\n!=\nnil\n&&\n*\nentity\n.\nTypeName\n==\n\"AuthPolicy\"\n{\n// Do something with the Policy\n}\n}\nSince purposes work around Atlan tags, you may first want to retrieve the tag of interest (you need its internal ID rather than human-readable name).\nStart by selecting policies, here using a FluentSearch-based approach.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically in this example the tag we retrieved earlier).\nInclude details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the purpose).",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "Include details about the policy itself in each search result, such as the access control mechanism the policy is defined within (the purpose).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that purpose is enabled or not.\nRun a search using the search request.\nFor each result of the search (itself an AuthPolicy), you can then decide what to do with it.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n{\n\"dsl\"\n:\n{\n// (1)\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"__typeName.keyword\"\n:\n{\n\"value\"\n:\n\"AuthPolicy\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"__state\"\n:\n{\n\"value\"\n:\n\"ACTIVE\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"policyCategory\"\n:\n{\n\"value\"\n:\n\"purpose\"\n}\n}\n},\n{\n\"prefix\"\n:\n{\n\"policyResources\"\n:\n{\n// (2)\n\"value\"\n:\n\"tag:RRbkpEJKNC4qsbKB7fKFNN\"\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"__guid\"\n:\n{\n\"order\"\n:\n\"asc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n},\n\"attributes\"\n:\n[\n// (4)\n\"name\"\n,\n\"accessControl\"\n,\n\"policyResources\"\n,\n\"policyCategory\"\n,\n\"policySubCategory\"\n],",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"__guid\"\n:\n{\n\"order\"\n:\n\"asc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n},\n\"attributes\"\n:\n[\n// (4)\n\"name\"\n,\n\"accessControl\"\n,\n\"policyResources\"\n,\n\"policyCategory\"\n,\n\"policySubCategory\"\n],\n\"relationAttributes\"\n:\n[\n\"isAccessControlEnabled\"\n,\n\"name\"\n],\n\"suppressLogs\"\n:\ntrue\n,\n\"showSearchScore\"\n:\nfalse\n,\n\"excludeMeanings\"\n:\nfalse\n,\n\"excludeClassifications\"\n:\nfalse\n}\nStart by running a search for policies.\nYou can select the policy by whatever you like, in this example we are selecting based on the resources it controls (specifically via the tag defined as part of the purpose). Note that the tag needs to be given as its internal ID, not the human-readable name.\nInclude details about the policy itself in each search result, such as the\naccessControl\nmechanism the policy is defined within (the purpose).\nInclude all the attributes you want about the access control mechanism on the relations of the search results. Here we are including the name of and whether that purpose is enabled or not.\nUpdate policies\n¶\nDifferent update approach from most assets",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "Update policies\n¶\nDifferent update approach from most assets\nUnlike most assets, to update policies you should first retrieve the existing policy and then update it in its entirety. You can do this by either retrieving the entire policy asset by its GUID (if you know it), or by retrieving the policy using the instructions above under\nRetrieve policies\n. You\nmust\nrequest\nat least\nthe attributes defined in that section on each policy to be able to update the policy.\n0.0.15\n1.4.0\n4.0.0\nTo update an existing policies, once you have retrieved it:\nJava\nPython\nKotlin\nGo\nRaw REST API\nUpdate an existing policy\n14\n15\n16\n17\nAuthPolicy\npolicy\n=\npolicy\n.\ntoBuilder\n()\n// (1)\n.\ndescription\n(\n\"Revised explanation about what this policy does.\"\n)\n// (2)\n.\nbuild\n();\n// (3)\nAssetMutationResponse\nresponse\n=\npolicy\n.\nsave\n(\nclient\n);\n// (4)\nAssuming you have already retrieved the policy you want to update (\npolicy\nin this example), you can turn it into a mutable object using\ntoBuilder()\n.\nYou can then apply any updates you want to the policy. These will either overwrite (where only a single value is allowed, such as\ndescription\n) or append to the existing values defined in the policy.",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "You can then apply any updates you want to the policy. These will either overwrite (where only a single value is allowed, such as\ndescription\n) or append to the existing values defined in the policy.\nBuild up your changes.\nYou can then save the revised policy back to Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUpdate an existing policy\n22\n23\n24\npolicy\n.\npolicy_type\n=\nAuthPolicyType\n.\nALLOW\n# (1)\npolicy\n.\npolicy_actions\n=\n[\nPersonaMetadataAction\n.\nREAD\n,\nPersonaMetadataAction\n.\nUPDATE\n,\nPersonaMetadataAction\n.\nCREATE\n,\nPersonaMetadataAction\n.\nDELETE\n]\n# (2)\nclient\n.\nasset\n.\nsave\n(\npolicy\n)\n# (3)\nAssuming you have already retrieved the policy you want to update (\npolicy\nin this example), you can directly modify its attributes, such as\npolicy_type\n.\nYou can then apply updates to the policy by replacing the existing values with the new ones. This overwrites the previous values for attributes like\npolicy_actions\n.\nYou can then save the revised policy back to Atlan.\nUpdate an existing policy\n14\n15\n16\n17\nval\ntoUpdate\n=\npolicy\n.\ntoBuilder\n()\n// (1)\n.\ndescription\n(",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "policy_actions\n.\nYou can then save the revised policy back to Atlan.\nUpdate an existing policy\n14\n15\n16\n17\nval\ntoUpdate\n=\npolicy\n.\ntoBuilder\n()\n// (1)\n.\ndescription\n(\n\"Revised explanation about what this policy does.\"\n)\n// (2)\n.\nbuild\n()\n// (3)\nval\nresponse\n=\ntoUpdate\n.\nsave\n(\nclient\n)\n// (4)\nAssuming you have already retrieved the policy you want to update (\npolicy\nin this example), you can turn it into a mutable object using\ntoBuilder()\n.\nYou can then apply any updates you want to the policy. These will either overwrite (where only a single value is allowed, such as\ndescription\n) or append to the existing values defined in the policy.\nBuild up your changes.\nYou can then save the revised policy back to Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUpdate an existing policy\n17\n18\n19\nentity\n.\nPolicyType\n=\n&\natlan\n.\nAuthPolicyTypeAllow\n// (1)\nentity\n.\nPolicyActions\n=\n&\n[]\nstring\n{\natlan\n.\nPersonaMetadataActionRead\n.\nName\n,\natlan\n.\nPersonaMetadataActionUpdate\n.\nName\n,\natlan\n.\nPersonaMetadataActionDelete\n.\nName\n,\natlan\n.\nPersonaMetadataActionCreate\n.\nName\n}\n// (2)\nassets\n.\nSave\n(\n&\nentity\n)",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": ".\nName\n,\natlan\n.\nPersonaMetadataActionUpdate\n.\nName\n,\natlan\n.\nPersonaMetadataActionDelete\n.\nName\n,\natlan\n.\nPersonaMetadataActionCreate\n.\nName\n}\n// (2)\nassets\n.\nSave\n(\n&\nentity\n)\n// (3)\nAssuming you have already retrieved the policy you want to update (\nentity\nin this example), you can directly modify its attributes, such as\nPolicyType\n.\nYou can then apply updates to the policy by replacing the existing values with the new ones. This overwrites the previous values for attributes like\nPolicyActions\n.\nYou can then Save the revised policy back to Atlan.\nMultiple API calls required\nYou will need to first\nretrieve the policy\nyou want to update.\nYou can then replace any values in the response payload for that policy and\nPOST\nthe revised payload to\n/api/meta/entity/bulk\n.\nRemove policies\n¶\nTo remove a policy, you need only\ndelete it as you would any other asset\n.\nFrom a persona\n¶\n0.0.15\n1.4.0\n4.0.0\nTo find the GUID of a specific policy in a persona:\nJava\nPython\nKotlin\nGo\nRaw REST API\nFind a persona policy's GUID\n1\n2\n3\n4\n5\n6\n7\nList\n<\nPersona\n>\nlist\n=\nPersona\n.\nfindByName\n(\nclient\n,\n\"Data Assets\"\n);\n// (1)\nPersona\npersona\n=\nPersona\n.\nget\n(\nclient\n,\nlist\n.\nget\n(\n0\n).\ngetGuid\n(),\ntrue\n);",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\nList\n<\nPersona\n>\nlist\n=\nPersona\n.\nfindByName\n(\nclient\n,\n\"Data Assets\"\n);\n// (1)\nPersona\npersona\n=\nPersona\n.\nget\n(\nclient\n,\nlist\n.\nget\n(\n0\n).\ngetGuid\n(),\ntrue\n);\n// (2)\nfor\n(\nAuthPolicy\npolicy\n:\npersona\n.\ngetPolicies\n())\n{\n// (3)\nlog\n.\ninfo\n(\n\"Policy {} has guid = {}\"\n,\npolicy\n.\ngetDisplayText\n(),\n// (4)\npolicy\n.\ngetGuid\n());\n// (5)\n}\nIf you already have the persona or its GUID or qualifiedName, you can simply use it directly. This example reuses the search by name to obtain it. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOnce you have the minimal information about the persona, you may still need to retrieve the full persona itself (to ensure you have all of its policies and their inner details). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through these policies...\n...and check each policy's\ndisplayText\nfor the name that's been given to the policy.\n...and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "...and check each policy's\ndisplayText\nfor the name that's been given to the policy.\n...and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.\nFind a persona policy's GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nPersona\nclient\n=\nAtlanClient\n()\nresult\n=\nclient\n.\nasset\n.\nfind_personas_by_name\n(\n\"Data Assets\"\n)\n# (1)\npersona\n=\nclient\n.\nasset\n.\nget_by_guid\n(\nresult\n[\n0\n]\n.\nguid\n,\nasset_type\n=\nPersona\n)\n# (2)\nfor\npolicy\nin\npersona\n.\npolicies\n:\n# (3)\nprint\n(\nf\n\"Policy\n{\npolicy\n.\ndisplay_text\n}\nhas guid =\n{\npolicy\n.\nguid\n}\n\"\n# (4)\n)\nIf you already have the persona or its GUID or qualified_name, you can simply use it directly. This example reuses the search by name to obtain it.\nOnce you have the minimal information about the persona, you may still need to retrieve the full persona itself (to ensure you have all of its policies and their inner details).\nYou can then iterate through these policies...\n...and check each policy's\ndisplay_text\nfor the name that's been given to the policy, and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "...and check each policy's\ndisplay_text\nfor the name that's been given to the policy, and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.\nFind a persona policy's GUID\n1\n2\n3\n4\n5\n6\n7\nval\nlist\n=\nPersona\n.\nfindByName\n(\nclient\n,\n\"Data Assets\"\n)\n// (1)\nval\npersona\n=\nPersona\n.\nget\n(\nclient\n,\nlist\n[\n0\n]\n.\ngetGuid\n(),\ntrue\n)\n// (2)\nfor\n(\npolicy\nin\npersona\n.\npolicies\n)\n{\n// (3)\nlog\n.\ninfo\n{\n\"Policy\n${\npolicy\n.\ndisplayText\n}\nhas guid =\n${\npolicy\n.\nguid\n}\n\"\n}\n// (4)\n}\nIf you already have the persona or its GUID or qualifiedName, you can simply use it directly. This example reuses the search by name to obtain it. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOnce you have the minimal information about the persona, you may still need to retrieve the full persona itself (to ensure you have all of its policies and their inner details). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through these policies...\n...and check each policy's\ndisplayText",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through these policies...\n...and check each policy's\ndisplayText\nfor the name that's been given to the policy and each policy's\nguid\nto be able to individually delete the appropriate policy.\nFind a persona policy's GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\nPersonaName\n:=\n\"Data Assets\"\nresult\n,\natlanErr\n:=\nassets\n.\nFindPersonasByName\n(\nPersonaName\n)\n// (1)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error: %v\"\n,\natlanErr\n)\n}\npersona\n,\n_\n:=\nassets\n.\nGetByGuid\n[\n*\nassets\n.\nPersona\n](\n*\nresult\n.\nEntities\n[\n0\n].\nGuid\n)\n// (2)\nfor\n_\n,\npolicy\n:=\nrange\n*\npersona\n.\nPolicies\n{\n// (3)\nfmt\n.\nPrintf\n(\n\"Policy %v has guid = %v\"\n,\n*\npolicy\n.\nDisplayName\n,\n*\npolicy\n.\nGuid\n)\n// (4)\n}\nIf you already have the persona or its GUID or qualified_name, you can simply use it directly. This example reuses the search by name to obtain it.\nOnce you have the minimal information about the persona, you may still need to retrieve the full persona itself (to ensure you have all of its policies and their inner details).\nYou can then iterate through these policies...\n...and check each policy's\nDisplayName",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "You can then iterate through these policies...\n...and check each policy's\nDisplayName\nfor the name that's been given to the policy, and retrieve each policy's\nGuid\nto be able to individually delete the appropriate policy.\nMultiple API calls required\nYou will need to first\nrun a search for all personas with a given name\n.\nYou can then\nretrieve the full persona by its GUID\n, to see all of its policies and their details.\nYou can then iterate through those details to see the\ndisplayText\nfor the name that's been given to each policy, and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.\nFrom a purpose\n¶\n0.0.15\n1.4.0\n4.0.0\nTo find the GUID of a specific policy in a purpose:\nJava\nPython\nKotlin\nGo\nRaw REST API\nFind a purpose policy's GUID\n1\n2\n3\n4\n5\n6\n7\nList\n<\nPurpose\n>\nlist\n=\nPurpose\n.\nfindByName\n(\nclient\n,\n\"Known Issues\"\n);\n// (1)\nPurpose\npurpose\n=\nPurpose\n.\nget\n(\nclient\n,\nlist\n.\nget\n(\n0\n).\ngetGuid\n(),\ntrue\n);\n// (2)\nfor\n(\nAuthPolicy\npolicy\n:\npurpose\n.\ngetPolicies\n())\n{\n// (3)\nlog\n.\ninfo\n(\n\"Policy {} has guid = {}\"\n,\npolicy\n.\ngetDisplayText\n(),\n// (4)\npolicy\n.\ngetGuid\n());\n// (5)\n}",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "0\n).\ngetGuid\n(),\ntrue\n);\n// (2)\nfor\n(\nAuthPolicy\npolicy\n:\npurpose\n.\ngetPolicies\n())\n{\n// (3)\nlog\n.\ninfo\n(\n\"Policy {} has guid = {}\"\n,\npolicy\n.\ngetDisplayText\n(),\n// (4)\npolicy\n.\ngetGuid\n());\n// (5)\n}\nIf you already have the purpose or its GUID or qualifiedName, you can simply use it directly. This example reuses the search by name to obtain it. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOnce you have the minimal information about the purpose, you may still need to retrieve the full purpose itself (to ensure you have all of its policies and their inner details). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through these policies...\n...and check each policy's\ndisplayText\nfor the name that's been given to the policy.\n...and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.\nFind a purpose policy's GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nPurpose\nclient\n=\nAtlanClient\n()\nresult\n=\nclient\n.",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "Find a purpose policy's GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nPurpose\nclient\n=\nAtlanClient\n()\nresult\n=\nclient\n.\nasset\n.\nfind_purposes_by_name\n(\n\"Data Assets\"\n)\n# (1)\npurpose\n=\nclient\n.\nasset\n.\nget_by_guid\n(\nresult\n[\n0\n]\n.\nguid\n,\nasset_type\n=\nPurpose\n)\n# (2)\nfor\npolicy\nin\npurpose\n.\npolicies\n:\n# (3)\nprint\n(\nf\n\"Policy\n{\npolicy\n.\ndisplay_text\n}\nhas guid =\n{\npolicy\n.\nguid\n}\n\"\n# (4)\n)\nIf you already have the purpose or its GUID or qualified_name, you can simply use it directly. This example reuses the search by name to obtain it.\nOnce you have the minimal information about the purpose, you may still need to retrieve the full purpose itself (to ensure you have all of its policies and their inner details).\nYou can then iterate through these policies...\n...and check each policy's\ndisplay_text\nfor the name that's been given to the policy, and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.\nFind a purpose policy's GUID\n1\n2\n3\n4\n5\n6\n7\nval\nlist\n=\nPurpose\n.\nfindByName\n(\nclient\n,\n\"Known Issues\"\n)\n// (1)\nval\npurpose\n=\nPurpose\n.\nget\n(\nclient\n,\nlist\n[\n0\n]\n.\nguid\n,\ntrue\n)\n// (2)\nfor\n(\npolicy\nin",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 28
+    }
+  },
+  {
+    "content": "Find a purpose policy's GUID\n1\n2\n3\n4\n5\n6\n7\nval\nlist\n=\nPurpose\n.\nfindByName\n(\nclient\n,\n\"Known Issues\"\n)\n// (1)\nval\npurpose\n=\nPurpose\n.\nget\n(\nclient\n,\nlist\n[\n0\n]\n.\nguid\n,\ntrue\n)\n// (2)\nfor\n(\npolicy\nin\npurpose\n.\npolicies\n)\n{\n// (3)\nlog\n.\ninfo\n{\n\"Policy\n${\npolicy\n.\ndisplayText\n}\nhas guid =\n${\npolicy\n.\nguid\n}\n\"\n}\n// (4)\n}\nIf you already have the purpose or its GUID or qualifiedName, you can simply use it directly. This example reuses the search by name to obtain it. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOnce you have the minimal information about the purpose, you may still need to retrieve the full purpose itself (to ensure you have all of its policies and their inner details). Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through these policies...\n...and check each policy's\ndisplayText\nfor the name that's been given to the policy, and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.\nFind a purpose policy's GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\nPurposeName\n:=",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 29
+    }
+  },
+  {
+    "content": "for the name that's been given to the policy, and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.\nFind a purpose policy's GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\nPurposeName\n:=\n\"Data Assets\"\nresult\n,\natlanErr\n:=\nassets\n.\nFindPurposesByName\n(\nPurposeName\n)\n// (1)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error: %v\"\n,\natlanErr\n)\n}\npurpose\n,\n_\n:=\nassets\n.\nGetByGuid\n[\n*\nassets\n.\nPurpose\n](\n*\nresult\n.\nEntities\n[\n0\n].\nGuid\n)\n// (2)\nfor\n_\n,\npolicy\n:=\nrange\n*\npurpose\n.\nPolicies\n{\n// (3)\nfmt\n.\nPrintf\n(\n\"Policy %v has guid = %v\\n\"\n,\n*\npolicy\n.\nDisplayName\n,\n*\npolicy\n.\nGuid\n)\n// (4)\n}\nIf you already have the purpose or its GUID or qualifiedName, you can simply use it directly. This example reuses the search by name to obtain it.\nOnce you have the minimal information about the purpose, you may still need to retrieve the full purpose itself (to ensure you have all of its policies and their inner details).\nYou can then iterate through these policies...\n...and check each policy's\nDisplayName\nfor the name that's been given to the policy, and retrieve each policy's\nGuid\nto be able to individually delete the appropriate policy.\nMultiple API calls required",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 30
+    }
+  },
+  {
+    "content": "DisplayName\nfor the name that's been given to the policy, and retrieve each policy's\nGuid\nto be able to individually delete the appropriate policy.\nMultiple API calls required\nYou will need to first\nrun a search for all purposes with a given name\n.\nYou can then\nretrieve the full purpose by its GUID\n, to see all of its policies and their details.\nYou can then iterate through those details to see the\ndisplayText\nfor the name that's been given to each policy, and retrieve each policy's\nguid\nto be able to individually delete the appropriate policy.\n2023-11-13\n2025-04-02\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_access_policies.html",
+      "source_type": "sdk",
+      "file": "snippets_access_policies.json",
+      "chunk_id": 31
+    }
+  }
+]

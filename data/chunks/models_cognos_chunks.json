@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Cognos - Developer\nSkip to content\nCognos\n¶\nThese are the model elements in Atlan related to Cognos.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage Cognos assets in Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass Cognos {\n<<abstract>>\n}\nlink Cognos \"../cognos\"\nclass BI {\n<<abstract>>\n}\nlink BI \"../bi\"\nBI <|-- Cognos : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../catalog\"\nCatalog <|-- BI : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../referenceable\"\nReferenceable <|-- Asset : extends\nclass CognosExploration\nlink CognosExploration \"../entities/cognosexploration\"\nCognos <|-- CognosExploration : extends\nclass CognosDashboard\nlink CognosDashboard \"../entities/cognosdashboard\"\nCognos <|-- CognosDashboard : extends\nclass CognosReport\nlink CognosReport \"../entities/cognosreport\"",
+    "metadata": {
+      "source_url": "models_cognos.html",
+      "source_type": "sdk",
+      "file": "models_cognos.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "class CognosDashboard\nlink CognosDashboard \"../entities/cognosdashboard\"\nCognos <|-- CognosDashboard : extends\nclass CognosReport\nlink CognosReport \"../entities/cognosreport\"\nCognos <|-- CognosReport : extends\nclass CognosModule\nlink CognosModule \"../entities/cognosmodule\"\nCognos <|-- CognosModule : extends\nclass CognosFile\nlink CognosFile \"../entities/cognosfile\"\nCognos <|-- CognosFile : extends\nclass CognosFolder\nlink CognosFolder \"../entities/cognosfolder\"\nCognos <|-- CognosFolder : extends\nclass CognosPackage\nlink CognosPackage \"../entities/cognospackage\"\nCognos <|-- CognosPackage : extends\nclass CognosDatasource\nlink CognosDatasource \"../entities/cognosdatasource\"\nCognos <|-- CognosDatasource : extends\nProperties\n¶\nThese attributes are specific to instances of\nCognos\n(and all of its subtypes).\ncognosDefaultScreenTip\n¶\nTooltip text present for the Cognos asset\ncognosId\n¶\nID of the asset in Cognos\ncognosIsDisabled\n¶\nWhether the Cognos asset is diabled\ncognosIsHidden\n¶\nWhether the Cognos asset is hidden from the ui\ncognosParentName\n¶\nName of the parent asset in Cognos\ncognosParentQualifiedName\n¶\nQualified name of the parent asset in Cognos\ncognosPath\n¶",
+    "metadata": {
+      "source_url": "models_cognos.html",
+      "source_type": "sdk",
+      "file": "models_cognos.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "¶\nWhether the Cognos asset is hidden from the ui\ncognosParentName\n¶\nName of the parent asset in Cognos\ncognosParentQualifiedName\n¶\nQualified name of the parent asset in Cognos\ncognosPath\n¶\nPath of the asset in Cognos. E.g. /content/folder[@name='Folder Name']\ncognosType\n¶\nCognos type of the Cognos asset. E.g. report, dashboard, package, etc.\ncognosVersion\n¶\nVersion of the Cognos asset\nRelationships\n¶\nThe following illustrates how the various pieces of Cognos inter-relate with each other:\nerDiagram\nConnection ||..o{ CognosFolder : \"\"\nConnection ||..o{ CognosDatasource : \"\"\nCognosFolder ||--o{ CognosDashboard : cognosDashboards\nCognosFolder ||--o{ CognosExploration : cognosExplorations\nCognosFolder ||--o{ CognosFile : cognosFiles\nCognosFolder ||--o{ CognosModule : cognosModules\nCognosFolder ||--o{ CognosPackage : cognosPackages\nCognosFolder ||--o{ CognosReport : cognosReports\nCognosFolder ||--o{ CognosFolder : cognosSubFolders\n2024-06-18\n2024-06-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:",
+    "metadata": {
+      "source_url": "models_cognos.html",
+      "source_type": "sdk",
+      "file": "models_cognos.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Thanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_cognos.html",
+      "source_type": "sdk",
+      "file": "models_cognos.json",
+      "chunk_id": 3
+    }
+  }
+]

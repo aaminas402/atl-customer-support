@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Endpoints - Developer\nSkip to content\nEndpoints\n¶\nFollowing is a list of all API endpoints and the use cases they enable:\n/api/meta/entity/auditSearch (POST)\n¶\nReview changes to an asset\n/api/meta/entity/bulk (DELETE)\n¶\nDelete an asset\nManage lineage\nManage personas\nManage policies\nManage purposes\n/api/meta/entity/bulk (POST)\n¶\nAdd asset resources\nCategorize terms\nCertify assets\nChange custom metadata\nChange description\nChange owners\nCombine multiple operations\nCreate a hierarchy\nCreate an asset\nCreate objects\nEnd-to-end bulk update\nLink domains to assets\nLink terms to assets\nManage AI assets\nManage API assets\nManage AWS S3 assets\nManage Airflow assets\nManage App assets\nManage Azure Data Lake Storage assets\nManage Azure Event Hub assets\nManage Data Quality rules\nManage DocumentDB assets\nManage Google Cloud Storage assets\nManage Google Data Studio assets\nManage Insights assets\nManage Kafka assets\nManage Preset assets\nManage QuickSight assets\nManage Superset assets\nManage announcements\nManage asset READMEs\nManage asset relationships with attributes\nManage column profiling\nManage cube assets\nManage data domains\nManage data products\nManage file assets\nManage lineage\nManage personas",
+    "metadata": {
+      "source_url": "endpoints.html",
+      "source_type": "sdk",
+      "file": "endpoints.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Manage asset READMEs\nManage asset relationships with attributes\nManage column profiling\nManage cube assets\nManage data domains\nManage data products\nManage file assets\nManage lineage\nManage personas\nManage policies\nManage popularity\nManage purposes\nManage relational assets\nRestore an asset\nTag (classify) assets\nUpdate an asset\nUpdate multiple assets\n/api/meta/entity/guid/{guid} (GET)\n¶\nRetrieve an asset\n/api/meta/entity/guid/{guid}/businessmetadata (POST)\n¶\nChange custom metadata\n/api/meta/entity/guid/{guid}/businessmetadata/{name} (POST)\n¶\nChange custom metadata\n/api/meta/entity/uniqueAttribute/type/{typeName}/attr:qualifiedName={qualifiedName} (GET)\n¶\nRetrieve an asset\n/api/meta/entity/uniqueAttribute/type/{typeName}/classification/{name}?attr:qualifiedName={qualifiedName} (DELETE)\n¶\nTag (classify) assets\n/api/meta/entity/uniqueAttribute/type/{typeName}/classifications?attr:qualifiedName={qualifiedName} (POST)\n¶\nTag (classify) assets\n/api/meta/entity/uniqueAttribute/type/{typeName}?attr:qualifiedName={qualifiedName} (GET)\n¶\nManage column profiling\nManage popularity\n/api/meta/lineage/getlineage (POST)\n¶\nTraverse lineage\n/api/meta/lineage/list (POST)\n¶\nTraverse lineage",
+    "metadata": {
+      "source_url": "endpoints.html",
+      "source_type": "sdk",
+      "file": "endpoints.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "¶\nManage column profiling\nManage popularity\n/api/meta/lineage/getlineage (POST)\n¶\nTraverse lineage\n/api/meta/lineage/list (POST)\n¶\nTraverse lineage\n/api/meta/search/indexsearch (POST)\n¶\nAggregating search results\nCommon search fields\nCompound queries\nEnd-to-end bulk update\nFind and apply suggestions\nLimiting details\nManage personas\nManage policies\nManage purposes\nPaging search results\nQuerying overview\nRetrieval by name\nSearch examples\nSearch for assets\nSorting search results\nTerm-level queries\nTraverse category hierarchy\n/api/meta/search/searchlog (POST)\n¶\nReview accesses of an asset\n/api/meta/task/search (POST)\n¶\nMonitor propagation\n/api/meta/types/typedef/name/{name} (DELETE)\n¶\nDelete custom metadata\n/api/meta/types/typedef/name/{name} (GET)\n¶\nManage Atlan tags\nManage options (enumerations)\n/api/meta/types/typedef/{name} (DELETE)\n¶\nManage Atlan tags\nManage options (enumerations)\n/api/meta/types/typedefs (GET)\n¶\nRetrieve custom metadata\n/api/meta/types/typedefs (POST)\n¶\nCreate custom metadata\nManage Atlan tags\nManage badges\nManage options (enumerations)\n/api/meta/types/typedefs (PUT)\n¶\nManage Atlan tags\nManage options (enumerations)\nUpdate custom metadata",
+    "metadata": {
+      "source_url": "endpoints.html",
+      "source_type": "sdk",
+      "file": "endpoints.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "¶\nCreate custom metadata\nManage Atlan tags\nManage badges\nManage options (enumerations)\n/api/meta/types/typedefs (PUT)\n¶\nManage Atlan tags\nManage options (enumerations)\nUpdate custom metadata\n/api/meta/types/typedefs/?type=CLASSIFICATION (GET)\n¶\nManage Atlan tags\n/api/meta/types/typedefs/?type=ENUM (GET)\n¶\nManage options (enumerations)\n/api/service/apikeys (GET)\n¶\nAPI token management\n/api/service/apikeys (POST)\n¶\nAPI token management\n/api/service/apikeys/{guid} (DELETE)\n¶\nAPI token management\n/api/service/apikeys/{guid} (POST)\n¶\nAPI token management\n/api/service/events/login (GET)\n¶\nAccess events\n/api/service/events/main (GET)\n¶\nAccess events\n/api/service/files/presignedUrl (POST)\n¶\nFile management\n/api/service/groups (GET)\n¶\nRetrieve users and groups\n/api/service/groups (POST)\n¶\nCreate users and groups\n/api/service/groups/{guid} (POST)\n¶\nUpdate users and groups\n/api/service/groups/{guid}/delete (POST)\n¶\nDelete users and groups\n/api/service/groups/{guid}/members (GET)\n¶\nRetrieve users and groups\n/api/service/groups/{guid}/members/remove (POST)\n¶\nUpdate users and groups\n/api/service/idp/{sso_alias}/mappers (GET)\n¶\nManage SSO group mapping\n/api/service/idp/{sso_alias}/mappers (POST)",
+    "metadata": {
+      "source_url": "endpoints.html",
+      "source_type": "sdk",
+      "file": "endpoints.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "/api/service/groups/{guid}/members/remove (POST)\n¶\nUpdate users and groups\n/api/service/idp/{sso_alias}/mappers (GET)\n¶\nManage SSO group mapping\n/api/service/idp/{sso_alias}/mappers (POST)\n¶\nManage SSO group mapping\n/api/service/idp/{sso_alias}/mappers/{group_map_id} (GET)\n¶\nManage SSO group mapping\n/api/service/idp/{sso_alias}/mappers/{group_map_id} (POST)\n¶\nManage SSO group mapping\n/api/service/idp/{sso_alias}/mappers/{group_map_id}/delete (POST)\n¶\nManage SSO group mapping\n/api/service/users (GET)\n¶\nRetrieve users and groups\n/api/service/users (POST)\n¶\nCreate users and groups\n/api/service/users/{guid} (POST)\n¶\nUpdate users and groups\n/api/service/users/{guid}/groups (GET)\n¶\nRetrieve users and groups\n/api/service/users/{guid}/groups (POST)\n¶\nUpdate users and groups\n/api/service/users/{guid}/update (POST)\n¶\nUpdate users and groups\n/api/service/workflows/indexsearch (POST)\n¶\nAthena assets\nBigQuery assets\nConfluent Kafka assets\nDatabricks assets\nDatabricks miner\nDynamoDB assets\nFivetran enrichment\nGlue assets\nLooker assets\nMongoDB assets\nOracle assets\nPostgres assets\nPowerBI assets\nRedshift assets\nSQL Server assets\nSigma assets\nSnowflake assets\nSnowflake miner\nTableau assets",
+    "metadata": {
+      "source_url": "endpoints.html",
+      "source_type": "sdk",
+      "file": "endpoints.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Glue assets\nLooker assets\nMongoDB assets\nOracle assets\nPostgres assets\nPowerBI assets\nRedshift assets\nSQL Server assets\nSigma assets\nSnowflake assets\nSnowflake miner\nTableau assets\ndbt assets\n/api/service/workflows/submit (POST)\n¶\nAthena assets\nBigQuery assets\nConfluent Kafka assets\nDatabricks assets\nDatabricks miner\nDynamoDB assets\nFivetran enrichment\nGlue assets\nLooker assets\nMongoDB assets\nOracle assets\nPostgres assets\nPowerBI assets\nRedshift assets\nSQL Server assets\nSigma assets\nSnowflake assets\nSnowflake miner\nTableau assets\ndbt assets\n/api/sql/query/stream (POST)\n¶\nRun queries on an asset\n2023-04-27\n2025-05-14\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "endpoints.html",
+      "source_type": "sdk",
+      "file": "endpoints.json",
+      "chunk_id": 5
+    }
+  }
+]

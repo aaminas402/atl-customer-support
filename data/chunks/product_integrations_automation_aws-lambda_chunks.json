@@ -1,0 +1,11 @@
+[
+  {
+    "content": "AWS Lambda | Atlan Documentation\nSkip to main content\nOn this page\nOverview:\nConnect Atlan with AWS Lambda to automate workflows, create triggers, and extend Atlan's automation capabilities.\nGet started\nâ\nFollow these steps to connect and integrate AWS Lambda with Atlan:\nSet up AWS Lambda\nCreate an AWS Lambda trigger\nGuides\nâ\nSet up AWS Lambda\n: Step-by-step instructions to set up AWS Lambda integration with Atlan.\nCreate an AWS Lambda trigger\n: How to create triggers for automated workflows using AWS Lambda.\nGet started\nGuides",
+    "metadata": {
+      "source_url": "product_integrations_automation_aws-lambda.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_aws-lambda.json",
+      "chunk_id": 0
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Creating assets - Developer\nSkip to content\nCreating assets\n¶\nAPI-first models\n¶\nThere are several\ntypes\nin Atlan that are intended for use primarily through the APIs and SDKs:\nRelational\ndatabases, schemas, tables, views, columns (and more)\nObject store assets:\nAWS S3\nbuckets and objects\nAzure Data Lake Storage\naccounts, containers, and objects\nGoogle Cloud Storage\nbuckets and objects\nBusiness intelligence assets:\nGoogle Data Studio\nsources and reports\nPreset\nworkspaces, dashboards, charts, and datasets\nSuperset\ndashboards, charts, and datasets\nAPI\nspecs, paths, objects, queries and fields\nApp\nassets\nAI\nassets (AI models, AI applications)\nInsights\nassets\nAsset creation order\n¶\nWhen creating data assets in Atlan, the order in which you create them is important.\nAt the top level of\nall\ndata assets in Atlan is the\nConnection\n. Connections are the basis for access control, so you must create (or use an existing) connection before you can create any other assets.\nYou must then create each subsequent level of the data asset's structure(s) in parent-first order.\nYou can bulk-create assets at the same level",
+    "metadata": {
+      "source_url": "patterns_create.html",
+      "source_type": "sdk",
+      "file": "patterns_create.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "You must then create each subsequent level of the data asset's structure(s) in parent-first order.\nYou can bulk-create assets at the same level\nWhile parent assets must exist before creating child assets, you can create multiple assets at the same level all at the same time.\nExample: relational database structure\nYou must first create a\nConnection\n(or decide to reuse an existing one).\nYou can then create any number\nDatabase\ns within that connection, at the same time.\nYou can then create any number of\nSchema\ns within any of those databases, at the same time.\nYou can then create any number of\nTable\ns or\nView\ns within any of those schemas, at the same time.\nAnd you can then finally create any number of\nColumn\ns within any of those tables or views, at the same time.\n2023-04-12\n2025-07-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.",
+    "metadata": {
+      "source_url": "patterns_create.html",
+      "source_type": "sdk",
+      "file": "patterns_create.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Cookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_create.html",
+      "source_type": "sdk",
+      "file": "patterns_create.json",
+      "chunk_id": 2
+    }
+  }
+]

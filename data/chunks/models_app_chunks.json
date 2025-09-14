@@ -1,0 +1,20 @@
+[
+  {
+    "content": "App - Developer\nSkip to content\nApp model\n¶\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage App assets in Atlan. For that, we would suggest starting with the\nmanage App assets pattern\n.\nBase class for App assets.\nclassDiagram\ndirection RL\nclass App {\n<<abstract>>\n}\nlink App \"../app\"\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- App : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass Application\nlink Application \"../entities/application\"\nApp <|-- Application : extends\nclass ApplicationField\nlink ApplicationField \"../entities/applicationfield\"\nApp <|-- ApplicationField : extends\nProperties\n¶\nThese attributes are specific to instances of\nApp\n(and all of its subtypes).\nappId\n¶\nUnique identifier for the App asset from the source system.\nRelationships\n¶\nThe following illustrates how the various App assets inter-relate with each other:\nerDiagram",
+    "metadata": {
+      "source_url": "models_app.html",
+      "source_type": "sdk",
+      "file": "models_app.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "appId\n¶\nUnique identifier for the App asset from the source system.\nRelationships\n¶\nThe following illustrates how the various App assets inter-relate with each other:\nerDiagram\nConnection ||..o{ Application : \"\"\nApplication ||..o{ ApplicationField : \"applicationChildFields\"\n2024-11-21\n2025-01-30\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_app.html",
+      "source_type": "sdk",
+      "file": "models_app.json",
+      "chunk_id": 1
+    }
+  }
+]

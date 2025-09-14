@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Troubleshooting Atlan browser extension | Atlan Documentation\nSkip to main content\nOn this page\nCan I add the browser extension for everyone in my organization?\nâ\nYes! To install the Atlan browser extension at the workspace level, follow the instructions in\nthis guide\n. You will need to be an administrator or have access to the admin console of your organization's Google account for this setup. Once installed, users in your organization can start\nusing Atlan's browser extension\n.\nIf your organization uses managed browsers, refer to\nHow to configure a managed browser extension\n.\nOnce you have installed the browser extension for your organization, anyone with access to Atlan and a supported tool can use the browser extension. You will first need to log into Atlan.\nFor users in your organization who do not have access to Atlan and attempt to use the extension, they will receive an error message notifying them that they do not have an Atlan account.\nWhy is the extension not loading?\nâ\nIf a blank page appears while loading the Atlan browser extension or the page is continuously loading,\nupdate your browser's security settings\nto\nBlock third party cookies in Incognito\n.",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_troubleshooting_troubleshooting-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_troubleshooting_troubleshooting-atlan-browser-extension.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "â\nIf a blank page appears while loading the Atlan browser extension or the page is continuously loading,\nupdate your browser's security settings\nto\nBlock third party cookies in Incognito\n.\nAs long as you have access to the data you are trying to view within Atlan, you should be able to\nuse the browser extension\n.\nWhy do I get an error message when I click on the extension in Brave?\nâ\nUsers of the Brave browser may receive an error message showing that the content is blocked when they click on the Atlan browser extension. In that case, turning off the Brave Shields feature can help you access the content.\nWhy can't I see the Atlan logo in my data tool?\nâ\nIf your data tool is hosted on a custom domain and you're not seeing the Atlan logo on the bottom right of your BI tool, such as Tableau, you'll need to\nmap your data tool's custom URL in the extension\n.",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_troubleshooting_troubleshooting-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_troubleshooting_troubleshooting-atlan-browser-extension.json",
+      "chunk_id": 1
+    }
+  }
+]

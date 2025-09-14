@@ -1,0 +1,209 @@
+[
+  {
+    "content": "Snowflake miner package - Developer\nSkip to content\nSnowflake miner package\n¶\nThe\nSnowflake miner package\nmines query history from Snowflake. This data is used for generating lineage and usage metrics.\nSource extraction\n¶\n0.0.16\n2.1.8\n4.0.0\nTo mine query history directly from Snowflake using its built-in database:\nJava\nPython\nKotlin\nGo\nRaw REST API\nMine query history direct from Snowflake\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nWorkflow\nminer\n=\nSnowflakeMiner\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n// (2)\n)\n.\ndirect\n(\n// (3)\n\"TEST_DB\"\n,\n\"TEST_SCHEMA\"\n,\n1713225600\n)\n.\nexcludeUsers\n(\n// (4)\nList\n.\nof\n(\n\"test-user-1\"\n,\n\"test-user-2\"\n)\n)\n.\nnativeLineage\n(\ntrue\n)\n// (5)\n.\nbuild\n()\n// (6)\n.\ntoWorkflow\n();\n// (7)\nWorkflowResponse\nresponse\n=\nminer\n.\nrun\n(\nclient\n);\n// (8)\nBase configuration for a new Snowflake miner.\nYou must provide the exact\nqualifiedName\nof the Snowflake connection in Atlan for which you want to mine query history.\nTo create a workflow for mining history directly from Snowflake using its built-in database you need to provide:\nname of the database to extract from.\nname of the schema to extract from.\ndate and time from which to start mining, as an epoch.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "name of the database to extract from.\nname of the schema to extract from.\ndate and time from which to start mining, as an epoch.\nOptionally, you can specify list of users who should be excluded when calculating usage metrics for assets (for example, system accounts).\nOptionally, you can specify whether to enable native lineage from Snowflake, using Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn. Note: this is only available only for Snowflake Enterprise customers.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nMine query history direct from Snowflake\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Mine query history direct from Snowflake\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nSnowflakeMiner\nminer\n=\n(\nSnowflakeMiner\n(\n# (1)\nconnection_qualified_name\n=\n\"default/snowflake/1234567890\"\n# (2)\n)\n.\ndirect\n(\n# (3)\nstart_epoch\n=\n1713225600\n,\ndatabase\n=\n\"TEST_DB\"\n,\nschema\n=\n\"TEST_SCHEMA\"\n,\n)\n.\nexclude_users\n(\n# (4)\nusers\n=\n[\n\"test-user-1\"\n,\n\"test-user-2\"\n,\n]\n)\n.\npopularity_window\n(\ndays\n=\n30\n)\n# (5)\n.\nnative_lineage\n(\nenabled\n=\nTrue\n)\n# (6)\n.\ncustom_config\n(\n# (7)\nconfig\n=\n{\n\"test\"\n:\nTrue\n,\n\"feature\"\n:\n1234\n}\n)\n.\nto_workflow\n()\n# (8)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nminer\n)\n# (9)\nBase configuration for a new Snowflake miner.\nYou must provide the exact\nqualified_name\nof the Snowflake\nconnection in Atlan for which you want to mine query history.\nTo create a workflow for mining history directly from Snowflake\nusing its built-in database you need to provide:\ndate and time from which to start mining, as an epoch.\nname of the database to extract from.\nname of the schema to extract from.\nOptionally, you can specify list of users who should be excluded",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "date and time from which to start mining, as an epoch.\nname of the database to extract from.\nname of the schema to extract from.\nOptionally, you can specify list of users who should be excluded\nwhen calculating usage metrics for assets (for example, system accounts).\nOptionally, you can provide number of days to consider for calculating popularity.\nOptionally, you can specify whether to enable native lineage from Snowflake,\nusing Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn.\nNote:\nthis is only available only for Snowflake Enterprise customers.\nOptionally, you can provide custom configuration\ncontrolling experimental feature flags for the miner.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the\nworkflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how you can check the status and wait until\nthe workflow has been completed.\nMine query history direct from Snowflake\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nval\nminer\n=\nSnowflakeMiner\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n// (2)\n)\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Mine query history direct from Snowflake\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nval\nminer\n=\nSnowflakeMiner\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n// (2)\n)\n.\ndirect\n(\n// (3)\n\"TEST_DB\"\n,\n\"TEST_SCHEMA\"\n,\n1713225600\n)\n.\nexcludeUsers\n(\n// (4)\nlistOf\n(\n\"test-user-1\"\n,\n\"test-user-2\"\n)\n)\n.\nnativeLineage\n(\ntrue\n)\n// (5)\n.\nbuild\n()\n// (6)\n.\ntoWorkflow\n()\n// (7)\nval\nresponse\n=\nminer\n.\nrun\n(\nclient\n)\n// (8)\nBase configuration for a new Snowflake miner.\nYou must provide the exact\nqualifiedName\nof the Snowflake connection in Atlan for which you want to mine query history.\nTo create a workflow for mining history directly from Snowflake using its built-in database you need to provide:\nname of the database to extract from.\nname of the schema to extract from.\ndate and time from which to start mining, as an epoch.\nOptionally, you can specify list of users who should be excluded when calculating usage metrics for assets (for example, system accounts).\nOptionally, you can specify whether to enable native lineage from Snowflake, using Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn. Note: this is only available only for Snowflake Enterprise customers.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "ACCESS_HISTORY.OBJECTS_MODIFIED\nColumn. Note: this is only available only for Snowflake Enterprise customers.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nMine query history direct from Snowflake\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\nminer\n:=\nassets\n.\nNewSnowflakeMiner\n(\n// (1)\n\"default/snowflake/1234567890\"\n,\n// (2)\n).\nDirect\n(\n// (3)\n1713225600\n,\n\"TEST_DB\"\n,\n\"TEST_SCHEMA\"\n,\n).\nExcludeUsers\n([]\nstring\n{\n\"test-user-1\"\n,\n\"test-user-2\"\n}).\n// (4)\nPopularityWindow\n(\n30\n).\n// (5)\nNativeLineage\n(\ntrue\n).\n// (6)\nCustomConfig\n(\nmap\n[\nstring\n]\ninterface\n{}{\n// (7)\n\"test\"\n:\ntrue\n,\n\"feature\"\n:\n1234\n,\n}).\nToWorkflow\n()\n// (8)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nRun\n(\nminer\n,\nnil\n)\n// (9)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "true\n).\n// (6)\nCustomConfig\n(\nmap\n[\nstring\n]\ninterface\n{}{\n// (7)\n\"test\"\n:\ntrue\n,\n\"feature\"\n:\n1234\n,\n}).\nToWorkflow\n()\n// (8)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nRun\n(\nminer\n,\nnil\n)\n// (9)\nBase configuration for a new Snowflake miner.\nYou must provide the exact\nqualifiedName\nof the Snowflake\nconnection in Atlan for which you want to mine query history.\nTo create a workflow for mining history directly from Snowflake\nusing its built-in database you need to provide:\ndate and time from which to start mining, as an epoch.\nname of the database to extract from.\nname of the schema to extract from.\nOptionally, you can specify list of users who should be excluded\nwhen calculating usage metrics for assets (for example, system accounts).\nOptionally, you can provide number of days to consider for calculating popularity.\nOptionally, you can specify whether to enable native lineage from Snowflake,\nusing Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn.\nNote:\nthis is only available only for Snowflake Enterprise customers.\nOptionally, you can provide custom configuration\ncontrolling experimental feature flags for the miner.\nNow, you can convert the package into a\nWorkflow\nobject.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Optionally, you can provide custom configuration\ncontrolling experimental feature flags for the miner.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nctx.WorkflowClient.Run()\nmethod on the\nworkflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how you can check the status and wait until\nthe workflow has been completed.\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI.\nTo rerun an existing workflow, see the steps below.\nOffline extraction\n¶\n0.0.16\n2.1.8\n4.0.0\nTo mine query history from the S3 bucket:\nJava\nPython\nKotlin\nGo\nRaw REST API\nMine query history from the S3 bucket\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nWorkflow\nminer\n=\nSnowflakeMiner\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n// (2)\n)\n.\ns3\n(\n// (3)\n\"test-s3-bucket\"\n,\n\"test-s3-prefix\"\n,\n\"TEST_QUERY\"\n,\n\"TEST_DB\"\n,\n\"TEST_SCHEMA\"\n,\n\"TEST_SESSION_ID\"\n)\n.\nnativeLineage\n(\ntrue\n)\n// (4)\n.\nbuild\n()\n// (5)\n.\ntoWorkflow\n();\n// (6)\nWorkflowResponse\nresponse\n=\nminer\n.\nrun\n(\nclient\n);\n// (7)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": ",\n\"TEST_QUERY\"\n,\n\"TEST_DB\"\n,\n\"TEST_SCHEMA\"\n,\n\"TEST_SESSION_ID\"\n)\n.\nnativeLineage\n(\ntrue\n)\n// (4)\n.\nbuild\n()\n// (5)\n.\ntoWorkflow\n();\n// (6)\nWorkflowResponse\nresponse\n=\nminer\n.\nrun\n(\nclient\n);\n// (7)\nBase configuration for a new Snowflake miner.\nYou must provide the exact\nqualifiedName\nof the Snowflake connection in Atlan for which you want to mine query history.\nTo create a workflow for mining history from S3 bucket you need to provide:\nS3 bucket where the JSON line-separated files are located.\nprefix within the S3 bucket in which the JSON line-separated files are located.\nJSON key containing the query definition.\nJSON key containing the default database name to use if a query is not qualified with database name.\nJSON key containing the default schema name to use if a query is not qualified with schema name.\nJSON key containing the\nsession ID\nof the SQL query.\nOptionally, you can specify whether to enable native lineage from Snowflake, using Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn. Note: this is only available only for Snowflake Enterprise customers.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "Column. Note: this is only available only for Snowflake Enterprise customers.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nMine query history from the S3 bucket\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nSnowflakeMiner\nminer\n=\n(\nSnowflakeMiner\n(\n# (1)\nconnection_qualified_name\n=\n\"default/snowflake/1234567890\"\n# (2)\n)\n.\ns3\n(\n# (3)\ns3_bucket\n=\n\"test-s3-bucket\"\n,\ns3_prefix\n=\n\"test-s3-prefix\"\n,\ns3_bucket_region\n=\n\"test-s3-bucket-region\"\n,\nsql_query_key\n=\n\"TEST_QUERY\"\n,\ndefault_database_key\n=\n\"TEST_DB\"\n,\ndefault_schema_key\n=\n\"TEST_SCHEMA\"\n,\nsession_id_key\n=\n\"TEST_SESSION_ID\"\n,\n)\n.\npopularity_window\n(",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "=\n\"test-s3-bucket-region\"\n,\nsql_query_key\n=\n\"TEST_QUERY\"\n,\ndefault_database_key\n=\n\"TEST_DB\"\n,\ndefault_schema_key\n=\n\"TEST_SCHEMA\"\n,\nsession_id_key\n=\n\"TEST_SESSION_ID\"\n,\n)\n.\npopularity_window\n(\ndays\n=\n30\n)\n# (4)\n.\nnative_lineage\n(\nenabled\n=\nTrue\n)\n# (5)\n.\ncustom_config\n(\n# (6)\nconfig\n=\n{\n\"test\"\n:\nTrue\n,\n\"feature\"\n:\n1234\n}\n)\n.\nto_workflow\n()\n# (7)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nminer\n)\n# (8)\nBase configuration for a new Snowflake miner.\nYou must provide the exact\nqualified_name\nof the Snowflake\nconnection in Atlan for which you want to mine query history.\nTo create a workflow for mining history\nfrom S3 bucket you need to provide:\nS3 bucket where the JSON line-separated files are located.\nprefix within the S3 bucket in which the JSON line-separated files are located.\n(Optional) region of the S3 bucket if applicable.\nJSON key containing the query definition.\nJSON key containing the default database name\nto use if a query is not qualified with database name.\nJSON key containing the default schema name\nto use if a query is not qualified with schema name.\nJSON key containing the\nsession ID\nof the SQL query.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "JSON key containing the default schema name\nto use if a query is not qualified with schema name.\nJSON key containing the\nsession ID\nof the SQL query.\nOptionally, you can provide number of days to consider for calculating popularity.\nOptionally, you can specify whether to enable native lineage from Snowflake,\nusing Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn.\nNote:\nthis is only available only for Snowflake Enterprise customers.\nOptionally, you can provide custom configuration\ncontrolling experimental feature flags for the miner.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the\nworkflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how you can check the status and wait until\nthe workflow has been completed.\nMine query history from the S3 bucket\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nval\nminer\n=\nSnowflakeMiner\n.\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n// (2)\n)\n.\ns3\n(\n// (3)\n\"test-s3-bucket\"\n,\n\"test-s3-prefix\"\n,\n\"TEST_QUERY\"\n,\n\"TEST_DB\"\n,\n\"TEST_SCHEMA\"\n,\n\"TEST_SESSION_ID\"\n)\n.\nnativeLineage",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ".\ncreator\n(\n// (1)\n\"default/snowflake/1234567890\"\n// (2)\n)\n.\ns3\n(\n// (3)\n\"test-s3-bucket\"\n,\n\"test-s3-prefix\"\n,\n\"TEST_QUERY\"\n,\n\"TEST_DB\"\n,\n\"TEST_SCHEMA\"\n,\n\"TEST_SESSION_ID\"\n)\n.\nnativeLineage\n(\ntrue\n)\n// (4)\n.\nbuild\n()\n// (5)\n.\ntoWorkflow\n()\n// (6)\nval\nresponse\n=\nminer\n.\nrun\n(\nclient\n)\n// (7)\nBase configuration for a new Snowflake miner.\nYou must provide the exact\nqualifiedName\nof the Snowflake connection in Atlan for which you want to mine query history.\nTo create a workflow for mining history from S3 bucket you need to provide:\nS3 bucket where the JSON line-separated files are located.\nprefix within the S3 bucket in which the JSON line-separated files are located.\nJSON key containing the query definition.\nJSON key containing the default database name to use if a query is not qualified with database name.\nJSON key containing the default schema name to use if a query is not qualified with schema name.\nJSON key containing the\nsession ID\nof the SQL query.\nOptionally, you can specify whether to enable native lineage from Snowflake, using Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn. Note: this is only available only for Snowflake Enterprise customers.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "ACCESS_HISTORY.OBJECTS_MODIFIED\nColumn. Note: this is only available only for Snowflake Enterprise customers.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nMine query history from the S3 bucket\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\nminer\n:=\nassets\n.\nNewSnowflakeMiner\n(\n// (1)\n\"default/snowflake/1234567890\"\n// (2)\n).\nS3\n(\n// (3)\n\"test-s3-bucket\"\n,\n\"test-s3-prefix\"\n,\n\"TEST_QUERY\"\n,\n\"TEST_SNOWFLAKE\"\n,\n\"TEST_SCHEMA\"\n,\n\"TEST_SESSION_ID\"\n,\nstructs\n.\nStringPtr\n(\n\"test-s3-bucket-region\"\n),\n).\nPopularityWindow\n(\n30\n).\n// (4)\nNativeLineage\n(\ntrue\n).\n// (5)\nCustomConfig\n(\nmap\n[\nstring\n]\ninterface\n{}{\n// (6)\n\"test\"\n:\ntrue\n,\n\"feature\"\n:\n1234\n,\n}).\nToWorkflow\n()\n// (7)\nresponse\n,\natlanErr\n:=\nctx\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "(\n30\n).\n// (4)\nNativeLineage\n(\ntrue\n).\n// (5)\nCustomConfig\n(\nmap\n[\nstring\n]\ninterface\n{}{\n// (6)\n\"test\"\n:\ntrue\n,\n\"feature\"\n:\n1234\n,\n}).\nToWorkflow\n()\n// (7)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nRun\n(\nminer\n,\n&\nSchedule\n)\n// (8)\nBase configuration for a new Snowflake miner.\nYou must provide the exact\nqualifiedName\nof the Snowflake\nconnection in Atlan for which you want to mine query history.\nTo create a workflow for mining history\nfrom S3 bucket you need to provide:\nS3 bucket where the JSON line-separated files are located.\nprefix within the S3 bucket in which the JSON line-separated files are located.\n(Optional) region of the S3 bucket if applicable.\nJSON key containing the query definition.\nJSON key containing the default database name\nto use if a query is not qualified with database name.\nJSON key containing the default schema name\nto use if a query is not qualified with schema name.\nJSON key containing the\nsession ID\nof the SQL query.\nOptionally, you can provide number of days to consider for calculating popularity.\nOptionally, you can specify whether to enable native lineage from Snowflake,\nusing Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn.\nNote:",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Optionally, you can specify whether to enable native lineage from Snowflake,\nusing Snowflake's\nACCESS_HISTORY.OBJECTS_MODIFIED\nColumn.\nNote:\nthis is only available only for Snowflake Enterprise customers.\nOptionally, you can provide custom configuration\ncontrolling experimental feature flags for the miner.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nctx.WorkflowClient.Run()\nmethod on the\nworkflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how you can check the status and wait until\nthe workflow has been completed.\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI.\nTo rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶\n0.0.16\n1.9.5\n4.0.0\nTo re-run an existing workflow for Snowflake query mining:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRe-run existing Snowflake workflow\n1\n2\n3\n4\n5\nList\n<\nWorkflowSearchResult\n>\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nSnowflakeMiner\n.\nPREFIX\n,\n5\n);\n// (2)\n// Determine which of the results is the",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\nList\n<\nWorkflowSearchResult\n>\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nSnowflakeMiner\n.\nPREFIX\n,\n5\n);\n// (2)\n// Determine which of the results is the\n// Snowflake workflow you want to re-run...\nWorkflowRunResponse\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n);\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nSnowflakeMiner\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(client, true)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(client, true)\nmethod with idempotency to avoid re-running a workflow that is already in running or in a pending state. This will return details of the already running workflow if found, and by default, it is set to\nfalse\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRe-run existing Snowflake workflow\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nSNOWFLAKE_MINER\n,\nmax_results\n=\n5\n)\n# Determine which Snowflake workflow (n)\n# from the list of results you want to re-run.\nresponse\n=\nclient\n.\nworkflow\n.\nrerun\n(\nexisting\n[\nn\n])\n# (2)\nYou can find workflows by their type using the workflow client\nfind_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nSnowflakeMiner\n.\n(You can also specify the",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "find_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nSnowflakeMiner\n.\n(You can also specify the\nmaximum number of resulting\nworkflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,\nyou can simply call the workflow client\nrerun()\nmethod.\nOptionally, you can use\nrerun(idempotent=True)\nto avoid\nre-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRe-run existing Snowflake workflow\n1\n2\n3\n4\n5\nvar\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nSnowflakeMiner\n.\nPREFIX\n,\n5\n)\n// (2)\n// Determine which of the results is the\n// Snowflake workflow you want to re-run...\nvar\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n)\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "var\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n)\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nSnowflakeMiner\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(client, true)\nmethod with idempotency to avoid re-running a workflow that is already in running or in a pending state. This will return details of the already running workflow if found, and by default, it is set to\nfalse\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "false\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRe-run existing Snowflake workflow\n1\n2\n3\n4\n5\nexistingWorkflow\n,\n_\n:=\nctx\n.\nWorkflowClient\n.\nFindByType\n(\n// (1)\natlan\n.\nWorkflowPackageSnowflakeMiner\n,\n1\n,\n)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nRerun\n(\nexistingWorkflow\n[\n0\n],\ntrue\n)\n// (2)\nYou can find workflows by their type using the workflow client\nFindByType()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nSnowflakeMiner\n.\n(You can also specify the\nmaximum number of resulting\nworkflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,\nyou can simply call the workflow client\nRerun()\nmethod.\nOptionally, you can use\nRerun(idempotent=True)\nto avoid\nre-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "This will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRequires multiple steps through the raw REST API\nFind the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-snowflake-miner\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n},\n\"order\"\n:\n\"desc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\nSearching by the\natlan-snowflake-miner\nprefix will ensure you only find existing Snowflake miner workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "atlan-snowflake-miner\nprefix will ensure you only find existing Snowflake miner workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name\nproperty of the response object. (Remember since this is a search, there could be multiple results, so you may want to use the other details in each result to determine which workflow you really want.)\nPOST /api/service/workflows/submit\n100\n101\n102\n103\n104\n{\n\"namespace\"\n:\n\"default\"\n,\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"atlan-snowflake-miner-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2022-12-28\n2025-02-24\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_snowflake-miner.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_snowflake-miner.json",
+      "chunk_id": 22
+    }
+  }
+]

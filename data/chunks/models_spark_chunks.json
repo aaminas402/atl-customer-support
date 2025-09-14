@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Spark - Developer\nSkip to content\nSpark\n¶\nThese are the model elements in Atlan related to Spark.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage Spark assets in Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass Spark {\n<<abstract>>\n}\nlink Spark \"../spark\"\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../catalog\"\nCatalog <|-- Spark : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../referenceable\"\nReferenceable <|-- Asset : extends\nclass SparkJob\nlink SparkJob \"../entities/sparkjob\"\nSpark <|-- SparkJob : extends\nProperties\n¶\nThese attributes are specific to instances of\nSpark\n(and all of its subtypes).\nsparkRunEndTime\n¶\nEnd time of the Spark Job eg. 1695673598218\nsparkRunOpenLineageState\n¶\nOpenLineage state of the Spark Job run eg. COMPLETE\nsparkRunOpenLineageVersion\n¶",
+    "metadata": {
+      "source_url": "models_spark.html",
+      "source_type": "sdk",
+      "file": "models_spark.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "(and all of its subtypes).\nsparkRunEndTime\n¶\nEnd time of the Spark Job eg. 1695673598218\nsparkRunOpenLineageState\n¶\nOpenLineage state of the Spark Job run eg. COMPLETE\nsparkRunOpenLineageVersion\n¶\nOpenLineage Version of the Spark Job run eg. 1.1.0\nsparkRunStartTime\n¶\nStart time of the Spark Job eg. 1695673598218\nsparkRunVersion\n¶\nSpark Version for the Spark Job run eg. 3.4.1\nRelationships\n¶\nThe following illustrates how the various pieces of Azure Service Bus inter-relate with each other:\nerDiagram\nConnection ||..o{ Process : \"\"\nProcess ||--o{ SparkJob : sparkJobs\nAsset }o--o{ SparkJob : inputs\nAsset }o--o{ SparkJob : outputs\n2023-11-30\n2024-06-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_spark.html",
+      "source_type": "sdk",
+      "file": "models_spark.json",
+      "chunk_id": 1
+    }
+  }
+]

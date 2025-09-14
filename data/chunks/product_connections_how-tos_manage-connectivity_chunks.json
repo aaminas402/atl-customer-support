@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Manage connectivity | Atlan Documentation\nSkip to main content\nOn this page\nOnce you've scheduled or run a workflow you can modify its configuration at any time. The configuration that can be modified may vary by workflow but the general steps remain consistent.\nModify connectivity\nâ\nTo modify the configuration of an existing workflow, complete the following steps.\nOn the left of any screen, navigate toÂ\nWorkflow\n.\nUnder\nMonitor\nselect an existing workflow tile. (You may need to expand the run history or filter first.)\nFrom the\nWorkflow Run History\ntable, click on the previous run of the workflow you want to modify.\nIn the upper left of the screen, change to the\nConfig\ntab.\nModify the parts of the workflow configuration you require:\nUnder\n<Connector>\nCredential\n, use the\nEdit Credentials\nbutton to change the credentials for the source.\ndanger\nIf you're updating the connection credentials, you may also need to update the metadata filters before running the updated workflow. Atlan currently does not detect changes to your connection settings and update the metadata filters automatically.\nUnder\nConnection settings\n, use the\nEdit\nÂ button to change the connection details:",
+    "metadata": {
+      "source_url": "product_connections_how-tos_manage-connectivity.html",
+      "source_type": "docs",
+      "file": "product_connections_how-tos_manage-connectivity.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Under\nConnection settings\n, use the\nEdit\nÂ button to change the connection details:\nModify whether or not querying or data previews are allowed for the source.\nModify the query row limit to enable\nexporting large query results via email\n.\nModify the query timeout limit   -  expandable up to 60 minutes.\nUnder\nConnection Admins\n, click the pencil icon to add or remove connection admins.\ndanger\nIf you do not specify any user or group, nobody will be able to manage the connection   -  not even admins.\nUnder\nMetadata\n, use the selectors to modify which metadata to include and exclude.\nTo check for any\npermissions or other configuration issues\nbefore running the workflow, click\nPreflight checks\n.\nOnce you've made your updates, click theÂ\nUpdate\nbutton to save the changes.\nYou can optionally run the workflow with the new configuration immediately.\nYou will need to confirm your changes by clicking theÂ\nYes\nbutton. Note that some workflow changes may take a few minutes to come into effect.\nThat's it   -  next time you run the workflow, or it runs on its schedule, it will use your changes! ð\ndanger\nIf you modify the\nMetadata",
+    "metadata": {
+      "source_url": "product_connections_how-tos_manage-connectivity.html",
+      "source_type": "docs",
+      "file": "product_connections_how-tos_manage-connectivity.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "That's it   -  next time you run the workflow, or it runs on its schedule, it will use your changes! ð\ndanger\nIf you modify the\nMetadata\nportion, any previously crawled metadata that is now excluded will be\narchived\non the next workflow run.\nModify connectivity",
+    "metadata": {
+      "source_url": "product_connections_how-tos_manage-connectivity.html",
+      "source_type": "docs",
+      "file": "product_connections_how-tos_manage-connectivity.json",
+      "chunk_id": 2
+    }
+  }
+]

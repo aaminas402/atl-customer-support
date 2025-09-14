@@ -1,0 +1,92 @@
+[
+  {
+    "content": "Test baseline UX - Developer\nSkip to content\nTest the baseline UX\n¶\nAdd to\natlanhq/atlan-frontend\n¶\nOnce your model is rendered, you then need to add it to the\natlanhq/atlan-frontend\nrepository:\nClone\natlanhq/atlan-frontend\nto your local machine (if you have not already):\ngit\nclone\ngit@github.com:atlanhq/atlan-frontend.git\n# (1)!\ncd\natlan-frontend\nThis assumes you have configured your Git client with appropriate credentials. If this step fails, you'll need to setup\ngit\nfirst.\nStart from an up-to-date\nmain\nbranch (in particular if you already have the repository cloned locally):\ngit\ncheckout\nmain\ngit\nmerge\norigin/main\nCreate a branch in the local repository:\ngit\nbranch\nJIRA-TASK-ID\n# (1)!\ngit\ncheckout\nJIRA-TASK-ID\nReplace\nJIRA-TASK-ID\nwith the unique ID of the task in Jira where you are tracking your work.\nMove the generated front-end files to the cloned repository.\nMove the generated typedef JSONs:\nmv\n.../tmp/frontend/src/api/schemas/metastore/atlas/entityDefs/*\n\\\nsrc/api/schemas/metastore/atlas/entityDefs/Referenceable/Asset/Catalog/.\n# (1)!\nThe target directory is the appropriate location within the front-end-embedded model for the rendered JSON.",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "\\\nsrc/api/schemas/metastore/atlas/entityDefs/Referenceable/Asset/Catalog/.\n# (1)!\nThe target directory is the appropriate location within the front-end-embedded model for the rendered JSON.\nIn this example, since our top-level supertype was\nCatalog\n, we place the files under\n.../Referenceable/Asset/Catalog/.\n.\nIf you had instead directly extended\nAsset\n, you would move the files under\n.../Referenceable/Asset/.\n.\nCopy / move the connection icon file:\ncp\n.../somewhere/.../Custom.svg\n\\\n# (1)!\nsrc/assets/images/source/svg/Custom.svg\nThe icon file itself is not part of the Pkl model. You will need to copy the icon image from wherever you are managing it locally to this appropriate location in the atlan-frontend repository.\n(Optional) Copy / move any icon files (not necessary if you are only reusing existing icons):\nls\n.../tmp/frontend/src/assets/images/icons/*\n# (1)!\ncp\n.../somewhere/.../*.svg\n\\\nsrc/assets/images/icons/.\nThe icon files themselves are not part of the Pkl model. What you will see listed under the generated directory are filenames ending with\n-PLACEHOLDER\nindicating the names of icons that you referenced somewhere in your model.\nIf these are\nnew",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "-PLACEHOLDER\nindicating the names of icons that you referenced somewhere in your model.\nIf these are\nnew\nicons you want to add, you need to move them into the\nsrc/assets/images/icons/\ndirectory of the atlan-frontend repository.\n(Optional) Merge icon snippets (not necessary if you are only reusing existing icons):\n.../tmp/frontend/src/components/common/icon/iconMap.ts-snippet\nsrc/components/common/icon/iconMap.ts\nimport\n{\ndefineAsyncComponent\n}\nfrom\n'vue'\n// source list\nimport\nSnowflake\nfrom\n'~/assets/images/source/svg/Snowflake.svg'\n...\n// *** COPY / PASTE START *** (1)\nimport\nDatabaseGray\nfrom\n'~/assets/images/icons/database-gray.svg'\n,\nimport\nDatabase\nfrom\n'~/assets/images/icons/database.svg'\n,\nimport\nTableGray\nfrom\n'~/assets/images/icons/table-gray.svg'\n,\nimport\nTable\nfrom\n'~/assets/images/icons/table.svg'\n,\nimport\nColumnGray\nfrom\n'~/assets/images/icons/column-gray.svg'\n,\nimport\nColumn\nfrom\n'~/assets/images/icons/column.svg'\n,\n// *** END COPY / PASTE ***\n// Don't remove below comment used by plop\n// INSERT NEW ICON IMPORT HERE\nimport\nRule\nfrom\n'~/assets/images/icons/rule.svg'\n...\nexport\ndefault\n{\n// Don't remove below comment used by plop\n// INSERT RETURN HERE\n...",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "// INSERT NEW ICON IMPORT HERE\nimport\nRule\nfrom\n'~/assets/images/icons/rule.svg'\n...\nexport\ndefault\n{\n// Don't remove below comment used by plop\n// INSERT RETURN HERE\n...\n// *** COPY / PASTE START ***\nDatabaseGray\n,\nDatabase\n,\nTableGray\n,\nTable\n,\nColumnGray\n,\nColumn\n,\n// *** END COPY / PASTE ***\n...\n}\nOnly copy across the highlighted lines between the comments\n*** COPY / PASTE START ***\nand\n*** END COPY / PASTE ***\nBeware of duplicates\nNote that when you are\nreusing\nexisting icons, you need to be careful not to introduce any duplicates into the target\niconMap.ts\n.\nMove the generated type-specific attributes, methods and layouts:\nmv\n.../tmp/frontend/src/constant/source/<type>\n\\\n# (1)!\nsrc/constant/source/.\nReplace\n<type>\nwith the generated directory name that matches your specific typedef model.\nMerge index snippets:\n.../tmp/frontend/src/constant/source/index.ts-snippet\nsrc/constant/source/index.ts\n// *** COPY / PASTE START *** (1)\nimport\n*\nas\ncustom\nfrom\n'./custom'\n// *** END COPY / PASTE ***\nimport\n{\nassetTypeList\nas\natlanNativeAssetTypes\n}\nfrom\n'./atlanNative/assetTypes'\nimport\n{\nassetTypeInterface\n}\nfrom\n'~/types/sourceConfigs/assetType.interface'\nimport\n{\nTAGS_ASSET_TYPENAMES",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "import\n{\nassetTypeList\nas\natlanNativeAssetTypes\n}\nfrom\n'./atlanNative/assetTypes'\nimport\n{\nassetTypeInterface\n}\nfrom\n'~/types/sourceConfigs/assetType.interface'\nimport\n{\nTAGS_ASSET_TYPENAMES\n}\nfrom\n'~/constant/governance/classification'\n// Utils\nimport\n{\nautoIncrementGroupOrder\n}\nfrom\n'~/utils/sourceConfig/groupOrder'\nimport\n{\ngetAssetTypes\n}\nfrom\n'./bi/preset/getAssetTypes'\n// An array of all sources, including SQL, BI, SaaS, objectStore, API, ELT, and eventStore.\nexport\nconst\nSourceList\n=\n[\n...\nObject\n.\nvalues\n(\nqueryableSql\n).\nmap\n((\ncomponent\n)\n=>\ncomponent\n.\ndefault\n),\n...\nObject\n.\nvalues\n(\nnonQueryableSql\n).\nmap\n((\ncomponent\n)\n=>\ncomponent\n.\ndefault\n),\n...\n// *** COPY / PASTE START ***\n...\nObject\n.\nvalues\n(\ncustom\n).\nmap\n((\ncomponent\n)\n=>\ncomponent\n.\ndefault\n),\n// *** END COPY / PASTE ***\napi\n.\ndefault\n,\n]\n...\nexport\nconst\nSuperTypeNameEnum\n=\n{\nSQL\n:\n'SQL'\n,\nBI\n:\n'BI'\n,\nSaaS\n:\n'SaaS'\n,\n...\n// *** COPY / PASTE START ***\nCustom\n:\n'Custom'\n,\n// *** END COPY / PASTE ***\n}\nOnly copy across the highlighted lines between the comments\n*** COPY / PASTE START ***\nand\n*** END COPY / PASTE ***\nMerge projection snippets:\n.../tmp/frontend/src/constant/projection.ts-snippet",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "}\nOnly copy across the highlighted lines between the comments\n*** COPY / PASTE START ***\nand\n*** END COPY / PASTE ***\nMerge projection snippets:\n.../tmp/frontend/src/constant/projection.ts-snippet\nsrc/constant/projection.ts\nimport\n{\nPolicyAttributes\n}\nfrom\n'~/constant/_projection'\nimport\n{\nCalculationViewMinimalAttributes\n,\nCalculationViewAdditionalAttributes\n,\n}\nfrom\n'~/constant/source/sql/common/attributes/calculationView'\n...\n// *** COPY / PASTE START *** (1)\nimport\n{\nCustomDatasetAttributes\n}\nfrom\n'~/constant/source/custom/attributes/customDataset'\nimport\n{\nCustomTableAttributes\n}\nfrom\n'~/constant/source/custom/attributes/customTable'\nimport\n{\nCustomFieldAttributes\n}\nfrom\n'~/constant/source/custom/attributes/customField'\n// *** END COPY / PASTE ***\n...\nexport\nconst\nAssetAttributes\n=\n[\n// *** COPY / PASTE START ***\n...\nCustomDatasetAttributes\n,\n...\nCustomTableAttributes\n,\n...\nCustomFieldAttributes\n,\n// *** END COPY / PASTE ***\n]\nOnly copy across the highlighted lines between the comments\n*** COPY / PASTE START ***\nand\n*** END COPY / PASTE ***\nMerge useBody snippets:\n.../tmp/frontend/src/composables/discovery/useBody.ts-snippet\nsrc/composables/discovery/useBody.ts\n...\nexport",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "*** COPY / PASTE START ***\nand\n*** END COPY / PASTE ***\nMerge useBody snippets:\n.../tmp/frontend/src/composables/discovery/useBody.ts-snippet\nsrc/composables/discovery/useBody.ts\n...\nexport\nfunction\napplyFilters\n({\nfacets\n,\nbase\n,\nconnectorName\n,\nstate\n,\n}\n:\n{\nfacets\n:\nRecord\n<\nstring\n,\nany\n>\nbase\n:\nBodybuilder\nconnectorName?\n:\nstring\nstate\n:\nRef\n<\nstring\n>\n})\n{\nconst\nauthStore\n=\nuseAuthStore\n()\n// filters\nObject\n.\nkeys\n(\nfacets\n??\n{})\n?\n.\nforEach\n((\nmkey\n)\n=>\n{\nconst\nfilterObject\n=\nfacets\n[\nmkey\n]\nswitch\n(\nmkey\n)\n{\n...\n// *** COPY / PASTE START *** (1)\ncase\n'customDatasetQualifiedName'\n:\ncase\n'customTableQualifiedName'\n:\n// *** END COPY / PASTE ***\ncase\n'cubeQualifiedName'\n:\ncase\n'cubeDimensionQualifiedName'\n:\ncase\n'cubeParentFieldQualifiedName'\n:\ncase\n'cubeHierarchyQualifiedName'\n:\n{\nif\n(\nfilterObject\n)\n{\nbase\n.\nfilter\n(\n'term'\n,\nmkey\n,\nfilterObject\n)\n}\nbreak\n}\n...\n}\n})\n}\nOnly copy across the highlighted lines between the comments\n*** COPY / PASTE START ***\nand\n*** END COPY / PASTE ***\nMerge locale snippets:\n.../tmp/frontend/src/locales/en.json-snippet\nsrc/locales/en.json\n\"Dataset\"\n:\n\"Dataset\"\n// (1)!\n\"Datasets\"\n:\n\"Datasets\"\n\"Table\"\n:\n\"Table\"\n\"Tables\"\n:\n\"Tables\"\n\"Rating\"\n:",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Merge locale snippets:\n.../tmp/frontend/src/locales/en.json-snippet\nsrc/locales/en.json\n\"Dataset\"\n:\n\"Dataset\"\n// (1)!\n\"Datasets\"\n:\n\"Datasets\"\n\"Table\"\n:\n\"Table\"\n\"Tables\"\n:\n\"Tables\"\n\"Rating\"\n:\n\"Rating\"\n\"Ratings\"\n:\n\"Ratings\"\n\"Field\"\n:\n\"Field\"\n\"Fields\"\n:\n\"Fields\"\n\"Temperature\"\n:\n\"Temperature\"\n\"Temperatures\"\n:\n\"Temperatures\"\nCopy across the name-value pairs.\nBeware of duplicates\nNote that any of your labels could already exist in the file, so you should check for duplicates.\nStage your new and modified UX files:\ngit\nadd\nsrc/\n# (1)!\nIf you have made other changes locally that you do\nnot\nwant to stage, specify individual files instead of using this all-encompassing stage.\nCommit your revised UX files to the branch:\ngit\ncommit\n-m\n'feat: new UX for ...'\n# (1)!\nProvide a meaningful message for the new UX you're adding. (This tells\ngit\nto take a (local) snapshot of all the changes you staged (above).)\nPush your committed changes to the remote repository:\ngit\npush\n--set-upstream\norigin\nJIRA-TASK-ID\n# (1)!\nRemember that\nJIRA-TASK-ID\nis just a placeholder — replace with the name of your actual branch. (This tells\ngit",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "git\npush\n--set-upstream\norigin\nJIRA-TASK-ID\n# (1)!\nRemember that\nJIRA-TASK-ID\nis just a placeholder — replace with the name of your actual branch. (This tells\ngit\nto push all the (local) commits you've made against this branch to the remote GitHub repository, so they're available to everyone there.)\nTest UX locally\n¶\nPrerequisites\nYou must first install\npnpm\n.\nInstall the latest required front-end modules:\npnpm\ninstall\nGenerate the latest types based on the typedef files you copied into the repository:\npnpm\ngenerate:api\nUpdate your local development environment tenant:\n.env.development\n1\n2\n3\n4\n5\n6\n7\n8\n# Must configure tenant to allow localhost front-end (1)\nVITE_CLIENT_ID\n=\natlan-frontend\nVITE_DEFAULT_REALM\n=\ndefault\nVITE_DEFAULT_REQUEST_TIMEOUT\n=\n30000\nVITE_DEV_API_BASE_URL\n=\nhttps://tenant-name.atlan.com\nVITE_ENABLE_EVENTS_TRACKING\n=\nfalse\nVITE_SEGMENT_ANALYTICS_KEY\n=\n...\nVITE_LAUNCH_DARKLY_KEY\n=\n...\nTODO: extra steps for configuring the tenant to allow a localhost front-end\nRun the UI on your localhost:\npnpm\ndev\nOnce the command above completes, it will open your browser to\nhttp://localhost:3333",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "TODO: extra steps for configuring the tenant to allow a localhost front-end\nRun the UI on your localhost:\npnpm\ndev\nOnce the command above completes, it will open your browser to\nhttp://localhost:3333\nrunning the Atlan UI with any changes you have locally against all the metadata available in the tenant you've configured it against.\nCreate assets of the new type and test\nCreate some new instances of assets of your new type(s) and test the UX behaves as you like.\n2025-03-11\n2025-06-09\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits_typedef_test-ux.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_test-ux.json",
+      "chunk_id": 9
+    }
+  }
+]

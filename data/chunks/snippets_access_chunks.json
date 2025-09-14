@@ -1,0 +1,11 @@
+[
+  {
+    "content": "Access control and personalization - Developer\nSkip to content\nAccess control and personalization\n¶\nAtlan provides a\nnumber of ways to manage access control\n, at both coarse-grained and granular levels.\nThe primary vehicles for granular access control are\npersonas\n,\npurposes\n, and the access policies defined within these.\nBoth personas and purposes can also be used to personalize the experience, by controlling:\nwhich assets are visible to a particular audience\nwhich details of each of those assets are visible\n2023-01-27\n2024-03-14\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_access.html",
+      "source_type": "sdk",
+      "file": "snippets_access.json",
+      "chunk_id": 0
+    }
+  }
+]

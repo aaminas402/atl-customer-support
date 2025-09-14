@@ -1,0 +1,173 @@
+[
+  {
+    "content": "Manage Azure Event Hub assets - Developer\nSkip to content\nManage Azure Event Hub assets\n¶\nIn general, these should be:\nCreated in top-down order\n(connection, then AzureEventHub, then AzureEventHubConsumerGroup)\nDeleted in bottom-up order (consumer groups, then event hubs, then connections)\n1\nerDiagram\nConnection ||--o{ AzureEventHub : contains\nAzureEventHub ||--o{ AzureEventHubConsumerGroup : contains\nAsset structure\n¶\nConnection\n¶\n7.0.0\n4.0.0\nAn Azure Event Hub\nconnection\nrequires a\nname\nand\nqualifiedName\n. For creation, specific settings\nare also required to distinguish it as an Azure Event Hub connection rather\nthan another type of connection. In addition,\nat least one\nof\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nJava\nPython\nKotlin\nRaw REST API\nCreate an Azure Event Hub connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nString\nadminRoleGuid\n=\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"$admin\"\n);\n// (1)\nConnection\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"event-hub-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nAZURE_EVENT_HUB\n,\n// (4)\nList\n.\nof\n(\nadminRoleGuid\n),\n// (5)\nList\n.\nof\n(\n\"group2\"\n),\n// (6)\nList\n.\nof\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ",\n// (3)\nAtlanConnectorType\n.\nAZURE_EVENT_HUB\n,\n// (4)\nList\n.\nof\n(\nadminRoleGuid\n),\n// (5)\nList\n.\nof\n(\n\"group2\"\n),\n// (6)\nList\n.\nof\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nconnection\n.\nsave\n(\nclient\n);\n// (8)\nString\nconnectionQualifiedName\n=\nresponse\n.\ngetCreatedAssets\n().\nget\n(\n0\n).\ngetQualifiedName\n();\n// (9)\nRetrieve the GUID for the admin role, to use later\nfor defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to\nAZURE_EVENT_HUB\n.\nList the workspace roles that should be able to administer the connection\n(or null if none). All users with that workspace role (current and future) will be\nadministrators of the connection. Note that the values here need to be the GUID(s)\nof the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "administrators of the connection. Note that the values here need to be the GUID(s)\nof the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the group names that can administer this connection (or null if none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the user names that can administer this connection (or null if none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate an Azure Event Hub connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nConnection\n,\nAzureEventHub\n,",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Create an Azure Event Hub connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nConnection\n,\nAzureEventHub\n,\nAzureEventHubConsumerGroup\nfrom\npyatlan.model.enums\nimport\nAtlanConnectorType\nclient\n=\nAtlanClient\n()\nadmin_role_guid\n=\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)\n# (1)\nconnection\n=\nConnection\n.\ncreator\n(\n# (2)\nclient\n=\nclient\n,\n# (3)\nname\n=\n\"event-hub-connection\"\n,\n# (4)\nconnector_type\n=\nAtlanConnectorType\n.\nAZURE_EVENT_HUB\n,\n# (5)\nadmin_roles\n=\n[\nadmin_role_guid\n],\n# (6)\nadmin_groups\n=\n[\n\"group2\"\n],\n# (7)\nadmin_users\n=\n[\n\"jsmith\"\n]\n# (8)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nconnection\n)\n# (9)\nconnection_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nConnection\n)[\n0\n]\n.\nqualified_name\n# (10)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nYou must provide a client instance.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to\nAZURE_EVENT_HUB\n.",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "You must provide a client instance.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to\nAZURE_EVENT_HUB\n.\nList the workspace roles that should be able to administer the connection\n(or\nNone\nif none). All users with that workspace role (current and future) will be\nadministrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the group names that can administer this connection (or\nNone\nif none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the user names that can administer this connection (or\nNone\nif none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nActually call Atlan to create the connection.\nRetrieve the qualifiedName for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": ", or\nadmin_users\nmust be provided.\nActually call Atlan to create the connection.\nRetrieve the qualifiedName for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nCreate an Azure Event Hub connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nval\nadminRoleGuid\n=\nclient\n.\nroleCache\n.\ngetIdForName\n(\n\"\\\n$\nadmin\n\"\n)\n// (1)\nval\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"event-hub-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nAZURE_EVENT_HUB\n,\n// (4)\nlistOf\n(\nadminRoleGuid\n),\n// (5)\nlistOf\n(\n\"group2\"\n),\n// (6)\nlistOf\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n()\nval\nresponse\n=\nconnection\n.\nsave\n(\nclient\n)\n// (8)\nval\nconnectionQualifiedName\n=\nresponse\n.\ncreatedAssets\n[\n0\n]\n.\nqualifiedName\n// (9)\nRetrieve the GUID for the admin role, to use later\nfor defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to\nAZURE_EVENT_HUB\n.\nList the workspace roles that should be able to administer the connection\n(or null if none). All users with that workspace role (current and future) will be",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "AZURE_EVENT_HUB\n.\nList the workspace roles that should be able to administer the connection\n(or null if none). All users with that workspace role (current and future) will be\nadministrators of the connection. Note that the values here need to be the GUID(s)\nof the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the group names that can administer this connection (or null if none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the user names that can administer this connection (or null if none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "through which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Connection\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"event-hub-connection\"\n,\n// (2)\n\"connectorName\"\n:\n\"azure-event-hub\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/azure-event-hub/123456789\"\n,\n// (4)\n\"category\"\n:\n\"eventbus\"\n,\n// (5)\n\"adminRoles\"\n:\n[\n// (6)\n\"e7ae0295-c60a-469a-bd2c-fb903943aa02\"\n],\n\"adminGroups\"\n:\n[\n// (7)\n\"group2\"\n],\n\"adminUsers\"\n:\n[\n// (8)\n\"jsmith\"\n]\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nConnection\n.\nHuman-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nThe\nconnectorName\nmust be exactly\nazure-event-hub\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/azure-event-hub/<epoch>\n, where\n<epoch>\nis the time in milliseconds at which the connection is being created.\nThe\ncategory\nmust be\neventbus\n.",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": ".\nThe\nqualifiedName\nshould follow the pattern:\ndefault/azure-event-hub/<epoch>\n, where\n<epoch>\nis the time in milliseconds at which the connection is being created.\nThe\ncategory\nmust be\neventbus\n.\nList any workspace roles that can administer this connection. All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any groups that can administer this connection. All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any users that can administer this connection. Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nAccess policies",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "At least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nAccess policies\nAtlan creates the policies that grant access to a connection, including the ability to retrieve the connection and to create assets within it, asynchronously. It can take several seconds (even up to approximately 30 seconds) before these are in place after creating the connection.\nYou may therefore need to wait before you'll be able to create the assets below within the connection.\nTo confirm access,\nretrieve the connection\nafter it has been created. The SDKs' retry loops will automatically retry until the connection can be successfully retrieved. At that point, your API token has permission to create the other assets.\nNote: if you are\nreusing\nan existing connection rather than creating one via your API token, you must give your API token a persona that has access to that connection. Otherwise all attempts to create, read, update, or delete assets within that connection will fail due to a lack of permissions.\nAzureEventHub\n¶\n2.2.2\n4.0.0\nAn\nAzureEventHub\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nconnectionQualifiedName",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "AzureEventHub\n¶\n2.2.2\n4.0.0\nAn\nAzureEventHub\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the event hub.\nJava\nPython\nKotlin\nRaw REST API\nCreate an Azure Event Hub\n11\n12\n13\n14\n15\n16\nAzureEventHub\neventHub\n=\nAzureEventHub\n.\ncreator\n(\n// (1)\n\"myAzureEventHub\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\nbuild\n();\nresponse\n=\neventHub\n.\nsave\n(\nclient\n);\n// (4)\neventHub\n=\nresponse\n.\ngetResult\n(\neventHub\n);\n// (5)\nBuild up the minimum request to create a event hub.\nProvide a human-readable name for your event hub.\nProvide the\nqualifiedName\nof the Azure Event Hub connection.\nActually call Atlan to create the event hub. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created event hub for use in subsequent creation calls.\nCreate an Azure Event Hub\n17\n18\n19\n20\n21\n22\nevent_hub\n=\nAzureEventHub\n.\ncreator\n(\n# (1)\nname\n=\n\"myAzureEventHub\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nevent_hub\n)\n# (4)\nevent_hub_qualifed_name\n=\nresponse\n.\nassets_created\n(",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "=\n\"myAzureEventHub\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nevent_hub\n)\n# (4)\nevent_hub_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nAzureEventHub\n)[\n0\n]\n.\nqualified_name\n# (5)\nBuild up the minimum request to create a event hub.\nProvide a human-readable name for your event hub.\nProvide the\nqualifiedName\nof the Azure Event Hub connection.\nActually call Atlan to create the event hub.\nRetrieve the created event hub for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nCreate an Azure Event Hub\n11\n12\n13\n14\n15\n16\nvar\neventHub\n=\nAzureEventHub\n.\ncreator\n(\n// (1)\n\"myAzureEventHub\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\nbuild\n()\nresponse\n=\neventHub\n.\nsave\n(\nclient\n)\n// (4)\neventHub\n=\nresponse\n.\ngetResult\n(\neventHub\n)\n// (5)\nBuild up the minimum request to create a event hub.\nProvide a human-readable name for your event hub.\nProvide the\nqualifiedName\nof the Azure Event Hub connection.\nActually call Atlan to create the event hub. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Actually call Atlan to create the event hub. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created event hub for use in subsequent creation calls.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"AzureEventHub\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"myAzureEventHub\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/azure-event-hub/123456789/topic/myAzureEventHub\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/azure-event-hub/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"azure-event-hub\"\n// (5)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nAzureEventHub\n.\nHuman-readable name for your event hub.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/azure-event-hub/<epoch>/topic/<name>\n,\nwhere\ndefault/azure-event-hub/<epoch>\nis the\nqualifiedName\nof the connection\nfor this event hub and\n<name>\nis the unique name for this event hub.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this event hub.\nThe\nconnectorName\nmust be exactly\nazure-event-hub\n.\nAzureEventHubConsumerGroup\n¶\n2.2.2\n4.0.0\nAn\nAzureEventHubConsumerGroup\nrequires a\nname\nand a",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "qualifiedName\nof the connection for this event hub.\nThe\nconnectorName\nmust be exactly\nazure-event-hub\n.\nAzureEventHubConsumerGroup\n¶\n2.2.2\n4.0.0\nAn\nAzureEventHubConsumerGroup\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the list of\neventHubQualifiedNames\nof the event hubs that will contain the consumer group.\nJava\nPython\nKotlin\nRaw REST API\nCreate an Azure Event Hub consumer group\n17\n18\n19\n20\n21\nAzureEventHubConsumerGroup\nconsumerGroup\n=\nAzureEventHubConsumerGroup\n.\ncreator\n(\n// (1)\n\"myEventHubConsumerGroup\"\n,\n// (2)\nList\n.\nof\n(\neventHub\n))\n// (3)\n.\nbuild\n();\nresponse\n=\nconsumerGroup\n.\nsave\n(\nclient\n);\n// (4)\nBuild up the minimum request to create a consumer group.\nProvide a human-readable name for your consumer group.\nProvide the list of event hubs for this consumer group.\nActually call Atlan to create the consumer group. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate an Azure Event Hub consumer group\n23\n24\n25\n26\n27\nconsumer_group\n=\nAzureEventHubConsumerGroup\n.\ncreator\n(\n# (1)\nname\n=\n\"myEventHubConsumerGroup\"\n,\n# (2)\nevent_hub_qualified_names\n=\n[",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Create an Azure Event Hub consumer group\n23\n24\n25\n26\n27\nconsumer_group\n=\nAzureEventHubConsumerGroup\n.\ncreator\n(\n# (1)\nname\n=\n\"myEventHubConsumerGroup\"\n,\n# (2)\nevent_hub_qualified_names\n=\n[\nevent_hub_qualified_name\n],\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nconsumer_group\n)\n# (4)\nBuild up the minimum request to create a consumer group.\nProvide a human-readable name for your consumer group.\nProvide the list of\nqualified_names\nof the event hub for this consumer group.\nActually call Atlan to create the consumer group.\nCreate an Azure Event Hub consumer group\n17\n18\n19\n20\n21\nval\nconsumerGroup\n=\nAzureEventHubConsumerGroup\n.\ncreator\n(\n// (1)\n\"myEventHubConsumerGroup\"\n,\n// (2)\nlistOf\n(\neventHub\n))\n// (3)\n.\nbuild\n()\nresponse\n=\nconsumerGroup\n.\nsave\n(\nclient\n)\n// (4)\nBuild up the minimum request to create a consumer group.\nProvide a human-readable name for your consumer group.\nProvide the list of event hubs for this consumer group.\nActually call Atlan to create the consumer group. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n{",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"AzureEventHubConsumerGroup\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"myEventHubConsumerGroup\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/azure-event-hub/123456789/consumer-group/myAzureEventHub/myEventHubConsumerGroup\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/azure-event-hub/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"azure-event-hub\"\n,\n// (5)\n\"kafkaTopics\"\n:\n[{\n// (6)\n\"typeName\"\n:\n\"AzureEventHub\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/azure-event-hub/123456789/topic/myAzureEventHub\"\n,\n}\n}],\n\"kafkaTopicQualifiedNames\"\n:\n[\n\"default/azure-event-hub/123456789/topic/myAzureEventHub\"\n],\n// (9)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nAzureEventHubConsumerGroup\n.\nHuman-readable name for your consumer group.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/azure-event-hub/<epoch>/consumer-group/<event_hub_name>/<name>\n, where\ndefault/azure-event-hub/<epoch>\nis the qualifiedName\nof the connection that contains this consumer group and\n<name>\nis the unique name for this consumer group.\nThe",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": ", where\ndefault/azure-event-hub/<epoch>\nis the qualifiedName\nof the connection that contains this consumer group and\n<name>\nis the unique name for this consumer group.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this consumer group.\nThe\nconnectorName\nmust be exactly\nazure-event-hub\n.\nThe list of event hubs in which this consumer group exists is embedded in the\nkafkaTopics\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nAzureEventHub\n.\nTo complete the reference, you must include a\nuniqueAttributes\nwith the\nqualifiedName\nof the event hub. Note: the event hub must already exist\nin Atlan before creating the consumer group.\nThe list of event hub qualified names.\nAvailable relationships\n¶\nEvery level of the\nAzure Event Hub\nstructure is an\nAsset\n,\nand can therefore be related to the following other assets.\nerDiagram\nAsset }o--o{ AtlasGlossaryTerm : meanings\nAsset ||--o{ Link : links\nAsset ||--o| Readme : readme\nAsset }o--o{ Process : inputToProcesses\nAsset }o--o{ Process : outputFromProcesses\nAtlasGlossaryTerm\n¶\nA\nglossary term\nprovides meaning to an asset. The\nlink terms to assets snippet",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "Asset }o--o{ Process : inputToProcesses\nAsset }o--o{ Process : outputFromProcesses\nAtlasGlossaryTerm\n¶\nA\nglossary term\nprovides meaning to an asset. The\nlink terms to assets snippet\nprovides more detail on setting this relationship.\nLink\n¶\nA\nlink\nprovides additional context to an asset, by providing a URL to additional information.\nReadme\n¶\nA\nREADME\nprovides rich documentation for an asset. The\nadd asset READMEs snippet\nprovides more detail on setting this relationship.\nProcess\n¶\nA\nprocess\nprovides lineage information for an asset. An asset can be both an input and an output for one or more processes. The\nlineage snippets\nprovide more detail on creating and working with lineage.\nAlthough if you want to delete everything in a connection, your better avenue is the packaged\nconnection delete utility\nin the UI.\n↩\n2024-05-02\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "to provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_create_azure_event_hub.html",
+      "source_type": "sdk",
+      "file": "patterns_create_azure_event_hub.json",
+      "chunk_id": 18
+    }
+  }
+]

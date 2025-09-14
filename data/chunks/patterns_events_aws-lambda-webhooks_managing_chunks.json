@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Manage your webhook - Developer\nSkip to content\nManaging your webhook\n¶\nYour webhook should now be processing metadata events in real-time.\nReviewing metrics\n¶\nYou can monitor the activity through the\nMonitor\ntab of your function:\nOpen the\nAWS Lambda functions console\n.\nFrom the list of\nFunctions\n, click your function.\nChange to the\nMonitor\ntab.\nHere you can see basic graphs of metrics from CloudWatch.\nReviewing logs\n¶\nYou can review logs of individual requests through CloudWatch logs:\nOpen the\nAWS Lambda functions console\n.\nFrom the list of\nFunctions\n, click your function.\nChange to the\nMonitor\ntab.\nClick the\nView CloudWatch logs\nbutton.\nUnder the\nLog streams\ntab, in the\nLog streams\ntable you will see all the logs created by events. You can click on any log stream in the table to view the detailed messages logged during event processing.\nUpdating the SDK\n¶\nBecause we used layers, you can easily update the SDK for your function by updating the layer:\nOpen the\nAWS Lambda layers console\n.\nFrom the list of\nLayers\n, click your layer containing the SDK you want to update.\nIn the upper-right, click the\nCreate version\nbutton.\nClick the\nUpload",
+    "metadata": {
+      "source_url": "patterns_events_aws-lambda-webhooks_managing.html",
+      "source_type": "sdk",
+      "file": "patterns_events_aws-lambda-webhooks_managing.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Open the\nAWS Lambda layers console\n.\nFrom the list of\nLayers\n, click your layer containing the SDK you want to update.\nIn the upper-right, click the\nCreate version\nbutton.\nClick the\nUpload\nbutton to select the lambda-layer file for the SDK.\nFor\nCompatible architectures\nselect\nx86_64\n.\nFor\nCompatible runtimes\nselect the latest version of the target language.\nIn the lower-right, click the\nCreate\nbutton.\nOpen the\nAWS Lambda functions console\n.\nOn the\nCode\ntab, scroll down to\nLayers\n.\nIn the upper-right of the\nLayers\ntable, click the\nEdit\nbutton.\nFrom the\nLayers\ntable, select the latest version of the layer you created under\nLayer version\n.\nIn the lower-right, click the\nSave\nbutton.\nUpdating your code\n¶\nTo modify your own code:\nOpen the\nAWS Lambda functions console\n.\nFrom the\nFunctions\nlist, click the function you want to deploy your code into.\nOn the\nCode\ntab:\nJava\nPython\nIn the upper-right of the\nCode source\ntable, click\nUpload from\nand then\n.zip or .jar file\n.\nUse the\nUpload\nbutton to select the zip file containing your code.\nIn the lower-right of the dialog click the\nSave\nbutton to deploy your new code.\nIn the\nCode source\ntable you can either:",
+    "metadata": {
+      "source_url": "patterns_events_aws-lambda-webhooks_managing.html",
+      "source_type": "sdk",
+      "file": "patterns_events_aws-lambda-webhooks_managing.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ".\nUse the\nUpload\nbutton to select the zip file containing your code.\nIn the lower-right of the dialog click the\nSave\nbutton to deploy your new code.\nIn the\nCode source\ntable you can either:\n(Recommended) Copy / paste the code from your new module (file) into the editor window for\nlambda_function.py\n.\nIn the upper-right, click\nUpload from\nand choose the location of your code.\nTowards the middle of the\nCode source\ntable, click the\nDeploy\nbutton to deploy your code.\n2023-06-23\n2024-04-22\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_events_aws-lambda-webhooks_managing.html",
+      "source_type": "sdk",
+      "file": "patterns_events_aws-lambda-webhooks_managing.json",
+      "chunk_id": 2
+    }
+  }
+]

@@ -1,0 +1,263 @@
+[
+  {
+    "content": "Term-level queries overview - Developer\nSkip to content\nTerm-level queries\n¶\nTerm-level queries allow you to find results based on precise values in structured data.\n1\nFor example, by asset type, status, or GUID.\nUnlike\nfull-text queries\n, the search input you use in a term-level query is\nnot\nanalyzed. This means what you search for is matched exactly against what is stored in an attribute — no fuzzy-matching is applied.\n2\nDetails\nBelow are the various kinds of term-level queries. These are sorted with the most commonly used at the top, and cover their usual usage. Each one is linked to Elasticsearch's own documentation to provide greater details. (In most cases there are many more options for each kind of query than what is documented here.)\nYou will often\ncombine these queries\nto create more complex criteria.\nTerm\n¶\n1.0.0\n4.0.0\nTerm queries\nreturn results where the asset's value for that attribute matches\nexactly\nwhat you're searching.\nWhat if I want it to be a case insensitive match?\nYou can still use term queries for case insensitive matching, too.\nJava\n: add a second parameter of\ntrue\nto the predicate method\nPython\n: add a named parameter of\ncase_insensitive=True",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "You can still use term queries for case insensitive matching, too.\nJava\n: add a second parameter of\ntrue\nto the predicate method\nPython\n: add a named parameter of\ncase_insensitive=True\nto the predicate method\nRaw REST API\n: send through\n\"case_insensitive\": true\nto the API directly\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\neq\n(\n\"some-name\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\neq()\npredicate creates a term query. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.\nEquivalent query through Elastic\nQuery\nbyTerm\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"some-name\"\n)\n.\ncaseInsensitive\n(\ntrue\n))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "\"some-name\"\n)\n.\ncaseInsensitive\n(\ntrue\n))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\neq\n(\n\"some-name\"\n,\ncase_insensitive\n=\nTrue\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nChain a\nwhere()\nonto the fluent search object, with the class variable representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\neq()\npredicate creates a term query. You can also optionally send a named parameter of\ncase_insensitive=True\nto do a case-insensitive match.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\neq\n(\n\"some-name\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\neq()",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Chain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\neq()\npredicate creates a term query. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.\nEquivalent query through Elastic\nval\nbyTerm\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"some-name\"\n)\n.\ncaseInsensitive\n(\ntrue\n))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"dsl\"\n:\n{\n// (1)\n\"query\"\n:\n{\n// (2)\n\"term\"\n:\n{\n// (3)\n\"name.keyword\"\n:\n{\n// (4)\n\"value\"\n:\n\"some-name\"\n,\n// (5)\n\"case_insensitive\"\n:\ntrue\n// (6)\n}\n}\n}\n}\n}\nQueries must be within the\ndsl\nobject in the API...\n...and within that the\nquery\nobject.\nFor a term query, there needs to be a\nterm\nobject embedded within the\nquery\nobject.\nWithin this object should be a key with the name of the Elasticsearch field (Atlan attribute) to match against.\nThe value for this field (attribute) to match against should be given through the\nvalue\nproperty.\nOptionally, you can enable case-insensitive searching to have an\nalmost\nexact match by setting\ncase_insensitive\nto true.\nTerms\n¶\n1.0.0",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "value\nproperty.\nOptionally, you can enable case-insensitive searching to have an\nalmost\nexact match by setting\ncase_insensitive\nto true.\nTerms\n¶\n1.0.0\n4.0.0\nTerms queries\nreturn results where the asset's value for that attribute matches one or more of the values you're searching\nexactly\n.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nTYPE_NAME\n.\nin\n(\nSet\n.\nof\n(\nTable\n.\nTYPE_NAME\n,\nColumn\n.\nTYPE_NAME\n)))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nTYPE_NAME\nof an asset. Adding the\nin()\npredicate creates a terms query.\nEquivalent query through Elastic\nQuery\nbyType\n=\nTermsQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__typeName.keyword\"\n)\n.\nterms\n(\nTermsQueryField\n.\nof\n(\nf\n->\nf\n.\nvalue\n(\nList\n.\nof\n(\nFieldValue\n.\nof\n(\nTable\n.\nTYPE_NAME\n),\nFieldValue\n.\nof\n(\nColumn\n.\nTYPE_NAME\n))))))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nReferenceable\nfrom",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": ".\nof\n(\nFieldValue\n.\nof\n(\nTable\n.\nTYPE_NAME\n),\nFieldValue\n.\nof\n(\nColumn\n.\nTYPE_NAME\n))))))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nReferenceable\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nReferenceable\n.\nTYPE_NAME\n.\nwithin\n([\n\"Table\"\n,\n\"Column\"\n]))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nChain a\nwhere()\nonto the fluent search object, with the class variable representing a field of the type you want to search to start a query, in this case the\nTYPE_NAME\nof an asset. Adding the\nwithin()\npredicate creates a terms query.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nTYPE_NAME\n.\nin\n(\nSet\n.\nof\n(\nTable\n.\nTYPE_NAME\n,\nColumn\n.\nTYPE_NAME\n)))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nTYPE_NAME\nof an asset. Adding the\nin()\npredicate creates a terms query.",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "TYPE_NAME\nof an asset. Adding the\nin()\npredicate creates a terms query.\nEquivalent query through Elastic\nval\nbyType\n=\nTermsQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__typeName.keyword\"\n)\n.\nterms\n(\nTermsQueryField\n.\nof\n(\nf\n->\nf\n.\nvalue\n(\nList\n.\nof\n(\nFieldValue\n.\nof\n(\nTable\n.\nTYPE_NAME\n),\nFieldValue\n.\nof\n(\nColumn\n.\nTYPE_NAME\n))))))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"terms\"\n:\n{\n\"__typeName.keyword\"\n:\n[\n\"Table\"\n,\n\"Column\"\n]}\n// (1)\n}\n}\n}\nThe general way to construct a terms query, with all flexibility provided by Elasticsearch. This query would find all Table and Column assets, by exactly-matching either the\nTable\nor\nColumn\ntypes.\nExists\n¶\n1.0.0\n4.0.0\nExists queries\nreturn results where the asset contains a value for that attribute. For example, this query would find all assets that have been changed after being created:\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nUPDATED_BY\n.\nhasAnyValue\n())\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ".\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nUPDATED_BY\n.\nhasAnyValue\n())\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the person who last updated an asset. Adding the\nhasAnyValue()\npredicate creates an exists query. This will only match results where the field has some value on the asset.\nEquivalent query through Elastic\nQuery\nbyExistence\n=\nExistsQuery\n.\nof\n(\nq\n->\nq\n.\nfield\n(\n\"__modifiedBy\"\n))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nUPDATED_BY\n.\nhas_any_value\n())\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nChain a\nwhere()\nonto the fluent search object, with the class variable representing a field of the type you want to search to start a query, in this case the person who last updated an asset. Adding the\nhas_any_value()",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "has_any_value()\npredicate creates an exists query. This will only match results where the field has some value on the asset.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nUPDATED_BY\n.\nhasAnyValue\n())\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the person who last updated an asset. Adding the\nhasAnyValue()\npredicate creates an exists query. This will only match results where the field has some value on the asset.\nEquivalent query through Elastic\nval\nbyExistence\n=\nExistsQuery\n.\nof\n(\nq\n->\nq\n.\nfield\n(\n\"__modifiedBy\"\n))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"exists\"\n:\n{\n\"field\"\n:\n\"__modifiedBy\"\n}\n}\n}\n}\nRange\n¶\n1.0.0\n4.0.0\nRange queries",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "->\nq\n.\nfield\n(\n\"__modifiedBy\"\n))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"exists\"\n:\n{\n\"field\"\n:\n\"__modifiedBy\"\n}\n}\n}\n}\nRange\n¶\n1.0.0\n4.0.0\nRange queries\nreturn results where the asset's value for that attribute is within the range you're searching. (This works for numeric fields only — which for Atlan includes dates, since they are stored as epoch values.) For example, this query would find all assets that were created between January 1, 2022 to February 1, 2022:\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nCREATE_TIME\n.\nbetween\n(\n1640995200000L\n,\n1643673600000L\n))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the time an asset was created. Adding the\nbetween()\npredicate creates a range query. In this example\nbetween()\nallows you to specify two values any matching assets should be between. You could also use:\ngt()",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "between()\npredicate creates a range query. In this example\nbetween()\nallows you to specify two values any matching assets should be between. You could also use:\ngt()\nfor any values strictly greater than a single number\ngte()\nfor any values greater than or equal to a single number\nlt()\nfor values strictly less than a single number\nlte()\nfor values less than or equal to a single number\neq()\nfor valuess strictly equal to a single number\nEquivalent query through Elastic\nQuery\nbyRange\n=\nRangeQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"__timestamp\"\n)\n.\ngte\n(\nJsonData\n.\nof\n(\n1640995200000L\n))\n.\nlt\n(\nJsonData\n.\nof\n(\n1643673600000L\n)))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nCREATE_TIME\n.\nbetween\n(\n1640995200000\n,\n1643673600000\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nChain a\nwhere()\nonto the fluent search object, with the class variable representing a field of the type you want to search to start a query, in this case the time an asset was created. Adding the\nbetween()",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "where()\nonto the fluent search object, with the class variable representing a field of the type you want to search to start a query, in this case the time an asset was created. Adding the\nbetween()\npredicate creates a range query. In this example\nbetween()\nallows you to specify two values any matching assets should be between. You could also use:\ngt()\nfor any values strictly greater than a single number\ngte()\nfor any values greater than or equal to a single number\nlt()\nfor values strictly less than a single number\nlte()\nfor values less than or equal to a single number\neq()\nfor valuess strictly equal to a single number\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nCREATE_TIME\n.\nbetween\n(\n1640995200000L\n,\n1643673600000L\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the time an asset was created. Adding the\nbetween()\npredicate creates a range query. In this example\nbetween()",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "between()\npredicate creates a range query. In this example\nbetween()\nallows you to specify two values any matching assets should be between. You could also use:\ngt()\nfor any values strictly greater than a single number\ngte()\nfor any values greater than or equal to a single number\nlt()\nfor values strictly less than a single number\nlte()\nfor values less than or equal to a single number\neq()\nfor valuess strictly equal to a single number\nEquivalent query through Elastic\nval\nbyRange\n=\nRangeQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"__timestamp\"\n)\n.\ngte\n(\nJsonData\n.\nof\n(\n1640995200000L\n))\n.\nlt\n(\nJsonData\n.\nof\n(\n1643673600000L\n)))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"range\"\n:\n{\n\"__timestamp\"\n:\n{\n\"gte\"\n:\n1640995200000\n,\n\"lt\"\n:\n1643673600000\n// (1)\n}\n}\n}\n}\n}\nYou do not need to specify both ends of the range, you could use only a single condition.\nPrefix\n¶\n1.0.0\n4.0.0\nPrefix queries\nreturn results where the asset's value for that attribute starts with what you're searching. For example, this query would find all columns whose\nqualifiedName\nstarts with\ndefault/snowflake/1662194632",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "qualifiedName\nstarts with\ndefault/snowflake/1662194632\n(in other words, all columns in any table, view, materialized view, schema or database in that connection):\nWhat if I want it to be a case insensitive match?\nYou can still use term queries for case insensitive matching, too.\nJava\n: add a second parameter of\ntrue\nto the predicate method\nPython\n: add a named parameter of\ncase_insensitive=True\nto the predicate method\nRaw REST API\n: send through\n\"case_insensitive\": true\nto the API directly\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nQUALIFIED_NAME\n.\nstartsWith\n(\n\"default/snowflake/1662194632\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nQUALIFIED_NAME\nof an\nAsset\n. Adding the\nstartsWith()\npredicate creates a prefix query. This will only match results where the field's value starts with the provided string. You can also optionally send a second parameter as",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": ". Adding the\nstartsWith()\npredicate creates a prefix query. This will only match results where the field's value starts with the provided string. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.\nEquivalent query through Elastic\nQuery\nbyPrefix\n=\nPrefixQuery\n.\nof\n(\np\n->\np\n.\nfield\n(\n\"qualifiedName\"\n)\n.\nvalue\n(\n\"default/snowflake/1662194632\"\n))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nQUALIFIED_NAME\n.\nstartswith\n(\n\"default/snowflake/1662194632\"\n,\ncase_insensitive\n=\nTrue\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nChain a\nwhere()\nonto the fluent search object, with the class variable representing a field of the type you want to search to start a query, in this case the\nQUALIFIED_NAME\nof an\nAsset\n. Adding the\nstartswith()\npredicate creates a prefix query. This will only match results where the field's value starts with the provided string. You can also optionally send a named parameter of\ncase_insensitive=True\nto do a case-insensitive match.",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "case_insensitive=True\nto do a case-insensitive match.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nQUALIFIED_NAME\n.\nstartsWith\n(\n\"default/snowflake/1662194632\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nQUALIFIED_NAME\nof an\nAsset\n. Adding the\nstartsWith()\npredicate creates a prefix query. This will only match results where the field's value starts with the provided string. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.\nEquivalent query through Elastic\nval\nbyPrefix\n=\nPrefixQuery\n.\nof\n(\np\n->\np\n.\nfield\n(\n\"qualifiedName\"\n)\n.\nvalue\n(\n\"default/snowflake/1662194632\"\n))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1662194632\"\n}\n}\n}\n}\nWildcard\n¶\n1.9.1\n4.0.0\nWildcard queries",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1662194632\"\n}\n}\n}\n}\nWildcard\n¶\n1.9.1\n4.0.0\nWildcard queries\nreturn results where the asset's value for that attribute matches the wildcard pattern you're searching. This can be useful for searching based on simple naming conventions. For example, this query would find all assets whose name starts with\nC_\nand ends with\n_SK\nwith any characters in-between:\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nwildcard\n(\n\"C_*_SK\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nwildcard()\npredicate creates a wildcard query. This will only match results where the field's name starts with\nC_\nand ends with\n_SK\n. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "C_\nand ends with\n_SK\n. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.\nEquivalent query through Elastic\nQuery\nbyWildcard\n=\nWildcardQuery\n.\nof\n(\nw\n->\nw\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"C_*_SK\"\n))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nwildcard\n(\n\"C_*_SK\"\n,\ncase_insensitive\n=\nTrue\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nChain a\nwhere()\nonto the select, with the static constant representing\na field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nwildcard()\npredicate creates a wildcard query. This will\nonly match results where the field's name starts with\nC_\nand ends with\n_SK\n.\nYou can also optionally send a named parameter of\ncase_insensitive=True\nto do a case-insensitive match.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nwildcard\n(\n\"C_*_SK\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nwildcard\n(\n\"C_*_SK\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nwildcard()\npredicate creates a wildcard query. This will only match results where the field's name starts with\nC_\nand ends with\n_SK\n. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.\nEquivalent query through Elastic\nval\nbyWildcard\n=\nWildcardQuery\n.\nof\n(\nw\n->\nw\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"C_*_SK\"\n))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"wildcard\"\n:\n{\n\"name.keyword\"\n:\n{\n\"value\"\n:\n\"C_*_SK\"\n}}\n}\n}\n}\nAvoid starting the search pattern with a wildcard\nUsing this to do an\nends-with\nstyle search (such as\n*_SK\n) can be very slow.\nRegexp\n¶\n1.9.1\n4.0.0\nRegexp queries\nreturn results where the asset's value for that attribute matches the\nregular expression",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "ends-with\nstyle search (such as\n*_SK\n) can be very slow.\nRegexp\n¶\n1.9.1\n4.0.0\nRegexp queries\nreturn results where the asset's value for that attribute matches the\nregular expression\nyou're searching. This can be useful for searching based on more complicated naming conventions. For example, this query would find all assets whose name starts with\nC_\nand ends with\n_SK\nwith the characters\nADDR\nsomewhere in-between:\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nregex\n(\n\"C_[A-Za-z0-9_]*ADDR[A-Za-z0-9_]*_SK\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nregex()\npredicate creates a regexp query. This will only match results where the field's value starts with\nC_\n, ends with\n_SK\n, and in-between has any alphanumeric characters and\nADDR\n. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "C_\n, ends with\n_SK\n, and in-between has any alphanumeric characters and\nADDR\n. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.\nEquivalent query through Elastic\nQuery\nbyRegex\n=\nRegexpQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"C_[A-Za-z0-9_]*ADDR[A-Za-z0-9_]*_SK\"\n))\n.\n_toQuery\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nregexp\n(\n\"C_[A-Za-z0-9_]*ADDR[A-Za-z0-9_]*_SK\"\n,\ncase_insensitive\n=\nTrue\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject.\nChain a\nwhere()\nonto the select, with the static constant representing\na field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nregexp()\npredicate creates a regexp query. This will\nonly match results where the field's value starts with\nC_\n, ends with\n_SK\n, and\nin-between has any alphanumeric characters and\nADDR\n. You can also optionally send\na named parameter of\ncase_insensitive=True\nto do a case-insensitive match.\nBuild the query and request\n1\n2\n3\nval\nindex\n=",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "ADDR\n. You can also optionally send\na named parameter of\ncase_insensitive=True\nto do a case-insensitive match.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\nregex\n(\n\"C_[A-Za-z0-9_]*ADDR[A-Za-z0-9_]*_SK\"\n,\ntrue\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nNAME\nof an\nAsset\n. Adding the\nregex()\npredicate creates a regexp query. This will only match results where the field's value starts with\nC_\n, ends with\n_SK\n, and in-between has any alphanumeric characters and\nADDR\n. You can also optionally send a second parameter as\ntrue\nto do a case-insensitive match.\nEquivalent query through Elastic\nval\nbyRegex\n=\nRegexpQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"C_[A-Za-z0-9_]*ADDR[A-Za-z0-9_]*_SK\"\n))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"regexp\"\n:\n{\n\"name.keyword\"\n:\n{\n\"value\"\n:\n\"C_[A-Za-z0-9_]*ADDR[A-Za-z0-9_]*_SK\"\n}\n}\n}\n}\n}",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"regexp\"\n:\n{\n\"name.keyword\"\n:\n{\n\"value\"\n:\n\"C_[A-Za-z0-9_]*ADDR[A-Za-z0-9_]*_SK\"\n}\n}\n}\n}\n}\nPerformance can vary widely depending on the regular expression\nTo achieve the best performance, avoid using wildcard patterns such as\n.*\nor\n.*?+\nwithout any prefix or suffix.\nTerms set\n¶\n4.0.0\nTerms set queries\nreturn results where the asset's values for that attribute matches a minimum number of the values you're searching for\nexactly\n. For example, this query would find all assets with at least two of the three specified Atlan tags:\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nATLAN_TAGS\n.\nin\n(\nList\n.\nof\n(\n// (2)\nclient\n.\ngetAtlanTagCache\n().\ngetIdForName\n(\n\"PII\"\n),\nclient\n.\ngetAtlanTagCache\n().\ngetIdForName\n(\n\"SPI\"\n),\nclient\n.\ngetAtlanTagCache\n().\ngetIdForName\n(\n\"Restricted\"\n))),\n2\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": ".\ngetAtlanTagCache\n().\ngetIdForName\n(\n\"Restricted\"\n))),\n2\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nATLAN_TAGS\nof an\nAsset\n. Adding the\nin()\npredicate creates a terms query. This will only match results where the field's values exactly overlap with some number of values in the provided list.\nYou therefore also need to specify how many values (minimally) must be present and overlapping in the field to be considered a match.\nEquivalent query through Elastic\nQuery\nbyTerms\n=\nTermsSetQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__traitNames\"\n)\n.\nterms\n(\nList\n.\nof\n(\nAtlanTagCache\n.\ngetIdForName\n(\n\"PII\"\n),\nAtlanTagCache\n.\ngetIdForName\n(\n\"SPI\"\n),\nAtlanTagCache\n.\ngetIdForName\n(\n\"Restricted\"\n)))\n.\nminimumShouldMatchScript\n(\nScript\n.\nof\n(\ns\n->\ns\n.\ninline\n(\nInlineScript\n.\nof\n(\ni\n->\ni\n.\nsource\n(\n\"params.get('minimum');\"\n)\n.\nparams\n(\nMap\n.\nof\n(\n\"minimum\"\n,\nJsonData\n.\nof\n(\n2\n))))))))\n.\n_toQuery\n();\nComing soon\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "(\n\"params.get('minimum');\"\n)\n.\nparams\n(\nMap\n.\nof\n(\n\"minimum\"\n,\nJsonData\n.\nof\n(\n2\n))))))))\n.\n_toQuery\n();\nComing soon\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nATLAN_TAGS\n.\nin\n(\nList\n.\nof\n(\n// (2)\nclient\n.\ngetAtlanTagCache\n().\ngetIdForName\n(\n\"PII\"\n),\nclient\n.\ngetAtlanTagCache\n().\ngetIdForName\n(\n\"SPI\"\n),\nclient\n.\ngetAtlanTagCache\n().\ngetIdForName\n(\n\"Restricted\"\n))),\n2\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client.\nChain a\nwhere()\nonto the select, with the static constant representing a field of the type you want to search to start a query, in this case the\nATLAN_TAGS\nof an\nAsset\n. Adding the\nin()\npredicate creates a terms query. This will only match results where the field's values exactly overlap with some number of values in the provided list.\nYou therefore also need to specify how many values (minimally) must be present and overlapping in the field to be considered a match.\nEquivalent query through Elastic\nval\nbyTerms\n=\nTermsSetQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__traitNames\"\n)\n.\nterms\n(\nList\n.\nof\n(\nAtlanTagCache\n.\ngetIdForName\n(\n\"PII\"\n),",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "Equivalent query through Elastic\nval\nbyTerms\n=\nTermsSetQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__traitNames\"\n)\n.\nterms\n(\nList\n.\nof\n(\nAtlanTagCache\n.\ngetIdForName\n(\n\"PII\"\n),\nAtlanTagCache\n.\ngetIdForName\n(\n\"SPI\"\n),\nAtlanTagCache\n.\ngetIdForName\n(\n\"Restricted\"\n)))\n.\nminimumShouldMatchScript\n(\nScript\n.\nof\n(\ns\n->\ns\n.\ninline\n(\nInlineScript\n.\nof\n(\ni\n->\ni\n.\nsource\n(\n\"params.get('minimum');\"\n)\n.\nparams\n(\nMap\n.\nof\n(\n\"minimum\"\n,\nJsonData\n.\nof\n(\n2\n))))))))\n.\n_toQuery\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"terms_set\"\n:\n{\n\"__traitNames\"\n:\n{\n\"terms\"\n:\n[\n\"EO7Gp8Y6xeI1JHctrlpQhB\"\n,\n\"J5q2QzErHG4unHTA0C5GE0\"\n,\n\"VwN5VzRHlHVIWB4cbaxM5R\"\n],\n// (1)\n\"minimum_should_match_script\"\n:\n{\n\"source\"\n:\n\"params.get('minimum');\"\n,\n\"params\"\n:\n{\n\"minimum\"\n:\n2\n}\n}\n}\n}\n}\n}\n}\nIn the JSON request, we need to use Atlan's internal hashed string representation of a Atlan tag name. The SDKs can translate to this for us.\nFuzzy\n¶\nFuzzy queries\nreturn results where the asset's value for that attribute is\nsimilar\nto the value you're searching. This is determined by\nLevenshtein edit distance\n(the number of one-character changes needed to match what you're searching).",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "similar\nto the value you're searching. This is determined by\nLevenshtein edit distance\n(the number of one-character changes needed to match what you're searching).\nAre you sure this is what you want?\nThis is a very simplistic fuzzy-matching algorithm, and it may end up matching both more and less than you want it to. For more advanced fuzzy-matching, you probably want to use\nfull-text queries\n. Since this is possible through Atlan's search, it is included here for completeness.\n1.0.0\n1.1.0\nFor example, this query would find all assets whose name is 1-edit away (so would match\nblock\n,\nclock\n,\nlock\n,\nblack\n, etc):\nJava\nPython\nKotlin\nRaw REST API\nBuild the query\n1\n2\n3\n4\n5\nQuery\nbyLevenshtein\n=\nFuzzyQuery\n.\nof\n(\nf\n->\nf\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"block\"\n))\n.\nfuzziness\n(\n\"1\"\n)\n.\n_toQuery\n();\nBuild the request\n6\n7\n8\nIndexSearchRequest\nindex\n=\nIndexSearchRequest\n.\nbuilder\n(\nbyLevenshtein\n)\n.\nbuild\n();\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.search\nimport\nDSL\n,\nFuzzy\n,\nIndexSearchRequest\nclient\n=\nAtlanClient\n()\nindex\n=\nIndexSearchRequest\n(\ndsl\n=\nDSL\n(\nquery\n=\nFuzzy\n(\nfield\n=\n\"name.keyword\"\n,\nvalue\n=\n\"block\"\n,",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "from\npyatlan.model.search\nimport\nDSL\n,\nFuzzy\n,\nIndexSearchRequest\nclient\n=\nAtlanClient\n()\nindex\n=\nIndexSearchRequest\n(\ndsl\n=\nDSL\n(\nquery\n=\nFuzzy\n(\nfield\n=\n\"name.keyword\"\n,\nvalue\n=\n\"block\"\n,\nfuzziness\n=\n\"1\"\n))\n)\nresponse\n=\nclient\n.\nasset\n.\nsearch\n(\nindex\n)\nBuild the query\n1\n2\n3\n4\n5\nval\nbyLevenshtein\n=\nFuzzyQuery\n.\nof\n(\nf\n->\nf\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"block\"\n))\n.\nfuzziness\n(\n\"1\"\n)\n.\n_toQuery\n()\nBuild the request\n6\n7\n8\nval\nindex\n=\nIndexSearchRequest\n.\nbuilder\n(\nbyLevenshtein\n)\n.\nbuild\n()\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"fuzzy\"\n:\n{\n\"name.keyword\"\n:\n{\n\"value\"\n:\n\"block\"\n,\n\"fuzziness\"\n:\n\"1\"\n}\n}\n}\n}\n}\nThis page is a summary of the details in the Elasticsearch Guide's\nTerm-level queries\n↩\nOk, that's not\nstrictly\ntrue, since as you'll see there are some term-level queries that give very basic fuzziness. And actually, a\nnormalizer\ncan be applied as well, to make these searches case-insensitive. But the\nintent\nof term-level queries is to do exact matches with minimal fuzziness.\n↩\n2022-09-08\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "↩\n2022-09-08\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "search_queries_terms.html",
+      "source_type": "sdk",
+      "file": "search_queries_terms.json",
+      "chunk_id": 28
+    }
+  }
+]

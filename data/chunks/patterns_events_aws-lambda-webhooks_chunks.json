@@ -1,0 +1,11 @@
+[
+  {
+    "content": "Handling webhooks via AWS Lambda - Developer\nSkip to content\nHandling\nwebhooks via\nAWS Lambda\n¶\nTo receive and handle events from Atlan's webhooks via an AWS Lambda function, you need to follow these high-level steps:\nSet up an AWS Lambda function\nthat can receive webhooks from Atlan.\nCode your logic\nfor handling the events.\nDeploy your code\nto the AWS Lambda function.\nSet up an Atlan webhook\nto call the AWS Lambda function.\nYou can also\nmanage\nyour code on an ongoing basis.\n2023-06-23\n2024-03-14\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_events_aws-lambda-webhooks.html",
+      "source_type": "sdk",
+      "file": "patterns_events_aws-lambda-webhooks.json",
+      "chunk_id": 0
+    }
+  }
+]

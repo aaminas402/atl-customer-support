@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Superset - Developer\nSkip to content\nSuperset\n¶\nBase class for Superset assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand managing Superset assets in Atlan. For that, we would suggest starting with the\nmanage Superset assets pattern\n.\nclassDiagram\ndirection RL\nclass Superset {\n<<abstract>>\n}\nlink Superset \"../superset\"\nclass BI {\n<<abstract>>\n}\nlink BI \"../entities/bi\"\nBI <|-- Superset : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- BI : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass SupersetChart\nlink SupersetChart \"../entities/supersetchart\"\nSuperset <|-- SupersetChart : extends\nclass SupersetDataset\nlink SupersetDataset \"../entities/supersetdataset\"\nSuperset <|-- SupersetDataset : extends\nclass SupersetDashboard\nlink SupersetDashboard \"../entities/supersetdashboard\"\nSuperset <|-- SupersetDashboard : extends\nProperties\n¶",
+    "metadata": {
+      "source_url": "models_superset.html",
+      "source_type": "sdk",
+      "file": "models_superset.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Superset <|-- SupersetDataset : extends\nclass SupersetDashboard\nlink SupersetDashboard \"../entities/supersetdashboard\"\nSuperset <|-- SupersetDashboard : extends\nProperties\n¶\nThese attributes are specific to instances of\nSuperset\n(and all of its subtypes).\nsupersetDashboardId\n¶\nIdentifier of the dashboard in which this asset exists, in Superset.\nsupersetDashboardQualifiedName\n¶\nUnique name of the dashboard in which this asset exists.\nRelationships\n¶\nThe following illustrates how the various Superset objects inter-relate with each other:\nerDiagram\nConnection ||..o{ SupersetDashboard : \"\"\nSupersetDashboard ||--o{ SupersetChart : supersetCharts\nSupersetDashboard ||--o{ SupersetDataset : supersetDatasets\n2024-07-09\n2024-07-23\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.",
+    "metadata": {
+      "source_url": "models_superset.html",
+      "source_type": "sdk",
+      "file": "models_superset.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Allow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_superset.html",
+      "source_type": "sdk",
+      "file": "models_superset.json",
+      "chunk_id": 2
+    }
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "content": "26 docs tagged with \"automation\" | Atlan Documentation\nSkip to main content\nAlways On\nIntegrate Atlan with Always On to enable continuous automation and suggestions.\nAutomate data governance\nYou can streamline your data governance requirements in Atlan with [governance workflows](/product/capabilities/governance/stewardship/how-tos/create-governance-workflows) and manage alerts, approvals, and tasks using the [inbox](/product/capabilities/governance/stewardship/how-tos/manage-tasks). Governance workflows enable you to set up robust controls on data access management, metadata enrichment, new entity creation, and more, with out-of-the-box workflow templates and automated execution.\nAutomatically assign roles based on group names\nLearn how to automatically assign roles and sub-roles to users in Atlan based on their group memberships using the group-role sync app.\nAutomation Integrations\nIntegrate Atlan with automation tools like AWS Lambda, Connections, Webhooks, Browser Extension, and Always On.\nAWS Lambda\nIntegrate Atlan with AWS Lambda to automate workflows and triggers.\nBrowser Extension\nIntegrate Atlan with the Browser Extension to enhance your data catalog experience.",
+    "metadata": {
+      "source_url": "tags_automation.html",
+      "source_type": "docs",
+      "file": "tags_automation.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "AWS Lambda\nIntegrate Atlan with AWS Lambda to automate workflows and triggers.\nBrowser Extension\nIntegrate Atlan with the Browser Extension to enhance your data catalog experience.\nConfigure workflow execution\nLearn about configure workflow execution.\nConnections Integration\nIntegrate Atlan with Connections to create webhooks and automate notifications.\nCreate governance workflows\n:::warning Who can do this? You must be an [admin user](/product/capabilities/governance/users-and-groups/concepts/what-are-user-roles) in Atlan to [enable](/.\nCreate webhooks\nIf your webhook endpoint is behind a VPN or firewall, you must add the Atlan IP to your allowlist. Please raise a support ticket from within Atlan, or [submit a request](/support/submit-request).\nDelegate administration\nThe workflow admin role is a subcategory of the admin role in Atlan. This admin subrole grants specific permissions for creating and managing connection workflows.\nEnable embedded metadata in Tableau\nLearn how to enable embedded Atlan metadata in Tableau dashboards for seamless data context and governance.\nGenerate lineage between assets App",
+    "metadata": {
+      "source_url": "tags_automation.html",
+      "source_type": "docs",
+      "file": "tags_automation.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Enable embedded metadata in Tableau\nLearn how to enable embedded Atlan metadata in Tableau dashboards for seamless data context and governance.\nGenerate lineage between assets App\nLearn how to generate lineage between assets across two connections in Atlan by matching table names using the Lineage Generator (no transformations) app.\nHow often does Atlan crawl Snowflake?\nLearn about how often does atlan crawl snowflake?.\nIngest Data Models\nLearn how to ingest a data model into Atlan using the Data Model Ingestion app and an Excel input file.\nManage connectivity\nOnce you've scheduled or run a workflow you can modify its configuration at any time. The configuration that can be modified may vary by workflow but the general steps remain consistent.\nManage governance workflows\n:::warning Who can do this? You must be an [admin user](/product/capabilities/governance/users-and-groups/concepts/what-are-user-roles) in Atlan to [enable](/.\nManage requests\nIf your organization's [Slack account is integrated with Atlan](/product/integrations/collaboration/slack/how-tos/integrate-slack), you will receive Slack notifications when your requests are approved or rejected.\nPlaybooks",
+    "metadata": {
+      "source_url": "tags_automation.html",
+      "source_type": "docs",
+      "file": "tags_automation.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Playbooks\nCreate and manage automated workflows for metadata management and data governance.\nRequests\nRequests allow users to suggest changes to assets that they cannot directly change themselves.\nRevoke data access\nAs an admin user, you can revoke data access in Atlan or from other data sources on governed assets. Governed assets are assets that are included within the [scope of governance workflows](/product/capabilities/governance/stewardship/how-tos/create-governance-workflows).\nSend alerts for workflow events\nLearn how to configure alerts for workflow events in Atlan via email or Google Chat.\nStewardship\nLearn how to implement data stewardship in Atlan through automated workflows, policies, and task management.\nTroubleshooting Anomalo connectivity\nLearn about troubleshooting anomalo connectivity.\nUser Role Sync\nComplete configuration reference for the User Role Sync app properties and settings.\nWebhooks Integration\nIntegrate Atlan with Webhooks to automate actions and notifications.",
+    "metadata": {
+      "source_url": "tags_automation.html",
+      "source_type": "docs",
+      "file": "tags_automation.json",
+      "chunk_id": 3
+    }
+  }
+]

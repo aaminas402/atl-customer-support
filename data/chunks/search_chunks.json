@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Introduction to searching in Atlan - Developer\nSkip to content\nIntroduction to searching in Atlan\n¶\nAtlan uses\nElasticsearch\nto power its search. For ultimate flexibility, we have also adopted\nElastic's query DSL\n.\nTo explain all of the power and flexibility, there are two main areas you must consider when searching in Atlan:\nThe\nquery\ndefines what you want to find in your search\nThe\nattributes\ndefine the specific bits of information you can search against, and what details you want included in each result\nThen, you can get a bit more advanced by adding in:\nWhether you want to\nsort\nthose results\nHow to\npage\nthe results, when there are many of them\nWhether you want to\naggregate\nany information from those results\nAtlan's search index is eventually consistent\nAtlan's search index is updated asynchronously from metadata being persisted to the metastore. So there can be small delays between a create, update, or delete operation completing and being able to search for that same information. Usually this is almost immediate (less than 1 second), but if in code you try to immediately search for something you created or updated you may need a retry loop to find it.\n2022-08-22\n2024-06-28",
+    "metadata": {
+      "source_url": "search.html",
+      "source_type": "sdk",
+      "file": "search.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "2022-08-22\n2024-06-28\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "search.html",
+      "source_type": "sdk",
+      "file": "search.json",
+      "chunk_id": 1
+    }
+  }
+]

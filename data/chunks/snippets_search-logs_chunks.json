@@ -1,0 +1,146 @@
+[
+  {
+    "content": "Asset search logs - Developer\nSkip to content\nAccessing the search logs of an asset\n¶\nSearch logs provide valuable insights for analysts to monitor the popularity of assets within Atlan, including details such as the most visited assets, user interactions, and emerging search patterns. Accessing the search log of an asset is a flexible operation, which may seem more intricate compared to other operations. To harness the complete flexibility of Atlan's search, the SDK introduces a dedicated\nSearchLogRequest\nobject.\nSimilar but not identical to searching in general\nAtlan's search log, which contains the search logs of an asset, utilizes Elasticsearch. This makes the approach to accessing search logs similar to\nsearching\n. However, there are differences, as the search log uses a distinct index from the broader search. If you're feeling adventurous, feel free to experiment with the more complex search mechanisms outlined in the\nsearching\nsection. Nevertheless, this should be sufficient to help you get started with accessing asset search logs.\nMost recent viewers of an asset\n¶\n2.0.4\n4.0.0\nTo retrieve the most recent viewers of an asset:\nJava\nPython\nKotlin\nRaw REST API",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Most recent viewers of an asset\n¶\n2.0.4\n4.0.0\nTo retrieve the most recent viewers of an asset:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve the most recent viewers of an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nList\n<\nUserViews\n>\nviewers\n=\nSearchLog\n.\nmostRecentViewers\n(\n// (1)\nclient\n,\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\n20\n,\nList\n.\nof\n(\n\"atlansupport\"\n)\n);\nfor\n(\nUserViews\nviewer\n:\nviewers\n)\n{\n// (2)\nString\nuser\n=\nviewer\n.\ngetUsername\n()\n// (3)\nLong\nviewCount\n=\nviewer\n.\ngetViewCount\n()\n// (4)\nLong\nlastAccessed\n=\nviewer\n.\ngetMostRecentView\n()\n// (5)\n}\nYou must provide\nGUID\nof the asset and specify the\nmaximum number of recent users\nto be considered for the search log request.\nOptionally, you may provide a list of usernames to be excluded from the search log results.\nBecause this operation will directly look up the asset's views in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through each recent viewers.\nName of the user who viewed the asset.\nNumber of times the user viewed the asset.\nWhen the user most recently viewed the asset (epoch-style), in milliseconds.\nRetrieve the most recent viewers of an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "When the user most recently viewed the asset (epoch-style), in milliseconds.\nRetrieve the most recent viewers of an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.search_log\nimport\nSearchLogRequest\nclient\n=\nAtlanClient\n()\nrequest\n=\nSearchLogRequest\n.\nmost_recent_viewers\n(\n# (1)\nguid\n=\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\nmax_users\n=\n20\n,\nexclude_users\n=\n[\n\"atlansupport\"\n],\n)\nresponse\n=\nclient\n.\nsearch_log\n.\nsearch\n(\nrequest\n)\nfor\nviewer\nin\nresponse\n.\nuser_views\n:\n# (2)\nuser\n=\nviewer\n.\nusername\n# (3)\nview_count\n=\nviewer\n.\nview_count\n# (4)\nlast_accessed\n=\nviewer\n.\nmost_recent_view\n# (5)\nYou must provide a\nGUID\nand specify the\nmaximum number of recent users\nto be considered for the search log request.\nOptionally, you may provide a list of usernames\nto be excluded from the search log results.\nYou can then iterate through each recent viewers.\nName of the user who viewed the asset.\nNumber of times the user viewed the asset.\nWhen the user most recently viewed the asset (epoch-style), in milliseconds.\nRetrieve the most recent viewers of an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\nviewers\n=\nSearchLog\n.\nmostRecentViewers\n(\n// (1)\nclient\n,",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Retrieve the most recent viewers of an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\nviewers\n=\nSearchLog\n.\nmostRecentViewers\n(\n// (1)\nclient\n,\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\nmaxUsers\n=\n20\n,\nlistOf\n(\n\"atlansupport\"\n)\n)\nfor\n(\nviewer\nin\nviewers\n)\n{\n// (2)\nval\nuser\n=\nviewer\n.\nusername\n// (3)\nval\nviewCount\n=\nviewer\n.\nviewCount\n// (4)\nval\nlastAccessed\n=\nviewer\n.\nmostRecentView\n// (5)\n}\nYou must provide a\nGUID\nand specify the\nmaximum number of recent users\nto be considered for the search log request.\nOptionally, you may provide a list of usernames to be excluded from the search log results.\nBecause this operation will directly look up the asset's views in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through each recent viewers.\nName of the user who viewed the asset.\nNumber of times the user viewed the asset.\nWhen the user most recently viewed the asset (epoch-style), in milliseconds.\nPOST /api/meta/search/searchlog\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n{\n\"dsl\"\n:\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n0\n,\n\"aggregations\"\n:\n{\n\"uniqueUsers\"\n:\n{\n\"aggregations\"\n:\n{\n\"latestTimestamp\"\n:\n{\n\"max\"\n:\n{\n\"field\"\n:\n\"timestamp\"\n}\n}\n},\n\"terms\"\n:\n{\n\"field\"\n:\n\"userName\"\n,\n\"order\"\n:\n[\n{\n\"latestTimestamp\"\n:\n\"desc\"\n}\n],\n\"size\"\n:\n20\n// (2)\n}\n},\n\"totalDistinctUsers\"\n:\n{\n\"cardinality\"\n:\n{\n\"field\"\n:\n\"userName\"\n,\n\"precision_threshold\"\n:\n1000\n}\n}\n},\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"must_not\"\n:\n[\n{\n\"terms\"\n:\n{\n\"userName\"\n:\n[\n\"atlansupport\"\n]\n// (3)\n}\n}\n],\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"action_asset_viewed\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"entityGuidsAll\"\n:\n{\n\"value\"\n:\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\n// (1)\n\"case_insensitive\"\n:\nfalse\n}\n}\n},\n{\n\"bool\"\n:\n{\n\"minimum_should_match\"\n:\n1\n,\n\"should\"\n:\n[\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"ui_profile\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"ui_sidebar\"\n}\n}\n}\n]\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"timestamp\"\n:\n{\n\"order\"\n:\n\"asc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\n}\nGUID",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "\"utmTags\"\n:\n{\n\"value\"\n:\n\"ui_profile\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"ui_sidebar\"\n}\n}\n}\n]\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"timestamp\"\n:\n{\n\"order\"\n:\n\"asc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\n}\nGUID\nof the asset for which you are seeking the details of recent viewers.\nMaximum number of recent users\nto be considered for the search log request.\nOptionally, you may provide a list of usernames to be excluded from the search log results.\nMost viewed assets\n¶\n2.0.4\n4.0.0\nTo retrieve the most viewed assets by its total views:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve the most viewed assets by its total views\n1\n2\n3\n4\n5\n6\n7\n8\n9\nList\n<\nAssetViews\n>\ntopAssetsByViews\n=\nSearchLog\n.\nmostViewedAssets\n(\nclient\n,\n10\n,\nfalse\n,\nList\n.\nof\n(\n\"atlansupport\"\n)\n// (1)\n);\nfor\n(\nAssetViews\ndetail\n:\ntopAssetsByViews\n)\n{\n// (2)\nString\nguid\n=\ndetail\n.\ngetGuid\n()\n// (3)\nLong\ntotalViews\n=\ndetail\n.\ngetTotalViews\n()\n// (4)\nLong\ndistinctUsers\n=\ndetail\n.\ngetDistinctUsers\n()\n// (5)\n}\nTo retrieve the most viewed assets, specify the maximum number of assets you want to retrieve. Then specify whether you want the most-viewed based on total number of views, irrespective of distinct users (\nfalse",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "false\n); or based on the most distinct users, irrespective of total views (\ntrue\n).\nOptionally, you may provide a list of usernames to be excluded from the search log results.\nBecause this operation will directly look up the asset's views in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through each asset's views.\nGUID\nof the asset that was viewed.\nNumber of times the asset has been viewed (in total).\nNumber of distinct users that have viewed the asset.\nRetrieve the most viewed assets by its total view\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.search_log\nimport\nSearchLogRequest\nclient\n=\nAtlanClient\n()\nrequest\n=\nSearchLogRequest\n.\nmost_viewed_assets\n(\n# (1)\nmax_assets\n=\n10\n,\nby_different_user\n=\nFalse\n,\nexclude_users\n=\n[\n\"username\"\n],\n)\nresponse\n=\nclient\n.\nsearch_log\n.\nsearch\n(\nrequest\n)\nfor\ndetail\nin\nresponse\n.\nasset_views\n:\n# (2)\nguid\n=\ndetail\n.\nguid\n# (3)\ntotal_views\n=\ndetail\n.\ntotal_views\n# (4)\ndistinct_users\n=\ndetail\n.\ndistinct_users\n# (5)\nTo retrieve the most viewed assets, specify the maximum number of assets you want to retrieve.",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ".\nguid\n# (3)\ntotal_views\n=\ndetail\n.\ntotal_views\n# (4)\ndistinct_users\n=\ndetail\n.\ndistinct_users\n# (5)\nTo retrieve the most viewed assets, specify the maximum number of assets you want to retrieve.\nThen specify whether you want the most-viewed based on total number of views, irrespective\nof distinct users (\nFalse\n); or based on the most distinct users, irrespective of total views (\nTrue\n).\nOptionally, you may provide a list of usernames\nto be excluded from the search log results.\nYou can then iterate through each asset's viewers.\nName of the user who viewed the asset.\nNumber of times the user viewed the asset.\nNumber of distinct users that have viewed the asset.\nRetrieve the most viewed assets by its total view\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\ntopAssetsByViews\n=\nSearchLog\n.\nmostViewedAssets\n(\n10\n,\nbyDifferentUsers\n=\nfalse\n,\nexcludeUsers\n=\nlistOf\n(\n\"atlansupport\"\n)\n)\n// (1)\nfor\n(\ndetail\nin\ntopAssetsByViews\n)\n{\n// (2)\nval\nguid\n=\ndetail\n.\nusername\n// (3)\nval\ntotalViews\n=\ndetail\n.\nviewCount\n// (4)\nval\ndistinctUsers\n=\ndetail\n.\nmostRecentView\n// (5)\n}",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": ")\n)\n// (1)\nfor\n(\ndetail\nin\ntopAssetsByViews\n)\n{\n// (2)\nval\nguid\n=\ndetail\n.\nusername\n// (3)\nval\ntotalViews\n=\ndetail\n.\nviewCount\n// (4)\nval\ndistinctUsers\n=\ndetail\n.\nmostRecentView\n// (5)\n}\nTo retrieve the most viewed assets, specify the maximum number of assets you want to retrieve. Then specify whether you want the most-viewed based on total number of views, irrespective of distinct users (\nfalse\n); or based on the most distinct users, irrespective of total views (\ntrue\n).\nOptionally, you may provide a list of usernames to be excluded from the search log results.\nBecause this operation will directly look up the asset's views in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nYou can then iterate through each asset's viewers.\nName of the user who viewed the asset.\nNumber of times the user viewed the asset.\nNumber of distinct users that have viewed the asset.\nPOST /api/meta/search/searchlog\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n{\n\"dsl\"\n:\n{\n\"from\"\n:\n0\n,\n\"size\"\n:",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n{\n\"dsl\"\n:\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n0\n,\n\"aggregations\"\n:\n{\n\"uniqueAssets\"\n:\n{\n\"aggregations\"\n:\n{\n\"uniqueUsers\"\n:\n{\n\"cardinality\"\n:\n{\n\"field\"\n:\n\"userName\"\n,\n\"precision_threshold\"\n:\n1000\n}\n}\n},\n\"terms\"\n:\n{\n\"field\"\n:\n\"entityGuidsAll\"\n,\n\"size\"\n:\n10\n// (1)\n// (2)\n}\n},\n\"totalDistinctUsers\"\n:\n{\n\"cardinality\"\n:\n{\n\"field\"\n:\n\"userName\"\n,\n\"precision_threshold\"\n:\n1000\n}\n}\n},\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"must_not\"\n:\n[\n{\n\"terms\"\n:\n{\n\"userName\"\n:\n[\n\"atlansupport\"\n]\n// (3)\n}\n}\n],\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"action_asset_viewed\"\n}\n}\n},\n{\n\"bool\"\n:\n{\n\"minimum_should_match\"\n:\n1\n,\n\"should\"\n:\n[\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"ui_profile\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"ui_sidebar\"\n}\n}\n}\n]\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"timestamp\"\n:\n{\n\"order\"\n:\n\"asc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\n}\nMaximum number of assets\nto be considered for the search log request\nIf you want to retrieve most viewed assets based on the most distinct users,\nregardless of total views, include\n\"order\": [{\"uniqueUsers\": \"desc\"}]\nhere.",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "to be considered for the search log request\nIf you want to retrieve most viewed assets based on the most distinct users,\nregardless of total views, include\n\"order\": [{\"uniqueUsers\": \"desc\"}]\nhere.\nOptionally, you may provide a list of usernames to be excluded from the search log results.\nDetailed search log entries\n¶\n3.1.0\n4.0.0\nTo retrieve detailed search log entries (paged via lazy fetching):\nJava\nPython\nKotlin\nRaw REST API\nTo retrieve detailed search log entries\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nSearchLog\n.\nviewsByGuid\n(\nclient\n,\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\nList\n.\nof\n(\n\"atlansupport\"\n)\n)\n// (1)\n.\nstream\n()\n// (2)\n.\nlimit\n(\n100\n)\n// (3)\n.\nforEach\n(\nentry\n->\n{\n// (4)\nlogger\n.\ninfo\n(\nentry\n.\ngetUserName\n()\n+\n\" from \"\n+\nentry\n.\ngetIpAddress\n());\n});\nYou must provide the\nGUID\nof the asset for which you are seeking the detailed search log entries.\nOptionally, you may provide a list of usernames to be excluded from the search log results.\nBecause this operation will directly look up the asset's views in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe search will only run when you call the\nstream()\nmethod,",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe search will only run when you call the\nstream()\nmethod,\nwhich will then lazily-load each page of results into a stream\nWith streaming, you can apply your own limits to the maximum number of results you want to process.\nIndependent of page size\nNote that this is independent of page size. You could page through results 50 at a time, but only process a maximum of 100 total results this way. Since the results are lazily-loaded when streaming, only the first two pages of results would be retrieved in such a scenario.\nYou can then iterate through each\nlog entry\nto retrieve details\nsuch as the\nusername\nand\nIP address\nof the search logs.\nTo retrieve detailed search log entries\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.search_log\nimport\nSearchLogRequest\nclient\n=\nAtlanClient\n()\nrequest\n=\nSearchLogRequest\n.\nviews_by_guid\n(\n# (1)\nguid\n=\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\nsize\n=\n20\n,\nexclude_users\n=\n[\n\"atlansupport\"\n],\n)\nresponse\n=\nclient\n.\nsearch_log\n.\nsearch\n(\ncriteria\n=\nrequest\n,\nbulk\n=\nFalse\n)\n# (2)\nfor\nentry\nin\nresponse\n:\n# (3)\nLOGGER\n.\ninfo\n(\nf\n\"\n{\nentry\n.",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ",\nsize\n=\n20\n,\nexclude_users\n=\n[\n\"atlansupport\"\n],\n)\nresponse\n=\nclient\n.\nsearch_log\n.\nsearch\n(\ncriteria\n=\nrequest\n,\nbulk\n=\nFalse\n)\n# (2)\nfor\nentry\nin\nresponse\n:\n# (3)\nLOGGER\n.\ninfo\n(\nf\n\"\n{\nentry\n.\nuser_name\n}\nfrom\n{\nentry\n.\nip_address\n}\n\"\n)\nYou must provide the\nGUID\nof the asset and specify\nthe\nmaximum number of log entries per page\nfor the search log request.\nOptionally, you may provide a list of usernames\nto be excluded from the search log results.\nclient.search_log.search()\nmethod takes following parameters:\ncriteria\n: defines the search query to execute the search.\nbulk\n(\ndefault: False\n): specifies whether to execute the search in bulk mode for retrieving the search logs matching the criteria. This mode is optimized for handling large results (more than\n10,000\n). When enabled (\nTrue\n), the results will be reordered based on the creation timestamp to facilitate iterating through large datasets.\nNote\nIf the number of results exceeds the predefined threshold\n(\n10,000\nassets) search log search will be automatically converted into a\nbulk\nsearch.\nYou can then iterate through each\nlog entry\nto\nretrieve details such as the\nusername\nand\nIP address\nof the search logs.",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "assets) search log search will be automatically converted into a\nbulk\nsearch.\nYou can then iterate through each\nlog entry\nto\nretrieve details such as the\nusername\nand\nIP address\nof the search logs.\nTo retrieve detailed search log entries\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nSearchLog\n.\nviewsByGuid\n(\nclient\n,\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\nlistOf\n(\n\"atlansupport\"\n)\n)\n// (1)\n.\nstream\n()\n// (2)\n.\nlimit\n(\n100\n)\n// (3)\n.\nforEach\n{\nentry\n->\n// (4)\nlogger\n.\ninfo\n{\n\"\n${\nentry\n.\nuserName\n}\nfrom\n${\nentry\n.\nipAddress\n}\n\"\n}\n}\nYou must provide the\nGUID\nof the asset for which you are seeking the detailed search log entries.\nOptionally, you may provide a list of usernames to be excluded from the search log results.\nBecause this operation will directly look up the asset's views in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe search will only run when you call the\nstream()\nmethod,\nwhich will then lazily-load each page of results into a stream\nWith streaming, you can apply your own limits to the maximum number of results you want to process.\nIndependent of page size",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "method,\nwhich will then lazily-load each page of results into a stream\nWith streaming, you can apply your own limits to the maximum number of results you want to process.\nIndependent of page size\nNote that this is independent of page size. You could page through results 50 at a time, but only process a maximum of 100 total results this way. Since the results are lazily-loaded when streaming, only the first two pages of results would be retrieved in such a scenario.\nYou can then iterate through each log entry to retrieve details\nsuch as the\nusername\nand\nIP address\nof the search logs.\nPOST /api/meta/search/searchlog\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n{\n\"dsl\"\n:\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n100\n,\n// (1)\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"must_not\"\n:\n[\n{\n\"terms\"\n:\n{\n\"userName\"\n:\n[\n\"atlansupport\"\n]\n// (3)\n}\n}\n],\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"action_asset_viewed\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"entityGuidsAll\"\n:\n{\n\"value\"\n:\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\n// (2)\n\"case_insensitive\"\n:\nfalse\n}\n}\n},\n{\n\"bool\"\n:\n{\n\"minimum_should_match\"\n:\n1\n,",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": ":\n\"action_asset_viewed\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"entityGuidsAll\"\n:\n{\n\"value\"\n:\n\"955c455d-cfea-4c9c-844d-e226edf8b6da\"\n,\n// (2)\n\"case_insensitive\"\n:\nfalse\n}\n}\n},\n{\n\"bool\"\n:\n{\n\"minimum_should_match\"\n:\n1\n,\n\"should\"\n:\n[\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"ui_profile\"\n}\n}\n},\n{\n\"term\"\n:\n{\n\"utmTags\"\n:\n{\n\"value\"\n:\n\"ui_sidebar\"\n}\n}\n}\n]\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"timestamp\"\n:\n{\n\"order\"\n:\n\"asc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\n}\nPage size of the search log request.\nGUID\nof the asset for which you are seeking the detailed search log entries.\nOptionally, you may provide a list of usernames to be excluded from the search log results.\n2023-12-12\n2024-12-25\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_search-logs.html",
+      "source_type": "sdk",
+      "file": "snippets_search-logs.json",
+      "chunk_id": 15
+    }
+  }
+]

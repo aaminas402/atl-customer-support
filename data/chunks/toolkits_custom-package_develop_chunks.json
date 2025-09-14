@@ -1,0 +1,164 @@
+[
+  {
+    "content": "Develop your logic - Developer\nSkip to content\nDevelop your package's logic\n¶\nManage dependencies\n¶\nTo start implementing your custom logic, we highly recommend using one of our SDKs:\nPython\nKotlin\nIn Python, a\nrequirements.txt\nwas rendered for you with the bare minimal set of dependencies (the Python SDK):\nrequirements.txt\n1\npyatlan\n# (1)!\nYou can of course add other lines to this file to include other third party dependencies and libraries, or to restrict to the use of a specific version of even\npyatlan\n.\nIn Kotlin, we recommend using the\nGradle\nbuild tool:\nbuild.gradle.kts\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\nplugins\n{\nkotlin\n(\n\"jvm\"\n)\nversion\n\"1.9.24\"\n// (1)\nid\n(\n\"jvm-test-suite\"\n)\nid\n(\n\"com.adarshr.test-logger\"\n)\nversion\n\"4.0.0\"\nid\n(\n\"org.pkl-lang\"\n)\nversion\n\"0.25.3\"\nid\n(\n\"com.diffplug.spotless\"\n)\nversion\n\"6.21.0\"\nid\n(\n\"com.github.johnrengelman.shadow\"\n)\nversion\n\"7.1.2\"\n// (2)\n}\ndependencies\n{\nimplementation\n(\n\"com.atlan:atlan-java:+\"\n)\n// (3)\nimplementation\n(\n\"com.atlan:package-toolkit-runtime:+\"\n)\nimplementation\n(\n\"com.atlan:package-toolkit-config:+\"\n)\nimplementation\n(",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "}\ndependencies\n{\nimplementation\n(\n\"com.atlan:atlan-java:+\"\n)\n// (3)\nimplementation\n(\n\"com.atlan:package-toolkit-runtime:+\"\n)\nimplementation\n(\n\"com.atlan:package-toolkit-config:+\"\n)\nimplementation\n(\n\"io.github.microutils:kotlin-logging-jvm:3.0.5\"\n)\ntestImplementation\n(\n\"com.atlan:package-toolkit-testing:+\"\n)\ntestImplementation\n(\n\"org.jetbrains.kotlin:kotlin-test:1.9.24\"\n)\nruntimeOnly\n(\n\"org.apache.logging.log4j:log4j-core:2.23.0\"\n)\n// (4)\nruntimeOnly\n(\n\"org.apache.logging.log4j:log4j-slf4j2-impl:2.23.0\"\n)\nimplementation\n(\n\"io.swagger.parser.v3:swagger-parser:2.1.20\"\n)\n// (5)\n}\ntasks\n{\nshadowJar\n{\n// (6)\nisZip64\n=\ntrue\ndependencies\n{\n// (7)\ninclude\n(\ndependency\n(\n\"io.swagger.parser.v3:swagger-parser:.*\"\n))\ninclude\n(\ndependency\n(\n\"io.swagger.core.v3:swagger-models:.*\"\n))\ninclude\n(\ndependency\n(\n\"io.swagger.core.v3:swagger-core:.*\"\n))\ninclude\n(\ndependency\n(\n\"io.swagger.parser.v3:swagger-parser-core:.*\"\n))\ninclude\n(\ndependency\n(\n\"io.swagger.parser.v3:swagger-parser-v3:.*\"\n))\ninclude\n(\ndependency\n(\n\"io.swagger.parser.v3:swagger-parser-safe-url-resolver:.*\"\n))\ninclude\n(\ndependency\n(\n\"io.swagger.core.v3:swagger-annotations:.*\"\n))\ninclude\n(\ndependency\n(",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "))\ninclude\n(\ndependency\n(\n\"io.swagger.parser.v3:swagger-parser-safe-url-resolver:.*\"\n))\ninclude\n(\ndependency\n(\n\"io.swagger.core.v3:swagger-annotations:.*\"\n))\ninclude\n(\ndependency\n(\n\"com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:.*\"\n))\ninclude\n(\ndependency\n(\n\"com.fasterxml.jackson.datatype:jackson-datatype-jsr310:.*\"\n))\ninclude\n(\ndependency\n(\n\"org.yaml:snakeyaml:.*\"\n))\ninclude\n(\ndependency\n(\n\"org.apache.commons:commons-lang3:.*\"\n))\n}\nmergeServiceFiles\n()\n}\njar\n{\n// (8)\nactions\n=\nlistOf\n()\ndoLast\n{\nshadowJar\n}\n}\n}\nThese plugins are the minimum necessary to develop a Kotlin-based package.\nThe shadow plugin is necessary when you want to bundle additional dependencies for your code that are not part of the out-of-the-box Java SDK or runtime toolkit.\nThese dependencies are the minimum necessary to develop a Kotlin-based package using the SDK and package toolkits.\nYou must provide some binding for slf4j logging. This example shows how to bind\nlog4j2\n, but you could replace this with some other log binding if you prefer.",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "You must provide some binding for slf4j logging. This example shows how to bind\nlog4j2\n, but you could replace this with some other log binding if you prefer.\nYou can of course add other lines to this file to include other third party dependencies and libraries, or to restrict to the use of a specific version of even the Java SDK.\nIn this example, we are using a third party library for parsing the OpenAPI specification, from Swagger.\nWhen using external dependencies, use the\nshadowJar\ntask to define all the dependencies that should be bundled together into your\n.jar\nfile.\nList the dependencies themselves in the inner\ndependencies\nsection.\nOverride the default\njar\ntask so that you get the shadowed jar (with all the dependencies) as the only jar output.\nImplement custom logic\n¶\nNaturally your custom logic will depend on your use case. However, there is a standard pattern to help you get started — in particular, to use the \"runtime\" portion of the package toolkit. This will handle common things like:\nReceiving input values from what the user has entered in the UI (strongly-typed in your code)\nSetting up standard logging\netc\nDelegate publishing where possible\nYou can now",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Receiving input values from what the user has entered in the UI (strongly-typed in your code)\nSetting up standard logging\netc\nDelegate publishing where possible\nYou can now\ndelegate publishing\nof assets to another package to simplify the logic of your own package. If you use this delegation, remember your package only needs to produce the CSV output — it does not need to create or save any assets directly in Atlan.\nPython\nKotlin\nmain.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nfrom\nopen_api_spec_loader.open_api_spec_loader_cfg\nimport\nRuntimeConfig\n# (1)\nimport\nlogging\nLOGGER\n=\nlogging\n.\ngetLogger\n(\n__name__\n)\n# (2)\ndef\nmain\n():\n# (3)\nruntime_config\n=\nRuntimeConfig\n()\n# (4)\ncustom_config\n=\nruntime_config\n.\ncustom_config\n# (5)\nspec_url\n=\ncustom_config\n.\nspec_url\n# Further parameter retrieval and / or custom logic\nLOGGER\n.\ninfo\n(\n\"Doing some further custom logic...\"\n)\n# (6)\nif\n__name__\n==\n\"__main__\"\n:\nmain\n()\nYou will always use these imports for setting up the runtime portion of the package toolkit.\nReplace the import according to your package\nOf course, keep in mind that the specific name of the module and class within it will vary based on the name of your package.",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Replace the import according to your package\nOf course, keep in mind that the specific name of the module and class within it will vary based on the name of your package.\nYou should initialize a logger for your package.\nYou need an executable file in Python.\nUse the\nRuntimeConfig()\nmethod to retrieve all the runtime information, including inputs provided in the UI by a user.\nFrom the runtime configuration, you can retrieve the\ncustom_config\n(the inputs provided in the UI by a user).\nStrongly-types inputs\nThis returns an object of the type of the class generated for you when you render your package. This class strongly-types all of the inputs a user provides into things like numbers, booleans, strings, lists, and even full\nConnection\nobjects. (Without it you're left to parse all of that yourself.)\nWhen you log information, the following apply:\ninfo\nlevel and above (\nwarn\n,\nerror\n, etc) are all output to the console. Only these will appear when a user clicks the overall \"logs\" button for a package's run.\nUse\ninfo\nfor user-targeted messages\nFor this reason, we recommend using\ninfo",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Use\ninfo\nfor user-targeted messages\nFor this reason, we recommend using\ninfo\n-level logging for tracking overall progress of your package's logic. Keep it simple and not overly verbose to avoid overwhelming users of the package.\ndebug\nlevel is not printed out to the console, but captured in a file. To allow users to download this debug log, you must define an output file mapped to\n/tmp/debug.log\n(like in line 22 of\ndefine overall metadata\n).\nUse\ndebug\nfor troubleshooting details\nWith this separation, you can capture details that would be useful for troubleshooting in\ndebug\n-level — without overwhelming users with that information.\nOpenAPISpecLoader.kt\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nimport\ncom.atlan.pkg.Utils\n// (1)\nimport\nmu.KotlinLogging\nobject\nOpenAPISpecLoader\n{\n// (2)\nprivate\nval\nlogger\n=\nUtils\n.\ngetLogger\n(\nthis\n.\njavaClass\n.\nname\n)\n// (3)\n@JvmStatic\nfun\nmain\n(\nargs\n:\nArray\n<\nString\n>\n)\n{\n// (4)\nval\nconfig\n=\nUtils\n.\ninitializeContext\n<\nOpenAPISpecLoaderCfg\n>\n().\nuse\n{\nctx\n->\n// (5)\nval\nspecUrl\n=\nctx\n.\nconfig\n.\nspecUrl\n// (6)\n// Further parameter retrieval and / or custom logic\nlogger\n.\ninfo\n{\n\"Doing some further custom logic...\"\n}\n// (7)\n}\n}\n}",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ">\n().\nuse\n{\nctx\n->\n// (5)\nval\nspecUrl\n=\nctx\n.\nconfig\n.\nspecUrl\n// (6)\n// Further parameter retrieval and / or custom logic\nlogger\n.\ninfo\n{\n\"Doing some further custom logic...\"\n}\n// (7)\n}\n}\n}\nYou will always use these imports for setting up the runtime portion of the package toolkit.\nYou need an executable object in Kotlin. What you name it here will need to match your\ncontainerCommand\nwhen you\ndefine overall metadata\nof your package.\nYou should initialize a logger for your package.\nUse this method to initialize your logger\nUse this\nUtils.getLogger()\nmethod to ensure your logger is initialized and set up for use with OpenTelemetry. This will ensure all of the logging for your package run is tracked and traceable for troubleshooting purposes.\nYou must implement a\n@JvmStatic\nmain\nmethod, with this precise signature.\nMore details\nYou don't actually need to parse or use the command-line arguments, everything will be passed as an environment variable, but you still need to have this method signature.)\nUse the\nUtils.initializeContext<>()\nreified method to retrieve\nall\nof the inputs provided in the UI by a user.\nStrongly-types inputs\nThis returns an object of the type within the\n<>",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "Use the\nUtils.initializeContext<>()\nreified method to retrieve\nall\nof the inputs provided in the UI by a user.\nStrongly-types inputs\nThis returns an object of the type within the\n<>\n, which is the class generated for you when you render your package. This class strongly-types all of the inputs a user provides into things like numbers, booleans, strings, lists, and even full\nConnection\nobjects. (Without it you're left to parse all of that yourself.)\nWhen you have defined\nfallback\nvalues in your config, you will have strongly-typed, non-null values for every input (minimally the value for\nfallback\nyou specified in the config, if a user has not selected anything in the UI). Alternatively, you can also use the\nUtils.getOrDefault(ctx.config._, \"\")\nmethod to give you a default value.\nEmpty inputs are\nnull\nby default\nIf the input in the UI is optional, and you have not specified any\nfallback\nin your Pkl config, you will by default receive a\nnull\nif the user did not enter any value into it, so\nUtils.getOrDefault()\nallows you to force things into non-null values. A common practice is to set the\nfallback\nconfiguration value to the same value you show in\nplaceholderText",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "Utils.getOrDefault()\nallows you to force things into non-null values. A common practice is to set the\nfallback\nconfiguration value to the same value you show in\nplaceholderText\nor have defined as the\ndefault\n, and then you do not need to use\nUtils.getOrDefault()\nto ensure you have a non-null value.\nWhen you log information, the following apply:\ninfo\nlevel and above (\nwarn\n,\nerror\n, etc) are all output to the console. Only these will appear when a user clicks the overall \"logs\" button for a package's run.\nUse\ninfo\nfor user-targeted messages\nFor this reason, we recommend using\ninfo\n-level logging for tracking overall progress of your package's logic. Keep it simple and not overly verbose to avoid overwhelming users of the package.\ndebug\nlevel is not printed out to the console, but captured in a file. To allow users to download this debug log, you must define an output file mapped to\n/tmp/debug.log\n(like in line 22 of\ndefine overall metadata\n).\nUse\ndebug\nfor troubleshooting details\nWith this separation, you can capture details that would be useful for troubleshooting in\ndebug\n-level — without overwhelming users with that information.\nBundle into a container\n¶",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "With this separation, you can capture details that would be useful for troubleshooting in\ndebug\n-level — without overwhelming users with that information.\nBundle into a container\n¶\nPackages run as workflows using\nArgo\n. So before you can run your package in an Atlan tenant, it must be built into a self-contained container image — which Argo can then orchestrate.\nTo bundle your package into a container image:\nPython\nKotlin\nEnsure you first\nrender your package\n. This will output a\nDockerfile\nyou can at least use as a starting point.\nBuild your container image from the\nDockerfile\n(must be run in the same directory as the\nDockerfile\n):\npodman\nbuild\n.\n-t\nopenapi-spec-loader:latest\nPublish your container image to a registry from which it can then be pulled by a tenant:\npodman\npush\nghcr.io/atlanhq/openapi-spec-loader:latest\n# (1)!\nYou will likely need to first authenticate with the remote registry, which is beyond the scope of this document to explain.\nAutomate the build and publish via CI/CD\nWe highly recommend automating the container image build and publication via CI/CD. For example, a GitHub Action like the following should do this:\npublish.yml\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "We highly recommend automating the container image build and publication via CI/CD. For example, a GitHub Action like the following should do this:\npublish.yml\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\nname\n:\n\"Publish\"\non\n:\npush\n:\nbranches\n:\n[\nmain\n]\njobs\n:\ncustom-package-image\n:\n# (1)\nruns-on\n:\nubuntu-latest\nname\n:\n\"Publish\ncontainer\"\nsteps\n:\n-\nuses\n:\nactions/checkout@v4\n-\nuses\n:\ndocker/setup-buildx-action@v2\n# (2)\n-\nname\n:\nLog in to container registry\nuses\n:\ndocker/login-action@v2\nwith\n:\nregistry\n:\nghcr.io\nusername\n:\n${{ github.actor }}\npassword\n:\n${{ secrets.GITHUB_TOKEN }}\n-\nname\n:\nSet image tag from file\n# (3)\nid\n:\nset-image-tag\nrun\n:\n|\nTAG=$(cat ./pkg/version.txt)\necho \"IMAGE_TAG=$TAG\" >> $GITHUB_ENV\n-\nname\n:\nBuild and publish container image\nuses\n:\ndocker/build-push-action@v4\nwith\n:\nbuild-args\n:\n|\nVERSION=${{ env.IMAGE_TAG }}\npush\n:\ntrue\n# (4)\ntags\n:\nghcr.io/atlanhq/open_api_spec_loader:${{ env.IMAGE_TAG }}, ghcr.io/atlanhq/open_api_spec_loader:latest\ncontext\n:\n\"./pkg\"\n# (5)\nplatforms\n:\nlinux/amd64\nYou can run a single job to both build and publish the container image.",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "context\n:\n\"./pkg\"\n# (5)\nplatforms\n:\nlinux/amd64\nYou can run a single job to both build and publish the container image.\nUse Docker's own GitHub Actions to set up the ability to build container images, login to the private GitHub registry, etc.\nSet the version number for your package from the\nversion.txt\nfile.\nTo ensure your image is published, not only built, you must set\npush: true\n.\nThe context in which you run the container build must include the\nDockerfile\nyou constructed earlier (in this example, that\nDockerfile\nresides in the GitHub repository at this location:\n./pkg\n, so the earlier\nactions/checkout@v4\naction ensures it exists here).\nBuild your package\n.jar\nfile (assuming you followed the Gradle approach outlined in\nmanage dependencies\n):\n./gradlew\nassemble\nshadowJar\nCreate a\nDockerfile\nthat builds on the\nghcr.io/atlanhq/atlan-java\nbase image:\nDockerfile\n1\n2\n3\nARG\nVERSION\nFROM\nghcr.io/atlanhq/atlan-java:$VERSION\nCOPY\nassembly\n/opt/jars\nCreate a sub-directory called\nassembly\nunder the directory where you created the\nDockerfile\n, and copy over the\n.jar\nfile you built to this\nassembly\nsub-directory:\nmkdir\nassembly\ncp\n.../openapi-spec-loader-*.jar\nassembly/.",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "assembly\nunder the directory where you created the\nDockerfile\n, and copy over the\n.jar\nfile you built to this\nassembly\nsub-directory:\nmkdir\nassembly\ncp\n.../openapi-spec-loader-*.jar\nassembly/.\nBuild your container image from the\nDockerfile\n(must be run in the same directory as the\nDockerfile\n):\npodman\nbuild\n.\n-t\nopenapi-spec-loader:latest\nPublish your container image to a registry from which it can then be pulled by a tenant:\npodman\npush\nghcr.io/atlanhq/openapi-spec-loader:latest\n# (1)!\nYou will likely need to first authenticate with the remote registry, which is beyond the scope of this document to explain.\nAutomate the build and publish via CI/CD\nWe highly recommend automating the container image build and publication via CI/CD. For example, a GitHub Action like the following should do this:\npublish.yml\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\nname\n:\n\"Publish\"\non\n:\npush\n:\nbranches\n:\n[\nmain\n]\njobs\n:\nmerge-build\n:\n# (1)\nruns-on\n:\nubuntu-latest\nname\n:\n\"Build\"\nsteps\n:\n-\nuses\n:\nactions/checkout@v4\n-\nuses\n:\nactions/setup-java@v4\nwith\n:\njava-version\n:\n17",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "on\n:\npush\n:\nbranches\n:\n[\nmain\n]\njobs\n:\nmerge-build\n:\n# (1)\nruns-on\n:\nubuntu-latest\nname\n:\n\"Build\"\nsteps\n:\n-\nuses\n:\nactions/checkout@v4\n-\nuses\n:\nactions/setup-java@v4\nwith\n:\njava-version\n:\n17\ndistribution\n:\ntemurin\n-\nname\n:\nCheck formatting\nrun\n:\n./gradlew check\n-\nname\n:\nBuild artifacts\nrun\n:\n./gradlew assemble shadowJar\nenv\n:\nGH_USERNAME\n:\n${{ github.actor }}\nGH_TOKEN\n:\n${{ secrets.GITHUB_TOKEN }}\n-\nuses\n:\nactions/upload-artifact@v4\n# (2)\nwith\n:\nname\n:\nopenapi-spec-loader\npath\n:\njars/openapi-spec-loader-*.jar\ncustom-package-image\n:\n# (3)\nruns-on\n:\nubuntu-latest\nname\n:\n\"Publish\ncontainer\"\nneeds\n:\n-\nmerge-build\n# (4)\nsteps\n:\n-\nuses\n:\nactions/checkout@v4\n-\nuses\n:\ndocker/setup-buildx-action@v2\n# (5)\n-\nname\n:\nLog in to container registry\nuses\n:\ndocker/login-action@v2\nwith\n:\nregistry\n:\nghcr.io\nusername\n:\n${{ github.actor }}\npassword\n:\n${{ secrets.GITHUB_TOKEN }}\n-\nname\n:\nCreate assembly area\n# (6)\nrun\n:\n|\nmkdir -p ./containers/custom-package/assembly\n-\nuses\n:\nactions/download-artifact@v4\n# (7)\nwith\n:\nname\n:\n\"openapi-spec-loader\"\npath\n:\n./containers/custom-package/assembly\n-\nname\n:\nBuild and publish container image\nuses\n:\ndocker/build-push-action@v4\n# (8)\nwith\n:\nbuild-args\n:\n|",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "# (7)\nwith\n:\nname\n:\n\"openapi-spec-loader\"\npath\n:\n./containers/custom-package/assembly\n-\nname\n:\nBuild and publish container image\nuses\n:\ndocker/build-push-action@v4\n# (8)\nwith\n:\nbuild-args\n:\n|\nVERSION=1.13.0  # (9)\npush\n:\ntrue\n# (10)\ntags\n:\nghcr.io/atlanhq/openapi-spec-loader:1.13.0, ghcr.io/atlanhq/openapi-spec-loader:latest\ncontext\n:\n./containers/custom-package\n# (11)\nplatforms\n:\nlinux/amd64\nWe recommend separating the code compilation job (here) from the container image build and publish (next job).\nAt the end of the code compilation job, you can upload the artifact (\n.jar\nfile) that it produces to GitHub itself.\nThen you can run the separate container image build and publish job.\nEnsure the container image build and publish job depends on the code already being successfully compiled and\n.jar\nfile being uploaded.\nUse Docker's own GitHub Actions to set up the ability to build container images, login to the private GitHub registry, etc.\nWe recommend creating a directory where you can assemble all the pieces of the container image.\nYou can then download the\n.jar\nfile produced by the first job into this assembly directory.",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "We recommend creating a directory where you can assemble all the pieces of the container image.\nYou can then download the\n.jar\nfile produced by the first job into this assembly directory.\nYou can then build the container image from this assembly directory.\nYou probably want this version to come from some variable or input.\nTo ensure your image is published, not only built, you must set\npush: true\n.\nThe context in which you run the container build must include the\nDockerfile\nyou constructed earlier (in this example, that\nDockerfile\nresides in the GitHub repository at this location:\n./containers/custom-package\n, so the earlier\nactions/checkout@v4\naction ensures it exists here).\n2025-03-12\n2025-03-12\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "We do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits_custom-package_develop.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_develop.json",
+      "chunk_id": 17
+    }
+  }
+]

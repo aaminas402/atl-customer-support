@@ -1,0 +1,47 @@
+[
+  {
+    "content": "What does Atlan crawl from Salesforce? | Atlan Documentation\nSkip to main content\nOn this page\nAtlan only performs\nGET\nrequests on these five endpoints:\nsObject Basic Information\nQuery\nReports\nDashboards\nFolders\nDid you know?\nEach endpoint will be set in its own OAuth client session. For every API request, it will hit the Salesforce login endpoint, which means there will be at least five (same as the number of endpoints above) login entries in your Salesforce account's login history within the duration of the scheduled workflow run.\nAtlan crawls and maps the following assets and properties from Salesforce.\nOnce you've\ncrawled Salesforce\n, you can\nuse connector-specific filters\nfor quick asset discovery. The following filters are currently supported for these assets:\nFields\n-  Is encrypted and Is required filters\nOrganizations\nâ\nAtlan maps organizations from Salesforce to its\nSalesforceOrganization\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nid\nsourceId\noverview sidebar\nname\nname\nasset preview and profile, overview sidebar\ndescription\ndescription\nasset preview and profile, overview sidebar\nwebUrl\nsourceURL\noverview sidebar\ncreatedDate\nsourceCreatedAt",
+    "metadata": {
+      "source_url": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.html",
+      "source_type": "docs",
+      "file": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "name\nname\nasset preview and profile, overview sidebar\ndescription\ndescription\nasset preview and profile, overview sidebar\nwebUrl\nsourceURL\noverview sidebar\ncreatedDate\nsourceCreatedAt\nasset profile and properties sidebar\nlastModifiedDate\nsourceUpdatedAt\nasset profile and properties sidebar\ncreatedBy\nsourceCreatedBy\nasset profile and properties sidebar\nlastModifiedBy\nsourceUpdatedBy\nasset profile and properties sidebar\nObjects\nâ\nAtlan maps objects from Salesforce to its\nSalesforceObject\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nlabel\nname\nasset preview and profile, overview sidebar\nname\napiName\noverview sidebar\ndescription\ndescription\nasset preview and profile, overview sidebar\ncustom\nisCustom\nasset preview and profile, overview sidebar\nmergable\nisMergable\nAPI only\nqueryable\nisQueryable\nAPI only\nfieldCount\nfieldCount\nasset preview and overview sidebar\nwebUrl\nsourceURL\noverview sidebar\nlastModifiedDate\nsourceUpdatedAt\nasset profile and properties sidebar\nlastModifiedBy\nsourceUpdatedBy\nasset profile and properties sidebar\nFields\nâ\nAtlan maps fields from Salesforce to its\nSalesforceField\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nlabel\nname",
+    "metadata": {
+      "source_url": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.html",
+      "source_type": "docs",
+      "file": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "sourceUpdatedBy\nasset profile and properties sidebar\nFields\nâ\nAtlan maps fields from Salesforce to its\nSalesforceField\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nlabel\nname\nasset preview and profile, overview sidebar\nname\napiName\noverview sidebar\ntype\ndataType\nasset preview, profile, and filter, overview sidebar\ndescription\ndescription\nasset preview and profile, overview sidebar\nlastModifiedDate\nsourceUpdatedAt\nasset profile and properties sidebar\nlastModifiedBy\nsourceUpdatedBy\nasset profile and properties sidebar\ncalculated\nisCalculated\nAPI only\ncalculatedFormula\nformula\noverview sidebar\ndefaultValue\ndefaultValue\nAPI only\ncaseSensitive\nisCaseSensitive\nAPI only\ncustom\nisCustom\nasset preview and profile, overview sidebar\nencrypted\nisEncrypted\nAPI only\nnillable\nisNullable\noverview sidebar (\nEmpty values allowed\nfield)\npolymorphicForeignKey\nisPolymorphicForeignKey\nAPI only\norder\norder\nAPI only\nlength\nmaxLength\nproperties sidebar\nprecision\nprecision\nproperties sidebar\nscale\nnumericScale\nAPI only\nunique\nisUnique\nAPI only\ninlineHelpText\ninlineHelpText\noverview sidebar\npicklistValues\npicklistValues\noverview sidebar\nReports\nâ\nAtlan maps reports from Salesforce to its",
+    "metadata": {
+      "source_url": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.html",
+      "source_type": "docs",
+      "file": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "numericScale\nAPI only\nunique\nisUnique\nAPI only\ninlineHelpText\ninlineHelpText\noverview sidebar\npicklistValues\npicklistValues\noverview sidebar\nReports\nâ\nAtlan maps reports from Salesforce to its\nSalesforceReport\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nid\nsourceId\noverview sidebar\nname\nname\nasset preview and profile, overview sidebar\nreportType\nreportType\noverview sidebar\ndetailColumns\ndetailColumns\noverview sidebar\ndescription\ndescription\nasset preview and profile, overview sidebar\nwebUrl\nsourceURL\noverview sidebar\ncreatedDate\nsourceCreatedAt\nasset profile and properties sidebar\nlastModifiedDate\nsourceUpdatedAt\nasset profile and properties sidebar\ncreatedBy\nsourceCreatedBy\nasset profile and properties sidebar\nlastModifiedBy\nsourceUpdatedBy\nasset profile and properties sidebar\nDashboards\nâ\nAtlan maps dashboards from Salesforce to its\nSalesforceDashboard\nasset type.\nSource property\nAtlan property\nWhere in Atlan\nid\nsourceId\noverview sidebar\nname\nname\nasset preview and profile, overview sidebar\ndashboardType\ndashboardType\noverview sidebar\nreportCount\nreportCount\nasset preview and profile\ndescription\ndescription\nasset preview and profile, overview sidebar\nwebUrl",
+    "metadata": {
+      "source_url": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.html",
+      "source_type": "docs",
+      "file": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "dashboardType\ndashboardType\noverview sidebar\nreportCount\nreportCount\nasset preview and profile\ndescription\ndescription\nasset preview and profile, overview sidebar\nwebUrl\nsourceURL\noverview sidebar\nOrganizations\nObjects\nFields\nReports\nDashboards",
+    "metadata": {
+      "source_url": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.html",
+      "source_type": "docs",
+      "file": "apps_connectors_crm_salesforce_references_what-does-atlan-crawl-from-salesforce.json",
+      "chunk_id": 4
+    }
+  }
+]

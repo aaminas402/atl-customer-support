@@ -1,0 +1,29 @@
+[
+  {
+    "content": "19 docs tagged with \"governance\" | Atlan Documentation\nSkip to main content\nAccess Control\nLearn how to manage user permissions and access to data assets in Atlan for security and compliance.\nAutomatically assign roles based on group names\nLearn how to automatically assign roles and sub-roles to users in Atlan based on their group memberships using the group-role sync app.\nContracts\nLearn how to manage data contracts and agreements in Atlan to ensure data quality and compliance.\nCustom Metadata\nLearn how to create and manage custom metadata attributes in Atlan to extend your data catalog with organization-specific information.\nData Products\nCreate and manage data products to organize and govern your data assets by domain.\nDatabricks Data Quality Studio\nSet up and configure Databricks for data quality monitoring through Atlan.\nDomains\nLearn how to organize and manage domains in Atlan to structure your data assets in a logical and business-aligned way.\nGlossary\nLearn how to create and maintain a centralized business glossary in Atlan to standardize terminology and definitions across your organization.\nRequests",
+    "metadata": {
+      "source_url": "tags_governance.html",
+      "source_type": "docs",
+      "file": "tags_governance.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Glossary\nLearn how to create and maintain a centralized business glossary in Atlan to standardize terminology and definitions across your organization.\nRequests\nRequest and manage changes to assets that you don't have direct edit access to.\nSet up Databricks\nConfigure Databricks to enable data quality monitoring through Atlan.\nSet up Snowflake\nConfigure Snowflake to enable data quality monitoring through Atlan.\nSnowflake Data Quality Studio\nSet up and configure Snowflake for data quality monitoring through Atlan.\nSource owner manager\nReference for source owner management capabilities and configuration in stewardship workflows\nStewardship\nLearn how to implement data stewardship in Atlan through automated workflows, policies, and task management.\nTags\nLearn how to use tags in Atlan to categorize and organize your data assets for improved discoverability and governance.\nUpgrade to Snowflake data quality studio\nUpdate existing Snowflake data quality integration to the latest version\nUser Role Sync\nComplete configuration reference for the User Role Sync app properties and settings.\nUsers and groups",
+    "metadata": {
+      "source_url": "tags_governance.html",
+      "source_type": "docs",
+      "file": "tags_governance.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Update existing Snowflake data quality integration to the latest version\nUser Role Sync\nComplete configuration reference for the User Role Sync app properties and settings.\nUsers and groups\nLearn how to manage users and groups in Atlan to control access and organize your data team.\nWhat's Data Quality Studio\nUnderstand Atlan's Data Quality Studio and how it enables business and data teams to collaborate on defining, monitoring, and enforcing data quality expectations",
+    "metadata": {
+      "source_url": "tags_governance.html",
+      "source_type": "docs",
+      "file": "tags_governance.json",
+      "chunk_id": 2
+    }
+  }
+]

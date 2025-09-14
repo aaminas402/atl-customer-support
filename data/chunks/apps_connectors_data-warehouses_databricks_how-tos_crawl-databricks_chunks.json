@@ -1,0 +1,101 @@
+[
+  {
+    "content": "Crawl Databricks | Atlan Documentation\nSkip to main content\nOn this page\nOnce you have configured the\nDatabricks access permissions\n, you can establish a connection between Atlan and your Databricks instance. (If you are also using\nAWS PrivateLink\nor\nAzure Private Link\nfor Databricks, you will need to set that up first, too.)\nTo crawl metadata from your Databricks instance, review the\norder of operations\nand then complete the following steps.\nSelect the source\nâ\nTo select Databricks as your source:\nIn the top right corner of any screen, navigate to\nNew\nand then click\nNew Workflow\n.\nFrom the list of packages, select\nDatabricks Assets\n, and click\nSetup Workflow\n.\nProvide credentials\nâ\nChoose your extraction method:\nIn\nDirect\nextraction, Atlan connects to your database and crawls metadata directly. Next, select an authentication method:\nIn\nJDBC\n, you will need a\npersonal access token and HTTP path for authentication\n.\nIn\nAWS Service\n, you will need a\nclient ID and client secret for AWS service principal authentication\n.\nIn\nAzure Service\n, you will need a\ntenant ID, client ID, and client secret for Azure service principal authentication\n.\nIn\nOffline",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ".\nIn\nAzure Service\n, you will need a\ntenant ID, client ID, and client secret for Azure service principal authentication\n.\nIn\nOffline\nextraction, you will need to first\nextract metadata yourself and make it available in S3\n.\nIn\nAgent\nextraction, Atlan's secure agent executes metadata extraction within the organization's environment.\nDirect extraction method\nâ\nJDBC\nâ\nTo enter your Databricks credentials:\nFor\nHost\n, enter the hostname,\nAWS PrivateLink endpoint\n, or\nAzure Private Link endpoint\nfor your Databricks instance.\nFor\nPort\n, enter the port number of your Databricks instance.\nFor\nPersonal Access Token\n, enter the access token you generated when\nsetting up access\n.\nFor\nHTTP Path\n, enter one of the following:\nA path starting with\n/sql/1.0/warehouses\nto use the\nDatabricks SQL warehouse\n.\nA path starting with\nsql/protocolv1/o\nto use the\nDatabricks interactive cluster\n.\nClick\nTest Authentication\nto confirm connectivity to Databricks using these details.\nOnce successful, at the bottom of the screen click\nNext\n.\ndanger\nMake sure your Databricks instance (SQL warehouse or interactive cluster) is up and running, otherwise the\nTest Authentication\nstep times out.",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Next\n.\ndanger\nMake sure your Databricks instance (SQL warehouse or interactive cluster) is up and running, otherwise the\nTest Authentication\nstep times out.\nAWS service principal\nâ\nTo enter your Databricks credentials:\nFor\nHost\n, enter the hostname or\nAWS PrivateLink endpoint\nfor your Databricks instance.\nFor\nPort\n, enter the port number of your Databricks instance.\nFor\nClient ID\n, enter the\nclient ID for your AWS service principal\n.\nFor\nClient Secret\n, enter the\nclient secret for your AWS service principal\n.\nClick\nTest Authentication\nto confirm connectivity to Databricks using these details.\nOnce successful, at the bottom of the screen click\nNext\n.\nAzure service principal\nâ\nTo enter your Databricks credentials:\nFor\nHost\n, enter the hostname or\nAzure Private Link endpoint\nfor your Databricks instance.\nFor\nPort\n, enter the port number of your Databricks instance.\nFor\nClient ID\n, enter the\napplication (client) ID for your Azure service principal\n.\nFor\nClient Secret\n, enter the\nclient secret for your Azure service principal\n.\nFor\nTenant ID\n, enter the\ndirectory (tenant) ID for your Azure service principal\n.\nClick\nTest Authentication",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": ".\nFor\nClient Secret\n, enter the\nclient secret for your Azure service principal\n.\nFor\nTenant ID\n, enter the\ndirectory (tenant) ID for your Azure service principal\n.\nClick\nTest Authentication\nto confirm connectivity to Databricks using these details.\nOnce successful, at the bottom of the screen click\nNext\n.\nOffline extraction method\nâ\nAtlan supports the\noffline extraction method\nfor fetching metadata from Databricks. This method uses Atlan's databricks-extractor tool to fetch metadata. You need to first\nextract the metadata\nyourself and then\nmake it available in S3\n.\nTo enter your S3 details:\nFor\nBucket name\n, enter the name of your S3 bucket.\nFor\nBucket prefix\n, enter the S3 prefix under which all the metadata files exist. These include\noutput/databricks-example/catalogs/success/result-0.json\n,\noutput/databricks-example/schemas/{{catalog_name}}/success/result-0.json\n,\noutput/databricks-example/tables/{{catalog_name}}/success/result-0.json\n, and similar files.\n(Optional) For\nBucket region\n, enter the name of the S3 region.\nWhen complete, at the bottom of the screen, click\nNext\n.\nAgent extraction method\nâ",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": ", and similar files.\n(Optional) For\nBucket region\n, enter the name of the S3 region.\nWhen complete, at the bottom of the screen, click\nNext\n.\nAgent extraction method\nâ\nAtlan supports using a Secure Agent for fetching metadata from Databricks. To use a Secure Agent, follow these steps:\nSelect the\nAgent\ntab.\nConfigure the Databricks data source by adding the secret keys for your secret store. For details on the required fields, refer to the Direct extraction section.\nComplete the Secure Agent configuration by following the instructions in the\nHow to configure Secure Agent for workflow execution\nguide.\nClick\nNext\nafter completing the configuration.\nConfigure the connection\nâ\nTo complete the Databricks connection configuration:\nProvide a\nConnection Name\nthat represents your source environment. For example, you might want to use values like\nproduction\n,\ndevelopment\n,\ngold\n, or\nanalytics\n.\n(Optional) To change the users able to manage this connection, change the users or groups listed under\nConnection Admins\n.\ndanger\nIf you don't specify any user or group, nobody can manage the connection - not even admins.\n(Optional) To prevent users from querying any Databricks data, change",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Connection Admins\n.\ndanger\nIf you don't specify any user or group, nobody can manage the connection - not even admins.\n(Optional) To prevent users from querying any Databricks data, change\nEnable SQL Query\nto\nNo\n.\n(Optional) To prevent users from previewing any Databricks data, change\nEnable Data Preview\nto\nNo\n.\n(Optional) To prevent users from running large queries, change\nMax Row Limit\nor keep the default selection.\nAt the bottom of the screen, click the\nNext\nbutton to proceed.\nConfigure the crawler\nâ\nBefore running the Databricks crawler, you can further configure it.\nSystem tables extraction method\nâ\nThe system metadata extraction method is only available for\nUnity Catalog-enabled workspaces\n. It provides access to detailed metadata from system tables and supports all three authentication types. You can extract metadata from your Databricks workspace using this method. Follow these steps:\nSet up authentication using one of the following:\nPersonal access token\nAWS service principal\nAzure service principal\nThe default options can work as is. You may choose to override the defaults for any of the remaining options:\nFor\nAsset selection\n, select a filtering option:\nFor",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Azure service principal\nThe default options can work as is. You may choose to override the defaults for any of the remaining options:\nFor\nAsset selection\n, select a filtering option:\nFor\nSQL warehouse\n, click the dropdown to select the SQL warehouse you want to configure.\nTo select the assets you want to include in crawling, click\nInclude by hierarchy\nand filter for assets down to the database or schema level. (This defaults to all assets, if none are specified.)\nTo have the crawler include\nDatabases\n,\nSchemas\n, or\nTables & Views\nbased on a naming convention, click\nInclude by regex\nand specify a regular expression - for example, specifying\nATLAN_EXAMPLE_DB.*\nfor\nDatabases\nincludes all the matching databases and their child assets.\nTo select the assets you want to exclude from crawling, click\nExclude by hierarchy\nand filter for assets down to the database or schema level. (This defaults to no assets, if none are specified.)\nTo have the crawler ignore\nDatabases\n,\nSchemas\n, or\nTables & Views\nbased on a naming convention, click\nExclude by regex\nand specify a regular expression - for example, specifying\nATLAN_EXAMPLE_TABLES.*\nfor\nTables & Views",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Databases\n,\nSchemas\n, or\nTables & Views\nbased on a naming convention, click\nExclude by regex\nand specify a regular expression - for example, specifying\nATLAN_EXAMPLE_TABLES.*\nfor\nTables & Views\nexcludes all the matching tables and views.\nClick\n+\nto add more filters. If you add multiple filters, assets are crawled based on matching\nall\nthe filtering conditions you have set.\nTo\nimport tags from Databricks to Atlan\n, change\nImport Tags\nto\nYes\n. Note that you must have a\nUnity Catalog-enabled workspace\nto import Databricks tags in Atlan.\nDid you know?\nIf an asset appears in both the include and exclude filters, the exclude filter takes precedence.\nIncremental extraction\nâ\nToggle incremental extraction, for a faster and more efficient metadata extraction.\nJDBC extraction method\nâ\nThe JDBC extraction method uses JDBC queries to extract metadata from your Databricks instance. This was the original extraction method provided by Databricks. This extraction method is only supported for\npersonal access token authentication\n.\nYou can override the defaults for any of these options:\nTo select the assets you want to include in crawling, click\nInclude Metadata",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "personal access token authentication\n.\nYou can override the defaults for any of these options:\nTo select the assets you want to include in crawling, click\nInclude Metadata\n. (This will default to all assets, if none are specified.)\nTo select the assets you want to exclude from crawling, click\nExclude Metadata\n. (This will default to no assets if none are specified.)\nTo have the crawler ignore tables and views based on a naming convention, specify a regular expression in the\nExclude regex for tables & views\nfield.\nFor\nView Definition Lineage\n, keep the default\nYes\nto generate upstream lineage for views based on the tables referenced in the views or click\nNo\nto exclude from crawling.\nFor\nAdvanced Config\n, keep\nDefault\nfor the default configuration or click\nAdvanced\nto further configure the crawler:\nTo enable or disable schema-level filtering at source, click\nEnable Source Level Filtering\nand select\nTrue\nto enable it or\nFalse\nto disable it.\nREST API extraction method\nâ\nThe REST API extraction method uses\nUnity Catalog\nto extract metadata from your Databricks instance. This extraction method is supported for all three authentication options:\npersonal access token\n,",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "The REST API extraction method uses\nUnity Catalog\nto extract metadata from your Databricks instance. This extraction method is supported for all three authentication options:\npersonal access token\n,\nAWS service principal\n, and\nAzure service principal\n.\nThis method is only supported by\nUnity Catalog-enabled\nworkspaces.\nIf you enable an existing workspace, you also need to\nupgrade your tables and views to Unity Catalog\n.\nWhile REST APIs are used to extract metadata, JDBC queries are still used for querying purposes.\nYou can override the defaults for any of these options:\nChange the extraction method under\nExtraction method\nto\nREST API\n.\nTo select the assets you want to include in crawling, click\nInclude Metadata\n. (This will default to all assets, if none are specified.)\nTo select the assets you want to exclude from crawling, click\nExclude Metadata\n. (This will default to no assets if none are specified.)\nTo\nimport tags from Databricks to Atlan\n, change\nImport Tags\nto\nYes\n. Note that you must have a\nUnity Catalog-enabled workspace\nto import Databricks tags in Atlan.\nFor\nSQL warehouse\n, click the dropdown to select the SQL warehouse you have configured.\nDid you know?",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": ". Note that you must have a\nUnity Catalog-enabled workspace\nto import Databricks tags in Atlan.\nFor\nSQL warehouse\n, click the dropdown to select the SQL warehouse you have configured.\nDid you know?\nIf an asset appears in both the include and exclude filters, the exclude filter takes precedence.\nRun the crawler\nâ\nFollow these steps to run the Databricks crawler:\nTo check for any\npermissions or other configuration issues\nbefore running the crawler, click\nPreflight checks\n.\nYou can either:\nTo run the crawler once immediately, at the bottom of the screen, click the\nRun\nbutton.\nTo schedule the crawler to run hourly, daily, weekly, or monthly, at the bottom of the screen, click the\nSchedule Run\nbutton.\nOnce the crawler has completed running, you will see the assets in Atlan's asset page! ð\nSelect the source\nProvide credentials\nConfigure the connection\nConfigure the crawler\nRun the crawler",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_crawl-databricks.json",
+      "chunk_id": 10
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "content": "GCS - Developer\nSkip to content\nGCS model\n¶\nBase class for Google Cloud Storage assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand managing GCS assets in Atlan. For that, we would suggest starting with the\nmanage Google Cloud Storage assets pattern\n.\nclassDiagram\ndirection RL\nclass GCS {\n<<abstract>>\n}\nlink GCS \"../gcs\"\nclass Google {\n<<abstract>>\n}\nlink Google \"../google\"\nGoogle <|-- GCS : extends\nclass Cloud {\n<<abstract>>\n}\nlink Cloud \"../entities/cloud\"\nCloud <|-- Google : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Cloud : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass ObjectStore {\n<<abstract>>\n}\nlink ObjectStore \"../entities/objectstore\"\nObjectStore <|-- GCS : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- ObjectStore : extends\nAsset <|-- Catalog : extends\nclass GCSObject\nlink GCSObject \"../entities/gcsobject\"\nGCS <|-- GCSObject : extends\nclass GCSBucket\nlink GCSBucket \"../entities/gcsbucket\"",
+    "metadata": {
+      "source_url": "models_gcs.html",
+      "source_type": "sdk",
+      "file": "models_gcs.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Asset <|-- Catalog : extends\nclass GCSObject\nlink GCSObject \"../entities/gcsobject\"\nGCS <|-- GCSObject : extends\nclass GCSBucket\nlink GCSBucket \"../entities/gcsbucket\"\nGCS <|-- GCSBucket : extends\nProperties\n¶\nThese attributes are specific to instances of\nGCS\n(and all of its subtypes).\ngcsAccessControl\n¶\nAccess control list for this asset.\ngcsETag\n¶\nEntity tag for the asset. An entity tag is a hash of the object and represents changes to the contents of an object only, not its metadata.\ngcsEncryptionType\n¶\nEncryption algorithm used to encrypt this asset.\ngcsMetaGenerationId\n¶\nVersion of metadata for this asset at this generation. Used for preconditions and detecting changes in metadata. A metageneration number is only meaningful in the context of a particular generation of a particular asset.\ngcsRequesterPays\n¶\nWhether the requester pays header was sent when this asset was created (true) or not (false).\ngcsStorageClass\n¶\nStorage class of this asset.\nRelationships\n¶\nThe following illustrates how the various GCS objects inter-relate with each other:\nerDiagram\nConnection ||..o{ GCSBucket : \"\"\nGCSBucket ||--o{ GCSObject : gcsObjects\n2023-07-07\n2023-12-29\nWas this page helpful?",
+    "metadata": {
+      "source_url": "models_gcs.html",
+      "source_type": "sdk",
+      "file": "models_gcs.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "erDiagram\nConnection ||..o{ GCSBucket : \"\"\nGCSBucket ||--o{ GCSObject : gcsObjects\n2023-07-07\n2023-12-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_gcs.html",
+      "source_type": "sdk",
+      "file": "models_gcs.json",
+      "chunk_id": 2
+    }
+  }
+]

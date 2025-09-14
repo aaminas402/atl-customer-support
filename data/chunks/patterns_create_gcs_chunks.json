@@ -1,0 +1,191 @@
+[
+  {
+    "content": "Manage Google Cloud Storage assets - Developer\nSkip to content\nManage Google Cloud Storage assets\n¶\nOperations on GCS assets (connections, buckets, objects).\nIn general, these should be:\nCreated in top-down order\n(connection, then bucket, then object)\nDeleted in bottom-up order (objects, then buckets, then connections)\n1\nerDiagram\nConnection ||--o{ GCSBucket : contains\nGCSBucket ||--o{ GCSObject : contains\nAsset structure\n¶\nConnection\n¶\n7.0.0\n4.0.0\nA Google Cloud Storage\nconnection\nrequires a\nname\nand\nqualifiedName\n. For creation, specific settings are also required to distinguish it as a Google Cloud Storage connection rather than another type of connection. In addition,\nat least one\nof\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nJava\nPython\nKotlin\nRaw REST API\nCreate a GCS connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nString\nadminRoleGuid\n=\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"$admin\"\n);\n// (1)\nConnection\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"gcs-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nGCS\n,\n// (4)\nList\n.\nof\n(\nadminRoleGuid\n),\n// (5)\nList\n.\nof\n(\n\"group2\"\n),\n// (6)\nList\n.\nof\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nconnection\n.\nsave\n(\nclient",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ".\nGCS\n,\n// (4)\nList\n.\nof\n(\nadminRoleGuid\n),\n// (5)\nList\n.\nof\n(\n\"group2\"\n),\n// (6)\nList\n.\nof\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nconnection\n.\nsave\n(\nclient\n);\n// (8)\nString\nconnectionQualifiedName\n=\nresponse\n.\ngetCreatedAssets\n().\nget\n(\n0\n).\ngetQualifiedName\n();\n// (9)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to GCS.\nList the workspace roles that should be able to administer the connection (or null if none). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the group names that can administer this connection (or null if none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "At least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the user names that can administer this connection (or null if none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a GCS connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nConnection\n,\nGCSBucket\n,\nGCSObject\nfrom\npyatlan.model.enums\nimport\nAtlanConnectorType\nclient\n=\nAtlanClient\n()\nadmin_role_guid\n=\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)\n# (1)\nconnection\n=\nConnection\n.\ncreator\n(\n# (2)\nclient\n=\nclient\n,\n# (3)\nname\n=\n\"gcs-connection\"\n,\n# (4)\nconnector_type\n=\nAtlanConnectorType\n.\nGCS\n,\n# (5)\nadmin_roles\n=\n[\nadmin_role_guid\n],\n# (6)\nadmin_groups\n=\n[\n\"group2\"\n],\n# (7)\nadmin_users\n=\n[\n\"jsmith\"\n]\n# (8)\n)\nresponse\n=\nclient\n.\nasset\n.",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": ",\n# (4)\nconnector_type\n=\nAtlanConnectorType\n.\nGCS\n,\n# (5)\nadmin_roles\n=\n[\nadmin_role_guid\n],\n# (6)\nadmin_groups\n=\n[\n\"group2\"\n],\n# (7)\nadmin_users\n=\n[\n\"jsmith\"\n]\n# (8)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nconnection\n)\n# (9)\nconnection_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nConnection\n)[\n0\n]\n.\nqualified_name\n# (10)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nYou must provide a client instance.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to GCS.\nList the workspace roles that should be able to administer the connection (or\nNone\nif none). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the group names that can administer this connection (or\nNone",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "At least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the group names that can administer this connection (or\nNone\nif none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the user names that can administer this connection (or\nNone\nif none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nActually call Atlan to create the connection.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a GCS connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nval\nadminRoleGuid\n=\nclient\n.\nroleCache\n.\ngetIdForName\n(\n\"\\\n$\nadmin\n\"\n);\n// (1)\nval\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"gcs-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nGCS\n,\n// (4)\nlistOf\n(\nadminRoleGuid\n),\n// (5)\nlistOf\n(\n\"group2\"\n),\n// (6)\nlistOf\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n()\nval\nresponse\n=\nconnection\n.\nsave\n(\nclient\n)\n// (8)\nval\nconnectionQualifiedName\n=\nresponse\n.\ncreatedAssets",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "(\nadminRoleGuid\n),\n// (5)\nlistOf\n(\n\"group2\"\n),\n// (6)\nlistOf\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n()\nval\nresponse\n=\nconnection\n.\nsave\n(\nclient\n)\n// (8)\nval\nconnectionQualifiedName\n=\nresponse\n.\ncreatedAssets\n[\n0\n]\n.\nqualifiedName\n// (9)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to GCS.\nList the workspace roles that should be able to administer the connection (or null if none). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the group names that can administer this connection (or null if none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "At least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the user names that can administer this connection (or null if none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Connection\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"gcs-connection\"\n,\n// (2)\n\"connectorName\"\n:\n\"gcs\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/gcs/123456789\"\n,\n// (4)\n\"category\"\n:\n\"ObjectStore\"\n,\n// (5)\n\"adminRoles\"\n:\n[\n// (6)\n\"e7ae0295-c60a-469a-bd2c-fb903943aa02\"\n],\n\"adminGroups\"\n:\n[\n// (7)\n\"group2\"\n],\n\"adminUsers\"\n:\n[\n// (8)\n\"jsmith\"\n]\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nConnection\n.\nHuman-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nThe\nconnectorName\nmust be exactly\ngcs\n.",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ":\n[\n// (8)\n\"jsmith\"\n]\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nConnection\n.\nHuman-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nThe\nconnectorName\nmust be exactly\ngcs\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/gcs/<epoch>\n, where\n<epoch>\nis the time in milliseconds at which the connection is being created.\nThe\ncategory\nmust be\nObjectStore\n.\nList any workspace roles that can administer this connection. All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any groups that can administer this connection. All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any users that can administer this connection. Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nAccess policies",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "At least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nAccess policies\nAtlan creates the policies that grant access to a connection, including the ability to retrieve the connection and to create assets within it, asynchronously. It can take several seconds (even up to approximately 30 seconds) before these are in place after creating the connection.\nYou may therefore need to wait before you'll be able to create the assets below within the connection.\nTo confirm access,\nretrieve the connection\nafter it has been created. The SDKs' retry loops will automatically retry until the connection can be successfully retrieved. At that point, your API token has permission to create the other assets.\nNote: if you are\nreusing\nan existing connection rather than creating one via your API token, you must give your API token a persona that has access to that connection. Otherwise all attempts to create, read, update, or delete assets within that connection will fail due to a lack of permissions.\nGCSBucket\n¶\n2.0.0\n4.0.0\nA Google Cloud Storage\nbucket\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "GCSBucket\n¶\n2.0.0\n4.0.0\nA Google Cloud Storage\nbucket\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the bucket.\nJava\nPython\nKotlin\nRaw REST API\nCreate a GCS bucket\n11\n12\n13\n14\n15\n16\n17\nGCSBucket\ngcsBucket\n=\nGCSBucket\n.\ncreator\n(\n// (1)\n\"mybucket\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\ngcsObjectCount\n(\n10\n)\n// (4)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ngcsBucket\n.\nsave\n(\nclient\n);\n// (5)\ngcsBucket\n=\nresponse\n.\ngetResult\n(\ngcsBucket\n);\n// (6)\nBuild up the minimum request to create a bucket.\nProvide a human-readable name for your bucket.\nProvide the qualifiedName of the connection for this bucket.\n(Optional) To ensure the UI displays the correct count of\nGCSObject\n's,\nset the\ngcsObjectCount\ndirectly on the\nGCSBucket\ninstance.\nActually call Atlan to create the bucket. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created bucket for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a GCS bucket\n17\n18\n19\n20\n21\n22\n23\ngcsBucket\n=\nGCSBucket\n.\ncreator\n(\n# (1)",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Create a GCS bucket\n17\n18\n19\n20\n21\n22\n23\ngcsBucket\n=\nGCSBucket\n.\ncreator\n(\n# (1)\nname\n=\n\"mybucket\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n# (3)\n)\ngcsBucket\n.\ngcs_object_count\n=\n10\n# (4)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ngcsBucket\n)\n# (5)\ngcs_bucket_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nGCSBucket\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a bucket.\nProvide a human-readable name for your bucket.\nProvide the\nqualified_name\nof the connection for this bucket.\n(Optional) To ensure the UI displays the correct count of\nGCSObject\n's,\nset the\ngcs_object_count\ndirectly on the\nGCSBucket\ninstance.\nActually call Atlan to create the bucket.\nRetrieve the created bucket for use in subsequent creation calls.(You'd probably want to do some null checking first.)\nCreate a GCS bucket\n11\n12\n13\n14\n15\n16\n17\nvar\ngcsBucket\n=\nGCSBucket\n.\ncreator\n(\n// (1)\n\"mybucket\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\ngcsObjectCount\n(\n10\n)\n// (4)\n.\nbuild\n()\nval\nresponse\n=\ngcsBucket\n.\nsave\n(\nclient\n)\n// (5)\ngcsBucket\n=\nresponse\n.\ngetResult\n(\ngcsBucket\n)\n// (6)\nBuild up the minimum request to create a bucket.",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": ".\ngcsObjectCount\n(\n10\n)\n// (4)\n.\nbuild\n()\nval\nresponse\n=\ngcsBucket\n.\nsave\n(\nclient\n)\n// (5)\ngcsBucket\n=\nresponse\n.\ngetResult\n(\ngcsBucket\n)\n// (6)\nBuild up the minimum request to create a bucket.\nProvide a human-readable name for your bucket.\nProvide the qualifiedName of the connection for this bucket.\n(Optional) To ensure the UI displays the correct count of\nGCSObject\n's,\nset the\ngcsObjectCount\ndirectly on the\nGCSBucket\ninstance.\nActually call Atlan to create the bucket. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created bucket for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"GCSBucket\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"mybucket\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/gcs/123456789/mybucket\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/gcs/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"gcs\"\n// (5)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nGCSBucket\n.\nHuman-readable name for your bucket.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/gcs/<epoch>/<name>",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ",\n// (4)\n\"connectorName\"\n:\n\"gcs\"\n// (5)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nGCSBucket\n.\nHuman-readable name for your bucket.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/gcs/<epoch>/<name>\n, where\ndefault/gcs/<epoch>\nis the qualifiedName of the connection for this bucket and\n<name>\nis the unique name for this bucket.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this bucket.\nThe\nconnectorName\nmust be exactly\ngcs\n.\nGCSObject\n¶\n5.0.0\n4.0.0\nA Google Cloud Storage\nobject\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nbucketQualifiedName\nof the bucket that will contain the object.\nJava\nPython\nKotlin\nRaw REST API\nCreate a GCS object\n18\n19\n20\n21\n22\nGCSObject\ngcsObject\n=\nGCSObject\n.\ncreator\n(\n// (1)\n\"myobject.csv\"\n,\n// (2)\ngcsBucket\n)\n// (3)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ngcsObject\n.\nsave\n(\nclient\n);\n// (4)\nBuild up the minimum request to create an object.\nProvide a human-readable name for your object.\nProvide the bucket for this object. If you did not already have the bucket, you could also use\nGCSBucket.refByGuid()\nwith the GUID of the bucket, or\nGCSBucket.refByQualifiedName()\nwith the",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Provide the bucket for this object. If you did not already have the bucket, you could also use\nGCSBucket.refByGuid()\nwith the GUID of the bucket, or\nGCSBucket.refByQualifiedName()\nwith the\nqualifiedName\nof the bucket.\nActually call Atlan to create the object. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a GCS object\n23\n24\n25\n26\n27\n28\ngcsObject\n=\nGCSObject\n.\ncreator\n(\n# (1)\nname\n=\n\"myobject.csv\"\n,\n# (2)\ngcs_bucket_name\n=\nbucket_name\n,\n# (3)\ngcs_bucket_qualified_name\n=\ngcs_bucket_qualified_name\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ngcsObject\n)\n# (5)\nBuild up the minimum request to create an object.\nProvide a human-readable name for your object.\nProvide the\nname\nof the bucket this object should be created within.\nProvide the\nqualified_name\nof the bucket for this object.\nActually call Atlan to create the object.\nCreate a GCS object\n18\n19\n20\n21\n22\nval\ngcsObject\n=\nGCSObject\n.\ncreator\n(\n// (1)\n\"myobject.csv\"\n,\n// (2)\ngcsBucket\n)\n// (3)\n.\nbuild\n()\nval\nresponse\n=\ngcsObject\n.\nsave\n(\nclient\n)\n// (4)\nBuild up the minimum request to create an object.\nProvide a human-readable name for your object.",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": ",\n// (2)\ngcsBucket\n)\n// (3)\n.\nbuild\n()\nval\nresponse\n=\ngcsObject\n.\nsave\n(\nclient\n)\n// (4)\nBuild up the minimum request to create an object.\nProvide a human-readable name for your object.\nProvide the bucket for this object. If you did not already have the bucket, you could also use\nGCSBucket.refByGuid()\nwith the GUID of the bucket, or\nGCSBucket.refByQualifiedName()\nwith the\nqualifiedName\nof the bucket.\nActually call Atlan to create the object. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"GCSObject\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"myobject.csv\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/gcs/123456789/mybucket/myobject.csv\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/gcs/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"gcs\"\n,\n// (5)\n\"gcsBucket\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"GSCBucket\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/gcs/123456789/mybucket\"\n}\n},\n\"gcsBucketName\"\n:\n\"mybucket\"\n,\n// (9)\n\"gcsBucketQualifiedName\"\n:\n\"default/gcs/123456789/mybucket\"\n// (10)\n}\n}\n]\n}\nThe\ntypeName",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": ":\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/gcs/123456789/mybucket\"\n}\n},\n\"gcsBucketName\"\n:\n\"mybucket\"\n,\n// (9)\n\"gcsBucketQualifiedName\"\n:\n\"default/gcs/123456789/mybucket\"\n// (10)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nGCSObject\n.\nHuman-readable name for your object.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/gcs/<epoch>/<bucket>/<name>\n, where\ndefault/gcs/<epoch>/<bucket>\nis the qualifiedName of the bucket that contains this object and\n<name>\nis the unique name for this object.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this object.\nThe\nconnectorName\nmust be exactly\ngcs\n.\nThe bucket in which this object exists is embedded in the\ngcsBucket\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nGCSBucket\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the bucket. Note: the bucket must already exist in Atlan before creating the object.\nThe\ngcsBucketName\nshould be the human-readable name of the bucket.\nThe\ngcsBucketQualifiedName\nshould be the qualifiedName of the bucket.\nBy prefix\n¶\nCreate a GCS object using prefix:\nJava\nPython\nJava\nRaw REST API\nComing soon\nCreate a GCS object using prefix",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "The\ngcsBucketQualifiedName\nshould be the qualifiedName of the bucket.\nBy prefix\n¶\nCreate a GCS object using prefix:\nJava\nPython\nJava\nRaw REST API\nComing soon\nCreate a GCS object using prefix\n23\n24\n25\n26\n27\n28\n29\n30\ngcs_object\n=\nGCSObject\n.\ncreator_with_prefix\n(\n# (1)\nname\n=\n\"myobject.csv\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n,\n# (3)\nprefix\n=\n\"/some/folder/structure\"\n,\n# (4)\ngcs_bucket_name\n=\nbucket_name\n,\n# (5)\ngcs_bucket_qualified_name\n=\nbucket_qualified_name\n,\n# (6)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ngcs_object\n)\n# (7)\nBuild up the minimum request to create an object.\nProvide a human-readable name for your object.\nProvide the\nqualified_name\nof the connection for this object.\nProvide the folder path where the object is located within the bucket.\nProvide the\nname\nof the bucket this object should be created within.\nProvide the\nqualified_name\nof the bucket this object should be created within.\nActually call Atlan to create the object.\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"GCSObject\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"myobject.csv\"\n,\n// (2)\n\"qualifiedName\"\n:",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"GCSObject\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"myobject.csv\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/gcs/123456789/mybucket//some/folder/structure/myobject.csv\"\n,\n// (3)\n\"gcsObjectKey\"\n:\n\"/some/folder/structure/myobject.csv\"\n,\n// (4)\n\"connectionQualifiedName\"\n:\n\"default/gcs/123456789\"\n,\n// (5)\n\"connectorName\"\n:\n\"gcs\"\n,\n// (6)\n\"gcsBucket\"\n:\n{\n// (7)\n\"typeName\"\n:\n\"GSCBucket\"\n,\n// (8)\n\"uniqueAttributes\"\n:\n{\n// (9)\n\"qualifiedName\"\n:\n\"default/gcs/123456789/mybucket\"\n}\n},\n\"gcsBucketName\"\n:\n\"mybucket\"\n,\n// (10)\n\"gcsBucketQualifiedName\"\n:\n\"default/gcs/123456789/mybucket\"\n// (11)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nGCSObject\n.\nHuman-readable name for your object.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/gcs/<epoch>/<bucket-name>/<prefix>/<name>\n,\nwhere\ndefault/gcs/<epoch>\nis the\nqualifiedName\nof the connection for this object,\nand\n<prefix>/<name>\nis the folder path where this object is located within the bucket.\nProvide the folder path where the object is located within the bucket.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this object.\nThe\nconnectorName",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "Provide the folder path where the object is located within the bucket.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this object.\nThe\nconnectorName\nmust be exactly\ngcs\n.\nThe bucket in which this object exists is embedded in the\ngcsBucket\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nGCSBucket\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the bucket. Note: the bucket must already exist in Atlan before creating the object.\nThe\ngcsBucketName\nshould be the human-readable name of the bucket.\nThe\ngcsBucketQualifiedName\nshould be the qualifiedName of the bucket.\nAvailable relationships\n¶\nEvery level of the object store structure is an\nAsset\n, and can therefore be related to the following other assets.\nerDiagram\nAsset }o--o{ AtlasGlossaryTerm : meanings\nAsset ||--o{ Link : links\nAsset ||--o| Readme : readme\nAsset }o--o{ Process : inputToProcesses\nAsset }o--o{ Process : outputFromProcesses\nAtlasGlossaryTerm\n¶\nA\nglossary term\nprovides meaning to an asset. The\nlink terms to assets snippet\nprovides more detail on setting this relationship.\nLink\n¶\nA\nlink",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "AtlasGlossaryTerm\n¶\nA\nglossary term\nprovides meaning to an asset. The\nlink terms to assets snippet\nprovides more detail on setting this relationship.\nLink\n¶\nA\nlink\nprovides additional context to an asset, by providing a URL to additional information.\nReadme\n¶\nA\nREADME\nprovides rich documentation for an asset. The\nadd asset READMEs snippet\nprovides more detail on setting this relationship.\nProcess\n¶\nA\nprocess\nprovides lineage information for an asset. An asset can be both an input and an output for one or more processes. The\nlineage snippets\nprovide more detail on creating and working with lineage.\nAlthough if you want to delete everything in a connection, your better avenue is the packaged\nconnection delete utility\nin the UI.\n↩\n2022-09-16\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "Allow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_create_gcs.html",
+      "source_type": "sdk",
+      "file": "patterns_create_gcs.json",
+      "chunk_id": 20
+    }
+  }
+]

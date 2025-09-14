@@ -1,0 +1,335 @@
+[
+  {
+    "content": "Introductory walkthrough - Developer\nSkip to content\nAn introductory walkthrough\n¶\nAtlan University\nYou might also like our\nAtlan Platform Essentials certification\n.\nNot sure where to start? Allow us to introduce Atlan development through example.\n1\nSetting up\n¶\nWe strongly recommend using one of our SDKs to simplify the development process. As a first step, set one up:\nJava\nPython\nKotlin\nGo\nThe SDK is available on\nMaven Central\n, ready to be included in your project:\nbuild.gradle.kts\nrepositories\n{\nmavenCentral\n()\n}\ndependencies\n{\nimplementation\n(\n\"com.atlan:atlan-java:+\"\n)\n// (1)\ntestRuntimeOnly\n(\n\"ch.qos.logback:logback-classic:1.2.11\"\n)\n// (2)\n}\nInclude the latest version of the Java SDK in your project as a dependency. You can also give a specific version instead of the\n+\n, if you'd like.\nThe Java SDK uses slf4j for logging purposes. You can include logback as a simple binding mechanism to send any logging information out to your console (standard out).\nProvide two values to create an Atlan client:\nAtlanLiveTest.java\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nimport\ncom.atlan.AtlanClient\n;\npublic\nclass\nAtlanLiveTest\n{\npublic\nstatic\nvoid\nmain\n(\nString\n[]\nargs\n)\n{\ntry\n(\nAtlanClient\nclient\n=\nnew",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "AtlanLiveTest.java\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nimport\ncom.atlan.AtlanClient\n;\npublic\nclass\nAtlanLiveTest\n{\npublic\nstatic\nvoid\nmain\n(\nString\n[]\nargs\n)\n{\ntry\n(\nAtlanClient\nclient\n=\nnew\nAtlanClient\n(\n\"https://tenant.atlan.com\"\n,\n// (1)\n\"...\"\n)\n// (2)\n)\n{\n// (3)\n}\n}\n}\nProvide your Atlan tenant URL as the first parameter. You can also read the value from an environment variable, if you leave out both parameters.\nProvide your\nAPI token\nas the second parameter. You can also read the value from another environment variable, by leaving out this parameter.\nYou can then start writing some actual code to run within a static\nmain\nmethod. (We'll show some examples of this further below.) Once the block is complete, any resources held by the client (i.e. for caching) will be automatically released.\nSet up logging for SDK\nYou can also checkout to the\nadvanced configuration section\nof the SDK to learn about how to set up logging.\nThe SDK is available on\nPyPI\n. You can use pip to install it as follows:\nInstall the SDK\npip install pyatlan\nProvide two values to create an Atlan client:\natlan_live_test.py\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n(\nbase_url\n=",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Install the SDK\npip install pyatlan\nProvide two values to create an Atlan client:\natlan_live_test.py\n1\n2\n3\n4\n5\n6\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n(\nbase_url\n=\n\"https://tenant.atlan.com\"\n,\n# (1)\napi_key\n=\n\"...\"\n# (2)\n)\nProvide your Atlan tenant URL to the\nbase_url\nparameter. (You can also\ndo this through environment variables\n.)\nProvide your\nAPI token\nto the\napi_key\nparameter. (You can also\ndo this through environment variables\n.)\nSet up logging for SDK\nYou can also checkout to the\nadvanced configuration section\nof the SDK to learn about how to set up logging.\nThe SDK is available on\nMaven Central\n, ready to be included in your project:\nbuild.gradle.kts\nrepositories\n{\nmavenCentral\n()\n}\ndependencies\n{\nimplementation\n(\n\"com.atlan:atlan-java:+\"\n)\n// (1)\nimplementation\n(\n\"io.github.microutils:kotlin-logging-jvm:3.0.5\"\n)\n// (2)\nimplementation\n(\n\"org.slf4j:slf4j-simple:2.0.7\"\n)\n}\nInclude the latest version of the Java SDK in your project as a dependency. You can also give a specific version instead of the\n+\n, if you'd like.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "implementation\n(\n\"org.slf4j:slf4j-simple:2.0.7\"\n)\n}\nInclude the latest version of the Java SDK in your project as a dependency. You can also give a specific version instead of the\n+\n, if you'd like.\nThe Java SDK uses slf4j for logging purposes. You can include slf4j-simple as a simple binding mechanism to send any logging information out to your console (standard out), along with the\nkotlin-logging-jvm\nmicroutil.\nProvide two values to create an Atlan client:\nAtlanLiveTest.kt\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nimport\ncom.atlan.AtlanClient;\nfun\nmain\n()\n{\nAtlanClient\n(\n\"https://tenant.atlan.com\"\n,\n// (1)\n\"...\"\n// (2)\n).\nuse\n{\nclient\n->\n// (3)\n}\n}\nProvide your Atlan tenant URL as the first parameter. You can also read the value from an environment variable, if you leave out both parameters.\nProvide your\nAPI token\nas the second parameter. You can also read the value from another environment variable, by leaving out this parameter.\nYou can then start writing some actual code to run within a static\nmain\nmethod. (We'll show some examples of this further below.) Once the block is complete, any resources held by the client (i.e. for caching) will be automatically released.\nSet up logging for SDK",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "main\nmethod. (We'll show some examples of this further below.) Once the block is complete, any resources held by the client (i.e. for caching) will be automatically released.\nSet up logging for SDK\nYou can also checkout to the\nadvanced configuration section\nof the SDK to learn about how to set up logging.\nThe SDK is available on\nGitHub\n, ready to be included in your project:\nmain.go\n1\n2\n3\n4\n5\npackage\nmain\nimport\n(\n\"github.com/atlanhq/atlan-go/atlan/assets\"\n)\nProvide two values to set up connectivity to Atlan:\nmain.go\n6\n7\n8\n9\n10\n11\nfunc\nmain\n()\n{\nctx\n,\n_\n:=\nassets\n.\nContext\n(\n\"https://tenant.atlan.com\"\n,\n// (1)\n\"...\"\n// (2)\n)\n}\nProvide your Atlan tenant URL to the\nassets.Context()\nmethod. If you prefer using the value from an environment variable, you can use\nassets.NewContext()\nwithout any parameters.\nProvide your\nAPI token\nas the second parameter to the\nassets.Context()\nmethod. (Or again, have it picked up automatically by the\nassets.NewContext()\nmethod.)\nSet up logging for SDK\nYou can also checkout to the\nadvanced configuration section\nof the SDK to learn about how to set up logging.\nDon't forget to give permissions",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "assets.NewContext()\nmethod.)\nSet up logging for SDK\nYou can also checkout to the\nadvanced configuration section\nof the SDK to learn about how to set up logging.\nDon't forget to give permissions\nIf you want to be able to access existing metadata with an API token, don't forget that you need to\nassign one or more personas\nto the\nAPI token\nthat grant it access to metadata.\nRetrieving metadata\n¶\nNow that you have an SDK installed and configured, you are ready to code!\nBefore we jump straight to code, though, let's first introduce some key concepts in Atlan:\nWhat is an asset?\n¶\nIn Atlan, we refer to all objects that provide context to your data as\nassets\n.\nclassDiagram\nclass Table {\ncertificateStatus\nannouncementType\ncolumnCount\nrowCount\n...\natlanSchema()\ncolumns()\n}\nclass Column {\ncertificateStatus\nannouncementType\ndataType\nisNullable\n...\ntable()\n}\nTable *-- Column\nEach type of asset in Atlan has a set of:\nProperties\n, such as:\nCertificates\nAnnouncements\nRelationships\nto other assets, such as:\nSchema\nchild tables\nTable\nparent schema\nTable\nchild columns\nColumn\nparent table\nAssets are\ninstances\nof metadata.\nIn an object-oriented programming sense, think of an asset as an\ninstance",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Schema\nchild tables\nTable\nparent schema\nTable\nchild columns\nColumn\nparent table\nAssets are\ninstances\nof metadata.\nIn an object-oriented programming sense, think of an asset as an\ninstance\nof a class. The structure of an asset (the class itself, in this analogy) is defined by something called a\ntype definition\n, but that's for another day.\nSo as you can see:\nThere are many different kinds of assets: tables, columns, schemas, databases, business intelligence dashboards, reports, and so on.\nAssets inter-relate with each other: a table has a parent schema and child columns, a schema has a parent database and child tables, and so on.\nDifferent kinds of assets have some common properties (like certificates) and other properties that are unique to that kind of asset (like a columnCount that only exists on tables, not on schemas or databases).\nWhen you know the asset\n¶\nWhen you already know which asset you want to retrieve, you can\nread it from Atlan using one of its\nidentifiers\n. We'll discuss these in more detail as part of updates, but for now you can think of them as:\nguid\n¶\nis a primary key for an asset: completely unique, but meaningless by itself\nqualifiedName\n¶",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ". We'll discuss these in more detail as part of updates, but for now you can think of them as:\nguid\n¶\nis a primary key for an asset: completely unique, but meaningless by itself\nqualifiedName\n¶\nis a business key for an asset: unique for a given kind of asset, and interpretable\nJava\nPython\nKotlin\nGo\nRetrieve an asset (AtlanLiveTest.java)\n5\n6\n7\n8\ntry\n(\nAtlanClient\nclient\n=\nnew\nAtlanClient\n())\n{\nTable\ntable\n=\nTable\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n);\n// (1)\ntable\n=\nTable\n.\nget\n(\nclient\n,\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n);\n}\nYou can retrieve an asset using the static\nget()\nmethod on any asset type, providing the client and either the asset's GUID or\nqualifiedName\n. (Each asset type is its own unique class in the SDK.)\nRetrieve an asset (atlan_live_test.py)\n7\n8\n9\n10\n11\n12\n13\n14\ntable\n=\nclient\n.\nasset\n.\nget_by_guid\n(\n# (1)\nasset_type\n=\nTable\n,\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\ntable\n=\nclient\n.\nasset\n.\nget_by_qualified_name\n(\nasset_type\n=\nTable\n,\nqualified_name\n=\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n)\nYou can retrieve an asset using the\nasset.get_by_guid()",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "=\nclient\n.\nasset\n.\nget_by_qualified_name\n(\nasset_type\n=\nTable\n,\nqualified_name\n=\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n)\nYou can retrieve an asset using the\nasset.get_by_guid()\nmethod on the Atlan client, providing both the type of asset you expect to retrieve and its GUID. (Each asset type is its own unique class in the SDK.)\nYou can also retrieve an asset using the\nasset.get_by_qualified_name()\nmethod on the Atlan client, providing the type of asset you expect to retrieve and its\nqualified_name\n. (Each asset type is its own unique class in the SDK.)\nRetrieve an asset (AtlanLiveTest.kt)\n4\n5\n6\n7\nAtlanClient\n().\nuse\n{\nclient\n->\nvar\ntable\n=\nTable\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\n// (1)\ntable\n=\nTable\n.\nget\n(\nclient\n,\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n)\n}\nYou can retrieve an asset using the static\nget()\nmethod on any asset type, providing the client and either the asset's GUID or\nqualifiedName\n. (Each asset type is its own unique class in the SDK.)\nRequest an asset (main.go)\n11\n12\n13\n14\n15\n16\nresponse\n,\nerr\n:=\nassets\n.\nGetByGuid\n[\n*\nassets\n.\nTable\n](\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\nresponse\n,\nerr\n:=",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "Request an asset (main.go)\n11\n12\n13\n14\n15\n16\nresponse\n,\nerr\n:=\nassets\n.\nGetByGuid\n[\n*\nassets\n.\nTable\n](\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\nresponse\n,\nerr\n:=\nassets\n.\nGetByQualifiedName\n[\n*\nassets\n.\nTable\n](\n// (2)\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n)\nYou can retrieve an asset using the\nassets.GetByGuid()\nmethod on the Atlan client, providing both the type of asset you expect to retrieve and its GUID. (Each asset type is its own unique class in the SDK.)\nYou can also retrieve an asset using the\nassets.GetByQualifiedName()\nmethod on the Atlan client, providing the type of asset you expect to retrieve and its\nqualifiedName\n. (Each asset type is its own unique class in the SDK.)\nNote that the response is strongly typed:\nIf you are retrieving a table, you will get a table back (as long as it exists).\nYou do not need to figure out what properties or relationships exist on a table - the\nTable\nclass defines them for for you already.\nIn any modern IDE, this means you have type-ahead support for retrieving the properties and relationships from the\ntable\nvariable. You can also refer to the\ntypes reference",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "In any modern IDE, this means you have type-ahead support for retrieving the properties and relationships from the\ntable\nvariable. You can also refer to the\ntypes reference\nin this portal for full details of every kind of asset.\nRetrieval by identifier can be more costly than you might expect\nEven though you are retrieving an asset by an identifier, this can be more costly than you might expect. Retrieving an asset in this way will:\nRetrieve all its properties and their values\nRetrieve all its relationships\nImagine the asset you are retrieving has 100's or 1000's of these. If you only care about its certificate and any owners, you will be retrieving far more information than you need.\nWhen you need to find it first\n¶\nWhat if you don't know the asset's identifier? Or what if you want to retrieve many assets with some common set of characteristics? In that case, you can\nsearch\nfor the asset(s)\n.\nFor example, imagine you want to find all tables named\nMY_TABLE\n:\nJava\nPython\nKotlin\nGo\nSearch for an asset (AtlanLiveTest.java)\n5\n6\n7\n8\n9\n10\ntry\n(\nAtlanClient\nclient\n=\nnew\nAtlanClient\n())\n{\nList\n<\nAsset\n>\ntables\n=\nTable\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "5\n6\n7\n8\n9\n10\ntry\n(\nAtlanClient\nclient\n=\nnew\nAtlanClient\n())\n{\nList\n<\nAsset\n>\ntables\n=\nTable\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n// (2)\n.\nstream\n()\n// (3)\n.\ntoList\n();\n}\nYou can search all active assets of a given type using the\nselect()\nstatic method.\nChain onto this method any conditions you want to apply to the search, in this example a\nwhere\nclause that will match any table whose name equals\nMY_TABLE\n.\nYou can then stream the results from this search and process them as any standard Java stream: filter them, limit them, apply an action to each one, and so on. The results of the search are automatically paged and each page is lazily-fetched.\nSearch for an asset (atlan_live_test.py)\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nfrom\npyatlan.model.assets\nimport\nTable\nrequest\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nFluentSearch\n.\nasset_type\n(\nTable\n))\n.\nwhere\n(\nFluentSearch\n.\nactive_assets\n())\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n# (2)\n)\n.\nto_request\n()\n# (3)\ntables\n=\n[]\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nrequest\n):\n# (4)\ntables\n.\nappend\n(\nresult\n)",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ".\nactive_assets\n())\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n# (2)\n)\n.\nto_request\n()\n# (3)\ntables\n=\n[]\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nrequest\n):\n# (4)\ntables\n.\nappend\n(\nresult\n)\nYou can search all active assets of a given type by creating a\nFluentSearch()\nobject and chaining two\nwhere\nclauses:\nFluentSearch.asset_type\nto limit to a particular kind of asset\nFluentSearch.active_assets()\nto limit to only active assets of that kind\nChain onto this method any conditions you want to apply to the search, in this example a\nwhere\nclause that will match any table whose name equals\nMY_TABLE\n.\nYou can then convert this object into a search request using the\nto_request()\nmethod.\nRun the request using the\nasset.search()\nmethod on the Atlan client, and you can directly iterate through the search results. The results of the search are automatically paged and each page is lazily-fetched.\nSearch for an asset (AtlanLiveTest.kt)\n4\n5\n6\n7\n8\n9\nAtlanClient\n().\nuse\n{\nclient\n->\nval\ntables\n=\nTable\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n// (2)\n.\nstream\n()\n// (3)\n.\ntoList\n()\n}\nYou can search all active assets of a given type using the\nselect()\nstatic method.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Table\n.\nselect\n(\nclient\n)\n// (1)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n// (2)\n.\nstream\n()\n// (3)\n.\ntoList\n()\n}\nYou can search all active assets of a given type using the\nselect()\nstatic method.\nChain onto this method any conditions you want to apply to the search, in this example a\nwhere\nclause that will match any table whose name equals\nMY_TABLE\n.\nYou can then stream the results from this search and process them as any standard Kotlin stream: filter them, limit them, apply an action to each one, and so on. The results of the search are automatically paged and each page is lazily-fetched.\nSearch for an asset (main.go)\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\nsearchResponse\n,\nerr\n:=\nassets\n.\nNewFluentSearch\n().\n// (1)\nActiveAssets\n().\nPageSizes\n(\n300\n).\nWhere\n(\nctx\n.\nTable\n.\nNAME\n.\nEq\n(\n\"MY_TABLE\"\n)).\n// (2)\nExecute\n()\n// (3)\nentities\n,\nerrIter\n:=\nsearchResponse\n.\nIter\n()\n// (4)\nfor\nasset\n:=\nrange\nentities\n{\nfmt\n.\nPrintln\n(\n\"Asset name:\"\n,\n*\nasset\n.\nName\n)\n}\nif\nerr\n:=\n<-\nerrIter\n;\nerr\n!=\nnil\n{\nfmt\n.\nPrintln\n(\n\"Error during iteration:\"\n,\nerr\n)\n}\nYou can search all active assets of a given type using the\nNewFluentSearch()\nmethod.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": ",\n*\nasset\n.\nName\n)\n}\nif\nerr\n:=\n<-\nerrIter\n;\nerr\n!=\nnil\n{\nfmt\n.\nPrintln\n(\n\"Error during iteration:\"\n,\nerr\n)\n}\nYou can search all active assets of a given type using the\nNewFluentSearch()\nmethod.\nChain onto this method any conditions you want to apply to the search, in this example a\nWhere\nclause that will match any table whose name equals\nMY_TABLE\n.\nYou can then run the request using\nExecute()\n.\nYou can directly iterate through the search results. The SDK handles pagination for you, fetching each page lazily as needed.\nBy default, the search only returns minimal information about each asset (only its identifiers). However, you can also specify what information you want.\nFor example, if you want to know the certificate of the asset you only need to tack that onto the query:\nJava\nPython\nKotlin\nGo\nSearch for an asset (AtlanLiveTest.java)\n5\n6\n7\n8\n9\n10\n11\ntry\n(\nAtlanClient\nclient\n=\nnew\nAtlanClient\n())\n{\nList\n<\nAsset\n>\ntables\n=\nTable\n.\nselect\n(\nclient\n)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\nincludeOnResults\n(\nTable\n.\nCERTIFICATE_STATUS\n)\n// (1)\n.\nstream\n()\n.\ntoList\n();\n}\nOnly this line differs from the original query. You can chain as many\nincludeOnResults",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": ".\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\nincludeOnResults\n(\nTable\n.\nCERTIFICATE_STATUS\n)\n// (1)\n.\nstream\n()\n.\ntoList\n();\n}\nOnly this line differs from the original query. You can chain as many\nincludeOnResults\ncalls as you want to specify the properties and relationships you want to retrieve for matching assets.\nSearch for an asset (atlan_live_test.py)\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nfrom\npyatlan.model.assets\nimport\nTable\nrequest\n=\n(\nFluentSearch\n()\n.\nwhere\n(\nFluentSearch\n.\nasset_type\n(\nTable\n))\n.\nwhere\n(\nFluentSearch\n.\nactive_assets\n())\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\ninclude_on_results\n(\nTable\n.\nCERTIFICATE_STATUS\n)\n# (1)\n)\n.\nto_request\n()\ntables\n=\n[]\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nrequest\n):\ntables\n.\nappend\n(\nresult\n)\nOnly this line differs from the original query. You can chain as many\ninclude_on_results\ncalls as you want to specify the properties and relationships you want to retrieve for matching assets.\nSearch for an asset (AtlanLiveTest.kt)\n4\n5\n6\n7\n8\n9\n10\nAtlanClient\n().\nuse\n{\nclient\n->\nval\ntables\n=\nTable\n.\nselect\n(\nclient\n)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\nincludeOnResults\n(\nTable\n.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "Search for an asset (AtlanLiveTest.kt)\n4\n5\n6\n7\n8\n9\n10\nAtlanClient\n().\nuse\n{\nclient\n->\nval\ntables\n=\nTable\n.\nselect\n(\nclient\n)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\nincludeOnResults\n(\nTable\n.\nCERTIFICATE_STATUS\n)\n// (1)\n.\nstream\n()\n.\ntoList\n()\n}\nOnly this line differs from the original query. You can chain as many\nincludeOnResults\ncalls as you want to specify the properties and relationships you want to retrieve for matching assets.\nSearch for an asset (main.go)\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\nsearchResponse\n,\nerr\n:=\nassets\n.\nNewFluentSearch\n().\nActiveAssets\n().\nPageSizes\n(\n300\n).\nWhere\n(\nctx\n.\nTable\n.\nNAME\n.\nEq\n(\n\"MY_TABLE\"\n)).\nIncludeOnResults\n(\nassets\n.\nCERTIFICATE_STATUS\n).\n// (1)\nExecute\n()\nentities\n,\nerrIter\n:=\nsearchResponse\n.\nIter\n()\nfor\nasset\n:=\nrange\nentities\n{\nfmt\n.\nPrintln\n(\n\"Asset name:\"\n,\n*\nasset\n.\nName\n)\n}\nif\nerr\n:=\n<-\nerrIter\n;\nerr\n!=\nnil\n{\nfmt\n.\nPrintln\n(\n\"Error during iteration:\"\n,\nerr\n)\n}\nOnly this line differs from the original query. You can include as many attributes in\nIncludeOnResults\nas you want to specify the properties and relationships you want to retrieve for matching assets.\nAlso gives the best performance",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "IncludeOnResults\nas you want to specify the properties and relationships you want to retrieve for matching assets.\nAlso gives the best performance\nSearching not only allows you to find an asset without knowing its identifier, it also improves retrieval performance. You no longer retrieve information you don't need — you can specify precisely the properties and relationships you want.\nUpdating metadata\n¶\nIf all you want to do is check or report on metadata, you should have a starting point from the information above.\nOr, now that you've found an asset of interest, maybe you want to\nupdate\nthe asset with additional metadata\n?\nOnce again, before we jump to code, let's first understand some key concepts about how Atlan handles updates:\nImportance of identifiers\n¶\nMost operations on assets are\nupserts\n, that is, they could either create (insert) or update a given asset.\nHow do you know which is going to happen?\nTo answer this question, you need to understand how Atlan uniquely identifies each asset.\nRecall\nearlier we discussed asset's different identifiers in Atlan\n. Every asset in Atlan has\nat least",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "To answer this question, you need to understand how Atlan uniquely identifies each asset.\nRecall\nearlier we discussed asset's different identifiers in Atlan\n. Every asset in Atlan has\nat least\nthe following two unique identifiers. These are both mandatory for every asset, so no asset can exist without these:\nGUID\n¶\nAtlan uses globally-unique identifiers (GUIDs) to uniquely identify each asset,\nglobally\n. They look something like this:\n17f0356e-75f6-4e0b-8b05-32cebe8cd953\nAs the name implies, GUIDs are:\nGlobally unique (across all systems).\nThey are:\nGenerated\nin a way that makes it nearly impossible for anything else to ever generate that same ID.\n2\nNote that this means the GUID itself is\nnot\n:\nMeaningful or capable of being interpreted in any way\nqualifiedName\n¶\nAtlan uses\nqualifiedName\ns to uniquely identify assets based on their characteristics. They look something like this:\ndefault/snowflake/1234567890/DB/SCHEMA\nQualified names are\nnot\n:\nGlobally unique (across all systems).\nInstead, they are:\nConsistently\nconstructed\nin a meaningful way, making it possible for them to be reconstructed.\nNote that this means the\nqualifiedName\nis:\nMeaningful and capable of being interpreted",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "Consistently\nconstructed\nin a meaningful way, making it possible for them to be reconstructed.\nNote that this means the\nqualifiedName\nis:\nMeaningful and capable of being interpreted\nHow these impact updates\nSince they are truly unique, operations that include a GUID will only\nupdate\nan asset, not create one. Conversely, operations that take a\nqualifiedName\ncan:\nCreate\nan asset, if no\nexactly-matching\nqualifiedName\nis found in Atlan.\nUpdate\nan asset, if an exact-match for the\nqualifiedName\nis found in Atlan.\nThese operations also require a\ntypeName\n, so that if creation does occur the correct type of asset is created.\nUnintended consequences of this behavior\nBe careful when using operations with only the\nqualifiedName\n. You may end up creating assets when you were only expecting them to be updated or to fail if they did not already exist. This is particularly true when you do not give the\nexact, case-sensitive\nqualifiedName\nof an asset.\na/b/c/d\nis\nnot\nthe same as\na/B/c/d\nwhen it comes to\nqualifiedName\ns.\nPerhaps this leaves you wondering: why have a\nqualifiedName\nat all?\nThe\nqualifiedName",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "qualifiedName\nof an asset.\na/b/c/d\nis\nnot\nthe same as\na/B/c/d\nwhen it comes to\nqualifiedName\ns.\nPerhaps this leaves you wondering: why have a\nqualifiedName\nat all?\nThe\nqualifiedName\n's purpose is to identify what is a unique asset. Many different tools might all have information about that asset. Having a common \"identity\" means that many different systems can each\nindependently\nconstruct its identifier the same way.\nIf a crawler gets table details from Snowflake it can upsert based on those identity characteristics in Atlan. The crawler will not create duplicate tables every time it runs. This gives idempotency.\nLooker knows the same identity characteristics for the Snowflake tables and columns. So if you get details from Looker about the tables it uses for reporting, you can link them together in lineage. (Looker can construct the same identifier for the table as Snowflake itself.)\nThese characteristics are\nnot\npossible using GUIDs alone.\nLimit to changes only\n¶\nNow that you understand the nuances of identifiers, let's look at how you can update metadata in Atlan.\nIn general, you only need to send changes to Atlan. You do\nnot",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "Limit to changes only\n¶\nNow that you understand the nuances of identifiers, let's look at how you can update metadata in Atlan.\nIn general, you only need to send changes to Atlan. You do\nnot\nneed to send an entire asset each time you want to make changes to it. For example, imagine you want to mark a table as certified but do not want to change anything else (its name, description, owner details, and so on):\nJava\nPython\nKotlin\nGo\nUpdate an asset (AtlanLiveTest.java)\n5\n6\n7\n8\n9\n10\n11\n12\ntry\n(\nAtlanClient\nclient\n=\nnew\nAtlanClient\n())\n{\nTable\ntoUpdate\n=\nTable\n.\nupdater\n(\n// (1)\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n,\n\"MY_TABLE\"\n)\n.\ncertificateStatus\n(\nCertificateStatus\n.\nVERIFIED\n)\n// (2)\n.\nbuild\n();\n// (3)\nAssetMutationResponse\nresponse\n=\ntoUpdate\n.\nsave\n(\nclient\n);\n// (4)\n}\nYou can update an asset\nwithout\nfirst looking the asset up, if you know (can construct) its identifying\nqualifiedName\n. Using the\nupdater()\nstatic method on any asset type, you pass in (typically) the\nqualifiedName\nand name of the asset. This returns a builder onto which you can then chain any updates.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "qualifiedName\n. Using the\nupdater()\nstatic method on any asset type, you pass in (typically) the\nqualifiedName\nand name of the asset. This returns a builder onto which you can then chain any updates.\nYou can then chain onto the returned builder as many updates as you want. In this example, we change the certificate status to\nVERIFIED\n.\nAt the end of your chain of updates, you need to build the builder (into an object, in-memory).\nAnd then, finally, you need to\n.save()\nthat object to persist those changes in Atlan (passing the client for the tenant you want to save it in). The response will contain details of the change: whether the asset was created, updated, or nothing happened because the asset already had those changes.\nUpdate an asset (atlan_live_test.py)\n7\n8\n9\n10\n11\n12\n13\n14\n15\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.enums\nimport\nCertificateStatus\nto_update\n=\nTable\n.\nupdater\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n,\nname\n=\n\"MY_TABLE\"\n,\n)\nto_update\n.\ncertificate_status\n=\nCertificateStatus\n.\nVERIFIED\n# (2)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nto_update\n)\n# (3)\nYou can update an asset\nwithout",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": ",\nname\n=\n\"MY_TABLE\"\n,\n)\nto_update\n.\ncertificate_status\n=\nCertificateStatus\n.\nVERIFIED\n# (2)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nto_update\n)\n# (3)\nYou can update an asset\nwithout\nfirst looking the asset up, if you know (can construct) its identifying\nqualified_name\n. Using the\nupdater()\nclass method on any asset type, you pass in (typically) the\nqualified_name\nand name of the asset.\nYou can then add onto the returned object as many updates as you want. In this example, we change the certificate status to\nVERIFIED\n.\nAnd then, finally, you need to\nclient.asset.save()\nthat object to persist those changes in Atlan. The response will contain details of the change: whether the asset was created, updated, or nothing happened because the asset already had those changes.\nUpdate an asset (AtlanLiveTest.kt)\n4\n5\n6\n7\n8\n9\n10\n11\nAtlanClient\n().\nuse\n{\nclient\n->\nval\ntoUpdate\n=\nTable\n.\nupdater\n(\n// (1)\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n,\n\"MY_TABLE\"\n)\n.\ncertificateStatus\n(\nCertificateStatus\n.\nVERIFIED\n)\n// (2)\n.\nbuild\n()\n// (3)\nval\nresponse\n=\ntoUpdate\n.\nsave\n(\nclient\n)\n// (4)\n}\nYou can update an asset\nwithout\nfirst looking the asset up, if you know (can construct) its identifying",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": ".\nVERIFIED\n)\n// (2)\n.\nbuild\n()\n// (3)\nval\nresponse\n=\ntoUpdate\n.\nsave\n(\nclient\n)\n// (4)\n}\nYou can update an asset\nwithout\nfirst looking the asset up, if you know (can construct) its identifying\nqualifiedName\n. Using the\nupdater()\nstatic method on any asset type, you pass in (typically) the\nqualifiedName\nand name of the asset. This returns a builder onto which you can then chain any updates.\nYou can then chain onto the returned builder as many updates as you want. In this example, we change the certificate status to\nVERIFIED\n.\nAt the end of your chain of updates, you need to build the builder (into an object, in-memory).\nAnd then, finally, you need to\n.save()\nthat object to persist those changes in Atlan (passing the client for the tenant you want to save it in). The response will contain details of the change: whether the asset was created, updated, or nothing happened because the asset already had those changes.\nUpdate an asset (main.go)\n11\n12\n13\n14\n15\n16\n17\ntoUpdate\n:=\n&\nassets\n.\nTable\n{}\n// (1)\ntoUpdate\n.\nUpdater\n(\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n,\n\"MY_TABLE\"\n)\ntoUpdate\n.\nCertificateStatus\n=\n&\natlan\n.\nCertificateStatusVerified\n// (2)\nresponse\n,\nerr\n:=",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "Table\n{}\n// (1)\ntoUpdate\n.\nUpdater\n(\n\"default/snowflake/1234567890/MY_DB/MY_SCHEMA/MY_TABLE\"\n,\n\"MY_TABLE\"\n)\ntoUpdate\n.\nCertificateStatus\n=\n&\natlan\n.\nCertificateStatusVerified\n// (2)\nresponse\n,\nerr\n:=\nassets\n.\nSave\n(\ntoUpdate\n)\n// (3)\nYou can update an asset\nwithout\nfirst looking the asset up, if you know (can construct) its identifying\nqualifiedName\n. Using the\nUpdater()\nmethod on any asset type, you pass in (typically) the\nqualifiedName\nand name of the asset. This returns an object into which you can then place any updates.\nYou can place into the returned object as many updates as you want. In this example, we change the certificate status to\nVERIFIED\n.\nAnd then, finally, you need to\n.Save()\nthat object to persist those changes in Atlan. The response will contain details of the change: whether the asset was created, updated, or nothing happened because the asset already had those changes.\nAtlan will handle idempotency\nBy sending only the changes you want to apply, Atlan can make idempotent updates.\nAtlan will only attempt to update the asset with the changes you send.\nAtlan leaves any existing metadata on the asset as-is.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "Atlan will only attempt to update the asset with the changes you send.\nAtlan leaves any existing metadata on the asset as-is.\nIf the asset already has the metadata values you are sending, Atlan does nothing. It will not even update audit details like the last update timestamp, and is thus idempotent.\nBulk changes\n¶\nWhat if you want to make changes to many assets, as efficiently as possible?\nIn that case, you are best making use of a combination of SDK functionality —\nsearch, trim, and batch\n:\nJava\nPython\nKotlin\nGo\nBulk changes (AtlanLiveTest.java)\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\ntry\n(\nAtlanClient\nclient\n=\nnew\nAtlanClient\n())\n{\nParallelBatch\nbatch\n=\nParallelBatch\n(\nclient\n,\n20\n);\n// (1)\nTable\n.\nselect\n(\nclient\n)\n// (2)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\nincludeOnResults\n(\nTable\n.\nCERTIFICATE_STATUS\n)\n// (3)\n.\npageSize\n(\n20\n)\n// (4)\n.\nstream\n(\ntrue\n)\n// (5)\n.\nforEach\n(\na\n->\n{\nbatch\n.\nadd\n(\n// (6)\na\n.\ntrimToRequired\n()\n// (7)\n.\ncertificateStatus\n(\nCertificateStatus\n.\nDEPRECATED\n)\n.\nbuild\n());\n});\nbatch\n.\nflush\n();\n// (8)\nList\n<\nAsset\n>\ncreated\n=\nbatch\n.\ngetCreated\n();\n// (9)\nList\n<\nAsset\n>\nupdated\n=\nbatch\n.\ngetUpdated\n();\n}",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "certificateStatus\n(\nCertificateStatus\n.\nDEPRECATED\n)\n.\nbuild\n());\n});\nbatch\n.\nflush\n();\n// (8)\nList\n<\nAsset\n>\ncreated\n=\nbatch\n.\ngetCreated\n();\n// (9)\nList\n<\nAsset\n>\nupdated\n=\nbatch\n.\ngetUpdated\n();\n}\nStart by initializing a batch. Through this batch, we can automatically queue up and bulk-upsert assets — in this example, 20 at a time.\nThen use the search pattern we discussed earlier to find all the assets you want to update.\nBe sure to include any details you might need to make a decision about whether to update the asset or not (and what to update it with).\nIt is a good idea to set the page size for search results to match the asset batch size, for maximal efficiency.\nWhen you stream the results of the search, you can send an optional boolean parameter. If set to\ntrue\n, this will stream the pages of results in parallel (across multiple threads), improving throughput.\nWhen you then operate on each search result, you can\nadd()\nany updates directly into the batch you created earlier. The batch itself will handle saving these to Atlan when a sufficient number have been queued up (20, in this example).\nTo make an update to a search result, first call\ntrimToRequired()",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "To make an update to a search result, first call\ntrimToRequired()\nagainst the result. This will pare down the asset to its minimal required attributes and return a builder. You can then chain as many updates onto this builder as you want, keeping to the pattern we discussed above — ensuring you are sending only changes.\nYou must\nflush()\nthe batch outside of any loop where you've added assets into it. This ensures any final remaining elements in the batch are still sent to Atlan, even if the batch is not \"full\".\nFinally, from the batch you can retrieve the minimal details about any assets it created or updated.\nBulk changes (atlan_live_test.py)\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.client.asset\nimport\nBatch\nfrom\npyatlan.model.enums\nimport\nCertificateStatus\nbatch\n=\nBatch\n(\nclient\n.\nasset\n,\nmax_size\n=\n20\n)\n# (1)\nrequest\n=\n(\n# (2)\nFluentSearch\n()\n.\nwhere\n(\nFluentSearch\n.\nasset_type\n(\nTable\n))\n.\nwhere\n(\nFluentSearch\n.\nactive_assets\n())\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\ninclude_on_results\n(\nTable\n.\nCERTIFICATE_STATUS\n)\n# (3)\n.\npage_size\n(\n20\n)",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 28
+    }
+  },
+  {
+    "content": ".\nasset_type\n(\nTable\n))\n.\nwhere\n(\nFluentSearch\n.\nactive_assets\n())\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\ninclude_on_results\n(\nTable\n.\nCERTIFICATE_STATUS\n)\n# (3)\n.\npage_size\n(\n20\n)\n# (4)\n)\n.\nto_request\n()\ntables\n=\n[]\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nrequest\n):\nrevised\n=\nresult\n.\ntrim_to_required\n()\n# (5)\nrevised\n.\ncertificate_status\n=\nCertificateStatus\n.\nDEPRECATED\nbatch\n.\nadd\n(\nrevised\n)\n# (6)\nbatch\n.\nflush\n()\n# (7)\ncreated\n=\nbatch\n.\ncreated\n# (8)\nupdated\n=\nbatch\n.\nupdated\nStart by initializing a batch. Through this batch, we can automatically queue up and bulk-upsert assets — in this example, 20 at a time.\nThen use the search pattern we discussed earlier to find all the assets you want to update.\nBe sure to include any details you might need to make a decision about whether to update the asset or not (and what to update it with).\nIt is a good idea to set the page size for search results to match the asset batch size, for maximal efficiency.\nWhen you then operate on each search result, first call\ntrim_to_required()",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 29
+    }
+  },
+  {
+    "content": "It is a good idea to set the page size for search results to match the asset batch size, for maximal efficiency.\nWhen you then operate on each search result, first call\ntrim_to_required()\nagainst the result. This will pare down the asset to its minimal required attributes. You can then add as many updates onto this object as you want, keeping to the pattern we discussed above — ensuring you are sending only changes.\nYou can then\nadd()\nany updated objects directly into the batch you created earlier. The batch itself will handle saving these to Atlan when a sufficient number have been queued up (20, in this example).\nYou must\nflush()\nthe batch outside of any loop where you've added assets into it. This ensures any final remaining elements in the batch are still sent to Atlan, even if the batch is not \"full\".\nFinally, from the batch you can retrieve the minimal details about any assets it created or updated.\nBulk changes (AtlanLiveTest.kt)\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\nAtlanClient\n().\nuse\n{\nclient\n->\nval\nbatch\n=\nParallelBatch\n(\nclient\n,\n20\n)\n// (1)\nTable\n.\nselect\n(\nclient\n)\n// (2)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\nincludeOnResults\n(\nTable\n.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 30
+    }
+  },
+  {
+    "content": "17\n18\n19\n20\nAtlanClient\n().\nuse\n{\nclient\n->\nval\nbatch\n=\nParallelBatch\n(\nclient\n,\n20\n)\n// (1)\nTable\n.\nselect\n(\nclient\n)\n// (2)\n.\nwhere\n(\nTable\n.\nNAME\n.\neq\n(\n\"MY_TABLE\"\n))\n.\nincludeOnResults\n(\nTable\n.\nCERTIFICATE_STATUS\n)\n// (3)\n.\npageSize\n(\n20\n)\n// (4)\n.\nstream\n(\ntrue\n)\n// (5)\n.\nforEach\n{\na\n->\nbatch\n.\nadd\n(\n// (6)\na\n.\ntrimToRequired\n()\n// (7)\n.\ncertificateStatus\n(\nCertificateStatus\n.\nDEPRECATED\n)\n.\nbuild\n())\n}\nbatch\n.\nflush\n()\n// (8)\nval\ncreated\n=\nbatch\n.\ncreated\n// (9)\nval\nupdated\n=\nbatch\n.\nupdated\n}\nStart by initializing a batch. Through this batch, we can automatically queue up and bulk-upsert assets — in this example, 20 at a time.\nThen use the search pattern we discussed earlier to find all the assets you want to update.\nBe sure to include any details you might need to make a decision about whether to update the asset or not (and what to update it with).\nIt is a good idea to set the page size for search results to match the asset batch size, for maximal efficiency.\nWhen you stream the results of the search, you can send an optional boolean parameter. If set to\ntrue\n, this will stream the pages of results in parallel (across multiple threads), improving throughput.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 31
+    }
+  },
+  {
+    "content": "true\n, this will stream the pages of results in parallel (across multiple threads), improving throughput.\nWhen you then operate on each search result, you can\nadd()\nany updates directly into the batch you created earlier. The batch itself will handle saving these to Atlan when a sufficient number have been queued up (20, in this example).\nTo make an update to a search result, first call\ntrimToRequired()\nagainst the result. This will pare down the asset to its minimal required attributes and return a builder. You can then chain as many updates onto this builder as you want, keeping to the pattern we discussed above — ensuring you are sending only changes.\nYou must\nflush()\nthe batch outside of any loop where you've added assets into it. This ensures any final remaining elements in the batch are still sent to Atlan, even if the batch is not \"full\".\nFinally, from the batch you can retrieve the minimal details about any assets it created or updated.\nBulk changes (main.go)\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\nbatch\n:=\nassets\n.\nNewBatch\n(\nctx\n,\n20\n,\ntrue\n,\natlan\n.\nIGNORE\n,\ntrue\n)\n// (1)\nsearchResponse\n,\n_\n:=\nassets\n.",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 32
+    }
+  },
+  {
+    "content": "16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\nbatch\n:=\nassets\n.\nNewBatch\n(\nctx\n,\n20\n,\ntrue\n,\natlan\n.\nIGNORE\n,\ntrue\n)\n// (1)\nsearchResponse\n,\n_\n:=\nassets\n.\nNewFluentSearch\n().\n// (2)\nAssetType\n(\n\"Table\"\n).\nActiveAssets\n().\nWhere\n(\nctx\n.\nTable\n.\nNAME\n.\nEq\n(\n\"MY_TABLE\"\n)).\nIncludeOnResults\n(\nassets\n.\nCERTIFICATE_STATUS\n).\n// (3)\nPageSizes\n(\n20\n).\n// (4)\nExecute\n()\nentities\n,\nerrIter\n:=\nsearchResponse\n.\nIter\n()\nfor\nasset\n:=\nrange\nentities\n{\nrevised\n,\nerr\n:=\nassets\n.\nTrimToRequired\n(\n*\nasset\n)\n// (5)\nif\nerr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error trimming asset: %v\"\n,\nerr\n)\n}\nrevised\n.\nCertificateStatus\n=\n&\natlan\n.\nCertificateStatusVerified\nerr\n=\nbatch\n.\nAdd\n(\nrevised\n)\n// (6)\nif\nerr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Failed to add asset to batch: %v\"\n,\nerr\n)\n}\n}\nif\nerr\n:=\n<-\nerrIter\n;\nerr\n!=\nnil\n{\nfmt\n.\nPrintln\n(\n\"Error during iteration:\"\n,\nerr\n)\n}\nbatch\n.\nFlush\n()\n// (7)\nfor\n_\n,\nasset\n:=\nrange\nbatch\n.\nCreated\n()\n{\n// (8)\nfmt\n.\nPrintln\n(\nasset\n)\n}\nfor\n_\n,\nasset\n:=\nrange\nbatch\n.\nUpdated\n()\n{\nfmt\n.\nPrintln\n(\nasset\n)\n}",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 33
+    }
+  },
+  {
+    "content": ",\nerr\n)\n}\nbatch\n.\nFlush\n()\n// (7)\nfor\n_\n,\nasset\n:=\nrange\nbatch\n.\nCreated\n()\n{\n// (8)\nfmt\n.\nPrintln\n(\nasset\n)\n}\nfor\n_\n,\nasset\n:=\nrange\nbatch\n.\nUpdated\n()\n{\nfmt\n.\nPrintln\n(\nasset\n)\n}\nStart by initializing a batch. Through this batch, we can automatically queue up and bulk-upsert assets — in this example, 20 at a time.\nThen use the search pattern we discussed earlier to find all the assets you want to update.\nBe sure to include any details you might need to make a decision about whether to update the asset or not (and what to update it with).\nIt is a good idea to set the page size for search results to match the asset batch size, for maximal efficiency.\nWhen you then operate on each search result, first call\nTrimToRequired()\nagainst the result. This will pare down the asset to its minimal required attributes. You can then add as many updates onto this object as you want, keeping to the pattern we discussed above — ensuring you are sending only changes.\nYou can then\nadd()\nany updated objects directly into the batch you created earlier. The batch itself will handle saving these to Atlan when a sufficient number have been queued up (20, in this example).\nYou must\nflush()",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 34
+    }
+  },
+  {
+    "content": "You must\nflush()\nthe batch outside of any loop where you've added assets into it. This ensures any final remaining elements in the batch are still sent to Atlan, even if the batch is not \"full\".\nFinally, from the batch you can retrieve the minimal details about any assets it created or updated.\nWhere to go from here\n¶\nNow that you know the basics, it's up to you to delve further into whichever areas you like. You can search (upper-right) or use the top-level menu:\nCommon tasks\nCommon operations on assets, that are available across all assets.\nDiscover actions\nAsset-specific\nOperations that are specific to certain assets.\nFocus on a specific kind of asset\nGovernance structures\nOperations dealing with governance structures, rather than assets.\nManage governance structures\nSamples\nReal code samples our customers use to solve particular use cases.\nReview live samples\nSearching\nDelve deep into searching and aggregating metadata.\nLearn more about searching\nEvents\nDelve deep into the details of the events Atlan triggers.\nLearn more about events",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 35
+    }
+  },
+  {
+    "content": "Review live samples\nSearching\nDelve deep into searching and aggregating metadata.\nLearn more about searching\nEvents\nDelve deep into the details of the events Atlan triggers.\nLearn more about events\nNote that this is intentionally kept as simple as possible. The walkthrough is not intended to be exhaustive. Where possible, we have cross-referenced other detailed examples elsewhere in the site.\n↩\nThere are orders of magnitude lower chances of GUIDs conflicting with each other than there are grains of sand on the planet. (And generating them does\nnot\nrely on a central ID-assigning registry.)\n↩\n2023-04-19\n2025-03-26\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "getting-started.html",
+      "source_type": "sdk",
+      "file": "getting-started.json",
+      "chunk_id": 36
+    }
+  }
+]

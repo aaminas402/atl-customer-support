@@ -1,0 +1,110 @@
+[
+  {
+    "content": "Link data domain and assets - Developer\nSkip to content\nLink domain and assets\n¶\nLink your asset to a domain for easy discovery and governance.\nAdd an asset to a domain\n¶\n3.0.0\n4.0.0\nYou can add an asset to a domain or update an existing domain by updating the asset's\ndomainGUIDs\n.\nIn the example below, we're adding a Table (\nMARKETING_SALES\n) to the domain (\nMarketing\n).\ndbt\nJava\nPython\nKotlin\nRaw REST API\nAdd an asset to a domain\n1\n2\n3\n4\n5\nmodels\n:\n-\nname\n:\nMARKETING_SALES\n# (1)\nmeta\n:\natlan\n:\ndomainName\n:\n\"Marketing\"\n# (2)\nYou must give the name of the object.\nYou can specify the domain as a human-readable name. Each asset can be assigned to only one domain. You can also replace an existing domain assignment by updating the\ndomainName\nto a different domain.\nAdd an asset to a domain\n1\n2\n3\n4\n5\n6\n7\n8\n9\nDataDomain\ndomain\n=\nDataDomain\n.\nfindByName\n(\nclient\n,\n\"Marketing\"\n).\nget\n(\n0\n);\n// (1)\nTable\ntable\n=\nTable\n.\nupdater\n(\n// (2)\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\n\"MARKETING_SALES\"\n)\n.\ndomainGUID\n(\ndomain\n.\ngetGuid\n())\n// (3)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ntable\n.\nsave\n(\nclient\n);\n// (4)",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ",\n\"MARKETING_SALES\"\n)\n.\ndomainGUID\n(\ndomain\n.\ngetGuid\n())\n// (3)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ntable\n.\nsave\n(\nclient\n);\n// (4)\nYou can retrieve a data domain by its human-readable\nname\nusing the\nfindByName()\nmethod. Because this operation will look up the domain in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUse the\nupdater()\nmethod of an asset by providing its\nqualifiedName\nand\nname\n.\nTo add the asset to the domain, assign the\nguid\nof the domain to the\ndomainGUID\nattribute.\nFinally, call the\nsave()\nmethod to apply the changes in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nAdd an asset to a domain\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\n,\nclient\n=\nAtlanClient\n()\ndomain\n=\nclient\n.\nasset\n.\nfind_domain_by_name\n(\n\"Marketing\"\n)\n# (1)\ntable\n=\nTable\n.\nupdater\n(\n# (2)\nqualified_name\n=\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\nname\n=\n\"MARKETING_SALES\"\n,\n)\ntable\n.\ndomain_g_u_i_ds\n=\n[\ndomain\n.\nguid\n]\n# (3)\nclient\n.\nasset\n.\nsave\n(\ntable\n)",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "qualified_name\n=\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\nname\n=\n\"MARKETING_SALES\"\n,\n)\ntable\n.\ndomain_g_u_i_ds\n=\n[\ndomain\n.\nguid\n]\n# (3)\nclient\n.\nasset\n.\nsave\n(\ntable\n)\n# (4)\nYou can retrieve a data domain by its human-readable\nname\nusing the\nfind_domain_by_name()\nmethod.\nUse the\nupdater()\nmethod of an asset by providing its\nqualifiedName\nand\nname\n.\nTo add the asset to the domain, assign the\nguid\nof the domain to the\nasset.domain_g_u_i_ds\nattribute.\nFinally, call the\nsave()\nmethod to apply the changes in Atlan.\nAdd an asset to a domain\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\ndomain\n=\nDataDomain\n.\nfindByName\n(\nclient\n,\n\"Marketing\"\n)\n[\n0\n]\n// (1)\nval\ntable\n=\nTable\n.\nupdater\n(\n// (2)\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\n\"MARKETING_SALES\"\n)\n.\ndomainGUID\n(\ndomain\n.\ngetGuid\n())\n// (3)\n.\nbuild\n()\nval\nresponse\n=\ntable\n.\nsave\n(\nclient\n)\n// (4)\nYou can retrieve a data domain by its human-readable\nname\nusing the\nfindByName()\nmethod. Because this operation will look up the domain in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUse the\nupdater()\nmethod of an asset by providing its\nqualifiedName\nand\nname\n.",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nUse the\nupdater()\nmethod of an asset by providing its\nqualifiedName\nand\nname\n.\nTo add the asset to the domain, assign the\nguid\nof the domain to the\nasset.domainGUID\nattribute.\nFinally, call the\nsave()\nmethod to apply the changes in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\n// (2)\n\"name\"\n:\n\"MARKETING_SALES\"\n,\n// (3)\n\"domainGUIDs\"\n:\n[\n\"db711647-99a9-4c50-93c5-fab0b992a0cc\"\n// (4)\n]\n}\n}\n]\n}\nYou need to specify the\ntypeName\nof the asset;\nfor this example, we're updating the\ndomainGUIDs\nfor a Snowflake table.\nYou need to specify the\nqualifiedName\nof the asset.\nYou need to specify the\nname\nof the asset.\nTo add the asset to the domain, assign the\nguid\nof the domain to the\ndomainGUIDs\nproperty.\nRetrieve Assets by Domain\n¶\n3.0.0\n4.0.0\nYou can retrieve all assets associated with a domain by filtering on the\ndomainGUIDs",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "guid\nof the domain to the\ndomainGUIDs\nproperty.\nRetrieve Assets by Domain\n¶\n3.0.0\n4.0.0\nYou can retrieve all assets associated with a domain by filtering on the\ndomainGUIDs\n.\nIn the example below, we retrieve all assets linked to the (\nMarketing\n) domain.\nJava\nPython\nKotlin\nRetrieve assets from a domain\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\nString\ndomainName\n=\n\"Marketing\"\n;\nDataDomain\ndomain\n=\nDataDomain\n.\nfindByName\n(\nclient\n,\ndomainName\n).\nget\n(\n0\n);\n// (1)\nString\ndomainGuid\n=\ndomain\n.\ngetGuid\n();\nList\n<\nAsset\n>\nresult\n=\nclient\n.\nassets\n.\nselect\n()\n.\nwhere\n(\nAsset\n.\nDOMAIN_GUIDS\n.\neq\n(\ndomainGuid\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nNAME\n)\n.\nincludeOnResults\n(\nAsset\n.\nQUALIFIED_NAME\n)\n// (3)\n.\nstream\n()\n.\ntoList\n();\nresult\n.\nforEach\n(\nasset\n->\n{\n// (4)\nSystem\n.\nout\n.\nprintln\n(\n\"Asset Name: \"\n+\nasset\n.\ngetName\n());\nSystem\n.\nout\n.\nprintln\n(\n\"Qualified Name: \"\n+\nasset\n.\ngetQualifiedName\n());\n});\nYou can retrieve a data domain by its human-readable\nname\nusing the\nfindByName()\nmethod. Because this  operation will look up the domain in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "name\nusing the\nfindByName()\nmethod. Because this  operation will look up the domain in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nQuery all assets linked to the domain using client.assets.select().where(Asset.DOMAIN_GUIDS.eq(domainGuid)).\nInclude specific attributes (e.g., Asset.NAME, Asset.QUALIFIED_NAME) in the results using .includeOnResults().\nProcess the retrieved assets and print any specific attributes you need, such as name and qualifiedName in this example.\nRetrieve assets from a domain\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\n,\nReadme\nfrom\npyatlan.model.fluent_search\nimport\nCompoundQuery\n,\nFluentSearch\nclient\n=\nAtlanClient\n()\ndomain_name\n=\n\"Marketing\"\ndomain\n=\nclient\n.\nasset\n.\nfind_domain_by_name\n(\ndomain_name\n)\n# (1)\ndomain_guid\n=\ndomain\n.\nguid\nresponse\n=\n(\n# (2)\nFluentSearch\n()\n.\nselect\n()\n.\nwhere\n(\nAsset\n.\nDOMAIN_GUIDS\n.\neq\n(\ndomain_guid\n))\n.\ninclude_on_results\n(\nAsset\n.\nNAME\n)\n# (3)\n.\ninclude_on_results\n(\nAsset\n.\nQUALIFIED_NAME\n)\n.\nexecute\n(\nclient\n=\nclient\n)\n)\nfor\nasset\nin\nresponse\n:\n# (4)\nprint\n(\nf\n\"Name:\n{\nasset\n.\nname\n}",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "))\n.\ninclude_on_results\n(\nAsset\n.\nNAME\n)\n# (3)\n.\ninclude_on_results\n(\nAsset\n.\nQUALIFIED_NAME\n)\n.\nexecute\n(\nclient\n=\nclient\n)\n)\nfor\nasset\nin\nresponse\n:\n# (4)\nprint\n(\nf\n\"Name:\n{\nasset\n.\nname\n}\n, Qualified Name:\n{\nasset\n.\nqualified_name\n}\n\"\n)\nYou can retrieve a data domain by its human-readable\nname\nusing the\nfind_domain_by_name()\nmethod.\nQuery all assets linked to the domain using FluentSearch.select().where(Asset.DOMAIN_GUIDS.eq(domain_guid)).\nInclude specific attributes (e.g., Asset.NAME, Asset.QUALIFIED_NAME) in the results using .include_on_results().\nProcess the retrieved assets and print any specific attributes you need, such as name and qualifiedName in this example.\nRetrieve assets from a domain\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\nval\ndomainName\n=\n\"Marketing\"\nval\ndomain\n=\nDataDomain\n.\nfindByName\n(\nclient\n,\ndomainName\n)\n[\n0\n]\n// (1)\nval\ndomainGuid\n=\ndomain\n.\nguid\nval\nresult\n=\nclient\n.\nassets\n//(2)\n.\nselect\n()\n.\nwhere\n(\nAsset\n.\nDOMAIN_GUIDS\n.\neq\n(\ndomainGuid\n))\n.\nincludeOnResults\n(\nAsset\n.\nNAME\n)\n// (3)\n.\nincludeOnResults\n(\nAsset\n.\nQUALIFIED_NAME\n)\n.\nstream\n()\n.\ntoList\n()\nfor\n(\nassets\nin\nresult\n)\n{\n//(4)\nprintln\n(\n\"Asset Name:\"\n+\nassets\n.\nname\n)\nprintln\n(\n\"Asset Qualified Name:\"",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ".\nNAME\n)\n// (3)\n.\nincludeOnResults\n(\nAsset\n.\nQUALIFIED_NAME\n)\n.\nstream\n()\n.\ntoList\n()\nfor\n(\nassets\nin\nresult\n)\n{\n//(4)\nprintln\n(\n\"Asset Name:\"\n+\nassets\n.\nname\n)\nprintln\n(\n\"Asset Qualified Name:\"\n+\nassets\n.\nqualifiedName\n)\n}\nYou can retrieve a data domain by its human-readable\nname\nusing the\nfindByName()\nmethod. Because this operation will look up the domain in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nQuery all assets linked to the domain using FluentSearch.search().where(Asset.DOMAIN_GUIDS.eq(domainGuid)).\nInclude specific attributes (e.g., Asset.NAME, Asset.QUALIFIED_NAME) in the results using .includeOnResults().\nProcess the retrieved assets and print any specific attributes you need, such as name and qualifiedName in this example.\nRemove an asset from a domain\n¶\n3.0.0\n4.0.0\nYou can remove an asset from a domain by updating the asset's\ndomainGUIDs\n.\nIn the example below, we're removing a table (\nMARKETING_SALES\n) asset from the existing linked domain.\ndbt\nJava\nPython\nKotlin\nRaw REST API\nRemove an asset from a domain\n1\n2\n3\n4\n5\nmodels\n:\n-\nname\n:\nMARKETING_SALES\n# (1)\nmeta\n:\natlan\n:\ndomainName\n:\n\"\"\n# (2)\nYou must give the name of the object.",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "dbt\nJava\nPython\nKotlin\nRaw REST API\nRemove an asset from a domain\n1\n2\n3\n4\n5\nmodels\n:\n-\nname\n:\nMARKETING_SALES\n# (1)\nmeta\n:\natlan\n:\ndomainName\n:\n\"\"\n# (2)\nYou must give the name of the object.\nTo remove the asset from the domain, set the\ndomainName\nto an empty string.\nRemove an asset from a domain\n1\n2\n3\n4\n5\n6\n7\nTable\ntable\n=\nTable\n.\nupdater\n(\n// (1)\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\n\"MARKETING_SALES\"\n)\n.\nnullField\n(\nTable\n.\nDOMAIN_GUIDS\n.\ngetAtlanFieldName\n())\n// (2)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ntable\n.\nsave\n(\nclient\n);\n// (3)\nUse the\nupdater()\nmethod of an asset by providing its\nqualifiedName\nand\nname\n.\nTo remove the asset from the domain, set the\ndomainGUIDs\nfield as a\nnullField\non the builder.\nFinally, call the\nsave()\nmethod to apply the changes in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRemove an asset from a domain\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\n,\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\nupdater\n(\n# (1)\nqualified_name\n=",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\n,\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\nupdater\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\nname\n=\n\"MARKETING_SALES\"\n,\n)\ntable\n.\ndomain_g_u_i_ds\n=\n[]\n# (2)\nclient\n.\nasset\n.\nsave\n(\ntable\n)\n# (3)\nUse the\nupdater()\nmethod of an asset by providing its\nqualifiedName\nand\nname\n.\nTo remove the asset from the domain, assign the\ndomain_g_u_i_ds\nof the asset to an empty list ie.\n[]\n.\nFinally, call the\nsave()\nmethod to apply the changes in Atlan.\nRemove an asset from a domain\n1\n2\n3\n4\n5\n6\n7\nval\ntable\n=\nTable\n.\nupdater\n(\n// (1)\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\n\"MARKETING_SALES\"\n)\n.\nnullField\n(\nTable\n.\nDOMAIN_GUIDS\n.\natlanFieldName\n)\n// (2)\n.\nbuild\n()\nval\nresponse\n=\ntable\n.\nsave\n(\nclient\n)\n// (3)\nUse the\nupdater()\nmethod of an asset by providing its\nqualifiedName\nand\nname\n.\nTo remove the asset from the domain, set the\ndomainGUIDs\nfield as a\nnullField\non the builder.\nFinally, call the\nsave()\nmethod to apply the changes in Atlan. Because this operation will persist the asset in Atlan, you must",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "domainGUIDs\nfield as a\nnullField\non the builder.\nFinally, call the\nsave()\nmethod to apply the changes in Atlan. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1726834662/RAW/WIDEWORLDIMPORTERS/MARKETING_SALES\"\n,\n// (2)\n\"name\"\n:\n\"MARKETING_SALES\"\n,\n// (3)\n\"domainGUIDs\"\n:\n[]\n// (4)\n}\n}\n]\n}\nYou need to specify the\ntypeName\nof the asset;\nfor this example, we're updating the\ndomainGUIDs\nfor a Snowflake table.\nYou need to specify the\nqualifiedName\nof the asset.\nYou need to specify the\nname\nof the asset.\nTo remove the asset from the domain, assign the\ndomainGUIDs\nproperty of the asset to the empty array.\n2024-09-24\n2025-06-25\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "to provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_common-examples_domain-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_domain-assignment.json",
+      "chunk_id": 11
+    }
+  }
+]

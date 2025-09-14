@@ -1,0 +1,236 @@
+[
+  {
+    "content": "Manage Preset assets - Developer\nSkip to content\nManage Preset assets\n¶\nOperations on Preset assets (connections, workspaces, collections, charts, datasets).\nIn general, these should be:\nCreated in top-down order\n(connection, then workspace, then collection, then charts and datasets)\nDeleted in bottom-up order (charts and datasets, then collections, then workspaces, then connections)\n1\nerDiagram\nConnection ||--o{ PresetWorkspace : contains\nPresetWorkspace ||--o{ PresetDashboard : contains\nPresetDashboard ||--o{ PresetChart : contains\nPresetDashboard ||--o{ PresetDataset : contains\nAsset structure\n¶\nConnection\n¶\n7.0.0\n4.0.0\nA Preset\nconnection\nrequires a\nname\nand\nqualifiedName\n. For creation, specific settings are also required to distinguish it as a Preset connection rather than another type of connection. In addition,\nat least one\nof\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nJava\nPython\nKotlin\nRaw REST API\nCreate a Preset connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nString\nadminRoleGuid\n=\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"$admin\"\n);\n// (1)\nConnection\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"preset-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nPRESET\n,\n// (4)\nList\n.\nof\n(",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "=\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"$admin\"\n);\n// (1)\nConnection\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"preset-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nPRESET\n,\n// (4)\nList\n.\nof\n(\nadminRoleGuid\n),\n// (5)\nList\n.\nof\n(\n\"group2\"\n),\n// (6)\nList\n.\nof\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nconnection\n.\nsave\n(\nclient\n);\n// (8)\nString\nconnectionQualifiedName\n=\nresponse\n.\ngetCreatedAssets\n().\nget\n(\n0\n).\ngetQualifiedName\n();\n// (9)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to Preset.\nList the workspace roles that should be able to administer the connection (or null if none). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "At least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the group names that can administer this connection (or null if none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the user names that can administer this connection (or null if none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a Preset connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nConnection\n,\nPresetWorkspace\n,\nPresetDashboard\n,\nPresetChart\n,\nPresetDataset\nfrom\npyatlan.model.enums\nimport\nAtlanConnectorType\nclient\n=\nAtlanClient\n()\nadmin_role_guid",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "pyatlan.model.assets\nimport\nConnection\n,\nPresetWorkspace\n,\nPresetDashboard\n,\nPresetChart\n,\nPresetDataset\nfrom\npyatlan.model.enums\nimport\nAtlanConnectorType\nclient\n=\nAtlanClient\n()\nadmin_role_guid\n=\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)\n# (1)\nconnection\n=\nConnection\n.\ncreator\n(\n# (2)\nclient\n=\nclient\n,\n# (3)\nname\n=\n\"preset-connection\"\n,\n# (4)\nconnector_type\n=\nAtlanConnectorType\n.\nPRESET\n,\n# (5)\nadmin_roles\n=\n[\nadmin_role_guid\n],\n# (6)\nadmin_groups\n=\n[\n\"group2\"\n],\n# (7)\nadmin_users\n=\n[\n\"jsmith\"\n]\n# (8)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nconnection\n)\n# (9)\nconnection_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nConnection\n)[\n0\n]\n.\nqualified_name\n# (10)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nYou must provide a client instance.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to Preset.\nList the workspace roles that should be able to administer the connection (or\nNone",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "production\nor\ndevelopment\n.\nSet the type of connection to Preset.\nList the workspace roles that should be able to administer the connection (or\nNone\nif none). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the group names that can administer this connection (or\nNone\nif none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the user names that can administer this connection (or\nNone\nif none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nActually call Atlan to create the connection.\nRetrieve the\nqualified_name\nfor use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a Preset connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nval\nadminRoleGuid\n=\nclient\n.\nroleCache\n.\ngetIdForName\n(",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a Preset connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nval\nadminRoleGuid\n=\nclient\n.\nroleCache\n.\ngetIdForName\n(\n\"\\\n$\nadmin\n\"\n)\n// (1)\nval\nconnection\n=\nConnection\n.\ncreator\n(\n// (2)\n\"preset-connection\"\n,\n// (3)\nAtlanConnectorType\n.\nPRESET\n,\n// (4)\nlistOf\n(\nadminRoleGuid\n),\n// (5)\nlistOf\n(\n\"group2\"\n),\n// (6)\nlistOf\n(\n\"jsmith\"\n))\n// (7)\n.\nbuild\n()\nval\nresponse\n=\nconnection\n.\nsave\n(\nclient\n)\n// (8)\nval\nconnectionQualifiedName\n=\nresponse\n.\ncreatedAssets\n[\n0\n]\n.\nqualifiedName\n// (9)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to Preset.\nList the workspace roles that should be able to administer the connection (or null if none). All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "At least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the group names that can administer this connection (or null if none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList the user names that can administer this connection (or null if none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nActually call Atlan to create the connection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the qualifiedName for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Connection\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"preset-connection\"\n,\n// (2)\n\"connectorName\"\n:\n\"preset\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/preset/123456789\"\n,\n// (4)\n\"category\"\n:\n\"bi\"\n,\n// (5)",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ":\n\"Connection\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"preset-connection\"\n,\n// (2)\n\"connectorName\"\n:\n\"preset\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/preset/123456789\"\n,\n// (4)\n\"category\"\n:\n\"bi\"\n,\n// (5)\n\"adminRoles\"\n:\n[\n// (6)\n\"e7ae0295-c60a-469a-bd2c-fb903943aa02\"\n],\n\"adminGroups\"\n:\n[\n// (7)\n\"group2\"\n],\n\"adminUsers\"\n:\n[\n// (8)\n\"jsmith\"\n]\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nConnection\n.\nHuman-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nThe\nconnectorName\nmust be exactly\npreset\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/preset/<epoch>\n, where\n<epoch>\nis the time in milliseconds at which the connection is being created.\nThe\ncategory\nmust be\nbi\n.\nList any workspace roles that can administer this connection. All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any groups that can administer this connection. All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "At least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any users that can administer this connection. Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nAccess policies\nAtlan creates the policies that grant access to a connection, including the ability to retrieve the connection and to create assets within it, asynchronously. It can take several seconds (even up to approximately 30 seconds) before these are in place after creating the connection.\nYou may therefore need to wait before you'll be able to create the assets below within the connection.\nTo confirm access,\nretrieve the connection\nafter it has been created. The SDKs' retry loops will automatically retry until the connection can be successfully retrieved. At that point, your API token has permission to create the other assets.\nNote: if you are\nreusing",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "Note: if you are\nreusing\nan existing connection rather than creating one via your API token, you must give your API token a persona that has access to that connection. Otherwise all attempts to create, read, update, or delete assets within that connection will fail due to a lack of permissions.\nPresetWorkspace\n¶\n2.0.0\n4.0.0\nA Preset\nworkspace\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the workspace.\nJava\nPython\nKotlin\nRaw REST API\nCreate a Preset workspace\n11\n12\n13\n14\n15\n16\nPresetWorkspace\nworkspace\n=\nPresetWorkspace\n.\ncreator\n(\n// (1)\n\"ps-workspace\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nworkspace\n.\nsave\n(\nclient\n);\n// (4)\nworkspace\n=\nresponse\n.\ngetResult\n(\nworkspace\n);\n// (5)\nBuild up the minimum request to create a workspace.\nProvide a human-readable name for your workspace.\nProvide the qualifiedName of the connection for this workspace.\nActually call Atlan to create the workspace. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Actually call Atlan to create the workspace. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created workspace for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a Preset workspace\n17\n18\n19\n20\n21\n22\nworkspace\n=\nPresetWorkspace\n.\ncreator\n(\n# (1)\nname\n=\n\"ps-workspace\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nworkspace\n)\n# (4)\npreset_workspace_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nPresetWorkspace\n)[\n0\n]\n.\nqualified_name\n# (5)\nBuild up the minimum request to create a workspace.\nProvide a human-readable name for your workspace.\nProvide the\nqualified_name\nof the connection for this workspace.\nActually call Atlan to create the workspace.\nRetrieve the created workspace for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a Preset workspace\n11\n12\n13\n14\n15\n16\nvar\nworkspace\n=\nPresetWorkspace\n.\ncreator\n(\n// (1)\n\"ps-workspace\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\nbuild\n()\nval\nresponse\n=\nworkspace\n.\nsave\n(\nclient\n)",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "11\n12\n13\n14\n15\n16\nvar\nworkspace\n=\nPresetWorkspace\n.\ncreator\n(\n// (1)\n\"ps-workspace\"\n,\n// (2)\nconnectionQualifiedName\n)\n// (3)\n.\nbuild\n()\nval\nresponse\n=\nworkspace\n.\nsave\n(\nclient\n)\n// (4)\nworkspace\n=\nresponse\n.\ngetResult\n(\nworkspace\n)\n// (5)\nBuild up the minimum request to create a workspace.\nProvide a human-readable name for your workspace.\nProvide the qualifiedName of the connection for this workspace.\nActually call Atlan to create the workspace. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created workspace for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"PresetWorkspace\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"ps-workspace\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/preset/123456789/ps-workspace\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/preset/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"preset\"\n// (5)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nPresetWorkspace\n.\nHuman-readable name for your workspace.\nThe\nqualifiedName\nshould follow the pattern:",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ",\n// (4)\n\"connectorName\"\n:\n\"preset\"\n// (5)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nPresetWorkspace\n.\nHuman-readable name for your workspace.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/preset/<epoch>/<workspace_name>\n, where\ndefault/preset/<epoch>\nis the qualifiedName of the connection for this workspace and\n<workspace_name>\nis the name of the workspace.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this workspace.\nThe\nconnectorName\nmust be exactly\npreset\n.\nPresetDashboard\n¶\n2.0.0\n4.0.0\nA Preset\ncollection\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the collection, and the names and qualifiedNames of the collection's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a Preset collection\n17\n18\n19\n20\n21\n22\nPresetDashboard\ncollection\n=\nPresetDashboard\n.\ncreator\n(\n// (1)\n\"ps-collection\"\n,\n// (2)\nworkspace\n)\n// (3)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ncollection\n.\nsave\n(\nclient\n);\n// (4)\ncollection\n=\nresponse\n.\ngetResult\n(\ncollection\n);\n// (5)\nBuild up the minimum request to create a collection.\nProvide a human-readable name for your collection.",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "=\ncollection\n.\nsave\n(\nclient\n);\n// (4)\ncollection\n=\nresponse\n.\ngetResult\n(\ncollection\n);\n// (5)\nBuild up the minimum request to create a collection.\nProvide a human-readable name for your collection.\nProvide the workspace for this collection. If you did not already have the object, you could also use\nPresetWorkspace.refByGuid()\nwith the GUID of the workspace, or\nPresetWorkspace.refByQualifiedName()\nwith the\nqualifiedName\nof the workspace.\nActually call Atlan to create the collection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created collection for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate an Preset collection\n23\n24\n25\n26\n27\n28\ncollection\n=\nPresetDashboard\n.\ncreator\n(\n# (1)\nname\n=\n\"ps-collection\"\n,\n# (2)\npreset_workspace_qualified_name\n=\npreset_workspace_qualified_name\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ncollection\n)\n# (4)\npreset_dashboard_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nPresetDashboard\n)[\n0\n]\n.\nqualified_name\n# (5)\nBuild up the minimum request to create a collection.",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "save\n(\ncollection\n)\n# (4)\npreset_dashboard_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nPresetDashboard\n)[\n0\n]\n.\nqualified_name\n# (5)\nBuild up the minimum request to create a collection.\nProvide a human-readable name for your collection.\nProvide the\nqualified_name\nof the Preset workspace for this collection.\nActually call Atlan to create the collection.\nRetrieve the created collection for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nCreate a Preset collection\n17\n18\n19\n20\n21\n22\nvar\ncollection\n=\nPresetDashboard\n.\ncreator\n(\n// (1)\n\"ps-collection\"\n,\n// (2)\nworkspace\n)\n// (3)\n.\nbuild\n()\nval\nresponse\n=\ncollection\n.\nsave\n(\nclient\n)\n// (4)\ncollection\n=\nresponse\n.\ngetResult\n(\ncollection\n)\n// (5)\nBuild up the minimum request to create a collection.\nProvide a human-readable name for your collection.\nProvide the workspace for this collection. If you did not already have the object, you could also use\nPresetWorkspace.refByGuid()\nwith the GUID of the workspace, or\nPresetWorkspace.refByQualifiedName()\nwith the\nqualifiedName\nof the workspace.",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "PresetWorkspace.refByGuid()\nwith the GUID of the workspace, or\nPresetWorkspace.refByQualifiedName()\nwith the\nqualifiedName\nof the workspace.\nActually call Atlan to create the collection. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve the created collection for use in subsequent creation calls. (You'd probably want to do some null checking first.)\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"PresetDashboard\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"ps-collection\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/preset/123456789/ps-workspace/ps-collection\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/preset/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"preset\"\n,\n// (5)\n\"presetWorkspace\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"PresetWorkspace\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/preset/123456789/ps-workspace\"\n}\n},\n\"presetWorkspaceQualifiedName\"\n:\n\"default/preset/123456789/ps-workspace\"\n// (9)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nPresetDashboard\n.\nHuman-readable name for your collection.\nThe\nqualifiedName\nshould follow the pattern:",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": ":\n\"default/preset/123456789/ps-workspace\"\n// (9)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nPresetDashboard\n.\nHuman-readable name for your collection.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/preset/<epoch>/<workspace_name>/<collection_name>\n, where\ndefault/preset/<epoch>/<workspace_name>\nis the qualifiedName of the workspace for this collection and\n<collection_name>\nis the name for this collection.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this collection.\nThe\nconnectorName\nmust be exactly\npreset\n.\nThe workspace in which this collection exists is embedded in the\npresetWorkspace\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nPresetWorkspace\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the workspace. Note: the workspace must already exist in Atlan before creating the collection.\nThe\npresetWorkspaceQualifiedName\nshould be the qualifiedName of the workspace.\nPresetChart\n¶\n2.0.0\n4.0.0\nA Preset\nchart\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "should be the qualifiedName of the workspace.\nPresetChart\n¶\n2.0.0\n4.0.0\nA Preset\nchart\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the chart, and the names and qualifiedNames of the chart's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a Preset chart\n23\n24\n25\n26\n27\nPresetChart\nchart\n=\nPresetChart\n.\ncreator\n(\n// (1)\n\"ps-chart\"\n,\n// (2)\ncollection\n)\n// (3)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nchart\n.\nsave\n(\nclient\n);\n// (4)\nBuild up the minimum request to create a chart.\nProvide a human-readable name for your chart.\nProvide the collection for this chart.\nActually call Atlan to create the chart. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a Preset chart\n29\n30\n31\n32\n33\nchart\n=\nPresetChart\n.\ncreator\n(\n# (1)\nname\n=\n\"ps-chart \"\n,\n# (2)\npreset_dashboard_qualified_name\n=\npreset_dashboard_qualified_name\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nchart\n)\n# (4)\nBuild up the minimum request to create a chart.\nProvide a human-readable name for your chart.\nProvide the\nqualified_name\nof the collection.",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nchart\n)\n# (4)\nBuild up the minimum request to create a chart.\nProvide a human-readable name for your chart.\nProvide the\nqualified_name\nof the collection.\nActually call Atlan to create the chart.\nCreate a Preset chart\n23\n24\n25\n26\n27\nval\nchart\n=\nPresetChart\n.\ncreator\n(\n// (1)\n\"ps-chart\"\n,\n// (2)\ncollection\n)\n// (3)\n.\nbuild\n()\nval\nresponse\n=\nchart\n.\nsave\n(\nclient\n)\n// (4)\nBuild up the minimum request to create a chart.\nProvide a human-readable name for your chart.\nProvide the collection for this chart.\nActually call Atlan to create the chart. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"PresetChart\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"ps-chart\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/preset/123456789/ps-workspace/ps-collection/ps-chart\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/preset/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"preset\"\n,\n// (5)\n\"presetDashboard\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"PresetDashboard\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "\"connectionQualifiedName\"\n:\n\"default/preset/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"preset\"\n,\n// (5)\n\"presetDashboard\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"PresetDashboard\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/preset/123456789/ps-workspace/ps-collection\"\n}\n},\n\"presetDashboardQualifiedName\"\n:\n\"default/preset/123456789/ps-workspace/ps-collection\"\n,\n// (9)\n\"presetWorkspaceQualifiedName\"\n:\n\"default/preset/123456789/ps-workspace\"\n// (10)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nPresetChart\n.\nHuman-readable name for your chart.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/preset/<epoch>/<workspace_name>/<collection_name>/<chart_name>\n, where\ndefault/preset/<epoch>/<workspace_name>/<collection_name>\nis the qualifiedName of the collection for this chart and\n<chart_name>\nis the name for this chart.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this chart.\nThe\nconnectorName\nmust be exactly\npreset\n.\nThe collection in which this chart exists is embedded in the\npresetDashboard\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nPresetDashboard\n.\nTo complete the reference, you must include a\nuniqueAttributes",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "presetDashboard\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nPresetDashboard\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the collection. Note: the collection must already exist in Atlan before creating the chart.\nThe\npresetDashboardQualifiedName\nshould be the qualifiedName of the collection.\nThe\npresetWorkspaceQualifiedName\nshould be the qualifiedName of the workspace.\nPresetDataset\n¶\n2.0.0\n4.0.0\nA Preset\ndataset\nrequires a\nname\nand a\nqualifiedName\n. For creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the dataset, and the names and qualifiedNames of the dataset's ancestors.\nJava\nPython\nKotlin\nRaw REST API\nCreate a Preset dataset\n23\n24\n25\n26\n27\nPresetDataset\ndataset\n=\nPresetDataset\n.\ncreator\n(\n// (1)\n\"ps-dataset\"\n,\n// (2)\ncollection\n)\n// (3)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ndataset\n.\nsave\n(\nclient\n);\n// (4)\nBuild up the minimum request to create a dataset.\nProvide a human-readable name for your dataset.\nProvide the collection for this dataset.\nActually call Atlan to create the dataset. Because this operation will persist the asset in Atlan, you must\nprovide it an",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "Provide the collection for this dataset.\nActually call Atlan to create the dataset. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a Preset dataset\n29\n30\n31\n32\n33\ndataset\n=\nPresetDataset\n.\ncreator\n(\n# (1)\nname\n=\n\"ps-dataset \"\n,\n# (2)\npreset_dashboard_qualified_name\n=\npreset_dashboard_qualified_name\n# (3)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ndataset\n)\n# (4)\nBuild up the minimum request to create a dataset.\nProvide a human-readable name for your dataset.\nProvide the\nqualified_name\nof the collection.\nActually call Atlan to create the dataset.\nCreate a Preset dataset\n23\n24\n25\n26\n27\nval\ndataset\n=\nPresetDataset\n.\ncreator\n(\n// (1)\n\"ps-dataset\"\n,\n// (2)\ncollection\n)\n// (3)\n.\nbuild\n()\nval\nresponse\n=\ndataset\n.\nsave\n(\nclient\n)\n// (4)\nBuild up the minimum request to create a dataset.\nProvide a human-readable name for your dataset.\nProvide the collection for this dataset.\nActually call Atlan to create the dataset. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"PresetDataset\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"ps-dataset\"\n,\n// (2)\n\"qualifiedName\"\n:\n\"default/preset/123456789/ps-workspace/ps-collection/ps-dataset\"\n,\n// (3)\n\"connectionQualifiedName\"\n:\n\"default/preset/123456789\"\n,\n// (4)\n\"connectorName\"\n:\n\"preset\"\n,\n// (5)\n\"presetDashboard\"\n:\n{\n// (6)\n\"typeName\"\n:\n\"PresetDashboard\"\n,\n// (7)\n\"uniqueAttributes\"\n:\n{\n// (8)\n\"qualifiedName\"\n:\n\"default/preset/123456789/ps-workspace/ps-collection\"\n}\n},\n\"presetDashboardQualifiedName\"\n:\n\"default/preset/123456789/ps-workspace/ps-collection\"\n,\n// (9)\n\"presetWorkspaceQualifiedName\"\n:\n\"default/preset/123456789/ps-workspace\"\n// (10)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nPresetDataset\n.\nHuman-readable name for your dataset.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/preset/<epoch>/<workspace_name>/<collection_name>/<dataset_name>\n, where\ndefault/preset/<epoch>/<workspace_name>/<collection_name>\nis the qualifiedName of the collection for this dataset and\n<dataset_name>\nis the name for this dataset.\nThe",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": ", where\ndefault/preset/<epoch>/<workspace_name>/<collection_name>\nis the qualifiedName of the collection for this dataset and\n<dataset_name>\nis the name for this dataset.\nThe\nconnectionQualifiedName\nmust be the exact qualifiedName of the connection for this dataset.\nThe\nconnectorName\nmust be exactly\npreset\n.\nThe collection in which this dataset exists is embedded in the\npresetDashboard\nattribute.\nThe\ntypeName\nfor this embedded reference must be\nPresetDashboard\n.\nTo complete the reference, you must include a\nuniqueAttributes\nobject with the qualifiedName of the collection. Note: the collection must already exist in Atlan before creating the dataset.\nThe\npresetDashboardQualifiedName\nshould be the qualifiedName of the collection.\nThe\npresetWorkspaceQualifiedName\nshould be the qualifiedName of the workspace.\nAvailable relationships\n¶\nEvery level of the business intelligence structure is an\nAsset\n, and can therefore be related to the following other assets.\nerDiagram\nAsset }o--o{ AtlasGlossaryTerm : meanings\nAsset ||--o{ Link : links\nAsset ||--o| Readme : readme\nAsset }o--o{ Process : inputToProcesses\nAsset }o--o{ Process : outputFromProcesses\nAtlasGlossaryTerm\n¶\nA\nglossary term",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "Asset ||--o{ Link : links\nAsset ||--o| Readme : readme\nAsset }o--o{ Process : inputToProcesses\nAsset }o--o{ Process : outputFromProcesses\nAtlasGlossaryTerm\n¶\nA\nglossary term\nprovides meaning to an asset. The\nlink terms to assets snippet\nprovides more detail on setting this relationship.\nLink\n¶\nA\nlink\nprovides additional context to an asset, by providing a URL to additional information.\nReadme\n¶\nA\nREADME\nprovides rich documentation for an asset. The\nadd asset READMEs snippet\nprovides more detail on setting this relationship.\nProcess\n¶\nA\nprocess\nprovides lineage information for an asset. An asset can be both an input and an output for one or more processes. The\nlineage snippets\nprovide more detail on creating and working with lineage.\nAlthough if you want to delete everything in a connection, your better avenue is the packaged\nconnection delete utility\nin the UI.\n↩\n2022-09-09\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "feedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_create_preset.html",
+      "source_type": "sdk",
+      "file": "patterns_create_preset.json",
+      "chunk_id": 25
+    }
+  }
+]

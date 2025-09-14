@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Fivetran enrichment package - Developer\nSkip to content\nFivetran enrichment package\n¶\nThe\nFivetran enrichment package\nenriches existing assets in Atlan associated with Fivetran connectors with column-level lineage.\nRequires access to Fivetran's metadata API\nDirect API\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method it will create a new connection and new assets within that connection — which could lead to duplicate assets if you run the workflow this way multiple times with the same settings.\nInstead, when you want to re-crawl assets, re-run the existing workflow (see\nRe-run existing workflow\nbelow).\n1.0.0\nTo enrich assets from Fivetran via API:\nJava\nPython\nKotlin\nRaw REST API\nFivetran enrichment via API\n1\n2\n3\n4\n5\nWorkflow\nfivetran\n=\nFivetranCrawler\n.\ndirectApiAuth\n(\n// (1)\n\"production\"\n,\n// (2)\n\"E77yqOsBPrRXpVp0\"\n,\n// (3)\n\"XLQR73AKwGYmjzk5vlBMAUG4wo13VyY\"\n);\n// (4)\nWorkflowResponse\nresponse\n=\nfivetran\n.\nrun\n(\nclient\n);\n// (5)\nThe\nFivetranCrawler\npackage will create a workflow to enrich assets from Fivetran. The\ndirectApiAuth()\nmethod creates a workflow for crawling assets from Fivetran's API.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_fivetran-enrichment.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_fivetran-enrichment.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ".\nrun\n(\nclient\n);\n// (5)\nThe\nFivetranCrawler\npackage will create a workflow to enrich assets from Fivetran. The\ndirectApiAuth()\nmethod creates a workflow for crawling assets from Fivetran's API.\nYou must provide a name for the connection for Fivetran enrichment. (Though this is currently unused since the workflow only enriches existing assets, and does not create any new assets.)\nYou must provide your API key for access to Fivetran's metadata API.\nYou must specify your API secret for access to Fivetran's metadata API.\nYou can then run the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nFivetran enrichment via API\n1\n2\n3\n4\n5\nval\nfivetran\n=\nFivetranCrawler\n.\ndirectApiAuth\n(\n// (1)\n\"production\"\n,\n// (2)\n\"E77yqOsBPrRXpVp0\"\n,\n// (3)\n\"XLQR73AKwGYmjzk5vlBMAUG4wo13VyY\"\n)\n// (4)\nval\nresponse\n=\nfivetran\n.\nrun\n(\nclient\n)\n// (5)\nThe",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_fivetran-enrichment.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_fivetran-enrichment.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "fivetran\n=\nFivetranCrawler\n.\ndirectApiAuth\n(\n// (1)\n\"production\"\n,\n// (2)\n\"E77yqOsBPrRXpVp0\"\n,\n// (3)\n\"XLQR73AKwGYmjzk5vlBMAUG4wo13VyY\"\n)\n// (4)\nval\nresponse\n=\nfivetran\n.\nrun\n(\nclient\n)\n// (5)\nThe\nFivetranCrawler\npackage will create a workflow to enrich assets from Fivetran. The\ndirectApiAuth()\nmethod creates a workflow for crawling assets from Fivetran's API.\nYou must provide a name for the connection for Fivetran enrichment. (Though this is currently unused since the workflow only enriches existing assets, and does not create any new assets.)\nYou must provide your API key for access to Fivetran's metadata API.\nYou must specify your API secret for access to Fivetran's metadata API.\nYou can then run the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nCreate the workflow via UI only",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_fivetran-enrichment.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_fivetran-enrichment.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "packages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI. To rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶\n4.0.0\nTo re-run an existing workflow for Fivetran assets:\nJava\nPython\nKotlin\nRaw REST API\nRe-run existing Fivetran workflow\n1\n2\n3\n4\nList\n<\nWorkflowSearchResult\n>\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nFivetranCrawler\n.\nPREFIX\n,\n5\n);\n// (2)\n// Determine which of the results is the Fivetran workflow you want to re-run...\nWorkflowRunResponse\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n);\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nFivetranCrawler\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_fivetran-enrichment.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_fivetran-enrichment.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Once you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(client, true)\nmethod with idempotency to avoid re-running a workflow that is already in running or in a pending state. This will return details of the already running workflow if found, and by default, it is set to\nfalse\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nRe-run existing Fivetran workflow\n1\n2\n3\n4\nval\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nFivetranCrawler\n.\nPREFIX\n,\n5\n)\n// (2)\n// Determine which of the results is the Fivetran workflow you want to re-run...\nval\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n)\n// (3)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_fivetran-enrichment.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_fivetran-enrichment.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "(\nclient\n,\nFivetranCrawler\n.\nPREFIX\n,\n5\n)\n// (2)\n// Determine which of the results is the Fivetran workflow you want to re-run...\nval\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n)\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nFivetranCrawler\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(client, true)\nmethod with idempotency to avoid re-running a workflow that is already in running or in a pending state. This will return details of the already running workflow if found, and by default, it is set to\nfalse",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_fivetran-enrichment.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_fivetran-enrichment.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "false\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRequires multiple steps through the raw REST API\nFind the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-fivetran\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n},\n\"order\"\n:\n\"desc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\nSearching by the\natlan-fivetran\nprefix will ensure you only find existing Fivetran assets workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_fivetran-enrichment.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_fivetran-enrichment.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "}\nSearching by the\natlan-fivetran\nprefix will ensure you only find existing Fivetran assets workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name\nproperty of the response object. (Remember since this is a search, there could be multiple results, so you may want to use the other details in each result to determine which workflow you really want.)\nPOST /api/service/workflows/submit\n100\n101\n102\n103\n104\n{\n\"namespace\"\n:\n\"default\"\n,\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"atlan-fivetran-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2022-12-28\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_fivetran-enrichment.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_fivetran-enrichment.json",
+      "chunk_id": 7
+    }
+  }
+]

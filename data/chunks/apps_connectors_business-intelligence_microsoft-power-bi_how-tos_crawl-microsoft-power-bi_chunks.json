@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Crawl Microsoft Power BI | Atlan Documentation\nSkip to main content\nOn this page\nOnce you have configured the\nMicrosoft Power BI user permissions\n, you can establish a connection between Atlan and Microsoft Power BI.\nTo crawl metadata from Microsoft Power BI, review\nthe\norder of operations\nand then complete the following steps.\nSelect the source\nâ\nTo select Microsoft Power BI as your source:\nIn the top right of any screen, navigate toÂ\nNew\nand then clickÂ\nNew Workflow\n.\nFrom the list of packages, selectÂ\nPower BI Assets\nand click onÂ\nSetup Workflow\n.\nProvide credentials\nâ\nTo enter your Microsoft Power BI credentials:\nFor\nAuthentication,\nchoose the method you want to use to access Microsoft Power BI:\nFor\nService Principal\nauthentication, enter the\nTenant Id\n,\nClient Id\n, and\nClient Secret\nyou configured when\nsetting up Microsoft Power BI\n. Use the\nEnable Only Admin API Access\noption to control how metadata is extracted. When enabled, the crawler uses only admin APIs. If disabled, both admin and non-admin APIs are used.\nFor\nDelegated User\nauthentication, enter the\nUsername\n,\nPassword\n,\nTenant Id\n,\nClient Id\n, and\nClient Secret\nyou configured when\nsetting up Microsoft Power BI\n.",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "For\nDelegated User\nauthentication, enter the\nUsername\n,\nPassword\n,\nTenant Id\n,\nClient Id\n, and\nClient Secret\nyou configured when\nsetting up Microsoft Power BI\n.\nAt the bottom of the form, click the\nTest Authentication\nbutton to confirm connectivity to Microsoft Power BI using these details.\nOnce successful, at the bottom of the screen click the\nNext\nbutton.\nConfigure connection\nâ\nTo complete the Microsoft Power BI connection configuration:\nProvide a\nConnection Name\nthat represents your source environment. For example, you might want to use values like\nproduction\n,\ndevelopment\n,\ngold\n, or\nanalytics\n.\n(Optional) To change the users able to manage this connection, change the users or groups listed under\nConnection Admins\n.\ndanger\nIf you don't specify any user or group, nobody can manage the connection   -  not even admins.\nAt the bottom of the screen, click the\nNext\nbutton to proceed.\nConfigure the crawler\nâ\nBefore running the Microsoft Power BI crawler, configure metadata extraction and advanced options. You can override the default settings for the following fields.\nConfigure metadata\nâ\nInclude Workspaces",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Configure metadata\nâ\nInclude Workspaces\n: Select Microsoft Power BI workspaces to include. Defaults to all workspaces when left blank. Use\nAdvanced Search\nto filter workspaces using the following options:\nContains\n: Matches workspaces that contain the given substring.\nStarts with\n: Matches workspaces that begin with the specified text.\nEnds with\n: Matches workspaces that end with the specified text.\nRegex pattern\n: Matches workspaces based on a regular expression.\nAll selected filters apply using an\nAND\ncondition.\nExclude Workspaces\n: Select workspaces to exclude. No workspaces are excluded by default.\nAdvanced Search\nis also available for exclusion, with the same filtering options as mentioned previously.\nInclude Dashboard and Reports Regex\n: Use a regular expression to include dashboards and reports based on naming patterns. Includes all by default.\nExclude Dashboard and Reports Regex\n: Use a regular expression to exclude dashboards and reports based on naming patterns. Excludes none by default.\nAttach Endorsements from Power BI\n: Automatically certify assets endorsed in Power BI. To manually review before applying, change this setting to\nSend a Request\n. For more details, see",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Attach Endorsements from Power BI\n: Automatically certify assets endorsed in Power BI. To manually review before applying, change this setting to\nSend a Request\n. For more details, see\nWhat does Atlan crawl from Microsoft Power BI?\nConfigure advanced settings\nâ\nSource Connections\n: When your tenant has multiple connections available for the same source system that share the similar metadata, confirm the advanced options and choose the correct connections from the\nSource Connections\nlist drop down to avoid creating duplicate lineage to such connections.\nEnable ODBC DSN Connectivity Mapping\n: Power BI provides multiple ways of connecting to a SQL source, including ODBC connectivity for building Reports and Dashboards. When datasets are populated using ODBC, provide a mapping of the DSN ( Data Source Name ) names to their appropriate database qualified names after enabling this toggle.\nDid you know?\nIf a workspace appears in both the include and exclude filters, the exclude filter takes precedence.\nRun the crawler\nâ\nTo run the Microsoft Power BI crawler:\nTo check for any\npermissions or other configuration issues\nbefore running the crawler, click\nPreflight checks\n.\nYou can either:",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Run the crawler\nâ\nTo run the Microsoft Power BI crawler:\nTo check for any\npermissions or other configuration issues\nbefore running the crawler, click\nPreflight checks\n.\nYou can either:\nTo run the crawler once immediately, at the bottom of the screen, click the\nRun\nbutton.\nTo schedule the crawler to run hourly, daily, weekly, or monthly, at the bottom of the screen, click the\nSchedule Run\nbutton.\nOnce the crawler has completed running, you can see the assets in Atlan's asset page! ð\nSelect the source\nProvide credentials\nConfigure connection\nConfigure the crawler\nRun the crawler",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_crawl-microsoft-power-bi.json",
+      "chunk_id": 4
+    }
+  }
+]

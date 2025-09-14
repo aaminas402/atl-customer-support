@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Preset - Developer\nSkip to content\nPreset\n¶\nBase class for Preset assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand managing Preset assets in Atlan. For that, we would suggest starting with the\nmanage Preset assets pattern\n.\nclassDiagram\ndirection RL\nclass Preset {\n<<abstract>>\n}\nlink Preset \"../preset\"\nclass BI {\n<<abstract>>\n}\nlink BI \"../entities/bi\"\nBI <|-- Preset : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- BI : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass PresetChart\nlink PresetChart \"../entities/presetchart\"\nPreset <|-- PresetChart : extends\nclass PresetDataset\nlink PresetDataset \"../entities/presetdataset\"\nPreset <|-- PresetDataset : extends\nclass PresetDashboard\nlink PresetDashboard \"../entities/presetdashboard\"\nPreset <|-- PresetDashboard : extends\nclass PresetWorkspace\nlink PresetWorkspace \"../entities/presetworkspace\"",
+    "metadata": {
+      "source_url": "models_preset.html",
+      "source_type": "sdk",
+      "file": "models_preset.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "class PresetDashboard\nlink PresetDashboard \"../entities/presetdashboard\"\nPreset <|-- PresetDashboard : extends\nclass PresetWorkspace\nlink PresetWorkspace \"../entities/presetworkspace\"\nPreset <|-- PresetWorkspace : extends\nProperties\n¶\nThese attributes are specific to instances of\nPreset\n(and all of its subtypes).\npresetDashboardId\n¶\nIdentifier of the dashboard in which this asset exists, in Preset.\npresetDashboardQualifiedName\n¶\nUnique name of the dashboard in which this asset exists.\npresetWorkspaceId\n¶\nIdentifier of the workspace in which this asset exists, in Preset.\npresetWorkspaceQualifiedName\n¶\nUnique name of the workspace in which this asset exists.\nRelationships\n¶\nThe following illustrates how the various Preset objects inter-relate with each other:\nerDiagram\nConnection ||..o{ PresetWorkspace : \"\"\nPresetWorkspace ||--o{ PresetDashboard : presetDashboards\nPresetDashboard ||--o{ PresetChart : presetCharts\nPresetDashboard ||--o{ PresetDataset : presetDatasets\n2023-01-04\n2024-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent",
+    "metadata": {
+      "source_url": "models_preset.html",
+      "source_type": "sdk",
+      "file": "models_preset.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Was this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_preset.html",
+      "source_type": "sdk",
+      "file": "models_preset.json",
+      "chunk_id": 2
+    }
+  }
+]

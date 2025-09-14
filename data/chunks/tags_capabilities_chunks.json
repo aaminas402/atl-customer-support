@@ -1,0 +1,11 @@
+[
+  {
+    "content": "10 docs tagged with \"capabilities\" | Atlan Documentation\nSkip to main content\nAtlan AI\nIntegrate and leverage Atlan AI capabilities for enhanced data documentation, and lineage analysis.\nData Models\nCreate and manage data models to structure and organize your data assets.\nData Products\nCreate and manage data products to organize and govern your data assets by domain.\nDiscovery\nFind, understand, and use data assets across your organization with powerful search, filtering, and browsing features.\nInsights\nQuery and analyze your data using Atlan's powerful query builder and SQL capabilities.\nLineage\nTrack and visualize data lineage across your data landscape to understand data flow and dependencies.\nPlaybooks\nCreate and manage automated workflows for metadata management and data governance.\nReporting\nGenerate comprehensive reports on your data assets, usage, and governance.\nRequests\nRequest and manage changes to assets that you don't have direct edit access to.\nUsage and Popularity\nTrack and analyze how your data assets are being used across your organization.",
+    "metadata": {
+      "source_url": "tags_capabilities.html",
+      "source_type": "docs",
+      "file": "tags_capabilities.json",
+      "chunk_id": 0
+    }
+  }
+]

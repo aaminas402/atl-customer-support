@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Cognite - Developer\nSkip to content\nCognite\n¶\nThese are the model elements in Atlan related to Cognite.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage Cognite assets in Atlan.\nclassDiagram\ndirection RL\nclass Cognite {\n<<abstract>>\n}\nlink Cognite \"../cognite\"\nclass SaaS {\n<<abstract>>\n}\nlink SaaS \"../saas\"\nSaaS <|-- Cognite : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../catalog\"\nCatalog <|-- SaaS : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../referenceable\"\nReferenceable <|-- Asset : extends\nclass CogniteEvent\nlink CogniteEvent \"../entities/cogniteevent\"\nCognite <|-- CogniteEvent : extends\nclass CogniteAsset\nlink CogniteAsset \"../entities/cogniteasset\"\nCognite <|-- CogniteAsset : extends\nclass CogniteSequence\nlink CogniteSequence \"../entities/cognitesequence\"\nCognite <|-- CogniteSequence : extends\nclass Cognite3DModel\nlink Cognite3DModel \"../entities/cognite3dmodel\"\nCognite <|-- Cognite3DModel : extends\nclass CogniteTimeSeries",
+    "metadata": {
+      "source_url": "models_cognite.html",
+      "source_type": "sdk",
+      "file": "models_cognite.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Cognite <|-- CogniteSequence : extends\nclass Cognite3DModel\nlink Cognite3DModel \"../entities/cognite3dmodel\"\nCognite <|-- Cognite3DModel : extends\nclass CogniteTimeSeries\nlink CogniteTimeSeries \"../entities/cognitetimeseries\"\nCognite <|-- CogniteTimeSeries : extends\nclass CogniteFile\nlink CogniteFile \"../entities/cognitefile\"\nCognite <|-- CogniteFile : extends\nRelationships\n¶\nThe following illustrates how the various pieces of Cognite inter-relate with each other:\nerDiagram\nConnection ||..o{ CogniteAsset : \"\"\nCogniteAsset ||--o{ Cognite3DModel : cognite3dmodels\nCogniteAsset ||--o{ CogniteEvent : cogniteEvents\nCogniteAsset ||--o{ CogniteFile : cogniteFiles\nCogniteAsset ||--o{ CogniteSequence : cogniteSequences\nCogniteAsset ||--o{ CogniteTimeSeries : cogniteTimeseries\n2024-06-18\n2024-06-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.",
+    "metadata": {
+      "source_url": "models_cognite.html",
+      "source_type": "sdk",
+      "file": "models_cognite.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Cookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_cognite.html",
+      "source_type": "sdk",
+      "file": "models_cognite.json",
+      "chunk_id": 2
+    }
+  }
+]

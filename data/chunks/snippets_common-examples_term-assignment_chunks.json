@@ -1,0 +1,245 @@
+[
+  {
+    "content": "Link terms and assets - Developer\nSkip to content\nLink terms and assets\n¶\nAppend terms to an asset\n¶\n1.4.0\n4.0.0\nTo append new terms to an\nasset\n, without changing any of the existing terms on the asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nThis is currently not possible via dbt, term assignments are replaced rather than appended.\nAppend terms to an asset\n1\n2\n3\n4\n5\n6\nColumn\ncolumn\n=\nColumn\n.\nappendTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\nList\n.\nof\n(\n// (4)\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\nGlossaryTerm\n.\nrefByGuid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n)));\nUse the\nappendTerms()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request and call the necessary API(s) to add the terms all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the asset on which to add the terms.\nA list of term references. Each reference can be to either a term by its GUID or its\nqualifiedName",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "through which to connect to the tenant.\nThe\nqualifiedName\nof the asset on which to add the terms.\nA list of term references. Each reference can be to either a term by its GUID or its\nqualifiedName\n. At the completion of this code, the terms in this list will be\nadded to\nany other terms that are already linked to the asset.\nAppend terms to an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\n,\nColumn\nclient\n=\nAtlanClient\n()\ncolumn\n=\nclient\n.\nasset\n.\nappend_terms\n(\n# (1)\nasset_type\n=\nColumn\n,\n# (2)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n# (3)\nterms\n=\n[\nAtlasGlossaryTerm\n.\nref_by_guid\n(\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\n# (4)\nAtlasGlossaryTerm\n.\nref_by_guid\n(\nguid\n=\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n)]\n)\n# (5)\nUse the\nasset.append_terms()\nmethod, which will construct the necessary\nrequest and call the necessary API(s) to add the terms all-in-one.\nThe\nasset_type\nof the asset on which to add the terms.\nThe\nqualified_name\nof the asset on which to add the terms.\nNote: Alternatively the parameter name\nguid\ncould have been",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "The\nasset_type\nof the asset on which to add the terms.\nThe\nqualified_name\nof the asset on which to add the terms.\nNote: Alternatively the parameter name\nguid\ncould have been\nspecified along with the\nguid\nof the asset on which to add the terms.\nA list of term references. Each reference can be to either a term by its GUID\nor its\nqualified_name\n. At the completion of this code, the terms in this list will\nbe\nadded to\nany other terms that are already linked to the asset.\nThe\nasset\nreturned by this call will be a mininmal asset and will not contain\nany\nterms\n. If you need an\nasset\nwhich contains the\nterms\nretrieve it via\nthe\nasset.get_by_guid\nor\nasset.get_by_qualified_name\nmethods.\nAppend terms to an asset\n1\n2\n3\n4\n5\n6\nval\ncolumn\n=\nColumn\n.\nappendTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\nlistOf\n(\n// (4)\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\nGlossaryTerm\n.\nrefByGuid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n)))\nUse the\nappendTerms()",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": ",\n// (3)\nlistOf\n(\n// (4)\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\nGlossaryTerm\n.\nrefByGuid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n)))\nUse the\nappendTerms()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request and call the necessary API(s) to add the terms all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the asset on which to add the terms.\nA list of term references. Each reference can be to either a term by its GUID or its\nqualifiedName\n. At the completion of this code, the terms in this list will be\nadded to\nany other terms that are already linked to the asset.\nRequires multiple steps through the raw REST API\nRetrieve the existing asset\n.\nIterate through the assigned terms that exist on the asset to build up a temporary list, including only those that are not deleted.\nAdd the terms you want to append to the list built-up in (2).\nSend through the resulting complete list, as in the example below.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Add the terms you want to append to the list built-up in (2).\nSend through the resulting complete list, as in the example below.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Column\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"CUSTOMER_NAME\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (4)\n\"meanings\"\n:\n[\n// (5)\n{\n...\n},\n// (6)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n},\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"guid\"\n:\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n}\n]\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nProvide the details of the terms to assign to the asset in the\nmeanings\narray. Each reference to a term must include the\ntypeName\n(always\nAtlasGlossaryTerm\n) and\nguid\nfor the term.",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Provide the details of the terms to assign to the asset in the\nmeanings\narray. Each reference to a term must include the\ntypeName\n(always\nAtlasGlossaryTerm\n) and\nguid\nfor the term.\nRemember you will need to first retrieve the existing asset to retrieve the full set of existing term assignments to append onto.\nReplace terms on an asset\n¶\n1.4.0\n4.0.0\nTo replace all the terms on an asset, meaning any not specified in the request will be removed from the asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nReplace terms on an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nmodels\n:\n-\nname\n:\nORDER_ANALYSIS\n# (1)\ncolumns\n:\n-\nname\n:\nCUSTOMER_NAME\n# (2)\nmeta\n:\natlan\n:\ntermGUIDs\n:\n# (3)\n-\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n-\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\ntermQualifiedNames\n:\n# (4)\n-\n\"SepizCqzgygmdTvVk5a9i@yJuFhD0LiU1QDl5YwXiQy\"\n-\n\"BfoxTP4209kT5zZFKPKqZ@yJuFhD0LiU1QDl5YwXiQy\"\ntermNames\n:\n# (5)\n-\n\"Customer\nName\"\n-\n\"Data\nGovernance@Full\nName\"\n-\n\"Finance@Marketing\nBudget\"\nYou must of course give the name of the object.\nIf you are applying the terms to a column, you need to give the name of the column as well.\nYou can either specify the terms as a list of GUIDs (each GUID refers to one term).",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "If you are applying the terms to a column, you need to give the name of the column as well.\nYou can either specify the terms as a list of GUIDs (each GUID refers to one term).\nOr you can specify the terms as a list of qualifiedNames.\nOr you can specify the terms as a list of human-readable names.\nHandling duplicate term names\nYou can disambiguate terms with the same name across different glossaries using the format\nglossaryName@termName\n(e.g.,\n\"Data Governance@Full Name\"\n).\nUse\nglossaryName@termName\nin\ntermNames\n, when term names aren't unique across glossaries.\nReplace terms on an asset\n1\n2\n3\n4\n5\n6\n7\nColumn\ncolumn\n=\nColumn\n.\nreplaceTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\n\"CUSTOMER_NAME\"\n,\n// (4)\nList\n.\nof\n(\n// (5)\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\nGlossaryTerm\n.\nrefByGuid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n)));\nUse the\nreplaceTerms()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request and call the necessary API(s) to replace the terms on the asset all-in-one.",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Because this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the asset for which to replace the terms.\nThe human-readable name of the asset for which to replace the terms.\nA list of term references. Each reference can be to either a term by its GUID or its\nqualifiedName\n. After the completion of this code, only the terms in this list will be assigned to the asset.\nReplace terms to an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\n,\nColumn\nclient\n=\nAtlanClient\n()\ncolumn\n=\nclient\n.\nasset\n.\nreplace_terms\n(\n# (1)\nasset_type\n=\nColumn\n,\n# (2)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n# (3)\nterms\n=\n[\nAtlasGlossaryTerm\n.\nref_by_guid\n(\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\n# (4)\nAtlasGlossaryTerm\n.\nref_by_guid\n(\nguid\n=\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n)]\n)\n# (5)\nUse the\nasset.replace_terms()\nmethod, which will construct the necessary\nrequest and call the necessary API(s) to replace the terms all-in-one.\nThe\nasset_type",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": ")]\n)\n# (5)\nUse the\nasset.replace_terms()\nmethod, which will construct the necessary\nrequest and call the necessary API(s) to replace the terms all-in-one.\nThe\nasset_type\nof the asset on which to replace the terms.\nThe\nqualified_name\nof the asset on which to replace the terms.\nNote: Alternatively the parameter name\nguid\ncould have been\nspecified along with the\nguid\nof the asset on which to replace the terms.\nA list of term references. Each reference can be to either a term by its GUID\nor its\nqualified_name\n. At the completion of this code, the terms in this list wil\nreplace\nany other terms that are already linked to the asset.\nThe\nasset\nreturned by this call will be a mininmal asset and will not contain\nany\nterms\n. If you need an\nasset\nwhich contains the\nterms\nretrieve it via the\nasset.get_by_guid\nor\nasset.get_by_qualified_name\nmethods.\nReplace terms on an asset\n1\n2\n3\n4\n5\n6\n7\nval\ncolumn\n=\nColumn\n.\nreplaceTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\n\"CUSTOMER_NAME\"\n,\n// (4)\nlistOf\n(\n// (5)\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\nGlossaryTerm\n.\nrefByGuid\n(",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": ",\n// (3)\n\"CUSTOMER_NAME\"\n,\n// (4)\nlistOf\n(\n// (5)\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\nGlossaryTerm\n.\nrefByGuid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n)))\nUse the\nreplaceTerms()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request and call the necessary API(s) to replace the terms on the asset all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the asset for which to replace the terms.\nThe human-readable name of the asset for which to replace the terms.\nA list of term references. Each reference can be to either a term by its GUID or its\nqualifiedName\n. After the completion of this code, only the terms in this list will be assigned to the asset.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Column\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"CUSTOMER_NAME\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (4)\n\"meanings\"",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": ":\n\"Column\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"CUSTOMER_NAME\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (4)\n\"meanings\"\n:\n[\n// (5)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n},\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"guid\"\n:\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n}\n]\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nProvide the details of the terms to assign to the asset in the\nmeanings\narray. Each reference to a term must include the\ntypeName\n(always\nAtlasGlossaryTerm\n) and\nguid\nfor the term. After the completion of this code, only the terms in this list will be assigned to the asset.\nRemove terms from an asset\n¶\n1.4.0\n4.0.0\nTo remove some terms from an asset, without removing all of the terms on the asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nThis is currently not possible via dbt, term assignments are replaced rather than selectively removed.",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "dbt\nJava\nPython\nKotlin\nRaw REST API\nThis is currently not possible via dbt, term assignments are replaced rather than selectively removed.\nRemove terms from an asset\n1\n2\n3\n4\n5\nColumn\ncolumn\n=\nColumn\n.\nremoveTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\nList\n.\nof\n(\n// (4)\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)));\nUse the\nremoveTerms()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request and call the necessary API(s) to remove the terms all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the asset from which to remove the terms.\nA list of term references. Each reference\nmust\nbe to a term by its GUID. At the completion of this code, the terms in this list will be\nremoved from\nthose linked to the asset.\nRemove terms from an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\n,\nColumn\nclient\n=\nAtlanClient\n()\ncolumn",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Remove terms from an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\n,\nColumn\nclient\n=\nAtlanClient\n()\ncolumn\n=\nclient\n.\nasset\n.\nremove_terms\n(\n# (1)\nasset_type\n=\nColumn\n,\n# (2)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n# (3)\nterms\n=\n[\nAtlasGlossaryTerm\n.\nref_by_guid\n(\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)]\n# (4)\n)\nUse the\nasset.remove_terms()\nmethod, which will construct the necessary\nrequest and call the necessary API(s) to remove the terms on the asset all-in-one.\nThe\nasset_type\nof the asset on which to remove the terms.\nThe\nqualified_name\nof the asset on which to remove the terms.\nNote: Alternatively the parameter name\nguid\ncould have been\nspecified along with the\nguid\nof the asset on which to remove the terms.\nA list of term references. Each reference\nmust\nbe to a term by its GUID.\nAt the completion of this code, the terms in this list will be\nremoved from\nthose linked to the asset.\nRemove terms from an asset\n1\n2\n3\n4\n5\nval\ncolumn\n=\nColumn\n.\nremoveTerms\n(\n// (1)\nclient\n,\n// (2)",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "At the completion of this code, the terms in this list will be\nremoved from\nthose linked to the asset.\nRemove terms from an asset\n1\n2\n3\n4\n5\nval\ncolumn\n=\nColumn\n.\nremoveTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\nlistOf\n(\n// (4)\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)))\nUse the\nremoveTerms()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request and call the necessary API(s) to remove the terms all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the asset from which to remove the terms.\nA list of term references. Each reference\nmust\nbe to a term by its GUID. At the completion of this code, the terms in this list will be\nremoved from\nthose linked to the asset.\nRequires multiple steps through the raw REST API\nRetrieve the existing asset\n.\nIterate through the assigned terms that exist on the asset to build up a temporary list, excluding any that you want to remove.",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Retrieve the existing asset\n.\nIterate through the assigned terms that exist on the asset to build up a temporary list, excluding any that you want to remove.\nSend through the resulting reduced list, as in the example below.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Column\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"CUSTOMER_NAME\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (4)\n\"meanings\"\n:\n[\n// (5)\n{\n...\n},\n// (6)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"guid\"\n:\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n}\n]\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nProvide the details of the terms to assign to the asset in the\nmeanings\narray. Each reference to a term must include the\ntypeName\n(always\nAtlasGlossaryTerm\n) and\nguid\nfor the term.",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Provide the details of the terms to assign to the asset in the\nmeanings\narray. Each reference to a term must include the\ntypeName\n(always\nAtlasGlossaryTerm\n) and\nguid\nfor the term.\nRemember you will need to first retrieve the existing asset to retrieve the reduced set of term assignemnts that should remain, which should not include the ones you want to remove.\nRemove all terms from an asset\n¶\n1.4.0\n4.0.0\nTo remove all terms linked to an asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nRemove all terms from an asset\n1\n2\n3\n4\n5\n6\n7\nmodels\n:\n-\nname\n:\nORDER_ANALYSIS\n# (1)\ncolumns\n:\n-\nname\n:\nCUSTOMER_NAME\n# (2)\nmeta\n:\natlan\n:\ntermGUIDs\n:\n[]\n# (3)\nYou must of course give the name of the object.\nIf you are applying the terms to a column, you need to give the name of the column as well.\nIf you send an explicit empty list (\n[]\n) as the list of GUIDs this will remove all terms from the asset.\nRemove all terms from an asset\n1\n2\n3\n4\n5\nColumn\ncolumn\n=\nColumn\n.\nreplaceTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\n\"CUSTOMER_NAME\"\n,\n// (4)\nnull\n);\n// (5)\nUse the\nreplaceTerms()",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": ".\nreplaceTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\n\"CUSTOMER_NAME\"\n,\n// (4)\nnull\n);\n// (5)\nUse the\nreplaceTerms()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request and call the necessary API(s) to replace (remove) the terms on the asset all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the asset from which to remove the terms.\nThe human-readable name of the asset from which to remove the terms.\nA\nnull\nas the list of term references. This will replace any existing terms on the asset with no terms at all — in other words, it will remove all terms from the asset.\nRemove all terms from an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\n,\nColumn\nclient\n=\nAtlanClient\n()\ncolumn\n=\nclient\n.\nasset\n.\nreplace_terms\n(\n# (1)\nasset_type\n=\nColumn\n,\n# (2)\nqualified_name\n=",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "import\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\n,\nColumn\nclient\n=\nAtlanClient\n()\ncolumn\n=\nclient\n.\nasset\n.\nreplace_terms\n(\n# (1)\nasset_type\n=\nColumn\n,\n# (2)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n# (3)\nterms\n=\n[]\n# (4)\n)\nUse the\nasset.replace_terms()\nmethod, which will construct the necessary\nrequest and call the necessary API(s) to replace (remove) the terms on the asset all-in-one.\nThe\nasset_type\nof the asset on which to remove the terms.\nThe\nqualified_name\nof the asset on which to remove the terms.\nNote: Alternatively the parameter name\nguid\ncould have been\nspecified along with the\nguid\nof the asset on which to remove the terms.\nAn empty list of term references. This will replace any existing terms\non the asset with no terms at all — in other words, it will remove all terms from the asset.\nRemove all terms from an asset\n1\n2\n3\n4\n5\nval\ncolumn\n=\nColumn\n.\nreplaceTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\n\"CUSTOMER_NAME\"\n,\n// (4)\nnull\n)\n// (5)\nUse the\nreplaceTerms()",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": ".\nreplaceTerms\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (3)\n\"CUSTOMER_NAME\"\n,\n// (4)\nnull\n)\n// (5)\nUse the\nreplaceTerms()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request and call the necessary API(s) to replace (remove) the terms on the asset all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the asset from which to remove the terms.\nThe human-readable name of the asset from which to remove the terms.\nA\nnull\nas the list of term references. This will replace any existing terms on the asset with no terms at all — in other words, it will remove all terms from the asset.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Column\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"CUSTOMER_NAME\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (4)\n\"meanings\"\n:\n[]\n// (5)\n}\n}\n]\n}\nAll assets must be wrapped in an",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": ",\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DATA/FOOD_BEVERAGE/ORDER_ANALYSIS/CUSTOMER_NAME\"\n,\n// (4)\n\"meanings\"\n:\n[]\n// (5)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nTo remove all terms, send an empty array (\n[]\n) for the\nmeanings\narray.\nWhen creating an asset\n¶\n2.0.0\n4.0.0\nTo link terms when creating an asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nLink terms when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nmodels\n:\n-\nname\n:\nORDER_ANALYSIS\n# (1)\ncolumns\n:\n-\nname\n:\nCUSTOMER_NAME\n# (2)\nmeta\n:\natlan\n:\ntermGUIDs\n:\n# (3)\n-\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n-\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\ntermQualifiedNames\n:\n# (4)\n-\n\"SepizCqzgygmdTvVk5a9i@yJuFhD0LiU1QDl5YwXiQy\"\n-\n\"BfoxTP4209kT5zZFKPKqZ@yJuFhD0LiU1QDl5YwXiQy\"\ntermNames\n:\n# (5)\n-\n\"Customer\nName\"\n-\n\"Data\nGovernance@Full\nName\"\n-\n\"Finance@Marketing\nBudget\"\nYou must of course give the name of the object.",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "-\n\"BfoxTP4209kT5zZFKPKqZ@yJuFhD0LiU1QDl5YwXiQy\"\ntermNames\n:\n# (5)\n-\n\"Customer\nName\"\n-\n\"Data\nGovernance@Full\nName\"\n-\n\"Finance@Marketing\nBudget\"\nYou must of course give the name of the object.\nIf you are applying the terms to a column, you need to give the name of the column as well.\nYou can either specify the terms as a list of GUIDs (each GUID refers to one term).\nOr you can specify the terms as a list of qualifiedNames.\nOr you can specify the terms as a list of human-readable names.\nHandling duplicate term names\nYou can disambiguate terms with the same name across different glossaries using the format\nglossaryName@termName\n(e.g.,\n\"Data Governance@Full Name\"\n).\nUse\nglossaryName@termName\nin\ntermNames\n, when term names aren't unique across glossaries.\nLink terms when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nS3Object\ns3Object\n=\nS3Object\n.\ncreator\n(\n\"sample-file.csv\"\n,\n// (1)\nS3Bucket\n.\nrefByGuid\n(\n\"8aa53eb2-3630-4de0-81e1-d57922f43336\"\n),\n\"aws::test:samples-bucket:a/prefix/sample-file.csv\"\n)\n.\nassignedTerm\n(\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n))\n// (2)\n.\nassignedTerm\n(\nGlossaryTerm\n.\nrefByGuid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n))\n.\nbuild\n();",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": ")\n.\nassignedTerm\n(\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n))\n// (2)\n.\nassignedTerm\n(\nGlossaryTerm\n.\nrefByGuid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n))\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\ns3Object\n.\nsave\n(\nclient\n);\n// (3)\nassert\nresponse\n.\ngetCreatedAssets\n().\nsize\n()\n==\n1\n;\n// (4)\nassert\nresponse\n.\ngetUpdatedAssets\n().\nsize\n()\n==\n3\n;\n// (5)\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nDirectly chain the\nassignedTerm\nenrichment methods to add the linked terms. Note that we only need a\nReference\nto the linked term, in these examples the type and GUID of the term.\nCall the\nsave()\nmethod to actually create the asset (with its linked terms). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was created...\n... and the two linked terms that were updated, along with the bucket the object is created within.\nLink terms when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\n,",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "Link terms when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\n,\nS3Object\nclient\n=\nAtlanClient\n()\ns3_object\n=\nS3Object\n.\ncreator\n(\n# (1)\nname\n=\n\"sample-file.csv\"\n,\nconnection_qualified_name\n=\n\"default/s3/1661068484\"\n,\naws_arn\n=\n\"aws::test:samples-bucket:a/prefix/sample-file.csv\"\n)\ns3_object\n.\nassigned_terms\n=\n[\nAtlasGlossaryTerm\n.\nref_by_guid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n),\n# (2)\nAtlasGlossaryTerm\n.\nref_by_guid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n)]\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ns3_object\n)\n# (3)\nassert\n(\ns3_objects_added\n:=\nresponse\n.\nassets_created\n(\nS3Object\n))\nassert\nlen\n(\ns3_objects_added\n)\n==\n1\n# (4)\nassert\n(\nterms_updated\n:=\nresponse\n.\nassets_updated\n(\nAtlasGlossaryTerm\n))\nassert\nlen\n(\nterms_updated\n)\n==\n2\n# (5)\nUse the\ncreate()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nProvide a\nlist\nof the terms to be linked to the\nasset\n. Note that we only need a Reference to the linked term, in these examples the type and GUID of the term.\nCall the\nsave()\nmethod to actually create the asset (with its linked terms).",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "asset\n. Note that we only need a Reference to the linked term, in these examples the type and GUID of the term.\nCall the\nsave()\nmethod to actually create the asset (with its linked terms).\nThe response will include the single asset created\n... and the two linked terms that were updated.\nLink terms when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nval\ns3Object\n=\nS3Object\n.\ncreator\n(\n\"sample-file.csv\"\n,\n// (1)\nS3Bucket\n.\nrefByGuid\n(\n\"8aa53eb2-3630-4de0-81e1-d57922f43336\"\n),\n\"aws::test:samples-bucket:a/prefix/sample-file.csv\"\n)\n.\nassignedTerm\n(\nGlossaryTerm\n.\nrefByGuid\n(\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n))\n// (2)\n.\nassignedTerm\n(\nGlossaryTerm\n.\nrefByGuid\n(\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n))\n.\nbuild\n()\nval\nresponse\n=\ns3Object\n.\nsave\n(\nclient\n)\n// (3)\nassert\n(\nresponse\n.\ncreatedAssets\n.\nsize\n==\n1\n)\n// (4)\nassert\n(\nresponse\n.\nupdatedAssets\n.\nsize\n==\n3\n)\n// (5)\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nDirectly chain the\nassignedTerm\nenrichment methods to add the linked terms. Note that we only need a\nReference\nto the linked term, in these examples the type and GUID of the term.\nCall the\nsave()",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": ".\nDirectly chain the\nassignedTerm\nenrichment methods to add the linked terms. Note that we only need a\nReference\nto the linked term, in these examples the type and GUID of the term.\nCall the\nsave()\nmethod to actually create the asset (with its linked terms). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was created...\n... and the two linked terms that were updated, along with the bucket the object is created within.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"S3Object\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"sample-file.csv\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/s3/1661068484/aws::test:samples-bucket:a/prefix/sample-file.csv\"\n,\n// (4)\n\"awsArn\"\n:\n\"aws::test:samples-bucket:a/prefix/sample-file.csv\"\n,\n\"meanings\"\n:\n[\n// (5)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n},\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"guid\"\n:\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n}\n]\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": ",\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n},\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"guid\"\n:\n\"b267858d-8316-4c41-a56a-6e9b840cef4a\"\n}\n]\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nProvide the details of the terms to assign to the asset in the\nmeanings\narray. Each reference to a term must include the\ntypeName\n(always\nAtlasGlossaryTerm\n) and\nguid\nfor the term. After the completion of this code, only the terms in this list will be assigned to the asset.\n2022-08-22\n2025-06-25\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "We do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_common-examples_term-assignment.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_term-assignment.json",
+      "chunk_id": 26
+    }
+  }
+]

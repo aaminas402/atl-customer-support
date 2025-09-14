@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Integration options - Developer\nSkip to content\nIntegration options\n¶\nThroughout the portal you can focus on your preferred integration approach (and switch between them as you like):\nCLI\nUse the Atlan CLI to manage data contracts for assets in Atlan.\nGet started with\nCLI\ndbt\nUse dbt's\nmeta\nfield to enrich metadata resources straight from dbt into Atlan.\nGet started with\ndbt\nJava\nPull our Java SDK from Maven Central, just like any other dependency.\nGet started with\nJava\nPython\nPull our Python SDK from PyPI, just like any other dependency.\nGet started with\nPython\nKotlin\nPull our Java SDK from Maven Central, just like any other dependency.\nGet started with\nKotlin\nScala\nPull our Java SDK from Maven Central, just like any other dependency.\nGet started with\nScala\nClojure\nPull our Java SDK from Maven Central, just like any other dependency.\nGet started with\nClojure\nGo\nPull our Go SDK from GitHub, just like any other dependency.\nGet started with\nGo\nEvents\nTap into events Atlan produces to take immediate action, as metadata changes.\nGet started with\nevents\nRaw REST API\nYou can call directly into our REST API, though we would recommend the SDKs.\nGet started with\nraw REST APIs\n2023-04-19",
+    "metadata": {
+      "source_url": "sdks.html",
+      "source_type": "sdk",
+      "file": "sdks.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Get started with\nevents\nRaw REST API\nYou can call directly into our REST API, though we would recommend the SDKs.\nGet started with\nraw REST APIs\n2023-04-19\n2025-01-17\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "sdks.html",
+      "source_type": "sdk",
+      "file": "sdks.json",
+      "chunk_id": 1
+    }
+  }
+]

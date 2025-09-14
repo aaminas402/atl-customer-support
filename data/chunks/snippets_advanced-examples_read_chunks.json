@@ -1,0 +1,146 @@
+[
+  {
+    "content": "Retrieving assets - Developer\nSkip to content\nRetrieving assets\n¶\nI need to do this before I can update an asset, right?\nStrictly speaking, no, you do not. And in fact if you ultimately intend to update an asset you should trim it down to only what you intend to change and not send a complete asset. See\nUpdating an asset\nfor more details.\nRetrieving an\nasset\nuses a slightly different pattern from the other operations. For this you can use static methods provided by the\nAsset\nclass:\nBy GUID\n¶\n4.0.0\n4.0.0\nTo retrieve an asset by its GUID:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve an asset by its GUID\n1\n2\nGlossary\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n);\n// (1)\nIf no exception is thrown, the returned object will be non-null and of the type requested. Because this operation will read the asset from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCompile-time type checking\nThis operation will type-check the asset you are retrieving is of the type requested. If it is not, you will receive a\nNotFoundException\n, even if the GUID represents some other asset.\nRetrieve an asset by its GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "NotFoundException\n, even if the GUID represents some other asset.\nRetrieve an asset by its GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossary\n,\nAtlasGlossaryTerm\nclient\n=\nAtlanClient\n()\nglossary\n=\nclient\n.\nasset\n.\nget_by_guid\n(\n# (1)\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\nasset_type\n=\nAtlasGlossary\n,\nmin_ext_info\n=\nFalse\n,\nignore_relationships\n=\nTrue\n,\nattributes\n=\n[\nAtlasGlossary\n.\nUSER_DESCRIPTION\n,\nAtlasGlossary\n.\nTERMS\n],\nrelated_attributes\n=\n[\nAtlasGlossaryTerm\n.\nUSER_DESCRIPTION\n]\n)\nassert\nglossary\nand\nglossary\n.\nuser_description\nassert\nglossary\n.\nterms\nand\nlen\n(\nglossary\n.\nterms\n)\n>\n0\nassert\nglossary\n.\nterms\n[\n0\n]\n.\nuser_description\nclient.asset.get_by_guid()\nmethod takes following parameters:\nguid\n: specify the (GUID) of the asset to retrieve.\nasset_type\n(\noptional\n): specify the type of asset to retrieve. Defaults to\nAsset\n. If no exception is thrown, the returned object will be non-null and of the type requested.\nmin_ext_info\n(\noptional\n): minimizes additional information when set to\nTrue\n. Defaults to\nFalse\nignore_relationships\n(\noptional",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "min_ext_info\n(\noptional\n): minimizes additional information when set to\nTrue\n. Defaults to\nFalse\nignore_relationships\n(\noptional\n): specify whether to include relationships (\nFalse\n) or exclude them (\nTrue\n). Defaults to\nTrue\nattributes\n(\noptional\n): defines the list of attributes to retrieve for the asset. Accepts either a list of strings or a list of\nAtlanField\n.\nrelated_attributes\n(\noptional\n): defines the list of relationship attributes to retrieve for the asset. Accepts either a list of strings or a list of\nAtlanField\n.\nAttributes and Related attributes\nIn this example, we are retrieving the\nuserDescription\nattribute for\nboth the\nglossary\nand its\nterms\n. You can also retrieve other attributes as illustrated above.\nRun-time type checking\nThis operation will type-check the asset you are retrieving is of the type requested. If it is not, you will receive a\nNotFoundException\n, even if the GUID represents some other asset.\nRetrieve an asset by its GUID\n1\n2\nval\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\n// (1)",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "NotFoundException\n, even if the GUID represents some other asset.\nRetrieve an asset by its GUID\n1\n2\nval\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\n// (1)\nIf no exception is thrown, the returned object will be non-null and of the type requested. Because this operation will read the asset from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCompile-time type checking\nThis operation will type-check the asset you are retrieving is of the type requested. If it is not, you will receive a\nNotFoundException\n, even if the GUID represents some other asset.\nGET /api/meta/entity/guid/b4113341-251b-4adc-81fb-2420501c30e6?ignoreRelationships=false&minExtInfo=false\n1\n// (1)\nIn the case of retrieving an asset, all necessary information is included in the URL of the request. There is no payload for the body of the request.\nBy GUID (runtime typing)\n¶\n4.0.0\n1.0.0\nTo retrieve an asset by GUID, but only resolve the type at runtime:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve an asset by its GUID\n1\n2\n3\n4\n5\n6\n7\n8\nAsset\nread\n=\nAsset\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (1)\nfalse\n);\nGlossary\nglossary\n;\nif\n(\nread",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Python\nKotlin\nRaw REST API\nRetrieve an asset by its GUID\n1\n2\n3\n4\n5\n6\n7\n8\nAsset\nread\n=\nAsset\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (1)\nfalse\n);\nGlossary\nglossary\n;\nif\n(\nread\ninstanceof\nGlossary\n)\n{\nglossary\n=\n(\nGlossary\n)\nread\n;\n// (2)\n}\nRetrieve the asset by its GUID. Since GUIDs are globally unique, you do not need to specify a type. (And this is why the operation returns a generic\nAsset\n, since the SDK can only determine the type at runtime, once it has a response back from Atlan.)\nSince the operation returns a generic\nAsset\n, you need to check and cast it to a more specific type if you want to access the more specific attributes of that type.\nRetrieve an asset by its GUID\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossary\n,\nAtlasGlossaryTerm\nclient\n=\nAtlanClient\n()\nglossary\n=\nclient\n.\nasset\n.\nget_by_guid\n(\n# (1)\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\nasset_type\n=\nAtlasGlossary\n,\nmin_ext_info\n=\nFalse\n,\nignore_relationships\n=\nTrue\n,\nattributes\n=\n[\nAtlasGlossary\n.\nUSER_DESCRIPTION\n,\nAtlasGlossary\n.\nTERMS\n],\nrelated_attributes\n=\n[\nAtlasGlossaryTerm\n.\nUSER_DESCRIPTION\n]",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": ",\nmin_ext_info\n=\nFalse\n,\nignore_relationships\n=\nTrue\n,\nattributes\n=\n[\nAtlasGlossary\n.\nUSER_DESCRIPTION\n,\nAtlasGlossary\n.\nTERMS\n],\nrelated_attributes\n=\n[\nAtlasGlossaryTerm\n.\nUSER_DESCRIPTION\n]\n)\nif\nisinstance\n(\nasset\n,\nAtlasGlossary\n):\n# (2)\nglossary\n=\nasset\nassert\nglossary\nand\nglossary\n.\nuser_description\nassert\nglossary\n.\nterms\nand\nlen\n(\nglossary\n.\nterms\n)\n>\n0\nassert\nglossary\n.\nterms\n[\n0\n]\n.\nuser_description\nclient.asset.get_by_guid()\nmethod takes following parameters:\nguid\n: specify the (GUID) of the asset to retrieve.\nasset_type\n(\noptional\n): specify the type of asset to retrieve. Defaults to\nAsset\n. If no exception is thrown, the returned object will be non-null and of the type requested.\nmin_ext_info\n(\noptional\n): minimizes additional information when set to\nTrue\n. Defaults to\nFalse\nignore_relationships\n(\noptional\n): specify whether to include relationships (\nFalse\n) or exclude them (\nTrue\n). Defaults to\nTrue\nattributes\n(\noptional\n): defines the list of attributes to retrieve for the asset. Accepts either a list of strings or a list of\nAtlanField\n.\nrelated_attributes\n(\noptional",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "True\n). Defaults to\nTrue\nattributes\n(\noptional\n): defines the list of attributes to retrieve for the asset. Accepts either a list of strings or a list of\nAtlanField\n.\nrelated_attributes\n(\noptional\n): defines the list of relationship attributes to retrieve for the asset. Accepts either a list of strings or a list of\nAtlanField\n.\nAttributes and Related attributes\nIn this example, we are retrieving the\nuserDescription\nattribute for\nboth the\nglossary\nand its\nterms\n. You can also retrieve other attributes as illustrated above.\nSince the operation returns a generic\nAsset\n, you need to use\nisinstance()\nto cast it to a more specific type in the block if you want an IDE to provide more specific type hints.\nRetrieve an asset by its GUID\n1\n2\n3\n4\n5\nval\nread\n:\nAsset\n=\nAsset\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (1)\nfalse\n)\nval\nglossary\n=\nif\n(\nread\nis\nGlossary\n)\nread\nelse\nnull\n// (2)\nRetrieve the asset by its GUID. Since GUIDs are globally unique, you do not need to specify a type. (And this is why the operation returns a generic\nAsset\n, since the SDK can only determine the type at runtime, once it has a response back from Atlan.)\nSince the operation returns a generic",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Asset\n, since the SDK can only determine the type at runtime, once it has a response back from Atlan.)\nSince the operation returns a generic\nAsset\n, you need to check and cast it to a more specific type if you want to access the more specific attributes of that type.\nDoes not apply to a raw API request\nThere is no concept of typing in a raw API request — all responses to the raw API will simply be JSON objects.\nBy\nqualifiedName\n¶\n4.0.0\n4.0.0\nTo retrieve an asset by its\nqualifiedName\n:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve an asset by its qualifiedName\n1\n2\n3\n4\nGlossary\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"FzCMyPR2LxkPFgr8eNGrq\"\n);\n// (1)\nTable\ntable\n=\nTable\n.\nget\n(\nclient\n,\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n);\n// (2)\nIf no exception is thrown, the returned object will be non-null and of the type requested. Because this operation will read the asset from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nQualified name, not name\nYou must provide the\nqualifiedName\nfor glossary objects (glossaries, categories, terms) to use this method. If you only know the name, you should instead use the\nfindByName()\noperations.",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "You must provide the\nqualifiedName\nfor glossary objects (glossaries, categories, terms) to use this method. If you only know the name, you should instead use the\nfindByName()\noperations.\nFor most objects, you can probably build-up the\nqualifiedName\nin your code directly. Because this operation will read the asset from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nFinding the connection portion\nThe one exception is likely to be the connection portion of the name (\ndefault/snowflake/1657037873\nin this example). To find this portion, see\nFind connections\n.\nRetrieve an asset by its qualifiedName\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossary\n,\nAtlasGlossaryTerm\n,\nTable\nclient\n=\nAtlanClient\n()\nglossary\n=\nclient\n.\nasset\n.\nget_by_qualified_name\n(\n# (1)\nasset_type\n=\nAtlasGlossary\n,\nqualified_name\n=\n\"pXkf3RUvsIOIG8xnn0W3O\"\n,\nmin_ext_info\n=\nFalse\n,\nignore_relationships\n=\nTrue\n,\nattributes\n=\n[\nAtlasGlossary\n.\nUSER_DESCRIPTION\n,\nAtlasGlossary\n.\nTERMS\n],\nrelated_attributes\n=\n[\nAtlasGlossaryTerm\n.\nUSER_DESCRIPTION\n]\n)\nassert\nglossary\nand",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "=\nFalse\n,\nignore_relationships\n=\nTrue\n,\nattributes\n=\n[\nAtlasGlossary\n.\nUSER_DESCRIPTION\n,\nAtlasGlossary\n.\nTERMS\n],\nrelated_attributes\n=\n[\nAtlasGlossaryTerm\n.\nUSER_DESCRIPTION\n]\n)\nassert\nglossary\nand\nglossary\n.\nuser_description\nassert\nglossary\n.\nterms\nand\nlen\n(\nglossary\n.\nterms\n)\n>\n0\nassert\nglossary\n.\nterms\n[\n0\n]\n.\nuser_description\ntable\n=\nclient\n.\nasset\n.\nget_by_qualified_name\n(\nasset_type\n=\nTable\n,\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n# (2)\nmin_ext_info\n=\nFalse\n,\nignore_relationships\n=\nTrue\n,\nattributes\n=\n[\nTable\n.\nUSER_DESCRIPTION\n,\nTable\n.\nCOLUMNS\n],\nrelated_attributes\n=\n[\nCOLUMN\n.\nUSER_DESCRIPTION\n]\n)\nassert\ntable\nand\ntable\n.\nuser_description\nassert\ntable\n.\ncolumns\nand\nlen\n(\ntable\n.\ncolumns\n)\n>\n0\nassert\ntable\n.\ncolumns\n[\n0\n]\n.\nuser_description\nclient.asset.get_by_qualified_name()\nmethod takes following parameters:\nqualified_name\n: specify the qualified name of the asset to retrieve.\nasset_type\n: specify the type of asset to retrieve. If no exception is thrown, the returned object will be non-null and of the type requested.\nmin_ext_info\n(\noptional\n): minimizes additional information when set to\nTrue\n. Defaults to\nFalse",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "min_ext_info\n(\noptional\n): minimizes additional information when set to\nTrue\n. Defaults to\nFalse\nignore_relationships\n(\noptional\n): specify whether to include relationships (\nFalse\n) or exclude them (\nTrue\n). Defaults to\nTrue\nattributes\n(\noptional\n): defines the list of attributes to retrieve for the asset. Accepts either a list of strings or a list of\nAtlanField\n.\nrelated_attributes\n(\noptional\n): defines the list of relationship attributes to retrieve for the asset. Accepts either a list of strings or a list of\nAtlanField\n.\nAttributes and Related attributes\nIn this example, we are retrieving the\nuserDescription\nattribute for\nboth the\nglossary\nand its\nterms\n. You can also retrieve other attributes as illustrated above.\nFor most objects, you can probably build-up the\nqualified_name\nin your code directly.\nFinding the connection portion\nThe one exception is likely to be the connection portion of the name (\ndefault/snowflake/1657037873\nin this example). To find this portion, see\nFind connections\n.\nRetrieve an asset by its qualifiedName\n1\n2\n3\n4\nval\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"FzCMyPR2LxkPFgr8eNGrq\"\n)\n// (1)\nval\ntable\n=\nTable\n.\nget\n(\nclient\n,",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "Find connections\n.\nRetrieve an asset by its qualifiedName\n1\n2\n3\n4\nval\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"FzCMyPR2LxkPFgr8eNGrq\"\n)\n// (1)\nval\ntable\n=\nTable\n.\nget\n(\nclient\n,\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n)\n// (2)\nIf no exception is thrown, the returned object will be non-null and of the type requested. Because this operation will read the asset from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nQualified name, not name\nYou must provide the\nqualifiedName\nfor glossary objects (glossaries, categories, terms) to use this method. If you only know the name, you should instead use the\nfindByName()\noperations.\nFor most objects, you can probably build-up the\nqualifiedName\nin your code directly. Because this operation will read the asset from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nFinding the connection portion\nThe one exception is likely to be the connection portion of the name (\ndefault/snowflake/1657037873\nin this example). To find this portion, see\nFind connections\n.",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Finding the connection portion\nThe one exception is likely to be the connection portion of the name (\ndefault/snowflake/1657037873\nin this example). To find this portion, see\nFind connections\n.\nGET /api/meta/entity/uniqueAttribute/type/Glossary?attr:qualifiedName=FzCMyPR2LxkPFgr8eNGrq&ignoreRelationships=false&minExtInfo=false\n1\n// (1)\nIn the case of retrieving an asset, all necessary information is included in the URL of the request. There is no payload for the body of the request.\nURL encoding may be needed\nNote that depending on the qualifiedName, you may need to URL-encode its value before sending. This is to replace any parts of the name that could be misinterpreted as actual URL components (like\n/\nor spaces).\nFull vs minimal assets\n¶\n2.0.3\n4.0.0\nThe examples above illustrate how to retrieve:\nan asset with all of its relationships (a\ncomplete\nasset).\nan asset without any of its relationships (a\nminimal\nasset).\nYou can also retrieve the opposite by explicitly requesting it:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve an asset by its GUID\n1\n2\n3\n4\nGlossary\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\ntrue\n);\n// (1)",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Java\nPython\nKotlin\nRaw REST API\nRetrieve an asset by its GUID\n1\n2\n3\n4\nGlossary\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\ntrue\n);\n// (1)\nRetrieve the full asset, with all of its relationships, by its GUID. The last (optional) parameter being\ntrue\nindicates you want to retrieve the asset with all its relationships (a \"full\" asset). Similar variations exist on every asset as well as on the dynamically-typed\nAsset\nstatic methods.\nRetrieve an asset by its GUID\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossary\nclient\n=\nAtlanClient\n()\nglossary\n=\nclient\n.\nasset\n.\nretrieve_minimal\n(\nasset_type\n=\nAtlasGlossary\n,\n# (1)\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\nOptionally, you can provide the asset type:\nIf no exception is thrown, the returned object will be non-null and of the type requested.\nRetrieve an asset by its GUID\n1\n2\n3\n4\nval\nglossary\n=\nGlossary\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\ntrue\n)\n// (1)\nRetrieve the full asset, with all of its relationships, by its GUID. The last (optional) parameter being\ntrue",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "=\nGlossary\n.\nget\n(\nclient\n,\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\ntrue\n)\n// (1)\nRetrieve the full asset, with all of its relationships, by its GUID. The last (optional) parameter being\ntrue\nindicates you want to retrieve the asset with all its relationships (a \"full\" asset). Similar variations exist on every asset as well as on the dynamically-typed\nAsset\nstatic methods.\nGET /api/meta/entity/guid/b4113341-251b-4adc-81fb-2420501c30e6?ignoreRelationships=true&minExtInfo=true\n1\n// (1)\nIn the case of retrieving an asset, all necessary information is included in the URL of the request. Retrieving a minimal asset is a matter of setting the query parameters\nignoreRelationships\nand\nminExtInfo\nto\ntrue\n.\nRetrieve minimal assets where possible\nYou should retrieve minimal assets for better performance in cases where you do not need\nall\nof the relationships of the asset.\nKeep in mind that although the relationships will not be visible in the object after retrieving a minimal asset, this does\nnot\nmean that there are no relationships on that asset (in Atlan).\n2022-09-14\n2025-01-06\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "mean that there are no relationships on that asset (in Atlan).\n2022-09-14\n2025-01-06\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_advanced-examples_read.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples_read.json",
+      "chunk_id": 15
+    }
+  }
+]

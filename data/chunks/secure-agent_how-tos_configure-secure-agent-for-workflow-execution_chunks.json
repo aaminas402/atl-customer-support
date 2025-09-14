@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Configure workflow execution | Atlan Documentation\nSkip to main content\nOn this page\nWhen using Secure Agent for extraction, source system credentials (secrets) required for workflow execution are stored in a Secret Manager. This guide provides steps to set up workflows with Secure Agent and specify the secret details it uses during workflow execution.\nBefore you begin\nâ\nBefore configuring Secure Agent for workflow execution, ensure you have:\nA registered and active Secure Agent.\nAccess to one of the supported secret stores: AWS Secrets Manager, Azure Key Vault, GCP Secret Manager, environment variable-based secret injection technique, or a custom secret store.\nConfigure secrets retrieval for workflow execution\nâ\nFollow these steps to configure Secure Agent to retrieve secrets from a secret store required for the workflow execution. This is necessary for secure data access while running your workflows.\nðª\nDid you know?\nFor each field, you can enter either the name of a secret stored in your secret manager or the actual value. Use secret names when using a secret store with Secure Agent, or enter values directly if no secret is required.\nAWS\nAzure\nGCP\nEnvironment variables",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "AWS\nAzure\nGCP\nEnvironment variables\nCustom store\nSecure Agent retrieves the required secrets from AWS Secrets Manager during workflow execution. Follow these steps to configure retrieval under the Secure Agent configuration section:\nSecret path in Secret Manager:\nProvide the Amazon Resource Name (ARN) or the path of the secret that contains the sensitive configuration details required for the connector. These details may include credentials such as username, password, or other sensitive information needed by the Secure Agent to securely access data during workflow execution.\nAWS region:\nSelect the region where your AWS Secrets Manager is located.\nAWS authentication method:\nSelect how you want the Secure Agent to authenticate when executing the workflow. Choose one:\nIAM (Recommended)\n: Use this method if the secure agent was configured to use the AWS IAM permissions to access secrets.\nIAM Assume Role\n: Use this method if the agent was configured to access secrets via cross-account roles.\nAWS Assume Role ARN\n: Provide the IAM Role ARN that grants the Secure Agent permission to retrieve secrets.\nAccess Key & Secret Key",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "AWS Assume Role ARN\n: Provide the IAM Role ARN that grants the Secure Agent permission to retrieve secrets.\nAccess Key & Secret Key\n: Use this method if the agent was configured to use the AWS Access Key ID and Secret Access Key via environment variables or Kubernetes secrets.\nSecure Agent retrieves secrets from Azure Key Vault during workflow execution. Follow these steps to configure retrieval under the Secure Agent configuration section:\nSecret path in Secret Manager:\nProvide the URL of the Azure Key Vault secret that contains the sensitive configuration details required for the connector. These details may include credentials such as username, password, or other sensitive information needed by the Secure Agent to securely access data during workflow execution.\nAzure authentication method:\nSelect how you want the Secure Agent to authenticate when accessing the Azure Key Vault secret. Choose one:\nManaged Identity (Recommended)\n: Use this method if the agent was configured to use an Azure-managed identity assigned to the agent environment for authentication.\nService Principal Authentication",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Managed Identity (Recommended)\n: Use this method if the agent was configured to use an Azure-managed identity assigned to the agent environment for authentication.\nService Principal Authentication\n: Use this method if the agent was configured to authenticate via a Service Principal using Tenant ID, Client ID, and Client Secret.\nAzure Key Vault Name:\nProvide the name of your Azure Key Vault that stores your secrets.\nSecure Agent retrieves secrets from GCP Secret Manager during workflow execution. The secret is uniquely identified by its name in GCP Secret Manager, without requiring additional attributes.\nSecure Agent retrieves secrets from environment variables during workflow execution.\nSecure Agent retrieves secrets from Custom Secret Store during workflow execution. Follow these steps to configure retrieval under the Secure Agent configuration section:\nAgent Custom configuration:\nSecure agent needs information for connecting to the custom secret store. Add the configuration details in JSON format to specify the connection settings and the secrets to retrieve during workflow execution. For example, the JSON configuration to initiate a sample custom store may look like below:\n{",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "{\n\"store_url\"\n:\n\"https://custom-secret-store.example.com\"\n,\n\"secret_name\"\n:\n\"my-custom-secret\"\n}\nNext steps\nâ\nAfter configuring the Secure Agent, return to your connectorâs setup guide and continue the workflow setup.\nBefore you begin\nConfigure secrets retrieval for workflow execution\nNext steps",
+    "metadata": {
+      "source_url": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.html",
+      "source_type": "docs",
+      "file": "secure-agent_how-tos_configure-secure-agent-for-workflow-execution.json",
+      "chunk_id": 4
+    }
+  }
+]

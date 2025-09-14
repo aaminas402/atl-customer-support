@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Product release stages | Atlan Documentation\nSkip to main content\nOn this page\nThe following release stages are part of the lifecycle of an Atlan feature:\nStage\nAccess\nStatus\nAlpha\nBy invitation only to few data teams\nExperimental\nPrivate preview\nBy invitation only to a larger cohort of data teams\nNear production grade\nPublic preview\nOpen to all data teams\nProduction grade with known limitations\nGeneral availability\nOpen to all data teams\nProduction grade\nAtlan release stages\nâ\nWhile features are stable, Atlan may on occasion deprecate legacy functionality to support product updates.\nAlpha\nâ\nEnabled for select customers on request to test, validate, and provide feedback.\nExperimental in nature, user feedback critical in preparing for a wider release.\nFormal support and documentation unavailable.\nStandard SLAs, terms, and warranties don't apply.\nPrivate preview\nâ\nEnabled for a larger cohort of customers on request to test, validate, and provide feedback.\nPartially production ready   -  breaking changes may occur.\nInformal support and documentation from product and engineering teams.\nStandard SLAs, terms, and warranties don't apply.\nTo get access to private preview features,",
+    "metadata": {
+      "source_url": "get-started_references_product-release-stages.html",
+      "source_type": "docs",
+      "file": "get-started_references_product-release-stages.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Informal support and documentation from product and engineering teams.\nStandard SLAs, terms, and warranties don't apply.\nTo get access to private preview features,\nraise a support request\n.\nPublic preview\nâ\nEnabled for all customers, usually includes a\nPreview\nlabel in the product or requires admins to enable the feature from\nLabs\nin the admin center.\nProduction grade is high, but with known limitations.\nFormal support and documentation provided on best available basis.\nFeature release may be announced on the\nShipped channel\n.\nStandard SLAs, terms, and warranties do not apply.\nGeneral availability\nâ\nEnabled for all users.\nProduction grade is of the highest quality to ensure the best possible user experience.\nFormal support and documentation available.\nFeature release announced on the\nShipped channel\n.\nStandard SLAs, terms, and warranties apply.\nAtlan release stages\nAlpha\nPrivate preview\nPublic preview\nGeneral availability",
+    "metadata": {
+      "source_url": "get-started_references_product-release-stages.html",
+      "source_type": "docs",
+      "file": "get-started_references_product-release-stages.json",
+      "chunk_id": 1
+    }
+  }
+]

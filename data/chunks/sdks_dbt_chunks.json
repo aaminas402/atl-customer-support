@@ -1,0 +1,29 @@
+[
+  {
+    "content": "dbt - Developer\nSkip to content\ndbt\n¶\nAtlan University\nSee it in action in our\nautomated enrichment course\n(45 mins).\nYou can use\ndbt's\nmeta\nfield\nto enrich metadata resources from dbt into Atlan. Atlan will ingest the information from this field and update the\nassets\nin Atlan accordingly.\nWith this, you have a powerful way to keep the dbt assets documented directly as part of your dbt work.\nThe following is an example:\ndbt example\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\nversion\n:\n2\nmodels\n:\n-\nname\n:\ncustomers\ndescription\n:\n>-\n# (1)\nThis table has basic information about a customer, as well as some derived\nfacts based on a customer's orders.\nmeta\n:\n# (2)\natlan\n:\n# (3)\nattributes\n:\n# (4)\ncertificateStatus\n:\nDRAFT\nownerUsers\n:\n[\n\"bryan\"\n,\n\"ashwin\"\n]\nclassifications\n:\n# (5)\n-\ntypeName\n:\n\"ipubxAPPb0zRcNU1Gkjs9b\"\npropagate\n:\ntrue\nremovePropagationsOnEntityDelete\n:\ntrue\nrestrictPropagationThroughLineage\n:\ntrue\nrestrictPropagationThroughHierarchy\n:\nfalse\ncolumns\n:\n-\nname\n:\ncustomer_id\ndescription\n:\nThis is a unique identifier for a customer\ntests\n:\n-\nunique\n-\nnot_null\n-\nname\n:\ntotal_order_amount\ndescription\n:",
+    "metadata": {
+      "source_url": "sdks_dbt.html",
+      "source_type": "sdk",
+      "file": "sdks_dbt.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ":\nfalse\ncolumns\n:\n-\nname\n:\ncustomer_id\ndescription\n:\nThis is a unique identifier for a customer\ntests\n:\n-\nunique\n-\nnot_null\n-\nname\n:\ntotal_order_amount\ndescription\n:\nTotal value (AUD) of a customer's orders.\n-\nname\n:\ncustomer_lifetime_value\nmeta\n:\n# (6)\natlan\n:\nattributes\n:\ndescription\n:\nCustomer lifetime value.\ncertificateStatus\n:\nDRAFT\nownerUsers\n:\n[\n\"ravi\"\n]\nclassifications\n:\n-\ntypeName\n:\n\"ipubxAPPb0zRcNU1Gkjs9b\"\npropagate\n:\ntrue\nremovePropagationsOnEntityDelete\n:\ntrue\nThe\ndescription\nat the top level of an asset defined in dbt will already be mapped to the description field for that asset in Atlan.\nMore detailed metadata, however, needs to be specified within the\nmeta\nfield.\n... and within the\nmeta\nfield, further within the\natlan\nsub-field.\nFor attributes, such as certificates, announcements, or owners these need to be specified within the\nattributes\nsub-field.\nClassifications need to be specified within a\nclassifications\nsub-field.\nNote that the\nmeta\nfield and its sub-structure (including all the detailed attributes) can also be applied to columns within a model.\nThis rich metadata will then be loaded to the corresponding attributes on the asset in Atlan.",
+    "metadata": {
+      "source_url": "sdks_dbt.html",
+      "source_type": "sdk",
+      "file": "sdks_dbt.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "This rich metadata will then be loaded to the corresponding attributes on the asset in Atlan.\nFor more details on specific examples, see the\ndbt\ntabs in the\nCommon asset actions\nsnippets.\n2023-12-07\n2024-10-01\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "sdks_dbt.html",
+      "source_type": "sdk",
+      "file": "sdks_dbt.json",
+      "chunk_id": 2
+    }
+  }
+]

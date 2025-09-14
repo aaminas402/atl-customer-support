@@ -1,0 +1,155 @@
+[
+  {
+    "content": "Updating users and groups - Developer\nSkip to content\nUpdating users and groups\n¶\nYou can update basic properties of both users and groups, again using the builder pattern.\nUpdate a group\n¶\n0.0.13\n1.3.3\n4.0.0\nFor example, to update a group:\nJava\nPython\nKotlin\nGo\nRaw REST API\nUpdate a group\n1\n2\n3\n4\n5\n6\n7\n8\nAtlanGroup\ngroup\n=\nAtlanGroup\n.\nupdater\n(\n// (1)\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n// (2)\n\"/example_group\"\n)\n// (3)\n.\nattributes\n(\nAtlanGroup\n.\nGroupAttributes\n.\nbuilder\n()\n// (4)\n.\ndescription\n(\nList\n.\nof\n(\n\"Now with a description!\"\n))\n// (5)\n.\nbuild\n())\n// (6)\n.\nbuild\n();\n// (7)\ngroup\n.\nupdate\n(\nclient\n);\n// (8)\nTo update a group, start a builder using the\nupdater()\nmethod.\nYou must provide the GUID of the group...\n...and the\npath\nof the group you want to update. (Note that the path is different from the name — you're best retrieving a group first and then getting the path from that retrieved object if you are unsure.)\nYou can then specify anything you want to update. In the case of a group, most of the properties are in an embedded\nattributes\nobject that can be built-up through its own builder.",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "You can then specify anything you want to update. In the case of a group, most of the properties are in an embedded\nattributes\nobject that can be built-up through its own builder.\nFor example, you can add or change the description of the group. (Note that all objects in the attributes of a group are lists, even when they only have a single value.)\nLike other builder patterns, you need to build the attributes object.\nLike other builder patterns, you need to build the updated group object itself.\nFinally, you can call the\nupdate()\nmethod on the built-up group object to actually update the group in Atlan. Note that this method does not return anything. Because this operation will persist the group in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUpdate a group\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.model.group\nimport\nAtlanGroup\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\ngroup\n=\nAtlanGroup\n.\ncreate_for_modification\n(\n# (1)\nguid\n=\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n# (2)\npath\n=\n\"/example_group\"\n# (3)\n)\ngroup\n.\nattributes\n=\nAtlanGroup\n.\nAttributes\n(\n# (4)\ndescription\n=\n[\n\"Now with a description!\"\n]\n# (5)\n)\nclient\n.",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "guid\n=\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n# (2)\npath\n=\n\"/example_group\"\n# (3)\n)\ngroup\n.\nattributes\n=\nAtlanGroup\n.\nAttributes\n(\n# (4)\ndescription\n=\n[\n\"Now with a description!\"\n]\n# (5)\n)\nclient\n.\ngroup\n.\nupdate\n(\ngroup\n)\n# (6)\nTo update a group, you could start by retrieving the group. Alternatively, you can use\nAtlanGroup.create_for_modification()\nto start building a minimal update request.\nYou must provide the GUID of the group...\n...and the\npath\nof the group you want to update. (Note that the path is different from the name — you're best retrieving a group first and then getting the path from that retrieved object if you are unsure.)\nYou can then specify anything you want to update. In the case of a group, most of the properties are in an embedded\nAttributes\nclass that can be built-up.\nFor example, you can add or change the description of the group. (Note that all objects in the attributes of a group are lists, even when they only have a single value.)\nFinally, you can call the\ngroup.update()\nmethod with the built-up group object to actually update the group in Atlan. Note that this method does not return anything.\nUpdate a group\n1\n2\n3\n4\n5\n6\n7\n8\nval\ngroup\n=\nAtlanGroup\n.",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "group.update()\nmethod with the built-up group object to actually update the group in Atlan. Note that this method does not return anything.\nUpdate a group\n1\n2\n3\n4\n5\n6\n7\n8\nval\ngroup\n=\nAtlanGroup\n.\nupdater\n(\n// (1)\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n// (2)\n\"/example_group\"\n)\n// (3)\n.\nattributes\n(\nAtlanGroup\n.\nGroupAttributes\n.\nbuilder\n()\n// (4)\n.\ndescription\n(\nlistOf\n(\n\"Now with a description!\"\n))\n// (5)\n.\nbuild\n())\n// (6)\n.\nbuild\n()\n// (7)\ngroup\n.\nupdate\n(\nclient\n)\n// (8)\nTo update a group, start a builder using the\nupdater()\nmethod.\nYou must provide the GUID of the group...\n...and the\npath\nof the group you want to update. (Note that the path is different from the name — you're best retrieving a group first and then getting the path from that retrieved object if you are unsure.)\nYou can then specify anything you want to update. In the case of a group, most of the properties are in an embedded\nattributes\nobject that can be built-up through its own builder.\nFor example, you can add or change the description of the group. (Note that all objects in the attributes of a group are lists, even when they only have a single value.)",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "For example, you can add or change the description of the group. (Note that all objects in the attributes of a group are lists, even when they only have a single value.)\nLike other builder patterns, you need to build the attributes object.\nLike other builder patterns, you need to build the updated group object itself.\nFinally, you can call the\nupdate()\nmethod on the built-up group object to actually update the group in Atlan. Note that this method does not return anything. Because this operation will persist the group in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUpdate a group\n1\n2\n3\n4\n5\n6\n7\n8\nAtlanGroup\n:=\nassets\n.\nAtlanGroup\n{}\ngroup\n,\natlanErr\n:=\nAtlanGroup\n.\nUpdater\n(\n// (1)\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n// (2)\n\"/example_group\"\n,\n// (3)\n)\ndescription\n:=\n[]\nstring\n{\n\"Now with a description!\"\n}\ngroup\n.\nAttributes\n.\nDescription\n=\ndescription\n// (4)\nctx\n.\nGroupClient\n.\nUpdate\n(\ngroup\n)\n// (5)\nTo update a group, you could start by retrieving the group. Alternatively, you can use\nAtlanGroup.Updater()\nto start building a minimal update request.\nYou must provide the GUID of the group...\n...and the\npath",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "AtlanGroup.Updater()\nto start building a minimal update request.\nYou must provide the GUID of the group...\n...and the\npath\nof the group you want to update. (Note that the path is different from the name — you're best retrieving a group first and then getting the path from that retrieved object if you are unsure.)\nYou can then specify anything you want to update. In the case of a group, most of the properties are in an embedded\nAttributes\nclass that can be built-up. For example, you can add or change the description of the group. (Note that all objects in the attributes of a group are lists, even when they only have a single value.)\nFinally, you can call the\nGroupClient.Update()\nmethod with the built-up group object to actually update the group in Atlan. Note that this method does not return anything.\nPOST /api/service/groups/e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"id\"\n:\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n// (1)\n\"path\"\n:\n\"/example_group\"\n,\n// (2)\n\"attributes\"\n:\n{\n// (3)\n\"description\"\n:\n[\n\"Now with a description!\"\n],\n\"isDefault\"\n:\n[\n\"false\"\n]\n}\n}\nYou must provide the GUID of the group within the request payload.",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": ":\n\"/example_group\"\n,\n// (2)\n\"attributes\"\n:\n{\n// (3)\n\"description\"\n:\n[\n\"Now with a description!\"\n],\n\"isDefault\"\n:\n[\n\"false\"\n]\n}\n}\nYou must provide the GUID of the group within the request payload.\nYou must provide the internal name of the group, prefixed by\n/\n, as the\npath\n.\nYou can provide any attributes to update on the group in the\nattributes\nobject.\nValues are all arrays of strings\nNote that every value for an attribute is an array of strings, even when there is only a single value.\nRemove users from group\n¶\n0.0.13\n1.3.3\n4.0.0\nTo remove one or more users from a group:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRemove users from a group\n1\n2\n3\n4\n5\nAtlanGroup\ngroup\n=\nAtlanGroup\n.\nupdater\n(\n// (1)\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n// (2)\n\"/example_group\"\n)\n// (3)\n.\nbuild\n();\n// (4)\ngroup\n.\nremoveUsers\n(\nclient\n,\nList\n.\nof\n(\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n));\n// (5)\nTo update group membership, start a builder using the\nupdater()\nmethod.\nYou must provide the GUID of the group...\n...and the\npath",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ",\nList\n.\nof\n(\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n));\n// (5)\nTo update group membership, start a builder using the\nupdater()\nmethod.\nYou must provide the GUID of the group...\n...and the\npath\nof the group you want to update. (Note that the path is different from the name — you're best retrieving a group first and then getting the path from that retrieved object if you are unsure.)\nLike other builder patterns, you need to build the updated group object itself.\nUse the\nremoveUsers()\nmethod to remove one or more users from the group. Specify the GUID of each user you want to remove as a member of the group. Because this operation will persist the group in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRemove users from a group\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nclient\n.\ngroup\n.\nremove_users\n(\n# (1)\nguid\n=\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n# (2)\nuser_ids\n=\n[\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n]\n# (3)\n)\nUse the\ngroup.remove_users()\nmethod to remove one or more users from the group.\nSpecify the GUID of the group from which you want to remove users.",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "=\n[\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n]\n# (3)\n)\nUse the\ngroup.remove_users()\nmethod to remove one or more users from the group.\nSpecify the GUID of the group from which you want to remove users.\nSpecify the GUID of each user you want to remove as a member of the group.\nRemove users from a group\n1\n2\n3\n4\n5\nval\ngroup\n=\nAtlanGroup\n.\nupdater\n(\n// (1)\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n,\n// (2)\n\"/example_group\"\n)\n// (3)\n.\nbuild\n()\n// (4)\ngroup\n.\nremoveUsers\n(\nclient\n,\nlistOf\n(\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n))\n// (5)\nTo update group membership, start a builder using the\nupdater()\nmethod.\nYou must provide the GUID of the group...\n...and the\npath\nof the group you want to update. (Note that the path is different from the name — you're best retrieving a group first and then getting the path from that retrieved object if you are unsure.)\nLike other builder patterns, you need to build the updated group object itself.\nUse the\nremoveUsers()\nmethod to remove one or more users from the group. Specify the GUID of each user you want to remove as a member of the group. Because this operation will persist the group in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nRemove users from a group\n1\n2\n3\n4\nctx\n.\nGroupClient\n.\nRemoveUsers\n(\n// (1)\n\"a99f50bc-46bf-4d08-a987-3411ef5cfc33\"\n,\n// (2)\n[]\nstring\n{\n\"b060a754-4d16-4e13-b5a8-ba42f10aee39\"\n},\n// (3)\n)\nUse the\nGroupClient.RemoveUsers()\nmethod to remove one or more users from the group.\nSpecify the GUID of the group from which you want to remove users.\nSpecify the GUID of each user you want to remove as a member of the group.\nPOST /api/service/groups/e79cb8eb-2bb6-4821-914c-f8dfd21fedc7/members/remove\n1\n2\n3\n4\n5\n{\n\"users\"\n:\n[\n// (1)\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n// (2)\n]\n}\nYou must provide the list of users to remove from the group in a\nusers\narray.\nSpecify each user by its unique ID (GUID).\nUpdate a user\n¶\n0.0.13\n1.3.3\n1.0.0\nTo update a user, begin by building the minimal update object:\nJava\nPython\nKotlin\nGo\nRaw REST API\nBuild the minimal update object\n1\n2\n3\nAtlanUser\nuser\n=\nAtlanUser\n.\nupdater\n(\n// (1)\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n)\n// (2)\n.\nbuild\n();\n// (3)\nTo update a user, start a builder using the\nupdater()\nmethod.\nYou must provide the GUID of the user.",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "=\nAtlanUser\n.\nupdater\n(\n// (1)\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n)\n// (2)\n.\nbuild\n();\n// (3)\nTo update a user, start a builder using the\nupdater()\nmethod.\nYou must provide the GUID of the user.\nLike other builder patterns, you need to build the updated user object itself.\nSpecific operations below\nThe specific operations for updating a user are all listed below - there is no update object to build in the Python SDK.\nBuild the minimal update object\n1\n2\n3\nval\nuser\n=\nAtlanUser\n.\nupdater\n(\n// (1)\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n)\n// (2)\n.\nbuild\n()\n// (3)\nTo update a user, start a builder using the\nupdater()\nmethod.\nYou must provide the GUID of the user.\nLike other builder patterns, you need to build the updated user object itself.\nSpecific operations below\nThe specific operations for updating a user are all listed below - there is no update object to build in the Go SDK.\nImplicit in the API calls below\nThere is nothing specific to do for this step when using the raw APIs — constructing the object is simply what you place in the payload of the API calls in the steps below.\nAdd user to groups\n¶\n0.0.13\n1.3.3\n4.0.0",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "Add user to groups\n¶\n0.0.13\n1.3.3\n4.0.0\nOnce you have the update object, to add a user to one or more groups:\nJava\nPython\nKotlin\nGo\nRaw REST API\nAdd user to groups\n4\nuser\n.\naddToGroups\n(\nclient\n,\nList\n.\nof\n(\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n));\n// (1)\nUse the\naddToGroups()\nmethod to add the user to one or more groups. Specify the GUID of each group you want to make the user a member of. Because this operation will persist the user in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nAdd user to groups\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nclient\n.\nuser\n.\nadd_to_groups\n(\n# (1)\nguid\n=\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n,\n# (2)\ngroup_ids\n=\n[\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n]\n# (3)\n)\nUse the\nuser.add_to_groups()\nmethod to add the user to one or more groups.\nSpecify the GUID of the user you want to add to one or more groups.\nSpecify the GUID of each group you want to make the user a member of.\nAdd user to groups\n4\nuser\n.\naddToGroups\n(\nclient\n,\nlistOf\n(\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n))\n// (1)\nUse the\naddToGroups()",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Add user to groups\n4\nuser\n.\naddToGroups\n(\nclient\n,\nlistOf\n(\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n))\n// (1)\nUse the\naddToGroups()\nmethod to add the user to one or more groups. Specify the GUID of each group you want to make the user a member of. Because this operation will persist the user in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nAdd user to groups\n1\n2\n3\n4\nctx\n.\nUserClient\n.\nAddUserToGroups\n(\n// (1)\n\"b060a754-4d16-4e13-b5a8-ba42f10aee39\"\n,\n// (2)\n[]\nstring\n{\n\"a99f50bc-46bf-4d08-a987-3411ef5cfc33\"\n},\n// (3)\n)\nUse the\nUserClient.AddUserToGroups()\nmethod to add the user to one or more groups.\nSpecify the GUID of the user you want to add to one or more groups.\nSpecify the GUID of each group you want to make the user a member of.\nPOST /api/service/users/da213751-95de-4f96-8bee-a2c73e2ef8c8/groups\n1\n2\n3\n4\n5\n{\n\"groups\"\n:\n[\n// (1)\n\"e79cb8eb-2bb6-4821-914c-f8dfd21fedc7\"\n// (2)\n]\n}\nYou must provide the list of groups to remove the user from in a\ngroups\narray.\nSpecify each group by its unique ID (GUID).\nChange role of user\n¶\n0.0.13\n6.0.0\n4.0.0\nOnce you have the update object, to change the role of a user:\nJava\nPython\nKotlin\nGo\nRaw REST API",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "groups\narray.\nSpecify each group by its unique ID (GUID).\nChange role of user\n¶\n0.0.13\n6.0.0\n4.0.0\nOnce you have the update object, to change the role of a user:\nJava\nPython\nKotlin\nGo\nRaw REST API\nChange role of user\n4\nuser\n.\nchangeRole\n(\nclient\n,\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"$guest\"\n));\n// (1)\nUse the\nchangeRole()\nmethod to change the role of a user. Because this operation will persist the user in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUse the\nRoleCache\nto find the right GUID\nThe\nchangeRole()\nmethod requires the GUID of the role you want to move the user to. In order to find that GUID, you can use the\nRoleCache.getIdForName()\nand provide the name of the role.\nChange role of user\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nclient\n.\nuser\n.\nchange_role\n(\n# (1)\nguid\n=\n\"da213751-95de-4f96-8bee-a2c73e2ef8c8\"\n,\n# (2)\nrole_id\n=\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$guest\"\n)\n# (3)\n)\nUse the\nuser.change_role()\nmethod to change the role of a user.\nSpecify the GUID of the user whose role you want to change.\nSpecify the GUID of the role you want to change the user to.\nUse the\nRoleCache",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "user.change_role()\nmethod to change the role of a user.\nSpecify the GUID of the user whose role you want to change.\nSpecify the GUID of the role you want to change the user to.\nUse the\nRoleCache\nto find the right GUID\nThe\nuser.change_role()\nmethod requires the GUID of the role you want to move the user to. In order to find that GUID, you can use the\nRoleCache.get_id_for_name()\nand provide the name of the role.\nChange role of user\n4\nuser\n.\nchangeRole\n(\nclient\n,\nclient\n.\nroleCache\n.\ngetIdForName\n(\n\"\\$guest\"\n))\n// (1)\nUse the\nchangeRole()\nmethod to change the role of a user. Because this operation will persist the user in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUse the\nRoleCache\nto find the right GUID\nThe\nchangeRole()\nmethod requires the GUID of the role you want to move the user to. In order to find that GUID, you can use the\nRoleCache.getIdForName()\nand provide the name of the role.\nChange role of user\n1\n2\n3\n4\n5\nroleID\n,\natlanErr\n:=\nassets\n.\nGetRoleIDForRoleName\n(\n\"$guest\"\n)\nctx\n.\nUserClient\n.\nChangeUserRole\n(\n// (1)\n\"b060a754-4d16-4e13-b5a8-ba42f10aee39\"\n,\n// (2)\nroleID\n,\n// (3)\n)\nUse the\nUserClient.ChangeUserRole()",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "atlanErr\n:=\nassets\n.\nGetRoleIDForRoleName\n(\n\"$guest\"\n)\nctx\n.\nUserClient\n.\nChangeUserRole\n(\n// (1)\n\"b060a754-4d16-4e13-b5a8-ba42f10aee39\"\n,\n// (2)\nroleID\n,\n// (3)\n)\nUse the\nUserClient.ChangeUserRole()\nmethod to change the role of a user.\nSpecify the GUID of the user whose role you want to change.\nSpecify the GUID of the role you want to change the user to.\nUse the\nRoleCache\nto find the right GUID\nThe\nUserClient.ChangeUserRole()\nmethod requires the GUID of the role you want to move the user to. In order to find that GUID, you can use the\nassets.GetRoleIDForRoleName()\nand provide the name of the role.\nPOST /api/service/users/da213751-95de-4f96-8bee-a2c73e2ef8c8/update\n1\n2\n3\n{\n\"roleId\"\n:\n\"0d1c39de-7323-4490-98d9-43240307eea7\"\n// (1)\n}\nYou must provide the unique ID (GUID) of the new role for the user.\nYou probably need to look this up first\nWhen using the raw API, you will need to lookup the role GUID yourself. You can\nGET /api/service/roles\n, and the GUID will be the\nid\nfield in the response for each role.\nDeactivate a user\n¶\nThis cannot be done programmatically\nYou can only deactivate users as an Admin user (via the UI), API tokens do not have access to deactivate users.",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "Deactivate a user\n¶\nThis cannot be done programmatically\nYou can only deactivate users as an Admin user (via the UI), API tokens do not have access to deactivate users.\nReactivate a user\n¶\nThis cannot be done programmatically\nYou can only reactivate users as an Admin user (via the UI), API tokens do not have access to reactivate users.\n2022-12-28\n2025-04-02\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_users-groups_update.html",
+      "source_type": "sdk",
+      "file": "snippets_users-groups_update.json",
+      "chunk_id": 16
+    }
+  }
+]

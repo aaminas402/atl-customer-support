@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Manage workflow schedules - Developer\nSkip to content\nManage workflow schedules\nSchedule a workflow run\n¶\n0.0.16\n2.1.8\nDirectly on run:\n¶\nYou can directly add a schedule to a workflow run.\nFor example, with\nSnowflake Miner\n:\nJava\nPython\nKotlin\nGo\nComing soon\nAdd schedule directly on run\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nSnowflakeMiner\nfrom\npyatlan.model.workflow\nimport\nWorkflowSchedule\nclient\n=\nAtlanClient\n()\nminer\n=\n(\n# (1)\nSnowflakeMiner\n(\nconnection_qualified_name\n=\n\"default/snowflake/1234567890\"\n)\n.\ns3\n(\ns3_bucket\n=\n\"test-s3-bucket\"\n,\ns3_prefix\n=\n\"test-s3-prefix\"\n,\ns3_bucket_region\n=\n\"test-s3-bucket-region\"\n,\nsql_query_key\n=\n\"TEST_QUERY\"\n,\ndefault_database_key\n=\n\"TEST_SNOWFLAKE\"\n,\ndefault_schema_key\n=\n\"TEST_SCHEMA\"\n,\nsession_id_key\n=\n\"TEST_SESSION_ID\"\n,\n)\n.\npopularity_window\n(\ndays\n=\n15\n)\n.\nnative_lineage\n(\nenabled\n=\nTrue\n)\n.\ncustom_config\n(\nconfig\n=\n{\n\"test\"\n:\nTrue\n,\n\"feature\"\n:\n1234\n})\n.\nto_workflow\n()\n)\nschedule\n=\nWorkflowSchedule\n(\ncron_schedule\n=\n\"45 5 * * *\"\n,\ntimezone\n=\n\"Europe/Paris\"\n,\n)\n# (2)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_schedules.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_schedules.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "config\n=\n{\n\"test\"\n:\nTrue\n,\n\"feature\"\n:\n1234\n})\n.\nto_workflow\n()\n)\nschedule\n=\nWorkflowSchedule\n(\ncron_schedule\n=\n\"45 5 * * *\"\n,\ntimezone\n=\n\"Europe/Paris\"\n,\n)\n# (2)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nworkflow\n=\nminer\n,\nworkflow_schedule\n=\nschedule\n)\n# (3)\nBegin by constructing the Snowflake miner workflow.\nTo create a new schedule for the workflow, specify:\ncron schedule expression\n,\nfor example:\n45 5 * * *\n(scheduled for tomorrow at\n04:05:00\n).\ntime zone for the cron schedule, such as\nEurope/Paris\n.\nFinally, use the\nclient.workflow.run()\nmethod to add this new schedule.\nIt will both add the schedule and execute the workflow in Atlan.\nComing soon\nAdd schedule directly on run\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\nminer\n:=\nassets\n.\nNewSnowflakeMiner\n(\n\"default/snowflake/1234567890\"\n).\n// (1)\nS3\n(\n\"test-s3-bucket\"\n,\n\"test-s3-prefix\"\n,\n\"TEST_QUERY\"\n,\n\"TEST_SNOWFLAKE\"\n,\n\"TEST_SCHEMA\"\n,\n\"TEST_SESSION_ID\"\n,\nstructs\n.\nStringPtr\n(\n\"test-s3-bucket-region\"\n),\n).\nPopularityWindow\n(\n30\n).\nNativeLineage\n(\ntrue\n).\nCustomConfig\n(\nmap\n[\nstring\n]\ninterface\n{}{\n\"test\"\n:\ntrue\n,\n\"feature\"\n:\n1234\n,\n}).\nToWorkflow\n()\nSchedule\n:=\nstructs\n.\nWorkflowSchedule\n{\nCronSchedule\n:",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_schedules.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_schedules.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "(\n30\n).\nNativeLineage\n(\ntrue\n).\nCustomConfig\n(\nmap\n[\nstring\n]\ninterface\n{}{\n\"test\"\n:\ntrue\n,\n\"feature\"\n:\n1234\n,\n}).\nToWorkflow\n()\nSchedule\n:=\nstructs\n.\nWorkflowSchedule\n{\nCronSchedule\n:\n\"45 5 * * *\"\n,\nTimezone\n:\n\"Europe/Paris\"\n}\n// (2)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nRun\n(\nminer\n,\n&\nSchedule\n)\n// (3)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nBegin by constructing the Snowflake miner workflow.\nTo create a new schedule for the workflow, specify:\ncron schedule expression\n,\nfor example:\n45 5 * * *\n(scheduled for tomorrow at\n04:05:00\n).\ntime zone for the cron schedule, such as\nEurope/Paris\n.\nFinally, use the\nctx.WorkflowClient.Run()\nmethod to add this new schedule.\nIt will both add the schedule and execute the workflow in Atlan.\nExisting workflow:\n¶\nYou can also add a schedule to an existing workflow run:\nJava\nPython\nKotlin\nGo\nComing soon\nSchedule an existing workflow run\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.workflow\nimport\nWorkflowSchedule\nclient\n=\nAtlanClient\n()\nexisting_workflow\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\nprefix\n=\nWorkflowPackage\n.\nSNOWFLAKE_MINER\n)[\n0\n]\n# (1)",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_schedules.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_schedules.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "AtlanClient\nfrom\npyatlan.model.workflow\nimport\nWorkflowSchedule\nclient\n=\nAtlanClient\n()\nexisting_workflow\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\nprefix\n=\nWorkflowPackage\n.\nSNOWFLAKE_MINER\n)[\n0\n]\n# (1)\nschedule\n=\nWorkflowSchedule\n(\ncron_schedule\n=\n\"45 5 * * *\"\n,\ntimezone\n=\n\"Europe/Paris\"\n,\n)\n# (2)\nresponse\n=\nclient\n.\nworkflow\n.\nadd_schedule\n(\nworkflow\n=\nexisting_workflow\n,\nworkflow_schedule\n=\nschedule\n)\n# (3)\nYou can retrieve workflows based on their type (prefix).\nNote:\nOnly workflows that have been run will be found.\nTo create a new schedule for an existing workflow, provide:\ncron schedule expression\n, e.g:\n45 5 * * *\n(tomorrow at\n04:05:00\n).\ntime zone for the cron schedule, e.g:\nEurope/Paris\n.\nFinally, to apply this new schedule to the existing workflow,\nuse\nclient.workflow.add_schedule()\nmethod.\nComing soon\nSchedule an existing workflow run\n1\n2\n3\nexistingWorkflow\n,\n_\n:=\nctx\n.\nWorkflowClient\n.\nFindByType\n(\natlan\n.\nWorkflowPackageSnowflakeMiner\n,\n1\n)\n// (1)\nSchedule\n:=\nstructs\n.\nWorkflowSchedule\n{\nCronSchedule\n:\n\"45 5 * * *\"\n,\nTimezone\n:\n\"Europe/Paris\"\n}\n// (2)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nAddSchedule\n(\nexistingWorkflow\n[\n0\n],\n&\nSchedule\n)",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_schedules.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_schedules.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": ":=\nstructs\n.\nWorkflowSchedule\n{\nCronSchedule\n:\n\"45 5 * * *\"\n,\nTimezone\n:\n\"Europe/Paris\"\n}\n// (2)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nAddSchedule\n(\nexistingWorkflow\n[\n0\n],\n&\nSchedule\n)\nYou can retrieve workflows based on their type (prefix). (You can also specify the\nmaximum number of resulting\nworkflows\nyou want to retrieve as results.)\nNote:\nOnly workflows that have been run will be found.\nTo create a new schedule for an existing workflow, provide:\ncron schedule expression\n, e.g:\n45 5 * * *\n(tomorrow at\n04:05:00\n).\ntime zone for the cron schedule, e.g:\nEurope/Paris\n.\nFinally, to apply this new schedule to the existing workflow,\nuse\nctx.WorkflowClient.AddSchedule()\nmethod.\nNote:\nThe AddSchedule() method returns an error in case of failure, manage it accordingly by returning it.\nRetrieve a scheduled workflow run\n¶\n0.0.16\n2.1.8\nRetrieve by name:\n¶\nTo retrieve an existing scheduled workflow run by its name:\nJava\nPython\nGo\nComing soon\nRetrieve scheduled workflow run by its name\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\nworkflow\n.\nget_scheduled_run\n(\nworkflow_name\n=\n\"atlan-snowflake-miner-1714638976\"\n)\n# (1)",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_schedules.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_schedules.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\nworkflow\n.\nget_scheduled_run\n(\nworkflow_name\n=\n\"atlan-snowflake-miner-1714638976\"\n)\n# (1)\nTo retrieve an existing scheduled workflow runs, specify:\nname of the workflow as displayed in the\nUI (e.g:\natlan-snowflake-miner-1714638976\n).\nRetrieve scheduled workflow run by its name\n1\n2\n3\n4\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nGetScheduledRun\n(\n\"atlan-snowflake-miner-1714638976\"\n)\n// (1)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nTo retrieve an existing scheduled workflow runs, specify:\nname of the workflow as displayed in the\nUI (e.g:\natlan-snowflake-miner-1714638976\n).\nRetrieve all scheduled runs:\n¶\nTo retrieve all existing scheduled workflow runs:\nJava\nPython\nKotlin\nGo\nComing soon\nRetrieve all scheduled workflow runs\n1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\nworkflow\n.\nget_all_scheduled_runs\n()\n# (1)\nTo retrieve all scheduled runs for workflows,\nuse\nclient.workflow.get_all_scheduled_runs()\nmethod.\nComing soon\nRetrieve all scheduled workflow runs\n1\nresponse\n,\natlanErr\n:=\nctx\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_schedules.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_schedules.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "()\n# (1)\nTo retrieve all scheduled runs for workflows,\nuse\nclient.workflow.get_all_scheduled_runs()\nmethod.\nComing soon\nRetrieve all scheduled workflow runs\n1\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nGetAllScheduledRuns\n()\n// (1)\nTo retrieve all scheduled runs for workflows,\nuse\nctx.WorkflowClient.GetAllScheduledRuns()\nmethod.\nRemove a schedule from workflow run\n¶\n0.0.16\n2.1.8\nTo remove a schedule from an existing workflow run:\nJava\nPython\nKotlin\nGo\nComing soon\nRemove a schedule from an existing workflow run\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nexisting_workflow\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\nprefix\n=\nWorkflowPackage\n.\nSNOWFLAKE_MINER\n)[\n0\n]\n# (1)\nresponse\n=\nclient\n.\nworkflow\n.\nremove_schedule\n(\nworkflow\n=\nexisting_workflow\n)\n# (2)\nYou can retrieve workflows based on their type (prefix).\nNote:\nOnly workflows that have been run will be found.\nFinally, to remove a schedule from this workflow,\nuse the\nclient.workflow.remove_schedule()\nmethod.\nComing soon\nRemove a schedule from an existing workflow run\n1\n2\nexistingWorkflow\n,\n_\n:=\nctx\n.\nWorkflowClient\n.\nFindByType\n(\natlan\n.\nWorkflowPackageSnowflakeMiner\n,\n1\n)\n// (1)",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_schedules.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_schedules.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "method.\nComing soon\nRemove a schedule from an existing workflow run\n1\n2\nexistingWorkflow\n,\n_\n:=\nctx\n.\nWorkflowClient\n.\nFindByType\n(\natlan\n.\nWorkflowPackageSnowflakeMiner\n,\n1\n)\n// (1)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nRemoveSchedule\n(\nexistingWorkflow\n[\n0\n])\n// (2)\nYou can retrieve workflows based on their type (prefix). (You can also specify the\nmaximum number of resulting\nworkflows\nyou want to retrieve as results.)\nNote:\nOnly workflows that have been run will be found.\nFinally, to remove a schedule from this workflow,\nuse the\nctx.WorkflowClient.RemoveSchedule()\nmethod.\n2024-05-09\n2025-02-24\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_schedules.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_schedules.json",
+      "chunk_id": 7
+    }
+  }
+]

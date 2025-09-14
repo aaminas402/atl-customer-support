@@ -1,0 +1,5 @@
+{
+  "source_url": "sdks_events.html",
+  "text": "Events - Developer\nSkip to content\nEvents\n¶\nAtlan produces events when certain activities occur in the system. You can tap into these in a push-based integration model to take action the moment they occur.\nTo tap into the events, you need to first set up a\nwebhook\nin Atlan.\nHave a look at the\nevent handling pattern\nfor more details on implementing event-handling from webhooks using either of the SDKs.\n2023-12-07\n2024-02-22\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+  "source_type": "sdk"
+}

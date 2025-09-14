@@ -1,0 +1,506 @@
+[
+  {
+    "content": "Manage custom metadata on assets - Developer\nSkip to content\nChange custom metadata on assets\n¶\nStructures must exist before setting values on assets\nRemember that you must first\ncreate the custom metadata structures\nbefore you will be able to set or change any values for custom metadata on an asset.\nValue representation\n¶\nTo update custom metadata values on an asset, you need to use the correct representation:\nProperty type\nValue representation\nExample\nText\nString\n\"a value\"\nInteger\nNumber: without decimals\n42\nDecimal\nNumber: with decimals\n42.0\nBoolean\nBoolean: either\ntrue\nor\nfalse\ntrue\nDate\nNumber: milliseconds since epoch (January 1, 1970), to a specific day\n1681171200000\nOptions\nString: exact value from the options list\n\"success\"\nUsers\nString: username of the user\n\"jsmith\"\nGroups\nString: unique name of the group, which appears under the name of the group in the UI list of groups\n\"finance\"\nURL\nString: starting with\nhttp[s]://\nhttps://www.google.com\nSQL\nString\n\"SELECT *\\nFROM somewhere;\"\nMulti-value attributes\nCustom attributes in Atlan can be configured to allow multiple values. For these, you must wrap all values in a multi-valued collection,",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "SQL\nString\n\"SELECT *\\nFROM somewhere;\"\nMulti-value attributes\nCustom attributes in Atlan can be configured to allow multiple values. For these, you must wrap all values in a multi-valued collection,\neven if there is only a single value you are setting\n. Each value in that collection needs to follow the appropriate representation as indicated in the table above.\nFor example, if you want to set just a single group in a field that allows multiple values:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nMulti-valued attribute\n1\n2\n3\n4\n5\n6\n7\n8\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\nmeta\n:\natlan\n:\nbusinessAttributes\n:\nMNJ8mpLsIOaP4OQnLNhRta\n:\nF8XI9GzcBpdBdfi4cLiPEz\n:\n-\n\"finance\"\n# (1)\nYou must provide the value(s) as a list in YAML: each value on a new line, indented below the attribute, and prefixed with\n-\n.\nMulti-valued attribute\n1\n2\n3\nCustomMetadataAttributes\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n.\nattribute\n(\n\"Consulted\"\n,\nList\n.\nof\n(\n\"finance\"\n))\n// (1)\n.\nbuild\n();\nYou must provide the value(s) as a collection (List, Set, etc).\nMulti-valued attribute\n1\n2\n3\n4\nfrom\npyatlan.model.custom_metadata\nimport\nCustomMetadataDict\ncm_RACI\n=\nCustomMetadataDict\n(\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n)\n# (1)",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Multi-valued attribute\n1\n2\n3\n4\nfrom\npyatlan.model.custom_metadata\nimport\nCustomMetadataDict\ncm_RACI\n=\nCustomMetadataDict\n(\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n)\n# (1)\ncm_RACI\n[\n\"Consulted\"\n]\n=\n[\n\"finance\"\n]\n# (2)\nProvide the client instance and name of the custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nFor any property that can be multi-valued, we need to send a list of values.\nName will be validated\nThe metadata property name will be validated at runtime to ensure that a property with the given name exists in the custom metadata set.\nMulti-valued attribute\n1\n2\n3\nval\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n.\nattribute\n(\n\"Consulted\"\n,\nlistOf\n(\n\"finance\"\n))\n// (1)\n.\nbuild\n()\nYou must provide the value(s) as a collection (List, Set, etc).\nPOST /api/meta/entity/guid/a89ff15b-f5e6-48bc-870b-acfa11e212ae/businessmetadata/MNJ8mpLsIOaP4OQnLNhRta\n1\n2\n3\n4\n5\n6\n7\n{\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n:\n{\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n:\n[\n// (1)\n\"finance\"\n]\n}\n}\nYou must provide the value(s) in a JSON-style array.\nAdd to existing assets\n¶\nUpdate only some custom metadata attributes\n¶\n7.0.0\n4.0.0",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": ":\n{\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n:\n[\n// (1)\n\"finance\"\n]\n}\n}\nYou must provide the value(s) in a JSON-style array.\nAdd to existing assets\n¶\nUpdate only some custom metadata attributes\n¶\n7.0.0\n4.0.0\nTo update only some custom metadata attributes (leaving all others unchanged):\ndbt\nJava\nPython\nKotlin\nRaw REST API\nThis is currently not possible via dbt, custom metadata is replaced rather than selectively updated.\nUpdate only some custom metadata attributes\n1\n2\n3\n4\n5\n6\n7\n8\n9\nCustomMetadataAttributes\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Responsible\"\n,\n\"jsmith\"\n)\n// (2)\n.\nattribute\n(\n\"Consulted\"\n,\nList\n.\nof\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nbuild\n();\nTable\n.\nupdateCustomMetadataAttributes\n(\n// (4)\nclient\n,\n// (5)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (6)\n\"RACI\"\n,\n// (7)\ncmRACI\n);\n// (8)\nCreate a custom metadata attributes object that will contain only the attributes and values for custom metadata that you want to update on the\nasset\n. All other custom metadata attributes (those not specified in this object) will remain unchanged on the asset.\nFor each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "For each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set\nthe value for that attribute\nThe value can be any object valid for the attribute: a string, a boolean, or a number. (Note that dates are sent as\nlong\n(epoch) numbers.)\nFor any attribute that can be multi-valued, we can send a list of values.\nUse the\nupdateCustomMetadataAttributes()\nmethod to update only the\nResponsible\nand\nConsulted\nattributes in the\nRACI\ncustom metadata on the existing asset. Any other custom metadata attributes in\nRACI\nand all other custom metadata will be left unchanged.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nNote that for this operation you must know the GUID of the asset you want to apply the custom metadata to. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the name for the custom metadata you want to update.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Provide the name for the custom metadata you want to update.\nProvide the custom metadata attributes object with the attributes and values you want to update for that custom metadata.\nUpdate only some custom metadata attributes\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\nupdater\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n,\nname\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n,\n)\nUse the\nupdater()\nmethod to create an asset suitable for modifiaction i.e. with all the requisite attributes.\nUpdate the custom metadata on the table\n10\n11\n12\ncm_raci\n=\ntable\n.\nget_custom_metadata\n(\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n)\n# (1)\ncm_raci\n[\n\"Responsible\"\n]\n=\n\"jsmith\"\n# (2)\ncm_raci\n[\n\"Consulted\"\n]\n=\n[\n\"finance\"\n,\n\"risk\"\n]\n# (3)\nGet the custom metadata set from the table via the\nget_custom_metadata\nmethod by specifying the client and name of the custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "method by specifying the client and name of the custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nFor each property of the metadata set you wish to update specify the name of the property.\nName will be validated\nThe metadata property name will be validated at runtime to ensure that a property with the given name exists in the custom metadata set.\nFor any attribute that can be multi-valued, we need to send a list of values.\nAlternatively, create a custom metadata set and add it to the table\n10\n11\n12\n13\ncm_raci\n=\nCustomMetadataDict\n(\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n)\n# (1)\ncm_raci\n[\n\"Responsible\"\n]\n=\n\"jsmith\"\n# (2)\ncm_raci\n[\n\"Consulted\"\n]\n=\n[\n\"finance\"\n,\n\"risk\"\n]\n# (3)\ntable\n.\nset_custom_metadata\n(\nclient\n=\nclient\n,\ncustom_metadata\n=\ncm_raci\n)\n# (4)\nCreate an empty custom metadata set by specifying the client instance and name of an existing custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nFor each property of the metadata set you wish to update specify the name of the property.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "The name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nFor each property of the metadata set you wish to update specify the name of the property.\nName will be validated\nThe metadata property name will be validated at runtime to ensure that a property with the given name exists in the custom metadata set.\nFor any attribute that can be multi-valued, we need to send a list of values.\nUse the\nset_custom_metadata\nmethod to set the custom metadata set on the table.\nUpdate the model object on the server\n14\n15\n16\n17\nresponse\n=\nclient\n.\nasset\n.\nsave_merging_cm\n(\n# (1)\ntable\n)\nassert\n(\ntables\n:=\nresponse\n.\nassets_updated\n(\nasset_type\n=\nTable\n))\n# (2)\nUse the\nsave_merging_cm()\nmethod to update the model object on the server.\nAssert that a\nTable\nasset has been updated.\nUpdate only some custom metadata attributes\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Responsible\"\n,\n\"jsmith\"\n)\n// (2)\n.\nattribute\n(\n\"Consulted\"\n,\nlistOf\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nbuild\n()\nTable\n.\nupdateCustomMetadataAttributes\n(\n// (4)\nclient\n,\n// (5)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (6)\n\"RACI\"\n,\n// (7)\ncmRACI\n)",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "\"Consulted\"\n,\nlistOf\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nbuild\n()\nTable\n.\nupdateCustomMetadataAttributes\n(\n// (4)\nclient\n,\n// (5)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (6)\n\"RACI\"\n,\n// (7)\ncmRACI\n)\n// (8)\nCreate a custom metadata attributes object that will contain only the attributes and values for custom metadata that you want to update on the\nasset\n. All other custom metadata attributes (those not specified in this object) will remain unchanged on the asset.\nFor each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set\nthe value for that attribute\nThe value can be any object valid for the attribute: a string, a boolean, or a number. (Note that dates are sent as\nlong\n(epoch) numbers.)\nFor any attribute that can be multi-valued, we can send a list of values.\nUse the\nupdateCustomMetadataAttributes()\nmethod to update only the\nResponsible\nand\nConsulted\nattributes in the\nRACI\ncustom metadata on the existing asset. Any other custom metadata attributes in\nRACI\nand all other custom metadata will be left unchanged.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "RACI\nand all other custom metadata will be left unchanged.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nNote that for this operation you must know the GUID of the asset you want to apply the custom metadata to. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the name for the custom metadata you want to update.\nProvide the custom metadata attributes object with the attributes and values you want to update for that custom metadata.\nPOST /api/meta/entity/guid/a89ff15b-f5e6-48bc-870b-acfa11e212ae/businessmetadata?isOverwrite=false\n1\n2\n3\n4\n5\n6\n7\n8\n9\n{\n// (1)\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n:\n{\n// (2)\n\"fWMB77RSjRGNYoFeD4FcGi\"\n:\n\"jsmith\"\n,\n// (3)\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n:\n[\n// (4)\n\"finance\"\n,\n\"risk\"\n]\n}\n}\nYou must pass the GUID of the asset to change for this operation. There is no alternative that works with the qualifiedName.\nEach custom metadata set you want to add or update must be given using its",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "You must pass the GUID of the asset to change for this operation. There is no alternative that works with the qualifiedName.\nEach custom metadata set you want to add or update must be given using its\nhashed-string representation\n.\nEach custom metadata attribute you want to update must be given using its\nhashed-string representation\n.\nFor multivalued custom metadata attributes, specify the value as an array.\nReplace some custom metadata on an asset\n¶\n7.0.0\n4.0.0\nYou can also add/replace an entire set of custom metadata to existing\nassets\n. If you do this individually, you can selectively update individual sets of custom metadata (leaving any others unchanged):\ndbt\nJava\nPython\nKotlin\nRaw REST API\nReplace some custom metadata on an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nbusinessAttributes\n:\n# (2)\nMNJ8mpLsIOaP4OQnLNhRta\n:\n# (3)\nfWMB77RSjRGNYoFeD4FcGi\n:\njsmith\n# (4)\nF8XI9GzcBpdBdfi4cLiPEz\n:\n[\n\"finance\"\n,\n\"risk\"\n]\n# (5)\nbusinessAttributeNames\n:\n# (6)\nRACI\n:\nInformed\n:\n-\n\"marketing\"\nYou must of course give the name of the object.\nThe custom metadata must be nested within the\nmeta\n.\natlan\n.\nbusinessAttributes\nstructure.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": ":\n# (6)\nRACI\n:\nInformed\n:\n-\n\"marketing\"\nYou must of course give the name of the object.\nThe custom metadata must be nested within the\nmeta\n.\natlan\n.\nbusinessAttributes\nstructure.\nEach custom metadata set you want to add or update must be given using its\nhashed-string representation\n.\nEach custom metadata attribute you want to update must be given using its\nhashed-string representation\n.\nFor multivalued custom metadata attributes, specify the value as an array.\nYou can use\ndisplayNames\ninstead of hashed-string representations by nesting custom metadata within\nmeta\n.\natlan\n.\nbusinessAttributeNames\nstructure.\nReplace some custom metadata on an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nCustomMetadataAttributes\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Responsible\"\n,\n\"jsmith\"\n)\n// (2)\n.\nattribute\n(\n\"Consulted\"\n,\nList\n.\nof\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nbuild\n();\nTable\n.\nreplaceCustomMetadata\n(\n// (4)\nclient\n,\n// (5)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (6)\n\"RACI\"\n,\n// (7)\ncmRACI\n);\n// (8)\nCreate a custom metadata attributes object that will contain the attributes and values for custom metadata you want to add to the asset.\nFor each attribute, use the\nattribute()",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "cmRACI\n);\n// (8)\nCreate a custom metadata attributes object that will contain the attributes and values for custom metadata you want to add to the asset.\nFor each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set\nthe value for that attribute\nThe value can be any object valid for the attribute: a string, a boolean, or a number. (Note that dates are sent as\nlong\n(epoch) numbers.)\nFor any attribute that can be multi-valued, we can send a list of values.\nUse the\nreplaceCustomMetadata()\nmethod to replace only this named\nRACI\ncustom metadata on the existing asset. Any other custom metadata will be left unchanged. Note that any attributes in\nRACI\nthat are\nnot\nincluded in the custom metadata attributes object we send will be\nremoved\nfrom the custom metadata on that asset. (In our examples, this means any existing values in the\nAccountable\nand\nInformed\nattributes of\nRACI\non this asset would be removed.)\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Informed\nattributes of\nRACI\non this asset would be removed.)\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nNote that for this operation you must know the GUID of the asset you want to apply the custom metadata to. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the name for the custom metadata you want to add/replace.\nProvide the custom metadata attributes object with the attributes and values you want to be the complete set for that custom metadata.\nReplace some custom metadata on an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.custom_metadata\nimport\nCustomMetadataDict\nclient\n=\nAtlanClient\n()\nraci\n=\nCustomMetadataDict\n(\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n)\n# (1)\nraci\n[\n\"Responsible\"\n]\n=\n[\n\"jsmith\"\n]\n# (2)\nraci\n[\n\"Consulted\"\n]\n=\n[\n\"finance\"\n,\n\"risk\"\n]\n# (3)\nclient\n.\nasset\n.\nreplace_custom_metadata\n(\n# (4)\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n#(5)",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "raci\n[\n\"Responsible\"\n]\n=\n[\n\"jsmith\"\n]\n# (2)\nraci\n[\n\"Consulted\"\n]\n=\n[\n\"finance\"\n,\n\"risk\"\n]\n# (3)\nclient\n.\nasset\n.\nreplace_custom_metadata\n(\n# (4)\nguid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n#(5)\ncustom_metadata\n=\nraci\n# (6)\n)\nCreate an empty custom metadata set by specifying the client instance and name of an existing custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nFor each property of the metadata set you wish to update specify the name of the property.\nName will be validated\nThe metadata property name will be validated at runtime to ensure that a property with the given name exists in the custom metadata set.\nFor any property that can be multi-valued, we need to send a list of values.\nUse the\nasset.replace_custom_metadata()\nmethod to replace only this named\nRACI\ncustom metadata on the existing asset. Any other custom metadata will be left unchanged. Note that any properties in\nRACI\nthat are\nnot\nincluded in the custom metadata object we send will be\nremoved\nfrom the custom metadata on that asset. (In our examples, this means any existing values in the\nAccountable\nand\nInformed",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "that are\nnot\nincluded in the custom metadata object we send will be\nremoved\nfrom the custom metadata on that asset. (In our examples, this means any existing values in the\nAccountable\nand\nInformed\nproperties of\nRACI\non this asset would be removed.)\nNote that for this operation you must know the GUID of the asset you want to apply the custom metadata to. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the custom metadata set object with the properties and values you want to be the complete set for that custom metadata.\nReplace some custom metadata on an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Responsible\"\n,\n\"jsmith\"\n)\n// (2)\n.\nattribute\n(\n\"Consulted\"\n,\nlistOf\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nbuild\n()\nTable\n.\nreplaceCustomMetadata\n(\n// (4)\nclient\n,\n// (5)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (6)\n\"RACI\"\n,\n// (7)\ncmRACI\n)\n// (8)",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "(\n\"Consulted\"\n,\nlistOf\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nbuild\n()\nTable\n.\nreplaceCustomMetadata\n(\n// (4)\nclient\n,\n// (5)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (6)\n\"RACI\"\n,\n// (7)\ncmRACI\n)\n// (8)\nCreate a custom metadata attributes object that will contain the attributes and values for custom metadata you want to add to the asset.\nFor each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set\nthe value for that attribute\nThe value can be any object valid for the attribute: a string, a boolean, or a number. (Note that dates are sent as\nlong\n(epoch) numbers.)\nFor any attribute that can be multi-valued, we can send a list of values.\nUse the\nreplaceCustomMetadata()\nmethod to replace only this named\nRACI\ncustom metadata on the existing asset. Any other custom metadata will be left unchanged. Note that any attributes in\nRACI\nthat are\nnot\nincluded in the custom metadata attributes object we send will be\nremoved\nfrom the custom metadata on that asset. (In our examples, this means any existing values in the\nAccountable\nand\nInformed\nattributes of\nRACI\non this asset would be removed.)",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "removed\nfrom the custom metadata on that asset. (In our examples, this means any existing values in the\nAccountable\nand\nInformed\nattributes of\nRACI\non this asset would be removed.)\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nNote that for this operation you must know the GUID of the asset you want to apply the custom metadata to. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the name for the custom metadata you want to add/replace.\nProvide the custom metadata attributes object with the attributes and values you want to be the complete set for that custom metadata.\nPOST /api/meta/entity/guid/a89ff15b-f5e6-48bc-870b-acfa11e212ae/businessmetadata/MNJ8mpLsIOaP4OQnLNhRta\n1\n2\n3\n4\n5\n6\n7\n8\n9\n{\n// (1)\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n:\n{\n// (2)\n\"fWMB77RSjRGNYoFeD4FcGi\"\n:\n\"jsmith\"\n,\n// (3)\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n:\n[\n// (4)\n\"finance\"\n,\n\"risk\"\n]\n}\n}",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\n8\n9\n{\n// (1)\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n:\n{\n// (2)\n\"fWMB77RSjRGNYoFeD4FcGi\"\n:\n\"jsmith\"\n,\n// (3)\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n:\n[\n// (4)\n\"finance\"\n,\n\"risk\"\n]\n}\n}\nYou must pass the GUID of the asset to change for this operation. There is no alternative that works with the qualifiedName. Note that you also need the\nhashed-string representation\nof the custom metadata set in the URL itself.\nEach custom metadata set you want to replace must be given using its\nhashed-string representation\n.\nEach custom metadata attribute you want to include in the replacement must be given using its\nhashed-string representation\n.\nFor multivalued custom metadata attributes, specify the value as an array.\nDefining custom metadata by names in dbt\nYou can iteratively migrate from using\nbusinessAttributes\nto\nbusinessAttributeNames\nwith dbt. But remember to not define the same attribute under both.\nReplace all custom metadata on an asset\n¶\nCould create a new asset\nRemember that Atlan matches the provided\nqualifiedName\nto determine whether to\nupdate or create the asset\n.\n7.0.0\n4.0.0\nYou can also replace all the custom metadata on one or many existing\nassets\nat the same time.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "qualifiedName\nto determine whether to\nupdate or create the asset\n.\n7.0.0\n4.0.0\nYou can also replace all the custom metadata on one or many existing\nassets\nat the same time.\nReplaces any existing custom metadata\nThis approach will replace all existing custom metadata (across all attributes) on the asset. If you have only a few custom metadata attributes defined in the update, this will remove any other custom metadata attributes that are already set on the asset within Atlan.\ndbt\nJava\nPython\nKotlin\nRaw REST API\nReplace all custom metadata on existing assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nbusinessAttributes\n:\n# (2)\nMNJ8mpLsIOaP4OQnLNhRta\n:\n# (3)\nfWMB77RSjRGNYoFeD4FcGi\n:\njsmith\n# (4)\nF8XI9GzcBpdBdfi4cLiPEz\n:\n[\n\"finance\"\n,\n\"risk\"\n]\n# (5)\nfoMg7yOwUajucuya0JEF4J\n:\n# (6)\nuTmK5o0J8jHTH3KWFXXeZi\n:\nexample\n# (7)\nYou must of course give the name of the object.\nThe custom metadata must be nested within the\nmeta\n.\natlan\n.\nbusinessAttributes\nstructure.\nEach custom metadata set you want to add or update must be given using its\nhashed-string representation\n.\nEach custom metadata attribute you want to update must be given using its",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "structure.\nEach custom metadata set you want to add or update must be given using its\nhashed-string representation\n.\nEach custom metadata attribute you want to update must be given using its\nhashed-string representation\n.\nFor multivalued custom metadata attributes, specify the value as an array.\nAdditional custom metadata sets would be listed as additional sub-objects of the\nbusinessAttributes\nobject. (Still using a\nhashed-string representation\n.)\n...and custom metadata attributes within those sets would be listed as sub-objects of the custom metadata set object. (Still using a\nhashed-string representation\n.)\nReplace all custom metadata on existing assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nCustomMetadataAttributes\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Responsible\"\n,\n\"jsmith\"\n)\n.\nattribute\n(\n\"Consulted\"\n,\nList\n.\nof\n(\n\"finance\"\n,\n\"risk\"\n))\n.\nbuild\n();\nCustomMetadataAttributes\ncmOther\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (2)\n.\nattribute\n(\n\"Another\"\n,\n\"example\"\n)\n.\nbuild\n();\nTable\ntable\n=\nTable\n.\nupdater\n(\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"TOP_BEVERAGE_USERS\"\n)\n.\ncustomMetadata\n(\n\"RACI\"\n,\ncmRACI\n)",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": ",\n\"example\"\n)\n.\nbuild\n();\nTable\ntable\n=\nTable\n.\nupdater\n(\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"TOP_BEVERAGE_USERS\"\n)\n.\ncustomMetadata\n(\n\"RACI\"\n,\ncmRACI\n)\n// (4)\n.\ncustomMetadata\n(\n\"Other\"\n,\ncmOther\n)\n// (5)\n.\nbuild\n();\n// (6)\nAssetMutationResponse\nresponse\n=\ntable\n.\nsaveReplacingCM\n(\nclient\n,\nfalse\n);\n// (7)\nassert\nresponse\n.\ngetUpdatedAssets\n().\nsize\n()\n==\n1\n// (8)\nCreate one or more custom metadata attributes objects that will contain all the custom metadata you want the asset to have.\nYou can create as many custom metadata attributes objects as you have named sets of custom metadata.\nUse the\nupdater()\nmethod to initialize the object with all\nnecessary attributes for updating it\n.\nDirectly chain the custom metadata attributes onto the\nupdater()\nmethod's result. Note that the first parameter needs to be the name of the custom metadata that contains these attributes.\nContinue chaining custom metadata attributes onto each other, if you have multiple sets of custom metadata you want to include in the replacement.\nCall the\nbuild()\nmethod to build the enriched object.\nCall the\nsaveReplacingCM()",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "Call the\nbuild()\nmethod to build the enriched object.\nCall the\nsaveReplacingCM()\nmethod to replace the custom metadata for the asset in Atlan. (If you use\nsave()\nthen no custom metadata updates will be made; while using\nsaveMergingCM()\nwill only update any new or changed values.) Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include all assets that were updated.\nReplace all custom metadata on existing assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.custom_metadata\nimport\nCustomMetadataDict\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\nupdater\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\n)\ncm_raci\n=\nCustomMetadataDict\n(\n# (2)\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n,\n# (3)\n)\ncm_raci\n[\n\"Responsible\"\n]\n=\n\"jsmith\"\n# (4)\ncm_raci\n[\n\"Consulted\"\n]\n=\n[\n\"finance\"\n,\n\"risk\"\n]\n# (5)\ncm_other\n=\nCustomMetadataDict\n(\nclient\n=\nclient\n,\nname\n=\n\"Other\"\n,\n)\ncm_other\n[\n\"Another\"\n]\n=\n\"example\"\ntable\n.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "\"Responsible\"\n]\n=\n\"jsmith\"\n# (4)\ncm_raci\n[\n\"Consulted\"\n]\n=\n[\n\"finance\"\n,\n\"risk\"\n]\n# (5)\ncm_other\n=\nCustomMetadataDict\n(\nclient\n=\nclient\n,\nname\n=\n\"Other\"\n,\n)\ncm_other\n[\n\"Another\"\n]\n=\n\"example\"\ntable\n.\nset_custom_metadata\n(\nclient\n=\nclient\n,\ncustom_metadata\n=\ncm_raci\n)\n# (6)\ntable\n.\nset_custom_metadata\n(\nclient\n=\nclient\n,\ncustom_metadata\n=\ncm_other\n)\n# (7)\nresponse\n=\nclient\n.\nasset\n.\nsave_replacing_cm\n(\n# (8)\ntable\n)\nassert\n(\ntables\n:=\nresponse\n.\nassets_updated\n(\nasset_type\n=\nTable\n))\n# (9)\nUse the\nupdater()\nmethod to create an asset suitable for modifiaction i.e. with all the required attributes.\nCreate a new instance of CustomMetadataDict.\nProvide the name of an existing custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nFor each property that you want to set, specify the property name.\nName will be validated\nThe metadata property name will be validated at runtime to ensure that a property with the given name exists in the custom metadata set.\nFor any property that can be multi-valued, we need to send a list of values.\nUse the\nset_custom_metadata()",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "For any property that can be multi-valued, we need to send a list of values.\nUse the\nset_custom_metadata()\nmethod to add the custom metadata to the model object.\nYou must call\nset_custom_metadata()\nfor each set of custom metadata.\nUse the\nsave_replacing_cm()\nmethod to update the model object on the server.\nAssert that a\nTable\nasset has been updated.\nReplace all custom metadata on existing assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nval\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Responsible\"\n,\n\"jsmith\"\n)\n.\nattribute\n(\n\"Consulted\"\n,\nlistOf\n(\n\"finance\"\n,\n\"risk\"\n))\n.\nbuild\n()\nval\ncmOther\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (2)\n.\nattribute\n(\n\"Another\"\n,\n\"example\"\n)\n.\nbuild\n()\nval\ntable\n=\nTable\n.\nupdater\n(\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"TOP_BEVERAGE_USERS\"\n)\n.\ncustomMetadata\n(\n\"RACI\"\n,\ncmRACI\n)\n// (4)\n.\ncustomMetadata\n(\n\"Other\"\n,\ncmOther\n)\n// (5)\n.\nbuild\n()\n// (6)\nval\nresponse\n=\ntable\n.\nsaveReplacingCM\n(\nclient\n,\nfalse\n)\n// (7)\nassert\n(\nresponse\n.\nupdatedAssets\n.\nsize\n==\n1\n)\n// (8)\nCreate one or more custom metadata attributes objects that will contain all the custom metadata you want the asset to have.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": ",\nfalse\n)\n// (7)\nassert\n(\nresponse\n.\nupdatedAssets\n.\nsize\n==\n1\n)\n// (8)\nCreate one or more custom metadata attributes objects that will contain all the custom metadata you want the asset to have.\nYou can create as many custom metadata attributes objects as you have named sets of custom metadata.\nUse the\nupdater()\nmethod to initialize the object with all\nnecessary attributes for updating it\n.\nDirectly chain the custom metadata attributes onto the\nupdater()\nmethod's result. Note that the first parameter needs to be the name of the custom metadata that contains these attributes.\nContinue chaining custom metadata attributes onto each other, if you have multiple sets of custom metadata you want to include in the replacement.\nCall the\nbuild()\nmethod to build the enriched object.\nCall the\nsaveReplacingCM()\nmethod to replace the custom metadata for the asset in Atlan. (If you use\nsave()\nthen no custom metadata updates will be made; while using\nsaveMergingCM()\nwill only update any new or changed values.) Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include all assets that were updated.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include all assets that were updated.\nPOST /api/meta/entity/bulk?replaceClassifications=false&replaceBusinessAttributes=true&overwriteBusinessAttributes=true\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n{\n// (1)\n\"entities\"\n:\n[\n// (2)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (3)\n\"attributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"name\"\n:\n\"TOP_BEVERAGE_USERS\"\n// (5)\n},\n\"businessAttributes\"\n:\n{\n// (6)\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n:\n{\n// (7)\n\"fWMB77RSjRGNYoFeD4FcGi\"\n:\n\"jsmith\"\n,\n// (8)\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n:\n[\n\"finance\"\n,\n\"risk\"\n]\n},\n\"foMg7yOwUajucuya0JEF4J\"\n:\n{\n// (9)\n\"uTmK5o0J8jHTH3KWFXXeZi\"\n:\n\"example\"\n// (10)\n}\n}\n}\n]\n}\nNote that the query parameters\nreplaceBusinessAttributes\nand\noverwriteBusinessAttributes\nmust both equal\ntrue\nin the request. This is what causes the replacement behavior.\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "You must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nEach custom metadata set you want to include in the replacement must be a sub-object of the\nbusinessAttributes\nobject.\nEach custom metadata set must be specified using its\nhashed-string representation\n.\nEach custom metadata attribute you want to update must be given using its\nhashed-string representation\n.\nAdditional custom metadata sets would be listed as additional sub-objects of the\nbusinessAttributes\nobject. (Still using a\nhashed-string representation\n.)\n...and custom metadata attributes within those sets would be listed as sub-objects of the custom metadata set object. (Still using a\nhashed-string representation\n.)\nRemove from an existing asset\n¶\nRemove only some custom metadata attributes\n¶\n7.0.0\n4.0.0\nTo remove only some custom metadata attributes (leaving all others unchanged):\ndbt\nJava\nPython\nKotlin\nRaw REST API\nThis currently isn't possible via dbt.\nRemove only some custom metadata attributes\n1\n2\n3\n4\n5\n6\n7\n8\nCustomMetadataAttributes\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Accountable\"\n,\nRemovable\n.\nNULL\n)",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "Remove only some custom metadata attributes\n1\n2\n3\n4\n5\n6\n7\n8\nCustomMetadataAttributes\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Accountable\"\n,\nRemovable\n.\nNULL\n)\n// (2)\n.\nbuild\n();\nTable\n.\nupdateCustomMetadataAttributes\n(\n// (3)\nclient\n,\n// (4)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (5)\n\"RACI\"\n,\n// (6)\ncmRACI\n);\n// (7)\nCreate a custom metadata attributes object that will contain only the attributes and values for custom metadata that you want to remove from the asset. All other custom metadata attributes (those not specified in this object) will remain unchanged on the asset.\nFor each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set\na special value of\nRemovable.NULL\nThis special value will ensure that the custom metadata attribute (\nAccountable\nin this example) is removed from the asset.\nUse the\nupdateCustomMetadataAttributes()\nmethod to update only the\nAccountable\nattribute in the\nRACI\ncustom metadata on the existing asset. Since we're sending a special value to\nnull\nthis attribute, it will be removed by the update. Any other custom metadata attributes in\nRACI",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 28
+    }
+  },
+  {
+    "content": "attribute in the\nRACI\ncustom metadata on the existing asset. Since we're sending a special value to\nnull\nthis attribute, it will be removed by the update. Any other custom metadata attributes in\nRACI\nand all other custom metadata will be left unchanged.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nNote that for this operation you must know the GUID of the asset you want to remove the custom metadata from. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the name for the custom metadata you want to remove.\nProvide the custom metadata attributes object with the attributes and special\nRemovable.NULL\nvalues you want to remove for that custom metadata.\nRemove only some custom metadata attributes\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.custom_metadata\nimport\nCustomMetadataDict\nclient\n=\nAtlanClient\n()\ntable\n=",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 29
+    }
+  },
+  {
+    "content": "13\n14\n15\n16\n17\n18\n19\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.custom_metadata\nimport\nCustomMetadataDict\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\nupdater\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\n)\ncm_raci\n=\nCustomMetadataDict\n(\n# (2)\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n,\n# (3)\n)\ncm_raci\n[\n\"Accountable\"\n]\n=\nNone\n# (4)\ntable\n.\nset_custom_metadata\n(\nclient\n=\nclient\n,\ncustom_metadata\n=\ncm_raci\n)\n# (5)\nresponse\n=\nclient\n.\nasset\n.\nsave_merging_cm\n(\n# (6)\ntable\n)\nassert\n(\ntables\n:=\nresponse\n.\nassets_updated\n(\nasset_type\n=\nTable\n))\n# (7)\nUse the\nupdater()\nmethod to create an asset suitable for modifiaction i.e. with all the required attributes.\nCreate an instance of\nCustomMetadataDict\n.\nProvide the name of an existing of an existing custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nSet the value of the property you wish to replace to\nNone\n.\nName will be validated",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 30
+    }
+  },
+  {
+    "content": "The name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nSet the value of the property you wish to replace to\nNone\n.\nName will be validated\nThe metadata property name will be validated at runtime to ensure that a property with the given name exists in the custom metadata set.\nUse the\nset_custom_metadata()\nmethod to add the custom metadata to the model object.\nUse the\nsave_merging_cm()\nmethod to update the model object on the server.\nAssert that a\nTable\nasset has been updated.\nRemove only some custom metadata attributes\n1\n2\n3\n4\n5\n6\n7\n8\nval\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Accountable\"\n,\nRemovable\n.\nNULL\n)\n// (2)\n.\nbuild\n()\nTable\n.\nupdateCustomMetadataAttributes\n(\n// (3)\nclient\n,\n// (4)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (5)\n\"RACI\"\n,\n// (6)\ncmRACI\n)\n// (7)\nCreate a custom metadata attributes object that will contain only the attributes and values for custom metadata that you want to remove from the asset. All other custom metadata attributes (those not specified in this object) will remain unchanged on the asset.\nFor each attribute, use the\nattribute()\nmethod and pass:",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 31
+    }
+  },
+  {
+    "content": "For each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set\na special value of\nRemovable.NULL\nThis special value will ensure that the custom metadata attribute (\nAccountable\nin this example) is removed from the asset.\nUse the\nupdateCustomMetadataAttributes()\nmethod to update only the\nAccountable\nattribute in the\nRACI\ncustom metadata on the existing asset. Since we're sending a special value to\nnull\nthis attribute, it will be removed by the update. Any other custom metadata attributes in\nRACI\nand all other custom metadata will be left unchanged.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nNote that for this operation you must know the GUID of the asset you want to remove the custom metadata from. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the name for the custom metadata you want to remove.\nProvide the custom metadata attributes object with the attributes and special",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 32
+    }
+  },
+  {
+    "content": "Provide the name for the custom metadata you want to remove.\nProvide the custom metadata attributes object with the attributes and special\nRemovable.NULL\nvalues you want to remove for that custom metadata.\nPOST /api/meta/entity/guid/a89ff15b-f5e6-48bc-870b-acfa11e212ae/businessmetadata?isOverwrite=false\n1\n2\n3\n4\n5\n{\n// (1)\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n:\n{\n// (2)\n\"xDUCZllc4JyTKhwqSDkWK4\"\n:\nnull\n// (3)\n}\n}\nNote that the query parameters\nisOverwrite\nmust be\nfalse\nin the request. This is what allows the removal of only the attributes provided in the request (and leaving all others unchanged). Also note that you must provide the GUID of the asset — there is no equivalent operation using the qualifiedName.\nEach custom metadata set you want to include in the partial removal must be specified using its\nhashed-string representation\n.\nEach custom metadata attribute you want to remove must be given using its\nhashed-string representation\n, with a value of\nnull\n. You would either need to first retrieve the list of custom metadata definitions via API to determine this value, or look through the development console of your browser while opening the custom metadata in the Atlan UI.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 33
+    }
+  },
+  {
+    "content": "Remove some custom metadata from an asset\n¶\n7.0.0\n4.0.0\nYou can also remove an entire set of custom metadata from existing assets. If you do this individually, you can selectively remove individual sets of custom metadata:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nRemove some custom metadata from an existing asset\n1\n2\n3\n4\n5\n6\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nbusinessAttributes\n:\nMNJ8mpLsIOaP4OQnLNhRta\n:\n{}\n# (2)\nYou must of course give the name of the object.\nThe custom metadata must be nested within the\nmeta\n.\natlan\n.\nbusinessAttributes\nstructure. To remove all properties for some custom metadata, send an explicit empty dictionary\n{}\nto the custom metadata's\nhashed-string representation\n.\nRemove some custom metadata from an asset\n1\n2\n3\n4\nTable\n.\nremoveCustomMetadata\n(\n// (1)\nclient\n,\n// (2)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (3)\n\"RACI\"\n);\n// (4)\nUse the\nremoveCustomMetadata()\nmethod to remove an entire named set of custom metadata from an asset. Any other custom metadata in other named sets will be left unchanged.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 34
+    }
+  },
+  {
+    "content": "Because this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nNote that for this operation you must know the GUID of the asset you want to remove the custom metadata from. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the name for the custom metadata you want to remove.\nRemove some custom metadata from an asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.custom_metadata\nimport\nCustomMetadataDict\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\nupdater\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\n)\ncm_raci\n=\nCustomMetadataDict\n(\n# (2)\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n,\n# (3)\n)\ntable\n.\nset_custom_metadata\n(\nclient\n=\nclient\n,\ncustom_metadata\n=\ncm_raci\n)\n# (4)\nresponse\n=\nclient\n.\nasset\n.\nsave_merging_cm\n(\n# (5)\ntable\n)\nassert\n(\ntables\n:=\nresponse\n.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 35
+    }
+  },
+  {
+    "content": ",\nname\n=\n\"RACI\"\n,\n# (3)\n)\ntable\n.\nset_custom_metadata\n(\nclient\n=\nclient\n,\ncustom_metadata\n=\ncm_raci\n)\n# (4)\nresponse\n=\nclient\n.\nasset\n.\nsave_merging_cm\n(\n# (5)\ntable\n)\nassert\n(\ntables\n:=\nresponse\n.\nassets_updated\n(\nasset_type\n=\nTable\n))\n# (6)\nUse the\nupdater()\nmethod to create an asset suitable for modifiaction i.e. with all the required attributes.\nCreate a new instance of\nCustomMetadataDict\n.\nProvide the name of an existing custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nUse the\nset_custom_metadata()\nmethod to add the custom metadata to the model object.\nUse the\nsave_merging_cm()\nmethod to update the model object on the server.\nAssert that a\nTable\nasset has been updated.\nRemove some custom metadata from an asset\n1\n2\n3\n4\nTable\n.\nremoveCustomMetadata\n(\n// (1)\nclient\n,\n// (2)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n// (3)\n\"RACI\"\n)\n// (4)\nUse the\nremoveCustomMetadata()\nmethod to remove an entire named set of custom metadata from an asset. Any other custom metadata in other named sets will be left unchanged.\nBecause this operation will directly change the asset in Atlan, you must",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 36
+    }
+  },
+  {
+    "content": "Because this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nNote that for this operation you must know the GUID of the asset you want to remove the custom metadata from. Also, the operation returns no result: if there is an error it will throw an exception, but the result of the operation must be determined by retrieving the asset through a separate API call, if you want to confirm it.\nProvide the name for the custom metadata you want to remove.\nPOST /api/meta/entity/guid/a89ff15b-f5e6-48bc-870b-acfa11e212ae/businessmetadata?isOverwrite=false\n1\n2\n3\n4\n5\n6\n7\n8\n{\n// (1)\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n:\n{\n// (2)\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n:\nnull\n,\n// (3)\n\"xDUCZllc4JyTKhwqSDkWK4\"\n:\nnull\n,\n\"fWMB77RSjRGNYoFeD4FcGi\"\n:\nnull\n,\n\"rN6H6xMQpyHvo639SXER83\"\n:\nnull\n}\n}\nNote that the query parameters\nisOverwrite\nmust be\nfalse\nin the request. This is what allows the removal of only the custom metadata set provided in the request (and leaving all others unchanged). Also note that you must provide the GUID of the asset — there is no equivalent operation using the qualifiedName.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 37
+    }
+  },
+  {
+    "content": "The custom metadata set you want to remove must be specified using its\nhashed-string representation\n.\nEach custom metadata attribute in that custom metadata set must be specified using its\nhashed-string representation\n, with a value of\nnull\n. You would either need to first retrieve the list of custom metadata definitions via API to determine this value, or look through the development console of your browser while opening the custom metadata in the Atlan UI.\nRemove all custom metadata from an asset\n¶\nCould create a new asset\nRemember that Atlan matches the provided\nqualifiedName\nto determine whether to\nupdate or create the asset\n.\n7.0.0\n4.0.0\nTo remove all custom metadata from an existing asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nRemove all custom metadata from an existing asset\n1\n2\n3\n4\n5\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nbusinessAttributes\n:\n{}\n# (2)\nYou must of course give the name of the object.\nThe custom metadata must be nested within the\nmeta\n.\natlan\n.\nbusinessAttributes\nstructure. To remove all custom metadata, send an explicit empty dictionary\n{}\n.\nRemove all custom metadata from an existing asset\n1\n2\n3\n4\n5\nTable\ntable\n=\nTable\n.\nupdater\n(",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 38
+    }
+  },
+  {
+    "content": "atlan\n.\nbusinessAttributes\nstructure. To remove all custom metadata, send an explicit empty dictionary\n{}\n.\nRemove all custom metadata from an existing asset\n1\n2\n3\n4\n5\nTable\ntable\n=\nTable\n.\nupdater\n(\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (1)\n\"TOP_BEVERAGE_USERS\"\n).\nbuild\n();\nAssetMutationResponse\nresponse\n=\ntable\n.\nsaveReplacingCM\n(\nclient\n,\nfalse\n);\n// (2)\nassert\nresponse\n.\ngetUpdatedAssets\n().\nsize\n()\n==\n1\n;\n// (3)\nUse the\nupdater()\nmethod to initialize the object with all\nnecessary attributes for updating it\n. (Removing the custom metadata is still an update to the asset, we are not deleting the asset itself.)\nCall the\nsaveReplacingCM()\nmethod to actually update the asset, and overwrite custom metadata. Since we have not provided any custom metadata in our object, this will\nreplace\nthe existing custom metadata on the asset with no custom metadata. (In other words, it will remove all custom metadata from the asset.) Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 39
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was updated (again, removing custom metadata is an update to the asset — we are not deleting the asset itself).\nRemove all custom metadata from an existing asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\nupdater\n(\n# (1)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\n)\nresponse\n=\nclient\n.\nasset\n.\nsave_replacing_cm\n(\n# (2)\ntable\n)\nassert\n(\ntables\n:=\nresponse\n.\nassets_updated\n(\nasset_type\n=\nTable\n))\n# (3)\nUse the\nupdater()\nmethod to initialize the object with all\nnecessary attributes for updating it\n. (Removing the custom metadata is still an update to the asset, we are not deleting the asset itself.)\nCall the\nsave_replacing_cm()\nmethod to actually update the asset.\nAssert that a\nTable\nasset has been updated.\nRemove all custom metadata from an existing asset\n1\n2\n3\n4\n5\nval\ntable\n=\nTable\n.\nupdater\n(\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (1)\n\"TOP_BEVERAGE_USERS\"",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 40
+    }
+  },
+  {
+    "content": "Remove all custom metadata from an existing asset\n1\n2\n3\n4\n5\nval\ntable\n=\nTable\n.\nupdater\n(\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (1)\n\"TOP_BEVERAGE_USERS\"\n).\nbuild\n()\nval\nresponse\n=\ntable\n.\nsaveReplacingCM\n(\nclient\n,\nfalse\n)\n// (2)\nassert\n(\nresponse\n.\nupdatedAssets\n.\nsize\n==\n1\n)\n// (3)\nUse the\nupdater()\nmethod to initialize the object with all\nnecessary attributes for updating it\n. (Removing the custom metadata is still an update to the asset, we are not deleting the asset itself.)\nCall the\nsaveReplacingCM()\nmethod to actually update the asset, and overwrite custom metadata. Since we have not provided any custom metadata in our object, this will\nreplace\nthe existing custom metadata on the asset with no custom metadata. (In other words, it will remove all custom metadata from the asset.) Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was updated (again, removing custom metadata is an update to the asset — we are not deleting the asset itself).",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 41
+    }
+  },
+  {
+    "content": "The response will include that single asset that was updated (again, removing custom metadata is an update to the asset — we are not deleting the asset itself).\nPOST /api/meta/entity/bulk?replaceClassifications=false&replaceBusinessAttributes=true&overwriteBusinessAttributes=true\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n{\n// (1)\n\"entities\"\n:\n[\n// (2)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (3)\n\"attributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"name\"\n:\n\"TOP_BEVERAGE_USERS\"\n// (5)\n}\n// (6)\n}\n]\n}\nNote that the query parameters\nreplaceBusinessAttributes\nand\noverwriteBusinessAttributes\nmust both equal\ntrue\nin the request. This is what causes the replacement behavior.\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nBy not providing any\nbusinessAttributes\nin the request, you will replace whatever custom metadata is on the asset with no custom metadata — equivalent to removing all custom metadata.\nWhen creating an asset\n¶\n7.0.0\n4.0.0",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 42
+    }
+  },
+  {
+    "content": "businessAttributes\nin the request, you will replace whatever custom metadata is on the asset with no custom metadata — equivalent to removing all custom metadata.\nWhen creating an asset\n¶\n7.0.0\n4.0.0\nTo add custom metadata when creating one or many assets:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nAdd custom metadata when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nbusinessAttributes\n:\n# (2)\nMNJ8mpLsIOaP4OQnLNhRta\n:\n# (3)\nfWMB77RSjRGNYoFeD4FcGi\n:\njsmith\n# (4)\nxDUCZllc4JyTKhwqSDkWK4\n:\njdoe\nF8XI9GzcBpdBdfi4cLiPEz\n:\n[\n\"finance\"\n,\n\"risk\"\n]\n# (5)\nrN6H6xMQpyHvo639SXER83\n:\n[\n\"operations\"\n]\nYou must of course give the name of the object.\nThe custom metadata must be nested within the\nmeta\n.\natlan\n.\nbusinessAttributes\nstructure.\nEach custom metadata set you want to add or update must be given using its\nhashed-string representation\n.\nEach custom metadata attribute you want to update must be given using its\nhashed-string representation\n.\nFor multivalued custom metadata attributes, specify the value as an array.\nAdd custom metadata when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\nCustomMetadataAttributes\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 43
+    }
+  },
+  {
+    "content": "Add custom metadata when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\nCustomMetadataAttributes\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Responsible\"\n,\n\"jsmith\"\n)\n// (2)\n.\nattribute\n(\n\"Accountable\"\n,\n\"jdoe\"\n)\n.\nattribute\n(\n\"Consulted\"\n,\nList\n.\nof\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nattribute\n(\n\"Informed\"\n,\nList\n.\nof\n(\n\"operations\"\n))\n.\nbuild\n();\nTable\ntable\n=\nTable\n.\ncreator\n(\n\"TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n)\n.\ncustomMetadata\n(\n\"RACI\"\n,\ncmRACI\n)\n// (5)\n.\nbuild\n();\n// (6)\nAssetMutationResponse\nresponse\n=\ntable\n.\nsaveReplacingCM\n(\nclient\n,\nfalse\n);\n// (7)\nassert\nresponse\n.\ngetCreatedAssets\n().\nsize\n()\n==\n1\n// (8)\nCreate a custom metadata attributes object that will contain the attributes and values for custom metadata you want to add to the asset.\nFor each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set\nthe value for that attribute\nThe value can be any object valid for the attribute: a string, a boolean, or a number. (Note that dates are sent as\nlong\n(epoch) numbers.)\nFor any attribute that can be multi-valued, we can send a list of values.\nUse the\ncreator()",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 44
+    }
+  },
+  {
+    "content": "long\n(epoch) numbers.)\nFor any attribute that can be multi-valued, we can send a list of values.\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nSet the custom metadata that should be added (using the custom metadata attributes object you built earlier).\nNote that the first parameter to this method is the name of the custom metadata for which you're providing the attributes and values.\nYou can chain this\ncustomMetadata()\nmethod as many times as you like to add other custom metadata and attributes, but you should only call it once per named custom metadata set. (If you call it multiple times for the same named custom metadata, only the last one will be applied.)\nCall the\nbuild()\nmethod to build the enriched object.\nCall the\nsaveReplacingCM()\nmethod to create the asset, including its custom metadata. (During creation you could also use\nsaveMergingCM()\n, but if you use only\nsave()\nthen no custom metadata will be attached to the assets.) Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include all assets that were created.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 45
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include all assets that were created.\nAdd custom metadata when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.custom_metadata\nimport\nCustomMetadataDict\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\ncreator\n(\n# (1)\nschema_qualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n,\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\n)\ncm_raci\n=\nCustomMetadataDict\n(\n# (2)\nclient\n=\nclient\n,\nname\n=\n\"RACI\"\n,\n# (3)\n)\n#\ncm_raci\n[\n\"Accountable\"\n]\n=\n\"jdoe\"\n# (4)\ncm_raci\n[\n\"Responsible\"\n]\n=\n[\n\"jsmith\"\n]\ncm_raci\n[\n\"Consulted\"\n]\n=\n[\n\"finance\"\n,\n\"risk\"\n]\n# (5)\ncm_raci\n[\n\"Informed\"\n]\n=\n[\n\"operations\"\n]\ntable\n.\nset_custom_metadata\n(\nclient\n=\nclient\n,\ncustom_metadata\n=\ncm_raci\n)\n# (6)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ntable\n)\n# (7)\nassert\n(\ncreated\n:=\nresponse\n.\nassets_created\n(\nasset_type\n=\nTable\n)\n# (8)\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nCreate a new instance of\nCustomMetadataDict\n.\nProvide the name of and existing custom metadata set.",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 46
+    }
+  },
+  {
+    "content": "Use the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nCreate a new instance of\nCustomMetadataDict\n.\nProvide the name of and existing custom metadata set.\nName will be validated\nThe name will be validated at runtime to ensure that a custom metadata set with the given name exists.\nFor each property that you want to set, specify the property name.\nName will be validated\nThe metadata property name will be validated at runtime to ensure that a property with the given name exists in the custom metadata set.\nFor any attribute that can be multi-valued, we need to send a list of values.\nUse the\nset_custom_metadata()\nmethod to add the custom metadata to the model object.\nUse the\nsave()\nmethod to update the model object on the server.\nassert that a\nTable\nasset was created.\nAdd custom metadata when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\nval\ncmRACI\n=\nCustomMetadataAttributes\n.\nbuilder\n()\n// (1)\n.\nattribute\n(\n\"Responsible\"\n,\n\"jsmith\"\n)\n// (2)\n.\nattribute\n(\n\"Accountable\"\n,\n\"jdoe\"\n)\n.\nattribute\n(\n\"Consulted\"\n,\nlistOf\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nattribute\n(\n\"Informed\"\n,\nlistOf\n(\n\"operations\"\n))\n.\nbuild\n()\nval\ntable\n=\nTable\n.\ncreator\n(",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 47
+    }
+  },
+  {
+    "content": ".\nattribute\n(\n\"Accountable\"\n,\n\"jdoe\"\n)\n.\nattribute\n(\n\"Consulted\"\n,\nlistOf\n(\n\"finance\"\n,\n\"risk\"\n))\n// (3)\n.\nattribute\n(\n\"Informed\"\n,\nlistOf\n(\n\"operations\"\n))\n.\nbuild\n()\nval\ntable\n=\nTable\n.\ncreator\n(\n\"TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n)\n.\ncustomMetadata\n(\n\"RACI\"\n,\ncmRACI\n)\n// (5)\n.\nbuild\n()\n// (6)\nval\nresponse\n=\ntable\n.\nsaveReplacingCM\n(\nclient\n,\nfalse\n)\n// (7)\nassert\n(\nresponse\n.\ncreatedAssets\n.\nsize\n==\n1\n)\n// (8)\nCreate a custom metadata attributes object that will contain the attributes and values for custom metadata you want to add to the asset.\nFor each attribute, use the\nattribute()\nmethod and pass:\nthe name of the attribute within that set\nthe value for that attribute\nThe value can be any object valid for the attribute: a string, a boolean, or a number. (Note that dates are sent as\nlong\n(epoch) numbers.)\nFor any attribute that can be multi-valued, we can send a list of values.\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nSet the custom metadata that should be added (using the custom metadata attributes object you built earlier).",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 48
+    }
+  },
+  {
+    "content": "creator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nSet the custom metadata that should be added (using the custom metadata attributes object you built earlier).\nNote that the first parameter to this method is the name of the custom metadata for which you're providing the attributes and values.\nYou can chain this\ncustomMetadata()\nmethod as many times as you like to add other custom metadata and attributes, but you should only call it once per named custom metadata set. (If you call it multiple times for the same named custom metadata, only the last one will be applied.)\nCall the\nbuild()\nmethod to build the enriched object.\nCall the\nsaveReplacingCM()\nmethod to create the asset, including its custom metadata. (During creation you could also use\nsaveMergingCM()\n, but if you use only\nsave()\nthen no custom metadata will be attached to the assets.) Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include all assets that were created.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n{\n\"entities\"\n:",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 49
+    }
+  },
+  {
+    "content": "The response will include all assets that were created.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (2)\n\"name\"\n:\n\"TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"atlanSchema\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"Schema\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n}\n}\n},\n\"businessAttributes\"\n:\n{\n// (6)\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n:\n{\n// (7)\n\"fWMB77RSjRGNYoFeD4FcGi\"\n:\n\"jsmith\"\n,\n// (8)\n\"xDUCZllc4JyTKhwqSDkWK4\"\n:\n\"jdoe\"\n,\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n:\n[\n// (9)\n\"finance\"\n,\n\"risk\"\n],\n\"rN6H6xMQpyHvo639SXER83\"\n:\n[\n\"operations\"\n]\n}\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide a name for the asset.\nIn the case of a table, the\nqualifiedName\nmust be the concatenation of the parent schema's qualifiedName and the name of the table.\nWhen creating a table, you must specify the schema to create it within. This is defined by the\natlanSchema",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 50
+    }
+  },
+  {
+    "content": "must be the concatenation of the parent schema's qualifiedName and the name of the table.\nWhen creating a table, you must specify the schema to create it within. This is defined by the\natlanSchema\nattribute. You must specify both the type (must be\nSchema\n) and qualifiedName of the schema within the\natlanSchema\nattribute — and the schema must already exist.\nEach custom metadata set you want to include on the asset must be a sub-object of the\nbusinessAttributes\nobject.\nEach custom metadata set must be specified using its\nhashed-string representation\n.\nEach custom metadata attribute you want to add must be given using its\nhashed-string representation\n.\nFor multivalued custom metadata attributes, specify the value as an array.\nFind hashed-string names\n¶\nWhen using either the raw APIs or specifying\nbusinessAttributes\nwith dbt, you must provide the classification names using Atlan's hashed-string representation.\nNot necessary for SDKs\nNote that this is not needed when using the SDKs, which translate these for you!\nTo look up the hashed-string representations:\nGET /api/meta/types/typedefs?type=business_metadata\nThe response will include\ndisplayName\nand\nname",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 51
+    }
+  },
+  {
+    "content": "To look up the hashed-string representations:\nGET /api/meta/types/typedefs?type=business_metadata\nThe response will include\ndisplayName\nand\nname\n, both at overall custom metadata level and for each attribute (property). The\ndisplayName\nis what you see in Atlan's UI, and the\nname\nis the hashed-string representation:\nSimplified response\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n92\n93\n94\n95\n96\n97\n98\n99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n114\n115\n116\n117\n118\n119\n120\n121\n{\n\"enumDefs\"\n:\n[],\n\"structDefs\"\n:\n[],\n\"classificationDefs\"\n:\n[],\n\"entityDefs\"\n:\n[],\n\"relationshipDefs\"\n:\n[],\n\"businessMetadataDefs\"\n:\n[\n{\n\"category\"\n:\n\"BUSINESS_METADATA\"\n,\n\"guid\"\n:\n\"e5cc3476-9cd9-4ed7-89a7-18dfde86f827\"\n,\n\"name\"\n:\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n,\n\"displayName\"\n:\n\"RACI\"\n,\n\"options\"\n:\n{\n\"logoType\"\n:\n\"emoji\"\n,\n\"emoji\"\n:\n\"👪\"\n},\n\"attributeDefs\"\n:\n[\n{\n\"name\"\n:\n\"fWMB77RSjRGNYoFeD4FcGi\"\n,\n\"displayName\"\n:\n\"Responsible\"\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"typeName\"\n:\n\"string\"\n,",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 52
+    }
+  },
+  {
+    "content": ",\n\"options\"\n:\n{\n\"logoType\"\n:\n\"emoji\"\n,\n\"emoji\"\n:\n\"👪\"\n},\n\"attributeDefs\"\n:\n[\n{\n\"name\"\n:\n\"fWMB77RSjRGNYoFeD4FcGi\"\n,\n\"displayName\"\n:\n\"Responsible\"\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"description\"\n:\n\"\"\n,\n\"options\"\n:\n{\n\"customType\"\n:\n\"users\"\n,\n\"showInOverview\"\n:\n\"false\"\n,\n\"allowFiltering\"\n:\n\"true\"\n,\n\"isEnum\"\n:\n\"false\"\n,\n\"multiValueSelect\"\n:\n\"false\"\n,\n\"primitiveType\"\n:\n\"users\"\n}\n},\n{\n\"name\"\n:\n\"xDUCZllc4JyTKhwqSDkWK4\"\n,\n\"displayName\"\n:\n\"Accountable\"\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"description\"\n:\n\"\"\n,\n\"options\"\n:\n{\n\"customType\"\n:\n\"users\"\n,\n\"showInOverview\"\n:\n\"false\"\n,\n\"allowFiltering\"\n:\n\"true\"\n,\n\"isEnum\"\n:\n\"false\"\n,\n\"multiValueSelect\"\n:\n\"false\"\n,\n\"primitiveType\"\n:\n\"users\"\n}\n},\n{\n\"name\"\n:\n\"F8XI9GzcBpdBdfi4cLiPEz\"\n,\n\"displayName\"\n:\n\"Consulted\"\n,\n\"typeName\"\n:\n\"array<string>\"\n,\n\"cardinality\"\n:\n\"SET\"\n,\n\"description\"\n:\n\"\"\n,\n\"options\"\n:\n{\n\"customType\"\n:\n\"groups\"\n,\n\"showInOverview\"\n:\n\"false\"\n,\n\"allowFiltering\"\n:\n\"true\"\n,\n\"isEnum\"\n:\n\"false\"\n,\n\"multiValueSelect\"\n:\n\"true\"\n,\n\"primitiveType\"\n:\n\"groups\"\n}\n},\n{\n\"name\"\n:\n\"rN6H6xMQpyHvo639SXER83\"\n,\n\"displayName\"\n:\n\"Informed\"\n,\n\"typeName\"\n:\n\"array<string>\"\n,\n\"cardinality\"\n:\n\"SET\"\n,\n\"description\"\n:\n\"\"\n,\n\"options\"\n:\n{",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 53
+    }
+  },
+  {
+    "content": ":\n\"true\"\n,\n\"primitiveType\"\n:\n\"groups\"\n}\n},\n{\n\"name\"\n:\n\"rN6H6xMQpyHvo639SXER83\"\n,\n\"displayName\"\n:\n\"Informed\"\n,\n\"typeName\"\n:\n\"array<string>\"\n,\n\"cardinality\"\n:\n\"SET\"\n,\n\"description\"\n:\n\"\"\n,\n\"options\"\n:\n{\n\"customType\"\n:\n\"groups\"\n,\n\"showInOverview\"\n:\n\"false\"\n,\n\"allowFiltering\"\n:\n\"true\"\n,\n\"isEnum\"\n:\n\"false\"\n,\n\"multiValueSelect\"\n:\n\"true\"\n,\n\"primitiveType\"\n:\n\"groups\"\n}\n},\n{\n\"name\"\n:\n\"okm7BDXjTQx4iYPT5u7ilu\"\n,\n\"displayName\"\n:\n\"Extra\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"description\"\n:\n\"\"\n,\n\"options\"\n:\n{\n\"showInOverview\"\n:\n\"false\"\n,\n\"allowFiltering\"\n:\n\"true\"\n,\n\"isEnum\"\n:\n\"false\"\n,\n\"multiValueSelect\"\n:\n\"false\"\n,\n\"primitiveType\"\n:\n\"string\"\n}\n}\n]\n},\n{\n\"category\"\n:\n\"BUSINESS_METADATA\"\n,\n\"guid\"\n:\n\"389c0f8a-5d68-407c-8b5c-45a19f2cc7e0\"\n,\n\"name\"\n:\n\"foMg7yOwUajucuya0JEF4J\"\n,\n\"displayName\"\n:\n\"Other\"\n,\n\"options\"\n:\n{\n\"logoType\"\n:\n\"emoji\"\n,\n\"emoji\"\n:\n\"❓\"\n},\n\"attributeDefs\"\n:\n[\n{\n\"name\"\n:\n\"uTmK5o0J8jHTH3KWFXXeZi\"\n,\n\"displayName\"\n:\n\"Another\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"description\"\n:\n\"\"\n,\n\"options\"\n:\n{\n\"showInOverview\"\n:\n\"false\"\n,\n\"allowFiltering\"\n:\n\"true\"\n,\n\"isEnum\"\n:\n\"false\"\n,\n\"multiValueSelect\"\n:\n\"false\"\n,\n\"primitiveType\"\n:\n\"string\"\n}\n}\n]\n}\n]\n}\n2022-08-22",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 54
+    }
+  },
+  {
+    "content": ",\n\"description\"\n:\n\"\"\n,\n\"options\"\n:\n{\n\"showInOverview\"\n:\n\"false\"\n,\n\"allowFiltering\"\n:\n\"true\"\n,\n\"isEnum\"\n:\n\"false\"\n,\n\"multiValueSelect\"\n:\n\"false\"\n,\n\"primitiveType\"\n:\n\"string\"\n}\n}\n]\n}\n]\n}\n2022-08-22\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_common-examples_custom-metadata.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_custom-metadata.json",
+      "chunk_id": 55
+    }
+  }
+]

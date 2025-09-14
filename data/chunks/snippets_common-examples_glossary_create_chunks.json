@@ -1,0 +1,92 @@
+[
+  {
+    "content": "Creating glossary objects - Developer\nSkip to content\nCreating glossary objects\n¶\nYou can create objects in glossaries in the same way as\nall other objects in the SDK\n. Each object provides a method that takes the minimal set of required fields to create that\nasset\n.\nCreate a glossary\n¶\n2.0.0\n4.0.0\nTo create a glossary:\nJava\nPython\nKotlin\nRaw REST API\nCreate a glossary\n1\n2\n3\n4\n5\nGlossary\nglossary\n=\nGlossary\n.\ncreator\n(\n\"Example Glossary\"\n)\n// (1)\n.\nassetIcon\n(\nAtlanIcon\n.\nBOOK_OPEN_TEXT\n)\n// (2)\n.\nbuild\n();\n// (3)\nAssetMutationResponse\nresponse\n=\nglossary\n.\nsave\n(\nclient\n);\n// (4)\nA name for the new glossary.\nYou can chain any other enrichment onto the creator, such as an icon for the glossary in this example.\nYou then build the object (in-memory).\nAnd finally you can save the glossary back to Atlan (and the result of that save is returned). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a glossary\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossary\nfrom\npyatlan.model.enums\nimport\nAtlanIcon\nclient\n=\nAtlanClient\n()\nglossary\n=",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossary\nfrom\npyatlan.model.enums\nimport\nAtlanIcon\nclient\n=\nAtlanClient\n()\nglossary\n=\nAtlasGlossary\n.\ncreator\n(\nname\n=\n\"Example Glossary\"\n# (1)\n)\nglossary\n.\nasset_icon\n=\nAtlanIcon\n.\nBOOK_OPEN_TEXT\n.\nvalue\n# (2)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nglossary\n)\n# (3)\nA name for the new glossary.\nYou can chain any other enrichment onto the creator, such as an icon for the glossary in this example.\nYou then build the object (in-memory).\nAnd finally you can save the glossary back to Atlan (and the result of that save is returned).\nCreate a glossary\n1\n2\n3\n4\n5\nval\nglossary\n=\nGlossary\n.\ncreator\n(\n\"Example Glossary\"\n)\n// (1)\n.\nassetIcon\n(\nAtlanIcon\n.\nBOOK_OPEN_TEXT\n)\n// (2)\n.\nbuild\n()\n// (3)\nval\nresponse\n=\nglossary\n.\nsave\n(\nclient\n)\n// (4)\nA name for the new glossary.\nYou can chain any other enrichment onto the creator, such as an icon for the glossary in this example.\nYou then build the object (in-memory).\nAnd finally you can save the glossary back to Atlan (and the result of that save is returned). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "And finally you can save the glossary back to Atlan (and the result of that save is returned). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Example Glossary\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"Example Glossary\"\n,\n// (4)\n\"assetIcon\"\n:\n\"PhBookOpenText\"\n// (5)\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive). For a glossary, this is\nAtlasGlossary\n.\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide a\nqualifiedName\nof the asset (case-sensitive). In the case of glossaries, this will actually be replaced in the back-end with a generated\nqualifiedName\n, but you must provide some value when creating the object.\nYou can also provide other enrichment, such as an icon for the glossary in this example.\nCreate a category\n¶\n2.0.0\n4.0.0\nTo create a category:\nJava\nPython\nKotlin\nRaw REST API\nCreate a category\n1\n2\n3\n4\n5\nGlossaryCategory\ncategory\n=\nGlossaryCategory\n.\ncreator\n(",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Create a category\n¶\n2.0.0\n4.0.0\nTo create a category:\nJava\nPython\nKotlin\nRaw REST API\nCreate a category\n1\n2\n3\n4\n5\nGlossaryCategory\ncategory\n=\nGlossaryCategory\n.\ncreator\n(\n\"Example Category\"\n,\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\n// (2)\n.\nbuild\n();\n// (3)\nAssetMutationResponse\nresponse\n=\ncategory\n.\nsave\n(\nclient\n);\n// (4)\nYou must provide a name for the new category.\nYou must provide the ID of the glossary in which the category should be created (GUID or qualifiedName).\nYou then build the object (in-memory).\nAnd finally you can save the category back to Atlan (and the result of that save is returned). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a category\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryCategory\nclient\n=\nAtlanClient\n()\ncategory\n=\nAtlasGlossaryCategory\n.\ncreator\n(\nname\n=\n\"Example Category\"\n,\n# (1)\nglossary_guid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n# (2)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ncategory\n)\n# (3)\nYou must provide a name for the new category.",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "(\nname\n=\n\"Example Category\"\n,\n# (1)\nglossary_guid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n# (2)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ncategory\n)\n# (3)\nYou must provide a name for the new category.\nYou must provide the ID of the glossary (GUID) in which the category should be created.\nAnd finally you can save the category back to Atlan (and the result of that save is returned).\nCreate a category\n1\n2\n3\n4\n5\nval\ncategory\n=\nGlossaryCategory\n.\ncreator\n(\n\"Example Category\"\n,\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\n// (2)\n.\nbuild\n()\n// (3)\nval\nresponse\n=\ncategory\n.\nsave\n(\nclient\n)\n// (4)\nYou must provide a name for the new category.\nYou must provide the ID of the glossary in which the category should be created (GUID or qualifiedName).\nYou then build the object (in-memory).\nAnd finally you can save the category back to Atlan (and the result of that save is returned). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryCategory\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Example Category\"\n,\n// (3)",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "POST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryCategory\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Example Category\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"Example Category\"\n,\n// (4)\n\"anchor\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n}\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive). For a category, this is\nAtlasGlossaryCategory\n.\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide a\nqualifiedName\nof the asset (case-sensitive). In the case of categories, this will actually be replaced in the back-end with a generated\nqualifiedName\n, but you must provide some value when creating the object.\nYou must also specify the parent glossary in which the category should be created. This must be placed in an\nanchor\nproperty, which itself has an embedded\ntypeName\n(of\nAtlasGlossary\n) and the GUID of the glossary.\nCreate a term\n¶\n2.0.0\n4.0.0\nTo create a term:\nJava\nPython\nKotlin\nRaw REST API\nCreate a term\n1\n2\n3\n4\n5\nGlossaryTerm\nterm\n=\nGlossaryTerm\n.\ncreator\n(\n\"Example Term\"\n,\n// (1)",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Create a term\n¶\n2.0.0\n4.0.0\nTo create a term:\nJava\nPython\nKotlin\nRaw REST API\nCreate a term\n1\n2\n3\n4\n5\nGlossaryTerm\nterm\n=\nGlossaryTerm\n.\ncreator\n(\n\"Example Term\"\n,\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\n// (2)\n.\nbuild\n();\n// (3)\nAssetMutationResponse\nresponse\n=\nterm\n.\nsave\n(\nclient\n);\n// (4)\nYou must provide a name for the new term.\nYou must provide the ID of the glossary in which the term should be created (GUID or qualifiedName).\nYou then build the object (in-memory).\nAnd finally you can save the term back to Atlan (and the result of that save is returned). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate a term\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAtlasGlossaryTerm\nclient\n=\nAtlanClient\n()\nterm\n=\nAtlasGlossaryTerm\n.\ncreator\n(\nname\n=\n\"Example Term\"\n,\n# (1)\nglossary_guid\n=\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n# (2)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nterm\n)\n# (3)\nYou must provide a name for the new term.\nYou must provide the ID of the glossary (GUID) in which the term should be created.",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "# (2)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nterm\n)\n# (3)\nYou must provide a name for the new term.\nYou must provide the ID of the glossary (GUID) in which the term should be created.\nAnd finally you can save the term back to Atlan (and the result of that save is returned).\nCreate a term\n1\n2\n3\n4\n5\nval\nterm\n=\nGlossaryTerm\n.\ncreator\n(\n\"Example Term\"\n,\n// (1)\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n)\n// (2)\n.\nbuild\n()\n// (3)\nval\nresponse\n=\nterm\n.\nsave\n(\nclient\n)\n// (4)\nYou must provide a name for the new term.\nYou must provide the ID of the glossary in which the term should be created (GUID or qualifiedName).\nYou then build the object (in-memory).\nAnd finally you can save the term back to Atlan (and the result of that save is returned). Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Example Term\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"Example Term\"\n,\n// (4)\n\"anchor\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n}\n}\n}",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "\"attributes\"\n:\n{\n\"name\"\n:\n\"Example Term\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"Example Term\"\n,\n// (4)\n\"anchor\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"AtlasGlossary\"\n,\n\"guid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n}\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive). For a term, this is\nAtlasGlossaryTerm\n.\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide a\nqualifiedName\nof the asset (case-sensitive). In the case of terms, this will actually be replaced in the back-end with a generated\nqualifiedName\n, but you must provide some value when creating the object.\nYou must also specify the parent glossary in which the term should be created. This must be placed in an\nanchor\nproperty, which itself has an embedded\ntypeName\n(of\nAtlasGlossary\n) and the GUID of the glossary.\n2023-12-27\n2025-01-03\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "feedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_common-examples_glossary_create.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_glossary_create.json",
+      "chunk_id": 9
+    }
+  }
+]

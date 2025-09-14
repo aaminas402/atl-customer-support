@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Atlan browser extension security | Atlan Documentation\nSkip to main content\nOn this page\nAtlan adheres to strict security standards for the\nbrowser extension\n. Atlan mandates security throughout the extension coding lifecycle:\nHardening configurations through content security policies,\nValidating all inputs,\nRequiring least privileges,\nEmploying defense-in-depth techniques like code obfuscation to frustrate reverse engineering,\nAccessing customer resources over secure HTTPS channels after SSL certificate verification to prevent tampering.\nAtlan follows proven CI/CD methodologies used for our SaaS application, enabling rapid and frequent updates to Atlan's Chrome extension. This allows:\nPatching identified vulnerabilities faster through new releases while simultaneously upholding stability.\nMandatory code reviews specifically focused on analyzing security to help with identifying issues before these can impact customers.",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_concepts_atlan-browser-extension-security.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_concepts_atlan-browser-extension-security.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Mandatory code reviews specifically focused on analyzing security to help with identifying issues before these can impact customers.\nOnce ready, both static and dynamic scanning tools rigorously test the extension codebase for any weaknesses before distribution. Atlan is committed to transparency. If any post-deployment points of concern arise, Atlan will notify impacted customers promptly and address their concerns responsibly.\nBy incorporating security into each phase   -  secure architecture, peer reviews, robust testing, and responsible disclosure   -  Atlan strives to build browser extensions with both user needs and enterprise risks top of mind.\nReach out to Atlan support\nfor any questions.\nPermissions\nâ\nWhen using Atlan's browser extension in a\nsupported tool\n, Atlan will read:\nthe URL of your browser tab\nDocument Object Model (DOM) elements such as asset title, hierarchy information, text,\ndata-test-id\nattributes, and more to locate an asset in a\nsupported source tool\n. This list may vary depending on the source tool.\nIf you're using Atlan's browser extension on any\nwebsite\n, it will only read the favicon, page title, and URL of your browser tab.",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_concepts_atlan-browser-extension-security.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_concepts_atlan-browser-extension-security.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ". This list may vary depending on the source tool.\nIf you're using Atlan's browser extension on any\nwebsite\n, it will only read the favicon, page title, and URL of your browser tab.\nAtlan uses the following permissions for the browser extension to work in a supported tool:\nactiveTab\n-  the\nactiveTab permission\nallows the browser extension to temporarily access the content of the active tab as you interact with the extension. This enables Atlan to display the Atlan badge and read the URL and DOM elements to locate the asset for displaying asset metadata in the sidebar.\nstorage\n-  the\nstorage permission\nallows Atlan to store information about the locally domains configured. This enables the browser extension to remember the sites that you want to use it on, even when you close and reopen your browser.\ncookies\n-  the\ncookies permission\nallows Atlan to manage cookies for maintaining session states or user preferences for a supported tool. These login cookies are only shared between your Atlan tenant and the browser extension.\ncontextMenus\n-  the\ncontextMenus permission",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_concepts_atlan-browser-extension-security.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_concepts_atlan-browser-extension-security.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "contextMenus\n-  the\ncontextMenus permission\nallows Atlan to add context menu options (for example, right-click menus) to help you interact with the extension's features, namely\nsearch in Atlan\n, directly from any website.\nhost_permissions\n-  the\nhost permissions\nallow the browser extension to work specifically with Atlan tenants, which is the host in this case. For example,\nhttps://atlan.com/*\n,\nhttps://atlan.dev/*\n.\n\"content_scripts\": [ { \"matches\": [\"http://*/*\", \"https://*/*\"]\n-  the\ncontent_scripts key\nallows Atlan to inject Atlan's content script to any website you visit. Although this content script will be injected into all webpages, it will neither be executed nor any DOM elements captured if the webpage is not a supported tool.\nPermissions",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_concepts_atlan-browser-extension-security.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_concepts_atlan-browser-extension-security.json",
+      "chunk_id": 3
+    }
+  }
+]

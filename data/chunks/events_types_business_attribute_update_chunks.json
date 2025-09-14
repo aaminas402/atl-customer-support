@@ -1,0 +1,38 @@
+[
+  {
+    "content": "BUSINESS_ATTRIBUTE_UPDATE - Developer\nSkip to content\nBUSINESS_ATTRIBUTE_UPDATE\nevent type\n¶\nBUSINESS_ATTRIBUTE_UPDATE\nevents are emitted whenever a custom metadata is changed on an\nasset\nin Atlan. This includes:\nAdding custom metadata to an asset\nRemoving custom metadata from an asset\nOne\nBUSINESS_ATTRIBUTE_UPDATE\nevent is emitted for each asset that is updated\nSo, for example, if you set 4 custom metadata attributes on an asset in Atlan, it will emit only 1\nBUSINESS_ATTRIBUTE_UPDATE\nevents.\nThe details of the updated asset will be in the\nmessage.entity\nportion of the event payload. The event payload shows the custom metadata that changed in the\nmessage.mutatedDetails\nportion of the event payload.\nThe custom metadata does\nnot\nappear in\nmessage.entity\nNote that the custom metadata does\nnot\nappear in\nmessage.entity\n. You must look at the\nmessage.mutatedDetails\nto see the custom metadata.\nCustom metadata uses internal Atlan IDs\nAlso note that the custom metadata values use Atlan's internal IDs in the event payload. You will need to translate these to the human-readable names you see in the Atlan UI. (The SDKs provide operations to do these lookups.)",
+    "metadata": {
+      "source_url": "events_types_business_attribute_update.html",
+      "source_type": "sdk",
+      "file": "events_types_business_attribute_update.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Example BUSINESS_ATTRIBUTE_UPDATE event\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n{\n\"source\"\n:\n{},\n\"version\"\n:\n{\n\"version\"\n:\n\"1.0.0\"\n,\n\"versionParts\"\n:\n[\n1\n]\n},\n\"msgCompressionKind\"\n:\n\"NONE\"\n,\n\"msgSplitIdx\"\n:\n1\n,\n\"msgSplitCount\"\n:\n1\n,\n\"msgSourceIP\"\n:\n\"10.121.193.228\"\n,\n\"msgCreatedBy\"\n:\n\"\"\n,\n\"msgCreationTime\"\n:\n1667822461771\n,\n\"spooled\"\n:\nfalse\n,\n\"message\"\n:\n{\n\"type\"\n:\n\"ENTITY_NOTIFICATION_V2\"\n,\n\"entity\"\n:\n{\n\"typeName\"\n:\n\"Table\"\n,\n\"attributes\"\n:\n{\n\"popularityScore\"\n:\n1.17549435e-38\n,\n\"lastSyncWorkflowName\"\n:\n\"mabl-qa-006-crawler\"\n,\n\"lastSyncRunAt\"\n:\n1665132063880\n,\n\"databaseName\"\n:\n\"atlan_trial\"\n,\n\"connectionQualifiedName\"\n:\n\"default/postgres/1665131987\"\n,\n\"assetDbtJobLastRunHasSourcesGenerated\"\n:\nfalse\n,\n\"assetDbtJobLastRunHasDocsGenerated\"\n:\nfalse\n,\n\"queryCount\"\n:\n0\n,\n\"isTemporary\"\n:\nfalse\n,\n\"lastSyncRun\"\n:\n\"atlan-postgres-1665131987-k9cds\"\n,\n\"isPartitioned\"\n:\nfalse\n,\n\"schemaName\"\n:\n\"demo\"\n,\n\"adminUsers\"\n:\n[],\n\"partitionCount\"\n:\n0\n,\n\"queryUserCount\"\n:\n0\n,",
+    "metadata": {
+      "source_url": "events_types_business_attribute_update.html",
+      "source_type": "sdk",
+      "file": "events_types_business_attribute_update.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ":\n0\n,\n\"isTemporary\"\n:\nfalse\n,\n\"lastSyncRun\"\n:\n\"atlan-postgres-1665131987-k9cds\"\n,\n\"isPartitioned\"\n:\nfalse\n,\n\"schemaName\"\n:\n\"demo\"\n,\n\"adminUsers\"\n:\n[],\n\"partitionCount\"\n:\n0\n,\n\"queryUserCount\"\n:\n0\n,\n\"assetDbtJobLastRunUpdatedAt\"\n:\n0\n,\n\"ownerGroups\"\n:\n[],\n\"sourceUpdatedAt\"\n:\n0\n,\n\"assetDbtJobLastRunArtifactsSaved\"\n:\nfalse\n,\n\"isEditable\"\n:\ntrue\n,\n\"announcementUpdatedAt\"\n:\n0\n,\n\"assetDbtJobLastRunStartedAt\"\n:\n0\n,\n\"isDiscoverable\"\n:\ntrue\n,\n\"rowCount\"\n:\n134\n,\n\"isQueryPreview\"\n:\ntrue\n,\n\"schemaQualifiedName\"\n:\n\"default/postgres/1665131987/atlan_trial/demo\"\n,\n\"sourceCreatedAt\"\n:\n0\n,\n\"assetDbtJobLastRunDequedAt\"\n:\n0\n,\n\"viewerUsers\"\n:\n[],\n\"assetDbtTags\"\n:\n[],\n\"adminRoles\"\n:\n[],\n\"adminGroups\"\n:\n[],\n\"assetDbtJobLastRunCreatedAt\"\n:\n0\n,\n\"qualifiedName\"\n:\n\"default/postgres/1665131987/atlan_trial/demo/INSTACART_AISLES\"\n,\n\"databaseQualifiedName\"\n:\n\"default/postgres/1665131987/atlan_trial\"\n,\n\"assetDbtJobNextRun\"\n:\n0\n,\n\"assetDbtJobLastRunNotificationsSent\"\n:\nfalse\n,\n\"columnCount\"\n:\n2\n,\n\"sizeBytes\"\n:\n0\n,\n\"name\"\n:\n\"INSTACART_AISLES\"\n,\n\"certificateUpdatedAt\"\n:\n0\n,\n\"connectorName\"\n:\n\"postgres\"\n,\n\"viewerGroups\"\n:\n[],\n\"assetDbtJobLastRun\"\n:\n0\n,\n\"ownerUsers\"\n:\n[]\n},\n\"guid\"\n:",
+    "metadata": {
+      "source_url": "events_types_business_attribute_update.html",
+      "source_type": "sdk",
+      "file": "events_types_business_attribute_update.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": ":\n2\n,\n\"sizeBytes\"\n:\n0\n,\n\"name\"\n:\n\"INSTACART_AISLES\"\n,\n\"certificateUpdatedAt\"\n:\n0\n,\n\"connectorName\"\n:\n\"postgres\"\n,\n\"viewerGroups\"\n:\n[],\n\"assetDbtJobLastRun\"\n:\n0\n,\n\"ownerUsers\"\n:\n[]\n},\n\"guid\"\n:\n\"31ee0651-b031-48c8-8927-ef9b1e949ad4\"\n,\n\"status\"\n:\n\"ACTIVE\"\n,\n\"displayText\"\n:\n\"INSTACART_AISLES\"\n,\n\"isIncomplete\"\n:\nfalse\n,\n\"createdBy\"\n:\n\"autoqa\"\n,\n\"updatedBy\"\n:\n\"autoqa\"\n,\n\"createTime\"\n:\n1665132167750\n,\n\"updateTime\"\n:\n1665132175423\n},\n\"operationType\"\n:\n\"BUSINESS_ATTRIBUTE_UPDATE\"\n,\n\"eventTime\"\n:\n1667822461710\n,\n\"mutatedDetails\"\n:\n{\n\"UuPz0CjWHFuuKTCiTRwapk\"\n:\n{\n\"jpf1oz5ux6MjmaOGPn9jMD\"\n:\n\"ssjmdvddf\\n\"\n}\n}\n}\n}\n2022-11-07\n2024-10-01\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "events_types_business_attribute_update.html",
+      "source_type": "sdk",
+      "file": "events_types_business_attribute_update.json",
+      "chunk_id": 3
+    }
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "content": "query data | Atlan Documentation\nSkip to main content\nOn this page\nThere are two ways to query data in Atlan:\nwriting your own SQL\nusing the Visual Query Builder\nDid you know?\nAtlan pushes all queries to the source (no data is stored in Atlan). In addition, Atlan applies access policies to the results before displaying them.\nWrite your own SQL\nâ\nWho can do this?\nAnyone with the knowledge to write SQL. Any\nAtlan user\nwith\ndata access to the asset\ncan query data.\nTo query an asset with your own SQL:\nFrom the left menu of any screen, click\nInsights\n.\nUnder the\nExplorer\ntab, find the asset you want to query:\nUse the\nSelect database\ndropdown to choose another database, if necessary.\nSearch for the asset by name in the search bar, or browse for it in the tree structure.\nHover over the table or view, and click the play icon. This writes and runs a basic preview query.\n(Optional) Click the open asset sidebar icon to view more details in the asset sidebar.\n(Optional) Click the eye icon to view a preview of the query results.\n(Optional) Click the 3-dot icon for more options:\nClick\nSet editor context",
+    "metadata": {
+      "source_url": "product_capabilities_insights_how-tos_query-data.html",
+      "source_type": "docs",
+      "file": "product_capabilities_insights_how-tos_query-data.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "(Optional) Click the eye icon to view a preview of the query results.\n(Optional) Click the 3-dot icon for more options:\nClick\nSet editor context\nto set the same connection, database, and schema name in the query editor as selected in the\nExplorer\ntab.\nClick\nPlace name in editor\nto view the asset name in the query editor.\nClick\nCopy path\nto copy the full path of the asset, including database and schema names.\nUnder the\nUntitled\ntab on the right, change the sample query or write your own   -  separate multiple queries with a semicolon\n;\n. Click the\nRun\nbutton in the upper right to test your query as you write it.\n(Optional) Click the downward arrow next to the\nRun\nbutton to\nexport query results via email\nor\nschedule the query\n.\n(Optional) If you have multiple tabs open in the query editor, right-click a tab to open the tabs menu. You can close a specific tab or all tabs, or duplicate the query.\n(Optional) From the top right of the query editor, click the 3-dot icon for additional query editor actions or to customize it further:\nClick or hover over\nDuplicate query\nto create a duplicate version of your query.\nClick or hover over\nOpen command palette",
+    "metadata": {
+      "source_url": "product_capabilities_insights_how-tos_query-data.html",
+      "source_type": "docs",
+      "file": "product_capabilities_insights_how-tos_query-data.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Click or hover over\nDuplicate query\nto create a duplicate version of your query.\nClick or hover over\nOpen command palette\nto view the actions you can run inside the query editor.\nClick or hover over\nThemes\nand then select your preferred theme for the query editor.\nClick or hover over\nTab spacing\nto change the tab spacing for your queries.\nClick or hover over\nFont size\nto change the font size for your queries.\nClick or hover over\nCursor\nto change the cursor position in the query editor.\nClick or hover over\nAutosuggestions\nto turn off autosuggestions for assets in the query editor.\nThe editor supports all read-based SQL statements, including\nJOIN\n. The editor will not run any write-based statements. The following SQL statements are not supported:\nUPDATE\nDELETE\nCREATE\nALTER\nDROP\nTRUNCATE\nINSERT INTO\nDid you know?\nYou can select the context for your query to the left of the\nRun\nbutton. Then you won't need to fully qualify table names with schema and database names.\nUse the Visual Query Builder\nâ\nWho can do this?\nAny\nAtlan user\nwith\ndata access to the asset\n. No SQL knowledge required!\nTo query an asset using the Visual Query Builder:\nFrom the left menu of any screen, click\nInsights",
+    "metadata": {
+      "source_url": "product_capabilities_insights_how-tos_query-data.html",
+      "source_type": "docs",
+      "file": "product_capabilities_insights_how-tos_query-data.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "â\nWho can do this?\nAny\nAtlan user\nwith\ndata access to the asset\n. No SQL knowledge required!\nTo query an asset using the Visual Query Builder:\nFrom the left menu of any screen, click\nInsights\n.\nAt the top of the screen, to the right of the\nUntitled\ntab, click the\n+\nbutton and select\nNew visual query\n.\nUnder\nSelect from\nchoose the table or view you want to query.\n(Optional) In the column selector to the right, select the column you want to query.\nThen develop your query:\nClick the\nRun\nbutton to run the query and preview its results.\nClick the blue circular\n+\nbutton to add an action to the query.\nRepeat these steps until your query is complete.\n(Optional) If there are any errors in your query, click\nAuto fix\nfor Atlan to recommend a fix.Â\n(Optional) In the query results set, click\nCopy\nto copy the query results or click\nDownload\nto export them.\nDid you know?\nYou can learn more about the query builder actions in\nthis example\n.\nWrite your own SQL\nUse the Visual Query Builder",
+    "metadata": {
+      "source_url": "product_capabilities_insights_how-tos_query-data.html",
+      "source_type": "docs",
+      "file": "product_capabilities_insights_how-tos_query-data.json",
+      "chunk_id": 3
+    }
+  }
+]

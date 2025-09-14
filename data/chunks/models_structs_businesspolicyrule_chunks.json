@@ -1,0 +1,20 @@
+[
+  {
+    "content": "BusinessPolicyRule - Developer\nSkip to content\nBusinessPolicyRule\n¶\nRules in the business policy\nComplete reference\nThis is a complete reference for the\nBusinessPolicyRule\nstruct in Atlan, showing all of its embedded properties. For an introduction, you probably want to start with:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nEmbedded properties\n¶\nThese are the attributes embedded within each instance of the\nBusinessPolicyRule\nstruct in an asset:\nbprId\n¶\nbusiness policy rule id we have to keep it hierarchical e.g. policyId_ruleId\nbprName\n¶\nName for business policy rule it can be a display string to show on UI\nbprSequence\n¶\nbusiness policy rule to make the ordering easier\nbprOperand\n¶\noperand in rule for business policy rule these can be attributes like certificateStatus, tags etc.\nbprOperator\n¶\noperator to apply in rule for business policy rule this can be must_be, must_not_be etc\nbprValue\n¶\nvalue to validate for the operand against the operator for business policy rule.\nbprQuery\n¶\nes query for business policy rule in combination with filter DSL of policy\n2023-08-02\n2025-01-30",
+    "metadata": {
+      "source_url": "models_structs_businesspolicyrule.html",
+      "source_type": "sdk",
+      "file": "models_structs_businesspolicyrule.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "bprValue\n¶\nvalue to validate for the operand against the operator for business policy rule.\nbprQuery\n¶\nes query for business policy rule in combination with filter DSL of policy\n2023-08-02\n2025-01-30\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_structs_businesspolicyrule.html",
+      "source_type": "sdk",
+      "file": "models_structs_businesspolicyrule.json",
+      "chunk_id": 1
+    }
+  }
+]

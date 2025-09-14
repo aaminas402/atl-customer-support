@@ -1,0 +1,29 @@
+[
+  {
+    "content": "AzureServiceBus - Developer\nSkip to content\nAzureServiceBus\n¶\nThese are the model elements in Atlan related to Azure Service Bus.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage Azure Service Bus assets in Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass AzureServiceBus {\n<<abstract>>\n}\nlink AzureServiceBus \"../azureservicebus\"\nclass EventStore {\n<<abstract>>\n}\nlink EventStore \"../eventstore\"\nEventStore <|-- AzureServiceBus : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../catalog\"\nCatalog <|-- EventStore : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../referenceable\"\nReferenceable <|-- Asset : extends\nclass AzureServiceBusNamespace\nlink AzureServiceBusNamespace \"../entities/azureservicebusnamespace\"\nAzureServiceBus <|-- AzureServiceBusNamespace : extends\nclass AzureServiceBusSchema",
+    "metadata": {
+      "source_url": "models_azureservicebus.html",
+      "source_type": "sdk",
+      "file": "models_azureservicebus.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "class AzureServiceBusNamespace\nlink AzureServiceBusNamespace \"../entities/azureservicebusnamespace\"\nAzureServiceBus <|-- AzureServiceBusNamespace : extends\nclass AzureServiceBusSchema\nlink AzureServiceBusSchema \"../entities/azureservicebusschema\"\nAzureServiceBus <|-- AzureServiceBusSchema : extends\nclass AzureServiceBusTopic\nlink AzureServiceBusTopic \"../entities/azureservicebustopic\"\nAzureServiceBus <|-- AzureServiceBusTopic : extends\nProperties\n¶\nThese attributes are specific to instances of\nAzureServiceBus\n(and all of its subtypes).\nazureServiceBusNamespaceName\n¶\nSimple name of the AzureServiceBus Namespace in which this asset exists.\nazureServiceBusNamespaceQualifiedName\n¶\nUnique name of the AzureServiceBus Namespace in which this asset exists.\nazureServiceBusSchemaQualifiedName\n¶\nUnique name of the AzureServiceBus Schema in which this asset exists.\nRelationships\n¶\nThe following illustrates how the various pieces of Azure Service Bus inter-relate with each other:\nerDiagram\nConnection ||..o{ AzureServiceBusNamespace : \"\"\nAzureServiceBusNamespace ||--o{ AzureServiceBusTopic : azureServiceBusTopics\nAzureServiceBusTopic }o--o{ AzureServiceBusSchema : azureServiceBusSchemas",
+    "metadata": {
+      "source_url": "models_azureservicebus.html",
+      "source_type": "sdk",
+      "file": "models_azureservicebus.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Connection ||..o{ AzureServiceBusNamespace : \"\"\nAzureServiceBusNamespace ||--o{ AzureServiceBusTopic : azureServiceBusTopics\nAzureServiceBusTopic }o--o{ AzureServiceBusSchema : azureServiceBusSchemas\n2024-06-18\n2025-01-30\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_azureservicebus.html",
+      "source_type": "sdk",
+      "file": "models_azureservicebus.json",
+      "chunk_id": 2
+    }
+  }
+]

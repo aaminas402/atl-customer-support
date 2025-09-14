@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Toolkits - Developer\nSkip to content\nToolkits\n¶\nWriting code is great, but there additional frameworks you can use to tap more directly into Atlan.\nIn this\nToolkits\nsection you will find details about these frameworks.\nInternal use only\nFor now, these toolkits are only available for Atlanians\n. However, they should give a sense for our longer-term ambitions for developers.\nPackages\nYour integration or automation, available in Atlan's marketplace of packages.\nBundle for reuse\nTypedefs\nYour unique metadata modeled and available as first-class objects in Atlan.\nDesign custom assets\nTesting\nYour guide to write robust, reusable integration tests for connectors and utilities in Atlan.\nTest your connector and utilities\nHow they work\n¶\nOur toolkits are mostly built on\nPkl\n, a configuration language developed by Apple.\nThis allows you to develop your idea:\nSafely, based on a guard-railed set of options\nIndependently from any specific programming language\nOffline from a running Atlan tenant\nWe can then automatically translate that into the necessary bindings for Atlan's:\nUI widgets\nData model\nOrchestration plane\nGet started\n¶\nTo get started, you'll need to install\npkl",
+    "metadata": {
+      "source_url": "toolkits.html",
+      "source_type": "sdk",
+      "file": "toolkits.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "We can then automatically translate that into the necessary bindings for Atlan's:\nUI widgets\nData model\nOrchestration plane\nGet started\n¶\nTo get started, you'll need to install\npkl\nand configure its plugin in your favorite IDE.\nInstall\npkl\n¶\nStart by\ninstalling the\npkl\nCLI\n:\nMacOS\nLinux (aarch64)\nLinux (amd64)\nAlpine (amd64)\nWindows\nWindows\nbrew\ninstall\npkl\ncurl\n-L\n-o\npkl\nhttps://github.com/apple/pkl/releases/download/0.28.1/pkl-linux-aarch64\nchmod\n+x\npkl\ncurl\n-L\n-o\npkl\nhttps://github.com/apple/pkl/releases/download/0.28.1/pkl-linux-amd64\nchmod\n+x\npkl\ncurl\n-L\n-o\npkl\nhttps://github.com/apple/pkl/releases/download/0.28.1/pkl-alpine-linux-amd64\nchmod\n+x\npkl\ncurl\n-L\n-o\njpkl\nhttps://repo1.maven.org/maven2/org/pkl-lang/pkl-cli-java/0.28.1/jpkl\nchmod\n+x\njpkl\nNote the CLI command is\njpkl\nOn Windows (or any other platform using the Java executable), the command is\njpkl\nrather than\npkl\n.\nConfigure in an IDE\n¶\nThen configure\npkl\nin your favorite IDE:\nJetBrains\nVS Code\nNeovim\nFor now you'll have to rely on\nPkl's own instructions\n.\nFor now you'll have to rely on\nPkl's own instructions\n.\n2024-03-14\n2025-04-28\nWas this page helpful?\nThanks for your feedback!",
+    "metadata": {
+      "source_url": "toolkits.html",
+      "source_type": "sdk",
+      "file": "toolkits.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "VS Code\nNeovim\nFor now you'll have to rely on\nPkl's own instructions\n.\nFor now you'll have to rely on\nPkl's own instructions\n.\n2024-03-14\n2025-04-28\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits.html",
+      "source_type": "sdk",
+      "file": "toolkits.json",
+      "chunk_id": 2
+    }
+  }
+]

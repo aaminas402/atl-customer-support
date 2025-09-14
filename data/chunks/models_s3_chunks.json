@@ -1,0 +1,20 @@
+[
+  {
+    "content": "S3 - Developer\nSkip to content\nS3 model\n¶\nBase class for S3 assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage S3 assets in Atlan. For that, we would suggest starting with the\nmanage AWS S3 assets pattern\n.\nclassDiagram\ndirection RL\nclass S3 {\n<<abstract>>\n}\nlink S3 \"../s3\"\nclass ObjectStore {\n<<abstract>>\n}\nlink ObjectStore \"../entities/objectstore\"\nObjectStore <|-- S3 : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- ObjectStore : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass AWS {\n<<abstract>>\n}\nlink AWS \"../aws\"\nAWS <|-- S3 : extends\nclass Cloud {\n<<abstract>>\n}\nlink Cloud \"../entities/cloud\"\nCloud <|-- AWS : extends\nAsset <|-- Cloud : extends\nclass S3Bucket\nlink S3Bucket \"../entities/s3bucket\"\nS3 <|-- S3Bucket : extends\nclass S3Object\nlink S3Object \"../entities/s3object\"\nS3 <|-- S3Object : extends\nProperties\n¶",
+    "metadata": {
+      "source_url": "models_s3.html",
+      "source_type": "sdk",
+      "file": "models_s3.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Asset <|-- Cloud : extends\nclass S3Bucket\nlink S3Bucket \"../entities/s3bucket\"\nS3 <|-- S3Bucket : extends\nclass S3Object\nlink S3Object \"../entities/s3object\"\nS3 <|-- S3Object : extends\nProperties\n¶\nThese attributes are specific to instances of\nS3\n(and all of its subtypes).\ns3ETag\n¶\nEntity tag for the asset. An entity tag is a hash of the object and represents changes to the contents of an object only, not its metadata.\ns3Encryption\n¶\nTBC\nRelationships\n¶\nThe following illustrates how the various S3 objects inter-relate with each other:\nerDiagram\nConnection ||..o{ S3Bucket : \"\"\nS3Bucket ||--o{ S3Object : objects\n2023-07-07\n2023-12-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_s3.html",
+      "source_type": "sdk",
+      "file": "models_s3.json",
+      "chunk_id": 1
+    }
+  }
+]

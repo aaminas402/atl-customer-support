@@ -1,0 +1,11 @@
+[
+  {
+    "content": "Submit support request | Atlan Documentation\nSkip to main content\nSubmit request\nAim to include as much information and detail in your request as possible to reduce delays between replies.\nName\n*\nEmail\n*\nSubject\n*\nAtlan URL\n*\nThe URL of your Atlan tenant\nSeverity\nSEV0 (S0) - System down or critical issue\nSEV1 (S1) - Major functionality affected\nSEV2 (S2) - General question or minor issue\nSEV3 (S3) - Feature request or enhancement\nRefer to severity and response SLA guidelines as outlined\nhere\nHow is this impacting you?\nI'm unable to use the product\nA major feature stopped working\nAn issue is slowing me down\nI have a non-urgent question\nI have a suggestion that will help me with my use-case\nI need help with something\nDescription\n*\nAttachments\nð\nAdd file\nor drop files here\nSubmit",
+    "metadata": {
+      "source_url": "support_submit-request.html",
+      "source_type": "docs",
+      "file": "support_submit-request.json",
+      "chunk_id": 0
+    }
+  }
+]

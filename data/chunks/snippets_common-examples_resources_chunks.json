@@ -1,0 +1,65 @@
+[
+  {
+    "content": "Asset resources/links - Developer\nSkip to content\nAdd asset resources / links\n¶\nResources (links) can only be added to\nassets\nafter an asset exists. (The asset itself must be created first.)\nAdd to an existing asset\n¶\n2.0.0\n4.0.0\nEach resource can be assigned to only a single asset. To create a resource and assign it to an asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nManaging resources for assets is currently not possible via dbt.\nAdd to an existing asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nTable\ntable\n=\nTable\n.\nrefByQualifiedName\n(\n\"default/snowflake/1234567890/reln_db/reln_schema/customers\"\n);\n// (1)\nLink\nlink\n=\nLink\n.\ncreator\n(\n// (2)\ntable\n,\n// (3)\n\"Definition\"\n,\n// (4)\n\"https://en.wikipedia.org/wiki/Customer\"\n)\n// (5)\n.\nbuild\n();\nAssetMutationResponse\nresponse\n=\nlink\n.\nsave\n(\nclient\n);\n// (6)\nassert\nresponse\n.\ngetCreatedAssets\n().\nsize\n()\n==\n1\n// (7)\nassert\nresponse\n.\ngetUpdatedAssets\n().\nsize\n()\n==\n1\n// (8)\nSet up a reference to the asset you want to assign the resource to from somewhere. In this example, we just create a reference based on the qualifiedName of the asset we want, but this could also be from the result of a search, for example.\nUse the\ncreator()",
+    "metadata": {
+      "source_url": "snippets_common-examples_resources.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_resources.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Use the\ncreator()\nmethod to initialize the link with all\nnecessary attributes for creating it\n.\nIn the case of a link, you need to give a reference to an asset to which you want to attach the link.\nAnd the title Atlan should display for the link.\nAnd finally the URL for the link itself.\nCall the\nsave()\nmethod to actually create the link and attach it to the asset. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was created (the link).\nThe response will also include a single asset that was updated (the asset to which you've attached the link).\nAdd to an existing asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nLink\n,\nTable\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\nref_by_qualified_name\n(\n\"default/snowflake/1234567890/reln_db/reln_schema/customers\"\n)\n# (1)\nlink\n=\nLink\n.\ncreator\n(\n# (2)\nasset\n=\ntable\n,\n# (3)\nname\n=\n\"Definition\"\n,\n# (4)\nlink\n=\n\"https://en.wikipedia.org/wiki/Customer\"\n)\n# (5)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nlink\n)\n# (6)\nassert\n(\nlinks\n:=\nresponse\n.\nassets_created\n(\nasset_type\n=",
+    "metadata": {
+      "source_url": "snippets_common-examples_resources.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_resources.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ",\n# (3)\nname\n=\n\"Definition\"\n,\n# (4)\nlink\n=\n\"https://en.wikipedia.org/wiki/Customer\"\n)\n# (5)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nlink\n)\n# (6)\nassert\n(\nlinks\n:=\nresponse\n.\nassets_created\n(\nasset_type\n=\nLink\n))\n# (7)\nassert\n(\ntables\n:=\nresponse\n.\nassets_updated\n(\nasset_type\n=\nTable\n))\n# (8)\nSet up a reference to the asset you want to assign the resource to from somewhere. In this example, we just create a reference based on the qualified_name of the asset we want, but this could also be from the result of a search, for example.\nUse the\ncreate()\nmethod to build a link with all\nnecessary attributes for creating it\n.\nIn the case of a link, you need to give a reference to an asset to which you want to attach the link.\nAnd the title Atlan should display for the link.\nAnd finally the URL for the link itself.\nCall the\nsave()\nmethod to actually create the link and attach it to the asset.\nAssert that the link was created.\nAssert a table was updated (the asset to which you've attached the link).\nAdd to an existing asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\ntable\n=\nTable\n.\nrefByQualifiedName\n(\n\"default/snowflake/1234567890/reln_db/reln_schema/customers\"\n)\n// (1)\nval\nlink\n=\nLink\n.\ncreator\n(\n// (2)\ntable\n,",
+    "metadata": {
+      "source_url": "snippets_common-examples_resources.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_resources.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Add to an existing asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\ntable\n=\nTable\n.\nrefByQualifiedName\n(\n\"default/snowflake/1234567890/reln_db/reln_schema/customers\"\n)\n// (1)\nval\nlink\n=\nLink\n.\ncreator\n(\n// (2)\ntable\n,\n// (3)\n\"Definition\"\n,\n// (4)\n\"https://en.wikipedia.org/wiki/Customer\"\n)\n// (5)\n.\nbuild\n()\nval\nresponse\n=\nlink\n.\nsave\n(\nclient\n)\n// (6)\nassert\n(\nresponse\n.\ncreatedAssets\n.\nsize\n==\n1\n)\n// (7)\nassert\n(\nresponse\n.\nupdatedAssets\n.\nsize\n==\n1\n)\n// (8)\nSet up a reference to the asset you want to assign the resource to from somewhere. In this example, we just create a reference based on the qualifiedName of the asset we want, but this could also be from the result of a search, for example.\nUse the\ncreator()\nmethod to initialize the link with all\nnecessary attributes for creating it\n.\nIn the case of a link, you need to give a reference to an asset to which you want to attach the link.\nAnd the title Atlan should display for the link.\nAnd finally the URL for the link itself.\nCall the\nsave()\nmethod to actually create the link and attach it to the asset. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.",
+    "metadata": {
+      "source_url": "snippets_common-examples_resources.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_resources.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "method to actually create the link and attach it to the asset. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was created (the link).\nThe response will also include a single asset that was updated (the asset to which you've attached the link).\nNote that you are actually creating a new link asset\nWhen adding a link through the API, you are really creating a new instance of a link asset. At the same time, you're attaching this new object to an existing asset.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Link\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"Definition\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"540182b5-f47b-4ba1-a247-6ca9ffd9f37a\"\n,\n// (4)\n\"link\"\n:\n\"https://en.wikipedia.org/wiki/Customer\"\n,\n// (5)\n\"asset\"\n:\n[\n// (6)\n{\n\"typeName\"\n:\n\"Table\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1234567890/reln_db/reln_schema/customers\"\n}\n}\n]\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the link asset, which will always be\nLink",
+    "metadata": {
+      "source_url": "snippets_common-examples_resources.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_resources.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "}\n}\n]\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the link asset, which will always be\nLink\n(case-sensitive).\nYou must also provide a name for the link. This will show up on the UI as the title of the link.\nYou must also provide a unique\nqualifiedName\nfor the link. This will not show up on the UI, and must be a unique UUID (generated yourself).\nThe URL for the link should be provided in the\nlink\nfield.\nFinally, you need to include the reference information for the asset the link should be attached to.\nRemove from an existing asset\n¶\nTo remove a link from an existing asset you only need to delete the link itself. (The link is itself an asset.)\nSee\nDeleting an asset\n.\nThe link will have its own GUID, separate from the asset to which it is attached\nWhen deleting the link, you need to use the link's GUID, not the GUID of the asset to which it is attached.\n2023-06-19\n2024-12-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and",
+    "metadata": {
+      "source_url": "snippets_common-examples_resources.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_resources.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Thanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_common-examples_resources.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_resources.json",
+      "chunk_id": 6
+    }
+  }
+]

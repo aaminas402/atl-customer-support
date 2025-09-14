@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Troubleshooting Microsoft Power BI connectivity | Atlan Documentation\nSkip to main content\nOn this page\nWhat are the known limitations of the Microsoft Power BI connector?\nâ\nAtlan currently doesn't support the following:\nFiltering hidden pages in\nreports\n-  known limitation of\nPowerBI reports API\nCrawling reports developed and published in\nPower BI Report Server\nWhat are the limitations of the Microsoft PowerBI Connector, when only admin APIs are used?\nâ\nWhen the Microsoft PowerBI Connector is configured to use only admin APIs, it results in reduced metadata extraction and limited lineage capabilities compared to using a combination of\nadmin & non-admin APIs\n.\nThe following limitations apply as mentioned below:\nPowerBI Pages (which are a part of PowerBI Report) won't be catalogued.\nDownstream Lineage from PowerBI Table Column / Measure -> PowerBI Page won't be available.\nCan users who don't have access to a report still see the preview?\nâ\nUsers can only see asset previews if the following conditions are met:\nThey have the necessary permissions in both Microsoft Power BI and Atlan.\nThey're logged into Atlan and Microsoft Power BI on the same browser.",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_troubleshooting_troubleshooting-microsoft-power-bi-connectivity.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_troubleshooting_troubleshooting-microsoft-power-bi-connectivity.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "They have the necessary permissions in both Microsoft Power BI and Atlan.\nThey're logged into Atlan and Microsoft Power BI on the same browser.\nTherefore, if a user lacks the permission to view a report in Microsoft Power BI, they won't be able to see the report preview in Atlan. Even if they do have the necessary permissions, they need to be logged into Microsoft Power BI on the same browser as their Atlan instance for asset previews to work.\nWhy can I not see previews for my Microsoft Power BI assets?\nâ\nYour Microsoft Power BI assets are updated with previews during the next run of your Microsoft Power BI workflow. If you have run the workflow and still don't see the previews, rerun the workflow. Once you've rerun the workflow, the previews are visible to all eligible users.\nHow does Atlan calculate views for Microsoft Power BI reports and dashboards?\nâ\nAtlan calculates\nUsage\nviews based on the number of times users open a report or dashboard in Microsoft Power BI.",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_troubleshooting_troubleshooting-microsoft-power-bi-connectivity.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_troubleshooting_troubleshooting-microsoft-power-bi-connectivity.json",
+      "chunk_id": 1
+    }
+  }
+]

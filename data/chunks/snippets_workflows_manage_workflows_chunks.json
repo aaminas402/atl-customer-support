@@ -1,0 +1,263 @@
+[
+  {
+    "content": "Manage workflows - Developer\nSkip to content\nManage workflows\n¶\nRetrieve workflow\n¶\nBy ID\n¶\n0.0.16\n2.3.1\n4.0.0\nRetrieve an existing workflow by its ID:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve workflows by its type\n1\n2\nWorkflowSearchResult\nresult\n=\nWorkflowSearchRequest\n// (1)\n.\nfindById\n(\nclient\n,\n\"atlan-snowflake-miner-1714638976\"\n);\n// (2)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their ID using the\nfindById()\nhelper method and providing the ID for one of the packages. In this example, we're retrieving a specific Snowflake miner package. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve workflow by its ID\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresult\n=\nclient\n.\nworkflow\n.\nfind_by_id\n(\n# (1)\nid\n=\n\"atlan-snowflake-miner-1714638976\"\n)\nYou can find a workflow by its identifier using the\nfind_by_id()\nmethod\nof the workflow client, providing the\nid\nfor the specific workflow.\nIn this example, we're retrieving the\nSnowflakeMiner\nworkflow.\nRetrieve workflows by its type\n1\n2\nval\nresult\n=",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "find_by_id()\nmethod\nof the workflow client, providing the\nid\nfor the specific workflow.\nIn this example, we're retrieving the\nSnowflakeMiner\nworkflow.\nRetrieve workflows by its type\n1\n2\nval\nresult\n=\nWorkflowSearchRequest\n// (1)\n.\nfindById\n(\nclient\n,\n\"atlan-snowflake-miner-1714638976\"\n)\n// (2)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their ID using the\nfindById()\nhelper method and providing the ID for one of the packages. In this example, we're retrieving a specific Snowflake miner package. Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve workflow by its ID\n1\n2\n3\n4\nresult\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nFindByID\n(\n\"atlan-snowflake-miner-1714638976\"\n)\n// (1)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nYou can find a workflow by its identifier using the\nFindByID()\nmethod\nof the workflow client, providing the\nid\nfor the specific workflow.\nIn this example, we're retrieving the\nSnowflakeMiner\nworkflow.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "id\nfor the specific workflow.\nIn this example, we're retrieving the\nSnowflakeMiner\nworkflow.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n1\n,\n\"track_total_hits\"\n:\ntrue\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"must\"\n:\n[\n{\n\"term\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-snowflake-miner-1714638976\"\n// (1)\n}\n}\n}\n]\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"order\"\n:\n\"desc\"\n,\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n}\n}\n}\n]\n}\nYou can find a workflow by its identifier. In this example, we're retrieving the\nSnowflakeMiner\nworkflow.\nBy type\n¶\n0.0.16\n1.9.5\n4.0.0\nRetrieve existing workflows by its type:\nJava\nPython\nKotlin\nGo\nRaw REST API\nRetrieve workflows by its type\n1\n2\nList\n<\nWorkflowSearchResult\n>\nresults\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nSnowflakeMiner\n.\nPREFIX\n,\n5\n);\n// (2)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "findByType\n(\nclient\n,\nSnowflakeMiner\n.\nPREFIX\n,\n5\n);\n// (2)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nSnowflakeMiner\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.) Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve workflows by its type\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nresults\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nSNOWFLAKE_MINER\n,\nmax_results\n=\n5\n)\nYou can find workflows by their type using the workflow client\nfind_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nSnowflakeMiner\n.\n(You can also specify the\nmaximum number of resulting\nworkflows\nyou want to retrieve as results.)\nRetrieve workflows by its type\n1\n2\nvar\nresults\n=\nWorkflowSearchRequest\n// (1)\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "SnowflakeMiner\n.\n(You can also specify the\nmaximum number of resulting\nworkflows\nyou want to retrieve as results.)\nRetrieve workflows by its type\n1\n2\nvar\nresults\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nSnowflakeMiner\n.\nPREFIX\n,\n5\n);\n// (2)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nSnowflakeMiner\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.) Because this operation will retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nRetrieve workflows by its type\n1\n2\n3\n4\nresult\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nFindByType\n(\natlan\n.\nWorkflowPackageSnowflakeMiner\n,\n5\n)\n// (1)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nYou can find workflows by their type using the workflow client\nFindByType()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nSnowflakeMiner\n.\n(You can also specify the",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "FindByType()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nSnowflakeMiner\n.\n(You can also specify the\nmaximum number of resulting\nworkflows\nyou want to retrieve as results.)\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n// (1)\n\"track_total_hits\"\n:\ntrue\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"regexp\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan[-]snowflake[-]miner[-][0-9]{10}\"\n}\n// (2)\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"order\"\n:\n\"desc\"\n,\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n}\n}\n}\n]\n}\nSpecify the maximum number of resulting workflows you want to retrieve as results.\nIn this example, we do so for the\nSnowflakeMiner\nwith\nregexp: atlan[-]snowflake[-]miner[-][0-9]{10}\n.\nCreate workflow credentials\n¶\n4.2.1\nTo create workflow credentials for example, for\nSnowflake\n:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate workflow credentials\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Snowflake\n:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate workflow credentials\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.credential\nimport\nCredential\nclient\n=\nAtlanClient\n()\nsnowflake_credential\n=\nCredential\n()\n# (1)\nsnowflake_credential\n.\nname\n=\n\"snowflake-credential\"\n# (2)\nsnowflake_credential\n.\nconnector_config_name\n=\n\"atlan-connectors-snowflake\"\n# (3)\nsnowflake_credential\n.\nconnector\n=\n\"snowflake\"\n# (4)\nsnowflake_credential\n.\nauth_type\n=\n\"basic\"\n# (5)\nsnowflake_credential\n.\nusername\n=\n\"username\"\n# (6)\nsnowflake_credential\n.\npassword\n=\n\"password\"\nsnowflake_credential\n.\nextras\n=\n{\n\"role\"\n:\n\"role-here\"\n,\n\"warehouse\"\n:\n\"warehouse-here\"\n,\n}\nsnowflake_credential\n.\nhost\n=\n\"test-host\"\n# (7)\nsnowflake_credential\n.\nport\n=\n1234\nresponse\n=\nclient\n.\ncredentials\n.\ncreator\n(\ncredential\n=\nsnowflake_credential\n,\ntest\n=\nTrue\n# (8)\n)\nInitialize the credential object for credential creation.\nYou must provide a\nname\nfor the credential being created.\nYou must specify the\nconnector_config_name\nfor the credential.\nYou must specify the\nconnector name\nfor the credential.\nYou must specify the\nauthentication type",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "name\nfor the credential being created.\nYou must specify the\nconnector_config_name\nfor the credential.\nYou must specify the\nconnector name\nfor the credential.\nYou must specify the\nauthentication type\nof the credential.\nYou can provide the sensitive details such as the\nusername\n,\npassword\n, and\nextras\nwhen creating credentials. This behavior aligns with the Atlan workflow config.\nYou can specify the\nhost\nand\nport\nbeing used.\nTo create workflow credentials using the\ncreator()\nmethod. You need to provide the below params:\ncredential\n: the\ncredential\nobject is passed to create new credentials in Atlan. For example, in this case,\nsnowflake_credential\nserves as the credential object.\ntest\n: specify whether to validate the credentials (\nTrue\n) or skip validation (\nFalse\n) before creations. Defaults to\nTrue\nComing soon\nPOST /api/service/credentials?testCredential=true\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"authType\"\n:\n\"basic\"\n,\n// (1)\n\"name\"\n:\n\"snowflake-credential\"\n,\n//(2)\n\"connector\"\n:\n\"snowflake\"\n,\n// (3)\n\"connectorConfigName\"\n:\n\"atlan-connectors-snowflake\"\n,\n// (4)\n\"username\"\n:\n\"username\"\n,\n// (5)\n\"password\"\n:\n\"password\"\n,\n\"extra\"\n:\n{\n\"role\"\n:\n\"role-here\"\n,\n\"warehouse\"\n:\n\"warehouse-here\"",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": ",\n// (3)\n\"connectorConfigName\"\n:\n\"atlan-connectors-snowflake\"\n,\n// (4)\n\"username\"\n:\n\"username\"\n,\n// (5)\n\"password\"\n:\n\"password\"\n,\n\"extra\"\n:\n{\n\"role\"\n:\n\"role-here\"\n,\n\"warehouse\"\n:\n\"warehouse-here\"\n,\n},\n\"host\"\n:\n\"test-host\"\n,\n// (6)\n\"port\"\n:\n1234\n,\n}\nYou must specify the\nauthType\nfor the credential.\nYou must provide a Human-readable name for your credential.\nYou must specify the\nconnector\nfor the credential.\nYou must specify the\nconnectorConfigName\nfor the credential.\nYou can provide the sensitive details such as the\nusername\n,\npassword\n, and\nextras\nwhen creating credentials.\nYou can specify the\nhost\nand\nport\nbeing used.\nRetrieve all workflow credentials\n¶\n6.0.3\nTo retrive all workflow credentials for example, for\nSnowflake\n:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nRetrieve all workflow credentials\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ncredentials\n.\nget_all\n(\n#(1)\nfilter\n=\n{\n\"connector\"\n:\n\"snowflake\"\n},\nlimit\n=\n5\n,\noffset\n=\n1\n,\nworkflow_name\n=\n\"atlan-bigquery-1735837155\"\n,\n)\nTo retrieve workflow credentials using the\nget_all()",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": ".\ncredentials\n.\nget_all\n(\n#(1)\nfilter\n=\n{\n\"connector\"\n:\n\"snowflake\"\n},\nlimit\n=\n5\n,\noffset\n=\n1\n,\nworkflow_name\n=\n\"atlan-bigquery-1735837155\"\n,\n)\nTo retrieve workflow credentials using the\nget_all()\nmethod. When run without any parameters, it returns all existing records. You can also use following optional parameters to filter, limit, or paginate through the results:\n(Optional)\nfilter\n: filters records based on specific key-value criteria, such as\n{\"connector\": \"snowflake\"}\nreturns credentials for workflows using the\nsnowflake\nconnector.\n(Optional)\nlimit\n: restricts the maximum number of records returned in a single call, for example,\nlimit=5\nretrieves up to\n5\nrecords only.\n(Optional)\noffset\n: skips a specified number of records before starting retrieval, such as\noffset=10\nto skip the first\n10\nrecords and retrieve from the\n11th\nonward.\n(Optional)\nworkflow_name\n: retrieves credentials for a specific workflow. The name should match the workflow name as shown in the Atlan UI.\nComing soon\nGET api/service/credentials?filter=%7B%22name%22%3A%22atlan-snowflake-17891%22%7D&limit=1&offset=1\n1\n//(1)\nAll details are in the URL itself.\nURL-encoded filter",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Coming soon\nGET api/service/credentials?filter=%7B%22name%22%3A%22atlan-snowflake-17891%22%7D&limit=1&offset=1\n1\n//(1)\nAll details are in the URL itself.\nURL-encoded filter\nNote that the filter is URL-encoded. Decoded it would be:\n{\"name\":\"atlan-snowflake-17891\"}\nUpdate workflow source credentials\n¶\n1.8.4\n4.0.0\nTo update workflow source credentials for example, for\nSnowflake\n:\nJava\nPython\nKotlin\nRaw REST API\nUpdate workflow source credentials\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nCredential\nsnowflakeCredential\n=\nclient\n.\ncredentials\n.\nget\n(\n// (1)\n\"972a87c1-28d7-8bf2-896d-ea5bd3e9c691\"\n).\ntoCredential\n()\n.\nauthType\n(\n\"basic\"\n)\n// (2)\n.\nusername\n(\n\"username\"\n)\n// (3)\n.\npassword\n(\n\"password\"\n)\n.\nextra\n(\n\"role\"\n,\n\"role-here\"\n)\n.\nextra\n(\n\"warehouse\"\n,\n\"warehouse-here\"\n)\n.\nbuild\n()\n// (4)\nCredentialResponse\nresponse\n=\nsnowflakeCredential\n.\nupdate\n(\nclient\n)\n// (5)\nYou can retrieve the workflow credential object by providing its\nGUID\n.\nYou must specify the authentication type of the credential.\nYou must provide the sensitive details such as the\nusername\n,\npassword\n, and\nextra\nwhen updating credentials. This behavior aligns with the Atlan workflow config update UI.\nBuild the minimal\nCredential\nobject.",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "username\n,\npassword\n, and\nextra\nwhen updating credentials. This behavior aligns with the Atlan workflow config update UI.\nBuild the minimal\nCredential\nobject.\nNow, use the\nupdate()\nmethod of the\nCredential\nobject to update this new credentials in Atlan after initially testing it for successful validation. Because this operation will update details in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nUpdate workflow source credentials\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nsnowflake_credential\n=\nclient\n.\ncredentials\n.\nget\n(\nguid\n=\n\"972a87c1-28d7-8bf2-896d-ea5bd3e9c691\"\n)\n.\nto_credential\n()\n# (1)\n# Basic Authentication\nsnowflake_credential\n.\nauth_type\n=\n\"basic\"\n# (2)\nsnowflake_credential\n.\nusername\n=\n\"username\"\n# (3)\nsnowflake_credential\n.\npassword\n=\n\"password\"\nsnowflake_credential\n.\nextras\n=\n{\n\"role\"\n:\n\"role-here\"\n,\n\"warehouse\"\n:\n\"warehouse-here\"\n,\n}\nresponse\n=\nclient\n.\ncredentials\n.\ntest_and_update\n(\n# (4)\ncredential\n=\nsnowflake_credential\n)\nYou can retrieve the workflow credential object by providing its\nGUID\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ":\n\"warehouse-here\"\n,\n}\nresponse\n=\nclient\n.\ncredentials\n.\ntest_and_update\n(\n# (4)\ncredential\n=\nsnowflake_credential\n)\nYou can retrieve the workflow credential object by providing its\nGUID\n.\nYou must specify the authentication type of the credential.\nYou must provide the sensitive details such as the\nusername\n,\npassword\n, and\nextras\nwhen updating credentials.\nThis behavior aligns with the Atlan workflow config update UI.\nNow, pass the\ncredential\nobject to the\ntest_and_update()\nmethod to update this new credentials in Atlan after\ninitially testing it to confirm its successful validation.\nUpdate workflow source credentials\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nval\nsnowflakeCredential\n=\nclient\n.\ncredentials\n.\nget\n(\n// (1)\n\"972a87c1-28d7-8bf2-896d-ea5bd3e9c691\"\n).\ntoCredential\n()\n.\nauthType\n(\n\"basic\"\n)\n// (2)\n.\nusername\n(\n\"username\"\n)\n// (3)\n.\npassword\n(\n\"password\"\n)\n.\nextra\n(\n\"role\"\n,\n\"role-here\"\n)\n.\nextra\n(\n\"warehouse\"\n,\n\"warehouse-here\"\n)\n.\nbuild\n()\n// (4)\nval\nresponse\n=\nsnowflakeCredential\n.\nupdate\n()\n// (5)\nYou can retrieve the workflow credential object by providing its\nGUID\n.\nYou must specify the authentication type of the credential.\nYou must provide the sensitive details such as the\nusername",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "// (5)\nYou can retrieve the workflow credential object by providing its\nGUID\n.\nYou must specify the authentication type of the credential.\nYou must provide the sensitive details such as the\nusername\n,\npassword\n, and\nextra\nwhen updating credentials. This behavior aligns with the Atlan workflow config update UI.\nBuild the minimal\nCredential\nobject.\nNow, use the\nupdate()\nmethod of the\nCredential\nobject to update this new credentials in Atlan after initially testing it for successful validation. Because this operation will update details in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nGET /api/service/credentials/972a87c1-28d7-8bf2-896d-ea5bd3e9c691\n1\n// (1)\nYou can retrieve the workflow credential object by providing its\nGUID\n.\nPOST /api/service/credentials/972a87c1-28d7-8bf2-896d-ea5bd3e9c691/test\n1\n// (1)\nYou can also test the existing credential authentication by providing its\nGUID\n.\nPOST /api/service/credentials/test\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"name\"\n:\n\"default-snowflake-1735595539-0\"\n,\n// (1)\n\"host\"\n:\n\"test.snowflake.com\"\n,\n\"port\"\n:\n443\n,\n\"authType\"\n:\n\"basic\"\n,\n\"connectorType\"\n:\n\"jdbc\"\n,\n\"username\"\n:\n\"test-username\"\n,\n// (2)",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "11\n12\n13\n14\n{\n\"name\"\n:\n\"default-snowflake-1735595539-0\"\n,\n// (1)\n\"host\"\n:\n\"test.snowflake.com\"\n,\n\"port\"\n:\n443\n,\n\"authType\"\n:\n\"basic\"\n,\n\"connectorType\"\n:\n\"jdbc\"\n,\n\"username\"\n:\n\"test-username\"\n,\n// (2)\n\"password\"\n:\n\"test-password\"\n,\n\"extra\"\n:\n{\n\"role\"\n:\n\"test-role\"\n,\n\"warehouse\"\n:\n\"test-warehouse\"\n,\n},\n\"connectorConfigName\"\n:\n\"atlan-connectors-snowflake\"\n}\nThis example demonstrates how to test & update the source\ncredentials for the\nSnowflake\ncrawler (basic authentication).\nYou can update the following credentials fields:\nusername\n: update with the new username.\npassword\n: update with the new password.\nrole\n: update with the new role.\nwarehouse\n: update with the new warehouse.\nHard-delete an workflow credentials\n¶\n4.2.0\nHard-deletes (also called a purge) are irreversible operations. The workflow credential is removed from Atlan entirely, so no longer appears in the UI and also no longer exists in Atlan's back-end.\nTo hard-delete (purge) an asset, you only need to provide the GUID for\nSnowflake\n:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nDelete workflow credentials\n1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ncredentials\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Snowflake\n:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nDelete workflow credentials\n1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ncredentials\n.\npurge_by_guid\n(\nguid\n=\n\"972a87c1-28d7-8bf2-896d-ea5bd3e9c691\"\n)\n#(1)\nThe credentials.purge_by_guid() method returns\nNone\nwhen the credentials deleted sucessfully.\nComing soon\nPOST api/service/credentials/972a87c1-28d7-8bf2-896d-ea5bd3e9c691/archive\n1\n//(1)\nSpecify the GUID of the credential to be deleted:\napi/service/credentials/{credential-guid}/archive\nUpdate workflow configuration\n¶\n0.0.16\n2.3.1\nTo update workflow configuration for example, for\nSnowflake\n:\nJava\nPython\nKotlin\nGo\nComing soon\nUpdate workflow configuration\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresult\n=\nclient\n.\nworkflow\n.\nfind_by_id\n(\n# (1)\nid\n=\n\"atlan-snowflake-1714638976\"\n)\nworkflow_task\n=\nresult\n.\nsource\n.\nspec\n.\ntemplates\n[\n0\n]\n.\ndag\n.\ntasks\n[\n0\n]\nworkflow_params\n=\nworkflow_task\n.\narguments\n.\nparameters\n# (2)\nfor\noption\nin\nworkflow_params\n:\nif\noption\n.\nname\n==\n\"enable-lineage\"\n:\n# (3)\noption\n.\nvalue\n=\nTrue\nresponse\n=\nclient\n.\nworkflow\n.\nupdate\n(",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "=\nworkflow_task\n.\narguments\n.\nparameters\n# (2)\nfor\noption\nin\nworkflow_params\n:\nif\noption\n.\nname\n==\n\"enable-lineage\"\n:\n# (3)\noption\n.\nvalue\n=\nTrue\nresponse\n=\nclient\n.\nworkflow\n.\nupdate\n(\nworkflow\n=\nresult\n.\nto_workflow\n())\n# (4)\nYou can find a workflow by its identifier using the\nfind_by_id()\nmethod\nof the workflow client, providing the\nid\nfor the specific workflow.\nIn this example, we're retrieving the\nSnowflake\nworkflow for an update.\nRetrieve the workflow template and specific task that you need to update.\nUpdate the specific workflow parameter. In this example,\nwe're enabling lineage for the\nSnowflake\nworkflow.\nConvert the workflow search result object to a workflow object\nand pass that to the\nupdate()\nmethod to actually perform the workflow update in Atlan.\nComing soon\nUpdate workflow configuration\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nresult\n,\n_\n:=\nctx\n.\nWorkflowClient\n.\nFindByID\n(\n\"atlan-snowflake-1714638976\"\n)\n// (1)\nworkflowTask\n:=\nresult\n.\nSource\n.\nSpec\n.\nTemplates\n[\n0\n].\nDAG\n.\nTasks\n[\n0\n]\n// (2)\nworkflowParams\n:=\nworkflowTask\n.\nArguments\n.\nParameters\nfor\n_\n,\noption\n:=\nrange\nworkflowParams\n{\nif\noption\n.\nName\n==\n\"enable-lineage\"\n{\n// (3)\noption\n.\nValue\n=\ntrue\n}\n}\nresponse\n,",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "Tasks\n[\n0\n]\n// (2)\nworkflowParams\n:=\nworkflowTask\n.\nArguments\n.\nParameters\nfor\n_\n,\noption\n:=\nrange\nworkflowParams\n{\nif\noption\n.\nName\n==\n\"enable-lineage\"\n{\n// (3)\noption\n.\nValue\n=\ntrue\n}\n}\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nUpdate\n(\nresult\n.\nToWorkflow\n())\n// (4)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nYou can find a workflow by its identifier using the\nFindByID()\nmethod\nof the workflow client, providing the\nid\nfor the specific workflow.\nIn this example, we're retrieving the\nSnowflake\nworkflow for an update.\nRetrieve the workflow template and specific task that you need to update.\nUpdate the specific workflow parameter. In this example,\nwe're enabling lineage for the\nSnowflake\nworkflow.\nConvert the workflow search result object to a workflow object\nand pass that to the\nUpdate()\nmethod to actually perform the workflow update in Atlan.\nRetrieve workflow run\n¶\nBy ID\n¶\n0.0.16\n2.4.2\nRetrieve an existing workflow run by its ID:\nJava\nPython\nKotlin\nGo\nRaw REST API\nComing soon\nRetrieve workflow run by its ID\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresult\n=\nclient\n.\nworkflow\n.\nfind_run_by_id\n(\n# (1)\nid\n=",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "Go\nRaw REST API\nComing soon\nRetrieve workflow run by its ID\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresult\n=\nclient\n.\nworkflow\n.\nfind_run_by_id\n(\n# (1)\nid\n=\n\"atlan-snowflake-miner-1714638976-mzdza\"\n)\nYou can find a workflow run by its identifier using the\nfind_run_by_id()\nmethod\nof the workflow client, providing the\nid\nfor the specific workflow run.\nIn this example, we're retrieving the existing\nSnowflakeMiner\nworkflow run.\nComing soon\nRetrieve workflow run by its ID\n1\n2\n3\n4\nresult\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nFindRunByID\n(\n\"atlan-snowflake-miner-1714638976-mzdza\"\n)\n// (1)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nYou can find a workflow run by its identifier using the\nFindRunByID()\nmethod\nof the workflow client, providing the\nid\nfor the specific workflow run.\nIn this example, we're retrieving the existing\nSnowflakeMiner\nworkflow run.\nPOST /api/service/runs/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n1\n,\n\"track_total_hits\"\n:\ntrue\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"_id\"\n:\n{\n\"value\"\n:",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n1\n,\n\"track_total_hits\"\n:\ntrue\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"_id\"\n:\n{\n\"value\"\n:\n\"atlan-snowflake-miner-1714638976-mzdza\"\n}\n// (1)\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"order\"\n:\n\"desc\"\n,\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n}\n}\n}\n]\n}\nYou can find a workflow run by its identifier.\nIn this example, we're retrieving the existing\nSnowflakeMiner\nworkflow run.\nBy status and time range\n¶\n6.1.0\nRetrieve existing workflow runs by their status and time range:\nJava\nPython\nKotlin\nGo\nRaw REST API\nComing soon\nRetrieve workflow runs by status and time range\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nAtlanWorkflowPhase\nclient\n=\nAtlanClient\n()\nresults\n=\nclient\n.\nworkflow\n.\nfind_runs_by_status_and_time_range\n(\n# (1)\nstatus\n=\n[\nAtlanWorkflowPhase\n.\nSUCCESS\n,\nAtlanWorkflowPhase\n.\nFAILED\n],\nstarted_at\n=\n\"now-6h\"\n,\nfinished_at\n=\n\"now-1h\"\n,\nfrom_\n=\n0\n,\nsize\n=\n100\n,\n)\nfor\nresult\nin\nresults\n:\n# (2)\n# Do something with the workflow...\nTo search for workflow runs based on their status and time range, use the",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": ",\nfinished_at\n=\n\"now-1h\"\n,\nfrom_\n=\n0\n,\nsize\n=\n100\n,\n)\nfor\nresult\nin\nresults\n:\n# (2)\n# Do something with the workflow...\nTo search for workflow runs based on their status and time range, use the\nfind_runs_by_status_and_time_range()\nmethod with the following parameters:\nstatus\n(required): filters workflow runs by their status. Acceptable values are defined in the\nAtlanWorkflowPhase\nenum.\nFor example, setting\nstatus=[AtlanWorkflowPhase.SUCCESS, AtlanWorkflowPhase.FAILED]\nwill retrieve workflow runs that have either a\nsuccess\nor\nfailed\nstatus.\nstarted_at\n(optional): Filters workflow runs based on their start time.\nFor example, setting\nstarted_at=\"now-6h\"\nwill retrieve runs that started within the last 6 hours.\nfinished_at\n(optional): Filters workflow runs based on their finish time.\nFor example, setting\nfinished_at=\"now-1h\"\nwill retrieve runs that finished within the last hour.\nfrom_\n(optional): starting index of the search results (default:\n0\n).\nsize\n(optional): maximum number of search results to return (default:\n100\n).\nReturns a WorkflowSearchResponse object.\nNot sure about Elasticsearch time range format?\nCheck out the\nElasticsearch date math\nguide for more details.",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "100\n).\nReturns a WorkflowSearchResponse object.\nNot sure about Elasticsearch time range format?\nCheck out the\nElasticsearch date math\nguide for more details.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nComing soon\nComing soon\nPOST /api/service/runs/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n{\n\"from\"\n:\n0\n,\n// (1)\n\"size\"\n:\n100\n,\n// (2)\n\"track_total_hits\"\n:\ntrue\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"must\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"terms\"\n:\n{\n\"metadata.labels.workflows.argoproj.io/phase.keyword\"\n:\n[\n// (3)\n\"Succeeded\"\n,\n\"Failed\"\n]\n}\n}\n}\n},\n{\n\"range\"\n:\n{\n\"status.startedAt\"\n:\n{\n// (4)\n\"gte\"\n:\n\"now-6h\"\n}\n}\n},\n{\n\"range\"\n:\n{\n\"status.finishedAt\"\n:\n{\n// (5)\n\"gte\"\n:\n\"now-1h\"\n}\n}\n},\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"exists\"\n:\n{\n\"field\"\n:\n\"metadata.labels.workflows.argoproj.io/creator\"\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"order\"\n:\n\"desc\"\n,\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n}\n}\n}\n]\n}",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": ":\n{\n\"exists\"\n:\n{\n\"field\"\n:\n\"metadata.labels.workflows.argoproj.io/creator\"\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"order\"\n:\n\"desc\"\n,\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n}\n}\n}\n]\n}\nStarting index of the search results (default:\n0\n).\nMaximum number of search results to return (default:\n100\n).\nYou can find workflow runs by their status.\nIn this example, we're retrieving workflow runs that have either a\nSucceeded\nor\nFailed\nstatus.\nYou can use a\nRange\nquery\nto filter workflow runs based on their start time.\nFor example, setting\n\"status.startedAt\": {\"gte\": \"now-6h\"}\nwill retrieve runs that started within the last 6 hours.\nYou can use a\nRange\nquery\nto filter workflow runs based on their finish time.\nFor example, setting\n\"status.finishedAt\": {\"gte\": \"now-1h\"}\nwill retrieve runs that finished within the last hour.\nNot sure about Elasticsearch time range format?\nCheck out the\nElasticsearch date math\nguide for more details.\nRetrieve all workflow runs\n¶\n0.0.16\n2.1.8\nBy their phase:\n¶\nTo retrieve all existing workflow runs based on\ntheir phase, such as\nSucceeded\n,\nRunning\n,\nFailed\n, etc\nJava\nPython\nKotlin\nGo\nRaw REST API\nComing soon\nRetrieve all workflow runs by their phase\n1",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "¶\nTo retrieve all existing workflow runs based on\ntheir phase, such as\nSucceeded\n,\nRunning\n,\nFailed\n, etc\nJava\nPython\nKotlin\nGo\nRaw REST API\nComing soon\nRetrieve all workflow runs by their phase\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nAtlanWorkflowPhase\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\nworkflow\n.\nget_runs\n(\nworkflow_name\n=\n\"atlan-snowflake-miner-1714638976\"\n,\nworkflow_phase\n=\nAtlanWorkflowPhase\n.\nRUNNING\n,\nfrom_\n=\n0\n,\nsize\n=\n100\n,\n)\n# (1)\nTo retrieve all existing workflow runs\nbased on their phase, you need to specify:\nname of the workflow as displayed in the UI, eg:\natlan-snowflake-miner-1714638976\n.\nphase of the given workflow (e.g:\nSucceeded\n,\nRunning\n,\nFailed\n, etc)\nstarting index of the search results (default:\n0\n).\nmaximum number of search results to return (default:\n100\n).\nComing soon\nRetrieve all workflow runs by their phase\n1\n2\n3\n4\n5\n6\n7\n8\n9\nresult\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nGetRuns\n(\n\"atlan-snowflake-miner-1714638976\"\n,\natlan\n.\nAtlanWorkflowPhaseSuccess\n,\n0\n,\n100\n,\n)\n// (1)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nTo retrieve all existing workflow runs",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": ",\natlan\n.\nAtlanWorkflowPhaseSuccess\n,\n0\n,\n100\n,\n)\n// (1)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nTo retrieve all existing workflow runs\nbased on their phase, you need to specify:\nname of the workflow as displayed in the UI, eg:\natlan-snowflake-miner-1714638976\n.\nphase of the given workflow (e.g:\nAtlanWorkflowPhaseSuccess\n,\nAtlanWorkflowPhaseRunning\n,\nAtlanWorkflowPhaseFailed\n, etc)\nstarting index of the search results (default:\n0\n).\nmaximum number of search results to return (default:\n100\n).\nPOST /api/service/runs/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n{\n\"from\"\n:\n0\n,\n// (1)\n\"size\"\n:\n100\n,\n// (2)\n\"track_total_hits\"\n:\ntrue\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"must\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"spec\"\n,\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"spec.workflowTemplateRef.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-snowflake-miner-1714638976\"\n}\n// (3)\n}\n}\n}\n}\n],\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"status.phase.keyword\"\n:\n{\n\"value\"\n:\n\"Succeeded\"\n}\n// (4)\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"order\"\n:\n\"desc\"\n,\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n}\n}\n}\n]\n}",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": ":\n[\n{\n\"term\"\n:\n{\n\"status.phase.keyword\"\n:\n{\n\"value\"\n:\n\"Succeeded\"\n}\n// (4)\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"order\"\n:\n\"desc\"\n,\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n}\n}\n}\n]\n}\nStarting index of the search results (default:\n0\n).\nMaximum number of search results to return (default:\n100\n).\nName of the workflow as displayed in the UI, eg:\natlan-snowflake-miner-1714638976\n.\nPhase of the given workflow (e.g:\nSucceeded\n,\nRunning\n,\nFailed\n, etc)\nStop a running workflow\n¶\n0.0.16\n2.1.8\nTo stop a running workflow:\nJava\nPython\nKotlin\nGo\nComing soon\nRetrieve all workflow runs by their phase\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nruns\n=\nclient\n.\nworkflow\n.\nget_runs\n(\nworkflow_name\n=\n\"atlan-snowflake-miner-1714638976\"\n,\nworkflow_phase\n=\nAtlanWorkflowPhase\n.\nRUNNING\n,\n)\n# (1)\nresponse\n=\nclient\n.\nworkflow\n.\nstop\n(\nworkflow_run_id\n=\nruns\n[\n0\n]\n.\nid\n)\n# (2)\nFirst, retrieve all existing running workflows.\nFrom the list of existing running workflows, provide\nthe identifier of the specific workflow run to the\nclient.workflow.stop()\nmethod, e.g:\natlan-snowflake-miner-1714638976-9wfxz\n.\nComing soon",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "From the list of existing running workflows, provide\nthe identifier of the specific workflow run to the\nclient.workflow.stop()\nmethod, e.g:\natlan-snowflake-miner-1714638976-9wfxz\n.\nComing soon\nRetrieve all workflow runs by their phase\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nruns\n,\n_\n:=\nctx\n.\nWorkflowClient\n.\nGetRuns\n(\n\"atlan-snowflake-miner-1714638976-9wfxz\"\n,\natlan\n.\nAtlanWorkflowPhaseRunning\n,\n0\n,\n100\n,\n)\n// (1)\nresponse\n,\natlanErr\n:=\nctx\n.\nWorkflowClient\n.\nStop\n(\nruns\n[\n0\n].\nID\n)\n// (2)\nif\natlanErr\n!=\nnil\n{\nlogger\n.\nLog\n.\nErrorf\n(\n\"Error : %v\"\n,\natlanErr\n)\n}\nFirst, retrieve all existing running workflows.\nFrom the list of existing running workflows, provide\nthe identifier of the specific workflow run to the\nctx.WorkflowClient.Stop()\nmethod, e.g:\natlan-snowflake-miner-1714638976-9wfxz\n.\nDelete a workflow\n¶\n0.0.16\n2.1.8\n4.0.0\nTo delete a workflow:\nJava\nPython\nKotlin\nGo\nDelete a workflow\n1\n2\n3\nclient\n.\nworkflows\n.\narchive\n(\n\"atlan-snowflake-miner-1714638976\"\n);\n// (1)\nTo delete an existing workflow, specify the name of the workflow as displayed in the UI (e.g:\natlan-snowflake-miner-1714638976\n).\nDelete a workflow\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "atlan-snowflake-miner-1714638976\n).\nDelete a workflow\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nclient\n.\nworkflow\n.\ndelete\n(\nworkflow_name\n=\n\"atlan-snowflake-miner-1714638976\"\n)\n# (1)\nTo delete an existing workflow, specify:\nname of the workflow as displayed in the\nUI (e.g:\natlan-snowflake-miner-1714638976\n).\nDelete a workflow\n1\n2\n3\nclient\n.\nworkflows\n.\narchive\n(\n\"atlan-snowflake-miner-1714638976\"\n)\n// (1)\nTo delete an existing workflow, specify the name of the workflow as displayed in the UI (e.g:\natlan-snowflake-miner-1714638976\n).\nDelete a workflow\n1\nctx\n.\nWorkflowClient\n.\nDelete\n(\n\"atlan-snowflake-miner-1714638976\"\n)\n// (1)\nTo delete an existing workflow, specify:\nname of the workflow as displayed in the\nUI (e.g:\natlan-snowflake-miner-1714638976\n).\n2022-09-09\n2025-05-14\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "Cookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_manage_workflows.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_manage_workflows.json",
+      "chunk_id": 28
+    }
+  }
+]

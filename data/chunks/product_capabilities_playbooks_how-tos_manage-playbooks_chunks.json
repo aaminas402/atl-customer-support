@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Manage playbooks | Atlan Documentation\nSkip to main content\nOn this page\nOnce you've\ncreated a playbook\n, you can monitor, modify, or delete it at any time. You can also\nenable notifications\nto monitor your playbook runs directly in Slack or Microsoft Teams.\nMonitor a playbook\nâ\nTo monitor your playbooks runs:\nWhen running a playbook immediately, you will be redirected to the monitoring page within 5 seconds.\nAt any other moment:\nFrom the left menu of any screen in Atlan, click\nGovernance\n.\nUnder the\nGovernance\nheading of the\nGovernance center\n, click\nPlaybooks\n.\nIn the playbooks manager, select\nthe playbook\nyou'd like to view.\nIn the\nOverview\nsection of your playbook, you'll be able to monitor:\nA summary of the rules, actions, and updated assets.\nAn activity log for recent runs and updates over time.\nDid you know?\nThe activity log in the playbooks manager can help you keep track of playbook runs, ranging from 24 hours to 30 days. Select any of the entries to navigate to the corresponding playbook.\nModify a playbook\nâ\nTo modify an existing playbook:\nFrom the left menu of any screen in Atlan, click\nGovernance.\nUnder the\nGovernance\nheading of the\nGovernance center\n, click",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_manage-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_manage-playbooks.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Modify a playbook\nâ\nTo modify an existing playbook:\nFrom the left menu of any screen in Atlan, click\nGovernance.\nUnder the\nGovernance\nheading of the\nGovernance center\n, click\nPlaybooks\n.\nIn the playbooks manager, click the playbook you'd like to modify.\nOn your playbook page:\nTo edit the name and description of your playbook, hover over your playbook and click\nEdit\n.\nTo modify the rules of your playbook, click\nRules\nto make your changes and then click\nUpdate\nto save them.\n(Optional) To add a new rule to an existing playbook, in the left menu for playbook rules, click\n+ Add new Rule\n.Â\nTo turn off a playbook filter, to the right of any filter, click the three horizontal dots and then click\nDisable\n. Click\nEnable\nto turn on any disabled filters.\nTo modify the schedule for your playbook, in the upper right of your screen:\nClick\nRun Now\nto run it immediately.\nClick the\npencil icon\nto modify or remove the schedule.\nDelete a playbook\nâ\nTo delete an existing playbook:\nFrom the left menu of any screen in Atlan, click\nGovernance.\nUnder the\nGovernance\nheading of the\nGovernance center\n, click\nPlaybooks\n.\nIn the playbooks manager, hover over the playbook you'd like to delete and click",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_manage-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_manage-playbooks.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Governance.\nUnder the\nGovernance\nheading of the\nGovernance center\n, click\nPlaybooks\n.\nIn the playbooks manager, hover over the playbook you'd like to delete and click\nDelete Playbook\n.\nClick\nDelete\nto confirm.\nEnable playbook notifications\nâ\nYou can set up Slack or Microsoft Teams alerts for your playbook runs in Atlan. This can help you monitor your playbooks directly in Slack or Microsoft Teams. You can also choose to receive alerts for failed playbook runs only.\nBefore you can enable notifications for playbooks, you will need to either:\nIntegrate Slack and Atlan\nIntegrate Microsoft Teams and Atlan\nTo enable notifications for playbook runs:\nFrom the left menu of any screen in Atlan, click\nGovernance\n.\nUnder the\nGovernance\nheading of the\nGovernance center\n, click\nPlaybooks\n.\nIn the upper-right of the playbooks manager, under\nActivity\n, click the bell icon.\nIn the\nEnable notifications\npopup:\nClick\nSetup now\nto integrate\nSlack\nor\nMicrosoft Teams\n.\nIf you have already integrated Slack or Microsoft Teams, click\nEnable\n.\nIn the notifications setup dialog, configure the following:\nFor\nNotifications channel\n, you can either:\nIf you have already configured a\nSlack\nor\nMicrosoft Teams",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_manage-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_manage-playbooks.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Enable\n.\nIn the notifications setup dialog, configure the following:\nFor\nNotifications channel\n, you can either:\nIf you have already configured a\nSlack\nor\nMicrosoft Teams\nchannel to receive workflow alerts, that channel will be preselected. You can use the same channel to receive both workflow and playbook run alerts and skip to the next step.\nIf you have not configured a workflow alerts channel or want to add a different one, enter the channel name to receive notifications for playbook runs. This channel will be displayed as the\nPlaybooks alert channel\nÂ in yourÂ\nSlack\nor\nMicrosoft Teams\nintegration.\nTo select the type of notifications you want to receive, you can either:\nClick\nBoth success and failure alerts\nto receive notifications for both successful and failed playbook runs.\nClick\nFailure alerts only\nto limit notifications to failed playbook runs only.\nClick\nSave\nto save your notification preferences.\n(Optional) To disable notifications, from the notifications setup dialog, remove the playbook alerts channel configured for\nSlack\nor\nMicrosoft Teams\n.\nYou will now receive\nSlack\nor\nMicrosoft Teams\nnotifications for all your playbook runs in Atlan! ð",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_manage-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_manage-playbooks.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Slack\nor\nMicrosoft Teams\n.\nYou will now receive\nSlack\nor\nMicrosoft Teams\nnotifications for all your playbook runs in Atlan! ð\nThe Atlan bot will share playbook run alerts, including details like run status, start time, run time, trigger type, last three runs, and more.\nMonitor a playbook\nModify a playbook\nDelete a playbook\nEnable playbook notifications",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_how-tos_manage-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_how-tos_manage-playbooks.json",
+      "chunk_id": 4
+    }
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Lineage builder package - Developer\nSkip to content\nLineage builder package\n¶\nThe\nlineage builder package\nallows you to create lineage between any source and any target asset.\nRetrieve the lineage file from object store\n¶\nTo retrieve the lineage file from cloud object storage:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nRetrieve the lineage file from object store\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nLineageBuilder\nfrom\npyatlan.model.enums\nimport\nAssetInputHandling\nclient\n=\nAtlanClient\n()\nworkflow\n=\n(\nLineageBuilder\n()\n# (1)\n.\nobject_store\n(\n# (2)\nprefix\n=\n\"text-prefix\"\n,\nobject_key\n=\n\"test-object-key\"\n)\n.\ns3\n(\n# (3)\naccess_key\n=\n\"test-access-key\"\n,\nsecret_key\n=\n\"test-secret-key\"\n,\nregion\n=\n\"test-region\"\n,\nbucket\n=\n\"test-bucket\"\n,\n)\n.\noptions\n(\n# (4)\ninput_handling\n=\nAssetInputHandling\n.\nUPSERT\n,\nfail_on_errors\n=\nTrue\n,\ncase_sensitive_match\n=\nFalse\n,\nfield_separator\n=\n\",\"\n,\nbatch_size\n=\n20\n,\n)\n)\n.\nto_workflow\n()\n# (5)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nworkflow\n)\n# (6)\nLineage builder package allows you to create lineage between any source and any target asset.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_lineage-builder.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_lineage-builder.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "\",\"\n,\nbatch_size\n=\n20\n,\n)\n)\n.\nto_workflow\n()\n# (5)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\nworkflow\n)\n# (6)\nLineage builder package allows you to create lineage between any source and any target asset.\nSet up the package to retrieve the lineage file from cloud object storage.\nYou can use different object store methods (e.g:\ns3()\n,\ngcs()\n,\nadls()\n). In this example,\nwe're building a workflow using\ns3()\nand for that, you’ll need to provide the following information:\nAWS access key.\nAWS secret key.\nname of the bucket/storage that contains the metadata CSV files.\nname of the AWS region.\nYou can provide other following\noptions()\n:\ninput_handling\n: specifies whether to allow the creation\nof new assets from the input CSV (full (\nUPSERT\n)\nor partial (\nPARTIAL\n) assets) or only update existing\n(\nUPDATE\n) assets in Atlan.\nfail_on_errors\n: specifies whether an invalid value\nin a field should cause the import to fail (\nTrue\n) or\nlog a warning, skip that value, and proceed (\nFalse\n).\ncase_sensitive_match\n:  indicates whether to use\ncase-sensitive matching when running in update-only mode (\nTrue\n)\nor to try case-insensitive matching (\nFalse\n).\nfield_separator\n: character used to separate",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_lineage-builder.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_lineage-builder.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ":  indicates whether to use\ncase-sensitive matching when running in update-only mode (\nTrue\n)\nor to try case-insensitive matching (\nFalse\n).\nfield_separator\n: character used to separate\nfields in the input file (e.g:\n','\nor\n';'\n).\nbatch_size\n: maximum number of rows\nto process at a time (per API request).\nConvert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod\non the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously.\nSee the\npackages and workflows introduction\nfor details on how to check the status and wait\nuntil the workflow has been completed.\nComing soon\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI.\nTo rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶\nTo re-run an existing lineage builder workflow:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nRe-run existing lineage builder workflow\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nLINEAGE_BUILDER",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_lineage-builder.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_lineage-builder.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "import\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nLINEAGE_BUILDER\n,\nmax_results\n=\n5\n)\n# Determine which lineage builder workflow (n)\n# from the list of results you want to re-run.\nresponse\n=\nclient\n.\nworkflow\n.\nrerun\n(\nexisting\n[\nn\n])\n# (2)\nYou can find workflows by their type using the workflow client\nfind_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nLineageBuilder\n. (You can also specify\nthe\nmaximum number of resulting workflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,\nyou can simply call the workflow client\nrerun()\nmethod.\nOptionally, you can use\nrerun(idempotent=True)\nto avoid re-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_lineage-builder.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_lineage-builder.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Remember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nComing soon\nRequires multiple steps through the raw REST API\nFind the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"csa-lineage-builder\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n},\n\"order\"\n:\n\"desc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\nSearching by the\ncsa-lineage-builder\nprefix will ensure you only find existing asset import workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name\nproperty of the response object.\n(Remember since this is a search, there could be multiple results, so you may want to use the other\ndetails in each result to determine which workflow you really want.)",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_lineage-builder.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_lineage-builder.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "(Remember since this is a search, there could be multiple results, so you may want to use the other\ndetails in each result to determine which workflow you really want.)\nPOST /api/service/workflows/submit\n100\n101\n102\n103\n104\n{\n\"namespace\"\n:\n\"default\"\n,\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"csa-lineage-builder-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2024-11-20\n2025-01-28\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_lineage-builder.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_lineage-builder.json",
+      "chunk_id": 5
+    }
+  }
+]

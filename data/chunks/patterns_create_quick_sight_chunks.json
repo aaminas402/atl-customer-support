@@ -1,0 +1,254 @@
+[
+  {
+    "content": "Manage Amazon QuickSight assets - Developer\nSkip to content\nManage Amazon QuickSight assets\n¶\nIn general, these should be:\nCreated in top-down order\n(connection, then QuickSightFolder, then QuickSightAnalysis and QuickSightDashboard and QuickSightDataset then QuickSightAnalysisVisual and QuickSightDashboardVisual and QuickSightDatasetField respectively)\nDeleted in bottom-up order (QuickSightAnalysisVisual and QuickSightDashboardVisual and QuickSightDatasetField, then QuickSightAnalysis and QuickSightDashboard and QuickSightDataset, then QuickSightFolder, then connection)\n1\nerDiagram\nConnection ||--o{ QuickSightAnalysis : \"\"\nConnection ||--o{ QuickSightDashboard : \"\"\nConnection ||--o{ QuickSightDataset : \"\"\nConnection ||--o{ QuickSightFolder : \"\"\nQuickSightFolder }o--o{ QuickSightAnalysis : quickSightAnalyses\nQuickSightFolder }o--o{ QuickSightDashboard : quickSightDashboards\nQuickSightFolder }o--o{ QuickSightDataset : quickSightDatasets\nQuickSightAnalysis |o--o{ QuickSightAnalysisVisual : quickSigntAnalysisVisuals\nQuickSightDashboard |o--o{ QuickSightDashboardVisual : quickSightDashboardVisuals\nQuickSightDataset |o--o{ QuickSightDatasetField : quickSightDatasetFields\nAsset structure",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "QuickSightDashboard |o--o{ QuickSightDashboardVisual : quickSightDashboardVisuals\nQuickSightDataset |o--o{ QuickSightDatasetField : quickSightDatasetFields\nAsset structure\n¶\nConnection\n¶\n7.0.0\nA QuickSight\nconnection\nrequires a\nname\nand\nqualifiedName\n. For creation, specific settings are also required to distinguish it as a QuickSight connection rather than another type of connection. In addition,\nat least one\nof\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate a QuickSight connection\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nConnection\nfrom\npyatlan.model.enums\nimport\nAtlanConnectorType\nclient\n=\nAtlanClient\n()\nadmin_role_guid\n=\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)\n# (1)\nconnection\n=\nConnection\n.\ncreator\n(\n# (2)\nclient\n=\nclient\n,\n# (3)\nname\n=\n\"QuickSight-connection\"\n,\n# (4)\nconnector_type\n=\nAtlanConnectorType\n.\nQUICKSIGHT\n,\n# (5)\nadmin_roles\n=\n[\nadmin_role_guid\n],\n# (6)\nadmin_groups\n=\n[\n\"group2\"\n],\n# (7)\nadmin_users\n=\n[\n\"jsmith\"\n]\n# (8)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nconnection\n)\n# (9)\nconnection_qualified_name\n=\nresponse\n.",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "=\n[\nadmin_role_guid\n],\n# (6)\nadmin_groups\n=\n[\n\"group2\"\n],\n# (7)\nadmin_users\n=\n[\n\"jsmith\"\n]\n# (8)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nconnection\n)\n# (9)\nconnection_qualified_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nConnection\n)[\n0\n]\n.\nqualified_name\n# (10)\nRetrieve the GUID for the admin role, to use later for defining the roles that can administer the connection.\nBuild up the minimum request to create a connection.\nYou must provide a client instance.\nProvide a human-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nSet the type of connection to\nQuickSight\n.\nList the workspace roles that should be able to administer the connection\n(or\nNone\nif none). All users with that workspace role (current and future) will be\nadministrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the group names that can administer this connection (or\nNone\nif none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadmin_roles\n,",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "None\nif none). All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nList the user names that can administer this connection (or\nNone\nif none). Note that the values here are the username(s) of the user(s).\nAt least one of\nadmin_roles\n,\nadmin_groups\n, or\nadmin_users\nmust be provided.\nActually call Atlan to create the connection.\nRetrieve the qualifiedName for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Connection\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-connection\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (4)\n\"category\"\n:\n\"bi\"\n,\n// (5)\n\"adminRoles\"\n:\n[\n// (6)\n\"e7ae0295-c60a-469a-bd2c-fb903943aa02\"\n],\n\"adminGroups\"\n:\n[\n// (7)\n\"group2\"\n],\n\"adminUsers\"\n:\n[\n// (8)\n\"jsmith\"\n]\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nConnection\n.\nHuman-readable name for your connection, such as",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "],\n\"adminGroups\"\n:\n[\n// (7)\n\"group2\"\n],\n\"adminUsers\"\n:\n[\n// (8)\n\"jsmith\"\n]\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nConnection\n.\nHuman-readable name for your connection, such as\nproduction\nor\ndevelopment\n.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>\n, where\n<epoch>\nis the time in milliseconds at which the connection is being created.\nThe\ncategory\nmust be\nbi\n.\nList any workspace roles that can administer this connection. All users with that workspace role (current and future) will be administrators of the connection. Note that the values here need to be the GUID(s) of the workspace role(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any groups that can administer this connection. All users within that group (current and future) will be administrators of the connection. Note that the values here are the name(s) of the group(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nList any users that can administer this connection. Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "adminUsers\nmust be provided.\nList any users that can administer this connection. Note that the values here are the username(s) of the user(s).\nAt least one of\nadminRoles\n,\nadminGroups\n, or\nadminUsers\nmust be provided.\nAccess policies\nAtlan creates the policies that grant access to a connection, including the ability to retrieve the connection and to create assets within it, asynchronously. It can take several seconds (even up to approximately 30 seconds) before these are in place after creating the connection.\nYou may therefore need to wait before you'll be able to create the assets below within the connection.\nTo confirm access,\nretrieve the connection\nafter it has been created. The SDKs' retry loops will automatically retry until the connection can be successfully retrieved. At that point, your API token has permission to create the other assets.\nNote: if you are\nreusing\nan existing connection rather than creating one via your API token, you must give your API token a persona that has access to that connection. Otherwise all attempts to create, read, update, or delete assets within that connection will fail due to a lack of permissions.\nQuickSightFolder\n¶\n4.2.5\nA",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "QuickSightFolder\n¶\n4.2.5\nA\nQuickSightFolder\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the QuickSight folder and\nthe\nQuickSight ID\nfor this QuickSight folder on Amazon QuickSight.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate a QuickSight folder\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nQuickSightFolder\nclient\n=\nAtlanClient\n()\nquick_sight_folder\n=\nQuickSightFolder\n.\ncreator\n(\n# (1)\nname\n=\n\"myQuickSightFolder\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n,\n# (3)\nquick_sight_id\n=\n\"12345292\"\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nquick_sight_folder\n)\n# (5)\nquick_sight_folder_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nQuickSightFolder\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a folder.\nProvide a human-readable name for your folder.\nProvide the\nqualifiedName\nof the QuickSight connection.\nProvide the\nQuickSight ID\nused in Amazon QuickSight folder.\nActually call Atlan to create the folder.\nRetrieve the created folder for use in subsequent creation calls.",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "of the QuickSight connection.\nProvide the\nQuickSight ID\nused in Amazon QuickSight folder.\nActually call Atlan to create the folder.\nRetrieve the created folder for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"QuickSightFolder\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-folder\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n,\n// (4)\n\"connectionQualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (5)\n\"quickSightId\"\n:\n\"12345292\"\n// (6)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightFolder\n.\nHuman-readable name for your folder.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>/<quickSightId>\n,\nwhere\ndefault/quicksight/<epoch>\nis the\nqualifiedName\nof the connection\nfor this folder and\n<quickSightId>\nis the Q\nuickSight ID\nfor this Amazon QuickSight folder.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this folder.\nThe\nquickSightId\nprovided for this Amazon QuickSight folder.",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "for this Amazon QuickSight folder.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this folder.\nThe\nquickSightId\nprovided for this Amazon QuickSight folder.\nQuickSightDataset\n¶\n4.2.5\nA\nQuickSightDataset\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the QuickSight dataset and\nthe\nQuickSight ID\nfor this QuickSight dataset on Amazon QuickSight.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate a QuickSight dataset\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nQuickSightDataset\nclient\n=\nAtlanClient\n()\nquick_sight_dataset\n=\nQuickSightDataset\n.\ncreator\n(\n# (1)\nname\n=\n\"myQuickSightDataset\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n,\n# (3)\nquick_sight_id\n=\n\"12345292\"\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nquick_sight_dataset\n)\n# (5)\nquick_sight_dataset_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nQuickSightDataset\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a dataset.\nProvide a human-readable name for your dataset.\nProvide the\nqualifiedName",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "(\nasset_type\n=\nQuickSightDataset\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a dataset.\nProvide a human-readable name for your dataset.\nProvide the\nqualifiedName\nof the QuickSight connection.\nProvide the\nQuickSight ID\nused in Amazon QuickSight dataset.\nActually call Atlan to create the dataset.\nRetrieve the created dataset for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"QuickSightDataset\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-dataset\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n,\n// (4)\n\"connectionQualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (5)\n\"quickSightId\"\n:\n\"12345292\"\n// (6)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightDataset\n.\nHuman-readable name for your dataset.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>/<quickSightId>\n,\nwhere\ndefault/quicksight/<epoch>\nis the\nqualifiedName\nof the connection\nfor this dataset and\n<quickSightId>\nis the",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "qualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>/<quickSightId>\n,\nwhere\ndefault/quicksight/<epoch>\nis the\nqualifiedName\nof the connection\nfor this dataset and\n<quickSightId>\nis the\nQuickSight ID\nfor this Amazon QuickSight dataset.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this dataset.\nThe\nquickSightId\nprovided for this Amazon QuickSight dataset.\nQuickSightDashboard\n¶\n4.2.5\nA\nQuickSightDashboard\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the QuickSight dashboard and\nthe\nQuickSight ID\nfor this QuickSight dashboard on Amazon QuickSight.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate a QuickSight dashboard\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nQuickSightDashboard\nclient\n=\nAtlanClient\n()\nquick_sight_dashboard\n=\nQuickSightDashboard\n.\ncreator\n(\n# (1)\nname\n=\n\"myQuickSightDashboard\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n,\n# (3)\nquick_sight_id\n=\n\"12345292\"\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nquick_sight_dashboard\n)\n# (5)",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "=\n\"myQuickSightDashboard\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_name\n,\n# (3)\nquick_sight_id\n=\n\"12345292\"\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nquick_sight_dashboard\n)\n# (5)\nquick_sight_dashboard_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nQuickSightDashboard\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a dashboard.\nProvide a human-readable name for your dashboard.\nProvide the\nqualifiedName\nof the QuickSight connection.\nProvide the\nQuickSight ID\nused in Amazon QuickSight dashboard.\nActually call Atlan to create the dashboard.\nRetrieve the created dashboard for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"QuickSightDashboard\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-dashboard\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n,\n// (4)\n\"connectionQualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (5)\n\"quickSightId\"\n:\n\"12345292\"\n// (6)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightDashboard\n.",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ",\n// (4)\n\"connectionQualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (5)\n\"quickSightId\"\n:\n\"12345292\"\n// (6)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightDashboard\n.\nHuman-readable name for your dashboard.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>/<quickSightId>\n,\nwhere\ndefault/quicksight/<epoch>\nis the\nqualifiedName\nof the connection\nfor this dashboard and\n<quickSightId>\nis the\nQuickSight ID\nfor this Amazon QuickSight dashboard.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this dashboard.\nThe\nquickSightId\nprovided for this Amazon QuickSight dashboard.\nQuickSightAnalysis\n¶\n4.2.5\nA\nQuickSightAnalysis\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nconnectionQualifiedName\nof the connection for the QuickSight analysis and\nthe\nQuickSight ID\nfor this QuickSight analysis on Amazon QuickSight.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate a QuickSight analysis\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nQuickSightAnalysis\nclient\n=\nAtlanClient\n()\nquick_sight_analysis",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nQuickSightAnalysis\nclient\n=\nAtlanClient\n()\nquick_sight_analysis\n=\nQuickSightAnalysis\n.\ncreator\n(\n# (1)\nname\n=\n\"myQuickSightAnalysis\"\n,\n# (2)\nconnection_qualified_name\n=\nconnection_qualified_nam\n,\n# (3)\nquick_sight_id\n=\n\"12345292\"\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nquick_sight_analysis\n)\n# (5)\nquick_sight_analysis_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nQuickSightAnalysis\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a analysis.\nProvide a human-readable name for your analysis.\nProvide the\nqualifiedName\nof the QuickSight connection.\nProvide the\nQuickSight ID\nused in Amazon QuickSight analysis.\nActually call Atlan to create the analysis.\nRetrieve the created analysis for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"QuickSightAnalysis\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-analysis\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"QuickSightAnalysis\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-analysis\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n,\n// (4)\n\"connectionQualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (5)\n\"quickSightId\"\n:\n\"12345292\"\n// (6)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightAnalysis\n.\nHuman-readable name for your analysis.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>/<quickSightId>\n,\nwhere\ndefault/quicksight/<epoch>\nis the\nqualifiedName\nof the connection\nfor this analysis and\n<quickSightId>\nis the\nQuickSight ID\nfor this Amazon QuickSight analysis.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this analysis.\nThe\nquickSightId\nprovided for this Amazon QuickSight analysis.\nQuickSightDatasetField\n¶\n4.2.5\nA\nQuickSightDatasetField\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nDatasetQualifiedName\nof the QuickSight dataset that you wish to link this field to and\nthe\nQuickSight ID",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "requires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nDatasetQualifiedName\nof the QuickSight dataset that you wish to link this field to and\nthe\nQuickSight ID\nfor this QuickSight dataset field on Amazon QuickSight.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate a QuickSight dataset field\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nQuickSightDatasetField\nclient\n=\nAtlanClient\n()\nquick_sight_dataset_field\n=\nQuickSightDatasetField\n.\ncreator\n(\n# (1)\nname\n=\n\"myQuickSightDatasetField\"\n,\n# (2)\nquick_sight_dataset_qualified_name\n=\ndataset_qualified_name\n,\n# (3)\nquick_sight_id\n=\n\"45678\"\n# (4)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nquick_sight_dataset_field\n)\n# (5)\nquick_sight_dataset_field_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nQuickSightDatasetField\n)[\n0\n]\n.\nqualified_name\n# (6)\nBuild up the minimum request to create a dataset field.\nProvide a human-readable name for your dataset field.\nProvide the\nqualifiedName\nof the QuickSight dataset.\nProvide the\nQuickSight ID\nused in Amazon QuickSight dataset field.\nActually call Atlan to create the dataset field.",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "Provide the\nqualifiedName\nof the QuickSight dataset.\nProvide the\nQuickSight ID\nused in Amazon QuickSight dataset field.\nActually call Atlan to create the dataset field.\nRetrieve the created dataset field for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"QuickSightDatasetField\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-dataset-field\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292/45678\"\n,\n// (4)\n\"quickSightDatasetQualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n,\n// (5)\n\"quickSightDataset\"\n:\n{\n\"typeName\"\n:\n\"QuickSightDataset\"\n,\n// (6)\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n// (7)\n}\n},\n\"connectionQualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (8)\n\"quickSightId\"\n:\n\"45678\"\n// (9)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightDatasetField\n.\nHuman-readable name for your dataset field.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightDatasetField\n.\nHuman-readable name for your dataset field.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>/<quickSightId_dataset>/<quickSightId>\n,\nwhere\ndefault/quicksight/<epoch>/<quickSightId_dataset>\nis the\nqualifiedName\nof the dataset\nfor this dataset field and\n<quickSightId>\nis the\nQuickSight ID\nfor this Amazon QuickSight dataset field.\nThe\nquickSightDatasetQualifiedName\nmust be the exact\nqualifiedName\nof the dataset for this dataset field.\nThe\ntypeName\nfor this embedded reference must be\nQuickSightDataset\n.\nTo complete the reference, you must include a\nuniqueAttributes\nwith the\nqualifiedName\nof the Dataset. Note: the Dataset must already exist\nin Atlan before creating the dataset field.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this dataset field.\nThe\nquickSightId\nprovided for this Amazon QuickSight dataset field.\nQuickSightDashboardVisual\n¶\n4.2.5\nA\nQuickSightDashboardVisual\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nDashboardQualifiedName",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "QuickSightDashboardVisual\n¶\n4.2.5\nA\nQuickSightDashboardVisual\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nDashboardQualifiedName\nof the QuickSight dashboard that you wish to link this dashboard visual to, along with the\nQuickSight ID\n,\nQuickSight Sheet ID\n, and\nQuickSight Sheet Name\nfor this dashboard visual in Amazon QuickSight.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate a QuickSight dashboard visual\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nQuickSightDashboardVisual\nclient\n=\nAtlanClient\n()\nquick_sight_dashboard_visual\n=\nQuickSightDashboardVisual\n.\ncreator\n(\n# (1)\nname\n=\n\"myQuickSightDashboardVisual\"\n,\n# (2)\nquick_sight_dashboard_qualified_name\n=\ndashboard_qualified_name\n,\n# (3)\nquick_sight_id\n=\n\"45678\"\n,\n# (4)\nquick_sight_sheet_id\n=\n\"3456431\"\n,\n# (5)\nquick_sight_sheet_name\n=\n\"test-sheet-name\"\n,\n# (6)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nquick_sight_dashboard_visual\n)\n# (7)\nquick_sight_dashboard_visual_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nQuickSightDashboardVisual\n)[\n0\n]\n.\nqualified_name\n# (8)",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": ".\nasset\n.\nsave\n(\nquick_sight_dashboard_visual\n)\n# (7)\nquick_sight_dashboard_visual_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nQuickSightDashboardVisual\n)[\n0\n]\n.\nqualified_name\n# (8)\nBuild up the minimum request to create a dashboard visual.\nProvide a human-readable name for your dashboard visual.\nProvide the\nqualifiedName\nof the QuickSight dashboard.\nProvide the\nQuickSight ID\nused in Amazon QuickSight dashboard visual.\nProvide the\nQuickSight Sheet ID\nwhich links to Amazon QuickSight dashboard visual.\nProvide the\nQuickSight Sheet Name\nwhich links to Amazon QuickSight dashboard visual.\nActually call Atlan to create the dashboard visual.\nRetrieve the created dashboard visual for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"QuickSightDashboardVisual\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-dashboard-visual\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292/3456431/45678\"\n,\n//(4)\n\"quickSightDashboardQualifiedName\"\n:",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": ":\n\"quicksight-dashboard-visual\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292/3456431/45678\"\n,\n//(4)\n\"quickSightDashboardQualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n,\n// (5)\n\"quickSightSheetId\"\n:\n\"3456431\"\n,\n// (6)\n\"quickSightSheetName\"\n:\n\"test-sheet-name\"\n,\n// (7)\n\"QuickSightDashboard\"\n:\n{\n\"typeName\"\n:\n\"QuickSightDashboard\"\n,\n// (8)\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n// (9)\n}\n},\n\"connectionQualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (10)\n\"quickSightId\"\n:\n\"45678\"\n// (11)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightDashboardVisual\n.\nHuman-readable name for your dashboard visual.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>/<quickSightId_dashboard>/<quickSightSheetId>/<quickSightId>\n, where\ndefault/quicksight/<epoch>/<quickSightId_dashboard>\nis the\nqualifiedName\nof the dashboard\nfor this dashboard visual,\nis the\nQuickSight Sheet ID\nfor this Amazon QuickSight dashboard visual and\n<quickSightId>\nis the\nQuickSight ID\nfor this Amazon QuickSight dashboard visual.\nThe",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "for this dashboard visual,\nis the\nQuickSight Sheet ID\nfor this Amazon QuickSight dashboard visual and\n<quickSightId>\nis the\nQuickSight ID\nfor this Amazon QuickSight dashboard visual.\nThe\nquickSightAnalysisQualifiedName\nmust be the exact\nqualifiedName\nof the analysis for this dashboard visual.\nThe\nquickSightSheetId\nmust be the exact\nQuickSight Sheet ID\nfor this Amazon QuickSight dashboard visual.\nThe\nquickSightSheetName\nmust be the exact\nQuickSight Sheet Name\nfor this Amazon QuickSight dashboard visual.\nThe\ntypeName\nfor this embedded reference must be\nQuickSightDashboard\n.\nTo complete the reference, you must include a\nuniqueAttributes\nwith the\nqualifiedName\nof the dashboard. Note: the analysis must already exist\nin Atlan before creating the dashboard visual.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this dashboard visual.\nThe\nquickSightId\nprovided for this Amazon QuickSight dashboard visual.\nQuickSightAnalysisVisual\n¶\n4.2.5\nA\nQuickSightAnalysisVisual\nrequires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nAnalysisQualifiedName\nof the QuickSight analysis that you wish to link this analysis visual to, along with the",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "requires a\nname\nand a\nqualifiedName\n.\nFor creation, you also need to specify the\nAnalysisQualifiedName\nof the QuickSight analysis that you wish to link this analysis visual to, along with the\nQuickSight ID\n,\nQuickSight Sheet ID\n, and\nQuickSight Sheet Name\nfor this analysis visual in Amazon QuickSight.\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nCreate a QuickSight analysis visual\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nQuickSightAnalysisVisual\nclient\n=\nAtlanClient\n()\nquick_sight_analysis_visual\n=\nQuickSightAnalysisVisual\n.\ncreator\n(\n# (1)\nname\n=\n\"myQuickSightAnalysisVisual\"\n,\n# (2)\nquick_sight_analysis_qualified_name\n=\nanalysis_qualified_name\n,\n# (3)\nquick_sight_id\n=\n\"45678\"\n,\n# (4)\nquick_sight_sheet_id\n=\n\"3456431\"\n,\n# (5)\nquick_sight_sheet_name\n=\n\"test-sheet-name\"\n,\n# (6)\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\nquick_sight_analysis_visual\n)\n# (7)\nquick_sight_analysis_visual_qualifed_name\n=\nresponse\n.\nassets_created\n(\nasset_type\n=\nQuickSightAnalysisVisual\n)[\n0\n]\n.\nqualified_name\n# (8)\nBuild up the minimum request to create a analysis visual.\nProvide a human-readable name for your analysis visual.\nProvide the",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "(\nasset_type\n=\nQuickSightAnalysisVisual\n)[\n0\n]\n.\nqualified_name\n# (8)\nBuild up the minimum request to create a analysis visual.\nProvide a human-readable name for your analysis visual.\nProvide the\nqualifiedName\nof the QuickSight analysis.\nProvide the\nQuickSight ID\nused in Amazon QuickSight analysis visual.\nProvide the\nQuickSight Sheet ID\nwhich links to Amazon QuickSight analysis visual.\nProvide the\nQuickSight Sheet Name\nwhich links to Amazon QuickSight analysis visual.\nActually call Atlan to create the analysis visual.\nRetrieve the created analysis visual for use in subsequent creation calls.\n(You'd probably want to do some\nNone\nchecking first.)\nComing soon\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"QuickSightAnalysisVisual\"\n,\n// (1)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"quicksight-analysis-visual\"\n,\n// (2)\n\"connectorName\"\n:\n\"quicksight\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292/3456431/45678\"\n,\n//(4)\n\"quickSightAnalysisQualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n,\n// (5)\n\"quickSightSheetId\"\n:\n\"3456431\"\n,\n// (6)\n\"quickSightSheetName\"\n:\n\"test-sheet-name\"\n,\n// (7)",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": ",\n//(4)\n\"quickSightAnalysisQualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n,\n// (5)\n\"quickSightSheetId\"\n:\n\"3456431\"\n,\n// (6)\n\"quickSightSheetName\"\n:\n\"test-sheet-name\"\n,\n// (7)\n\"QuickSightAnalysis\"\n:\n{\n\"typeName\"\n:\n\"QuickSightAnalysis\"\n,\n// (8)\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/quicksight/1739901911/12345292\"\n// (9)\n}\n},\n\"connectionQualifiedName\"\n:\n\"default/quicksight/1739901911\"\n,\n// (10)\n\"quickSightId\"\n:\n\"45678\"\n// (11)\n}\n}\n]\n}\nThe\ntypeName\nmust be exactly\nQuickSightAnalysisVisual\n.\nHuman-readable name for your analysis visual.\nThe\nconnectorName\nmust be exactly\nquicksight\n.\nThe\nqualifiedName\nshould follow the pattern:\ndefault/quicksight/<epoch>/<quickSightId_analysis>/<quickSightSheetId>/<quickSightId>\n, where\ndefault/quicksight/<epoch>/<quickSightId_analysis>\nis the\nqualifiedName\nof the analysis\nfor this analysis visual,\nis the\nQuickSight Sheet ID\nfor this Amazon QuickSight analysis visual and\n<quickSightId>\nis the\nQuickSight ID\nfor this Amazon QuickSight analysis visual.\nThe\nquickSightAnalysisQualifiedName\nmust be the exact\nqualifiedName\nof the analysis for this analysis visual.\nThe\nquickSightSheetId\nmust be the exact\nQuickSight Sheet ID",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "The\nquickSightAnalysisQualifiedName\nmust be the exact\nqualifiedName\nof the analysis for this analysis visual.\nThe\nquickSightSheetId\nmust be the exact\nQuickSight Sheet ID\nfor this Amazon QuickSight analysis visual.\nThe\nquickSightSheetName\nmust be the exact\nQuickSight Sheet Name\nfor this Amazon QuickSight analysis visual.\nThe\ntypeName\nfor this embedded reference must be\nQuickSightAnalysis\n.\nTo complete the reference, you must include a\nuniqueAttributes\nwith the\nqualifiedName\nof the analysis. Note: the analysis must already exist\nin Atlan before creating the analysis visual.\nThe\nconnectionQualifiedName\nmust be the exact\nqualifiedName\nof the connection for this analysis visual.\nThe\nquickSightId\nprovided for this Amazon QuickSight analysis visual.\nAvailable relationships\n¶\nEvery level of the\nQuickSight\nstructure is an\nAsset\n,\nand can therefore be related to the following other assets.\nerDiagram\nAsset }o--o{ AtlasGlossaryTerm : meanings\nAsset ||--o{ Link : links\nAsset ||--o| Readme : readme\nAsset }o--o{ Process : inputToProcesses\nAsset }o--o{ Process : outputFromProcesses\nAtlasGlossaryTerm\n¶\nA\nglossary term\nprovides meaning to an asset. The\nlink terms to assets snippet",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "Asset }o--o{ Process : inputToProcesses\nAsset }o--o{ Process : outputFromProcesses\nAtlasGlossaryTerm\n¶\nA\nglossary term\nprovides meaning to an asset. The\nlink terms to assets snippet\nprovides more detail on setting this relationship.\nLink\n¶\nA\nlink\nprovides additional context to an asset, by providing a URL to additional information.\nReadme\n¶\nA\nREADME\nprovides rich documentation for an asset. The\nadd asset READMEs snippet\nprovides more detail on setting this relationship.\nProcess\n¶\nA\nprocess\nprovides lineage information for an asset. An asset can be both an input and an output for one or more processes. The\nlineage snippets\nprovide more detail on creating and working with lineage.\nAlthough if you want to delete everything in a connection,your better avenue is the packaged\nconnection delete utility\nin the UI.\n↩\n2025-02-18\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": "to provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "patterns_create_quick_sight.html",
+      "source_type": "sdk",
+      "file": "patterns_create_quick_sight.json",
+      "chunk_id": 27
+    }
+  }
+]

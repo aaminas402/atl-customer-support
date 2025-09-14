@@ -1,0 +1,173 @@
+[
+  {
+    "content": "133 docs tagged with \"atlan\" | Atlan Documentation\nSkip to main content\nAccess Control\nLearn how to manage user permissions and access to data assets in Atlan for security and compliance.\nAdd a resource\nNeed to redirect users to important information that's outside Atlan?\nAdd an alias\nAn alias is a business-oriented, alternate name that you can specify for your assets in Atlan. You can either manually add a more descriptive and user-friendly alias or use [Atlan AI](/product/capabilities/atlan-ai/concepts/what-is-atlan-ai) to do the same, if [Atlan AI is enabled in your Atlan workspace](/product/capabilities/atlan-ai/concepts/what-is-atlan-ai). This can help you improve the readability of your asset names while providing useful context to your users.\nAdd certificates\nHow many times has someone complained to you that the data is incomplete or has issues? And how many times have you responded that it's still a work in progress or they're using the wrong data!\nAdd custom metadata badges\nBringing visibility to custom metadata and enriching it with additional context are critical requirements for data teams. Atlan enables you to highlight the most critical custom metadata with badges.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Bringing visibility to custom metadata and enriching it with additional context are critical requirements for data teams. Atlan enables you to highlight the most critical custom metadata with badges.\nAdd owners\nAtlan allows you to add owners for each data asset. This enriches the asset profile and helps build trust among users. Users can then quickly reach out to the owner of the asset for any questions about the data.\nAdd stakeholders\nStakeholders help you define the people and their responsibilities within a data domain in Atlan. You can map stakeholders to all or selected domains with responsibilities that align with their function within those domains. This can also help you ensure accountability among stakeholders and improve collaboration between your teams.\nAdd users to groups\nAtlan supports configuring SSO group mappings. You will first need to [create groups](/product/capabilities/governance/users-and-groups/how-tos/create-groups) in Atlan that correspond to the groups you want to map from your SSO provider to Atlan.\nAdditional connectivity to data sources\nLearn about additional connectivity to data sources.\nAdministration\nLearn about administration.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Additional connectivity to data sources\nLearn about additional connectivity to data sources.\nAdministration\nLearn about administration.\nAllow guests to request updates\nIf you'd like to disable this option for your guest users, follow the steps above and then turn it off.\nAre there any limits on concurrent queries?\nLearn about are there any limits on concurrent queries?.\nAuthenticate SSO credentials to query data\nLearn about authenticate sso credentials to query data.\nAuthenticate SSO credentials to view sample data\nLearn about authenticate sso credentials to view sample data.\nAuthentication and authorization\nLearn about authentication and authorization.\nAutomate policy compliance\nâAvailable via the Advanced Policy & Compliances package\nBasic Platform Usage\nEssential information about using Atlan's core features, from browser requirements to data querying and asset management.\nCan Atlan integrate with multiple Azure AD tenants within a single instance?\nLearn about can atlan integrate with multiple azure ad tenants within a single instance?.\nCan we restrict who can query our data warehouse?\nLearn about can we restrict who can query our data warehouse?.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Can we restrict who can query our data warehouse?\nLearn about can we restrict who can query our data warehouse?.\nConfigure custom domains for Microsoft Excel\nIf your Atlan tenant is hosted on a custom domain   -  for example, `https://<your-tenant-name>.mycompany.com`Â   -  you will need to configure your Atlan tenant to deploy the Atlan add-in for Microsoft Excel.\nConfigure language settings\nHow does Atlan speak to you? Decide for yourself! Atlan enables you to customize language settings from the default English to your preferred language at a workspace level.\nConfigure the extension for managed browsers\nIf you're using managed browsers, you can install and configure the Atlan browser extension for all users in your organization. To do so, you will need to bulk install the extension and deploy a configuration script.\nConnectors\nLearn how to connect your data sources to Atlan. Explore supported connectors, integration patterns, and best practices for unified catalog management.\nContracts\nLearn how to manage data contracts and agreements in Atlan to ensure data quality and compliance.\nControl access to metadata and data?\nLearn about control access to metadata and data?.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Contracts\nLearn how to manage data contracts and agreements in Atlan to ensure data quality and compliance.\nControl access to metadata and data?\nLearn about control access to metadata and data?.\nCreate a new tag\nFor tags created in Atlan, these are displayed in sentence case by design in the governance center, asset sidebar, and tags filter. For imported tags, Atlan will display the source version only in the tag popover when you hover over the tag in the asset sidebar.\nCreate data contracts\nCreate data contracts <Badge variant=\"preview\" text=\"Private Preview\" link=\"/get-started/references/product-release-stages#private-preview\" />\nCreate data domains\nData domains provide a logical way of grouping data products within a specific domain or business entity   -  for example, functions like finance and sales, business units for different products and services, regions of operation, and more. Most importantly, data domains help in fostering collaboration and promote shared ownership and domain-level governance in your organization.\nCreate domain policies",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Create domain policies\nDomain policies allow you to control which users can (or cannot) take certain actions within a data domain or subdomain   -  for example, creating subdomains and data products, updating metadata, and more.\nCreate forms\nYou can use Atlan's form builder to create reusable forms for managing user requests. The form builder allows you to create and customize forms from one central location. Forms can support multiple input types, including text, dropdown, date, and more.\nCreate groups\n:::warning Who can do this? You will need to be an [admin user](/product/capabilities/governance/users-and-groups/concepts/what-are-user-roles) in Atlan to cr.\nCreate persona\n:::warning Who can do this? You will need to be an admin user to create personas.\nCreate policies\nâAvailable via the Advanced Policy & Compliances package\nCreate purpose\n:::warning Who can do this? You will need to be an admin user to create purposes. :::.\nCustom Metadata\nAtlan provides basic metadata for assets like certification, owners, and descriptions. But since every data team has their own unique needs, Atlan allows you to extend these with your own unique properties.\nCustom Metadata",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Custom Metadata\nLearn how to create and manage custom metadata attributes in Atlan to extend your data catalog with organization-specific information.\nData Pipelines\nLearn how to connect your data pipelines to Atlan. Explore ETL tools, workflow orchestration, and lineage tracking to build a comprehensive view of your data movement.\nData Products\nFrom a single data table to a collection of data assets, anything can be a data product in Atlan. Data products provide a framework for your teams to curate assets specific to a domain, business unit, region of operation, brand, and more. These curated data products then empower your data consumers to easily discover data assets, quickly get the context they need, and collaborate more efficiently.\nDatabricks Data Quality Studio\nSet up and configure Databricks for data quality monitoring through Atlan.\nDelete a tag\nIf a tag is attached to assets, you will need to [remove the tag](/product/capabilities/governance/tags/how-tos/remove-a-tag) from the [tagged assets](/product/capabilities/governance/tags/how-tos/attach-a-tag)Â before deleting it.\nDisable user activity",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Disable user activity\nYou can [view recently visited users](/product/capabilities/discovery/concepts/what-are-asset-profiles) and total views on your assets in Atlan by default. To disable asset profile visitors, complete these steps.\nDomains\nLearn how to organize and manage domains in Atlan to structure your data assets in a logical and business-aligned way.\nEnable  Azure AD for SCIM provisioning\nYou can automate the process of provisioning and deprovisioning your Azure Active Directory (AD) users and groups in Atlan with System for Cross-domain Identity Management (SCIM).\nEnable  discovery of process assets\nTo create a more customizable experience for your users, you can turn on discovery and tracking of process assets.\nEnable  sample data download\nAtlan allows admin users to enable or disable downloading [sample data](/product/capabilities/discovery/concepts/what-are-asset-profiles#sample-data). This can help you enforce better governance across your organization.\nEnable  scheduled queries\nTo enable scheduled queries, follow these steps.\nEnable data quality on connection\nEnable and configure data quality for your Databricks connection in Atlan.\nEnable data quality on connection",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "To enable scheduled queries, follow these steps.\nEnable data quality on connection\nEnable and configure data quality for your Databricks connection in Atlan.\nEnable data quality on connection\nEnable and configure data quality for your Snowflake connection in Atlan.\nGetting Started and Onboarding\nEverything you need to know when starting with Atlan - from trials and demos to deployment options and implementation requirements.\nGlossary\nLearn how to create and maintain a centralized business glossary in Atlan to standardize terminology and definitions across your organization.\nGoogle Dashboard login error\nLearn about why do i get an error while logging in via google dashboard?.\nHow are resources isolated?\nLearn about how are resources isolated?.\nHow do I see views instead of materialized views in the reporting center?\nOn the _Assets_ dashboard in the [reporting center](/product/capabilities/reporting/references/how-to-report-on-assets), click **View** in the _All Asset Types_ dropdown menu toÂ only see views. You can further filter by selecting a specific connector or connection as well.\nHow do I use the filters menu?\nLearn about how do i use the filters menu?.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "How do I use the filters menu?\nLearn about how do i use the filters menu?.\nHow to interpret timestamps\nLearn about how to interpret timestamps.\nHow to use parameterized queries?\nLearn about how to use parameterized queries?.\nInsights tips and tricks\nAt Atlan, we are committed to powering your user experience. Here are a few tips and tricks to help you get the most out of Insights for you and your team!\nInstall on Virtual Machine (K3s)\nThis page provides instructions for installing the Secure Agent on a virtual machine (VM) by deploying [K3s in a rootless execution mode](https://docs.k3s.io/advanced#running-rootless-servers-experimental:~:text=to%20take%20effect.-,Running%20Rootless%20Servers,-\\(Experimental\\)%E2%80%8B).\nIntegrations\nLearn how to integrate Atlan with project management, communication, collaboration, automation, and identity management tools.\nInvite new users\nNote that the invitation link will remain valid for 7 days. If the link expires, you can resend the invitation to your new users.\nIs there a dashboard to see how my metadata is populated?\nLearn about is there a dashboard to see how my metadata is populated?.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Is there a dashboard to see how my metadata is populated?\nLearn about is there a dashboard to see how my metadata is populated?.\nLimit SSO automatically creating users when they log in\nOnly users in the SSO provider's application configuration for Atlan can log in via SSO and have their user profiles created automatically in Atlan.\nMake a query interactive\nIf you want to share a query with others, but limit how they can change the query, you can make it _interactive_.\nManage domains\nMost importantly, domains help promote shared ownership and domain-level governance in your organization.\nManage playbooks\nOnce you've [created a playbook](/product/capabilities/playbooks/how-tos/set-up-playbooks), you can monitor, modify, or delete it at any time. You can also [enable notifications](/product/capabilities/playbooks/how-tos/manage-playbooks) to monitor your playbook runs directly in Slack or Microsoft Teams.\nManage policies\nYou must be an admin user in Atlan to enable, create, manage, and approve data governance policies.\nManage system announcements",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "Manage policies\nYou must be an admin user in Atlan to enable, create, manage, and approve data governance policies.\nManage system announcements\nHave you ever wanted to notify everyone on the system of something? System announcements allow you to do just that. For example, you could welcome your users when you're first launching Atlan. Or you could use it to warn them about planned outages to large parts of your IT landscape.\nManage users\n:::warning Who can do this? You will need to be an admin user in Atlan to manage other users.\nMonitor for runaway queries?\nLearn about monitor for runaway queries?.\nOrganize assets\nLearn about organize assets.\nOur 3 pro tips for saving time with Atlan\nLearn about our 3 pro tips for saving time with atlan.\nProduct release stages\nLearn about product release stages.\nQuality assurance framework\nLearn about quality assurance framework.\nquery data\nLearn about query data.\nquery without shared credentials\nDon't want to use a single shared service account to access data?\nRemove a tag\nAtlan allows you to remove [tags](/product/capabilities/governance/tags/concepts/what-are-tags) from a [tagged asset](/product/capabilities/discovery/asset-prof.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Remove a tag\nAtlan allows you to remove [tags](/product/capabilities/governance/tags/concepts/what-are-tags) from a [tagged asset](/product/capabilities/discovery/asset-prof.\nSave and share queries\nYou can save queries to re-run them later, schedule them, or share them.\nSet up a private network link to Amazon MSK\n:::warning Who can do this? You will need your Amazon MSK or AWS administrator involved - you may not have access to run these tasks.\nSet up a private network link to Amazon Redshift\n:::warning Who can do this? You will need your Amazon Redshift administrator or AWS administrator involved - you may not have access to run these tasks.\nSet up a private network link to Microsoft SQL Server on Amazon EC2\n:::warning Who can do this? You will need your AWS administrator to complete these tasks - you may not have access yourself.\nSet up a private network link to Microsoft SQL Server on Amazon RDS\n:::warning Who can do this? You will need your AWS administrator to complete these tasks - you may not have access yourself.\nSet up a private network link to MySQL",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": ":::warning Who can do this? You will need your AWS administrator to complete these tasks - you may not have access yourself.\nSet up a private network link to MySQL\n:::warning Who can do this? You will need your AWS administrator to complete these tasks - you may not have access yourself.\nSet up a private network link to PostgreSQL\nBefore you create an RDS proxy, ensure that the user created in the RDS database is enabled with basic authentication. This [method](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy-setup.html#rds-proxy-secrets-arns) uses a username and password to connect to the RDS database.\nSet up a private network link to Tableau server\nAs a prerequisite for TLS configuration on Tableau Server only, ensure that the health check _Protocol_ of the target group is set to **HTTPS** or [modify the health check settings](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html#modify-health-check-settings) as required.\nSet up Amazon Athena\nLearn about set up amazon athena.\nSet up an AWS private network link to Snowflake",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Set up Amazon Athena\nLearn about set up amazon athena.\nSet up an AWS private network link to Snowflake\nAtlan support will finish the configuration on the Atlan side using these values. Support will then provide the Snowflake PrivateLink endpoint back to you.\nSet up an Azure private network link to Snowflake\nAtlan support will finish the configuration on the Atlan side using these values. Support will then provide you with the Snowflake private endpoint resource ID and Azure token for you to approve the request.\nSet up Apache Kafka\n:::warning Who can do this? You will probably need your Apache Kafka administrator to run these commands - you may not have access yourself.\nSet up AWS Lambda\nLearn about set up aws lambda.\nSet up Cloudera Impala\nLearn about set up cloudera impala.\nSet up dbt Core\nLearn about set up dbt core.\nSet up Metabase\n:::warning Who can do this? You will probably need your Metabase administrator to follow the below steps - you may not have access yourself.\nSet up playbooks\nLearn about set up playbooks.\nSnowflake Data Quality Studio\nSet up and configure Snowflake for data quality monitoring through Atlan.\nStewardship",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Set up playbooks\nLearn about set up playbooks.\nSnowflake Data Quality Studio\nSet up and configure Snowflake for data quality monitoring through Atlan.\nStewardship\nLearn how to implement data stewardship in Atlan through automated workflows, policies, and task management.\nSuggestions from similar assets\nLearn about suggestions from similar assets.\nTags\nFor details on tagging assets, see [How to attach a tag](/product/capabilities/governance/tags/how-tos/attach-a-tag).\nTags\nLearn how to use tags in Atlan to categorize and organize your data assets for improved discoverability and governance.\nTenant access management\nLearn about tenant access management.\nTenant monitoring\nLearn about tenant monitoring.\nTenant offboarding\nLearn about tenant offboarding.\nThe DataOps Culture Code\nLearn about the dataops culture code.\nTroubleshoot permission issues\nLearn about troubleshoot permission issues.\nTroubleshooting bring your own credentials\nLearn about troubleshooting bring your own credentials.\nTroubleshooting exporting large query results\nLearn about troubleshooting exporting large query results.\nTroubleshooting Google BigQuery connectivity",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "Troubleshooting exporting large query results\nLearn about troubleshooting exporting large query results.\nTroubleshooting Google BigQuery connectivity\nLearn about troubleshooting google bigquery connectivity.\nTroubleshooting Hive connectivity\nLearn about troubleshooting hive connectivity.\nTroubleshooting MicroStrategy connectivity\nLearn about troubleshooting microstrategy connectivity.\nTroubleshooting MySQL connectivity\nLearn about troubleshooting mysql connectivity.\nTroubleshooting on-premises database connectivity\nLearn about troubleshooting on-premises database connectivity.\nTroubleshooting playbooks\nLearn about troubleshooting playbooks.\nTroubleshooting policies\nLearn about troubleshooting policies.\nTroubleshooting PostgreSQL connectivity\nLearn about troubleshooting postgresql connectivity.\nTroubleshooting Snowflake connectivity\nLearn about troubleshooting snowflake connectivity.\nTroubleshooting Snowflake tag management\nLearn about troubleshooting snowflake tag management.\nUpdate input type for existing custom metadata\nLearn about update input type for existing custom metadata.\nUse Atlan AI for documentation",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "Learn about troubleshooting snowflake tag management.\nUpdate input type for existing custom metadata\nLearn about update input type for existing custom metadata.\nUse Atlan AI for documentation\nâ Available to customers in Enterprise and Business-Critical platform editions\nUse the Atlan browser extension\nThe Atlan browser extension provides metadata context directly in your [supported data tools](#supported-tools). You can use the extension in the following Chromium-based browsers: Google Chrome and Microsoft Edge.\nUser Management and Access Control\nComplete guide to managing users, configuring access controls, and understanding permissions in Atlan.\nUsers and groups\nLearn how to manage users and groups in Atlan to control access and organize your data team.\nWhat are asset profiles?\nLearn about what are asset profiles?.\nWhat are groups?\nLearn about what are groups?.\nWhat are partial assets?\nLearn about what are partial assets?.\nWhat are personas?\nLearn about what are personas?.\nWhat are preflight checks?\nLearn about what are preflight checks?.\nWhat are purposes?\nLearn about what are purposes?.\nWhat are the query builder actions?\nLearn about what are the query builder actions?.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "Learn about what are preflight checks?.\nWhat are purposes?\nLearn about what are purposes?.\nWhat are the query builder actions?\nLearn about what are the query builder actions?.\nWhat are the sidebar tabs?\nLearn about what are the sidebar tabs?.\nWhat column keys does Atlan crawl?\nLearn about what column keys does atlan crawl?.\nWhat controls the frequency of queries?\nLearn about what controls the frequency of queries?.\nWhat happens when users do not have access to metadata?\nLearn about what happens when users do not have access to metadata?.\nWhat is a product score?\nLearn about what is a product score?.\nWhat is Atlan?\nLearn about what is atlan?.",
+    "metadata": {
+      "source_url": "tags_atlan.html",
+      "source_type": "docs",
+      "file": "tags_atlan.json",
+      "chunk_id": 18
+    }
+  }
+]

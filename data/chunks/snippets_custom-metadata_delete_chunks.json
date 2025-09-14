@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Delete custom metadata - Developer\nSkip to content\nDelete custom metadata\n¶\nThere are limits to the number of custom metadata properties you can create\nAtlan currently preserves details of custom metadata in its audit log. This allows Atlan to retain an audit trail of actions users took on custom metadata on each asset, even if the custom metadata definition itself is deleted.\nHowever, this also places an upper limit on the number of custom metadata properties you can create in Atlan. Even if you delete the custom metadata definitions, any that you have previously defined will still take up \"space\" within this limit.\nMore details\nBy default this is ~1000 properties. If you see an error like the following, it means you have reached this limit:\n{\n\"errorCode\"\n:\n\"ATLAS-500-00-001\"\n,\n\"errorMessage\"\n:\n\"Unable to push entity audits to ES\"\n,\n\"errorCause\"\n:\n\"[{type=mapper_parsing_exception, reason=failed to parse, caused_by={type=illegal_argument_exception, reason=Limit of total fields [1000] has been exceeded while adding new fields [5]}}]\"\n}\nYou will need to contact Atlan support to extend this threshold if you reach it.\n1.3.3\n4.0.0\nTo delete a custom metadata structure:\nJava\nPython",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_delete.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_delete.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "}\nYou will need to contact Atlan support to extend this threshold if you reach it.\n1.3.3\n4.0.0\nTo delete a custom metadata structure:\nJava\nPython\nKotlin\nRaw REST API\nDelete custom metadata structure\n1\nCustomMetadataDef\n.\npurge\n(\nclient\n,\n\"RACI\"\n);\n// (1)\nYou only need to call the\nCustomMetadataDef.purge()\nmethod with the human-readable name of the custom metadata structure, and it will be deleted. Because this operation will remove the structure from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nDelete custom metadata structure\n1\n2\n3\n4\n5\nfrom\npyatlan.model.typedef\nimport\nCustomMetadataDef\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ntypedef\n.\npurge\n(\n\"RACI\"\n,\nCustomMetadataDef\n)\n# (1)\nYou only need to call the\ntypedef.purge()\nmethod with the human-readable name of the custom metadata structure, and it will be deleted.\nDelete custom metadata structure\n1\nCustomMetadataDef\n.\npurge\n(\nclient\n,\n\"RACI\"\n)\n// (1)\nYou only need to call the\nCustomMetadataDef.purge()",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_delete.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_delete.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Delete custom metadata structure\n1\nCustomMetadataDef\n.\npurge\n(\nclient\n,\n\"RACI\"\n)\n// (1)\nYou only need to call the\nCustomMetadataDef.purge()\nmethod with the human-readable name of the custom metadata structure, and it will be deleted. Because this operation will remove the structure from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nDELETE /api/meta/types/typedef/name/MNJ8mpLsIOaP4OQnLNhRta\n1\nUse the hashed-string representation\nWhen deleting the custom metadata structure using the raw API, you must use the hashed-string representation of its name in the API call.\n2023-03-07\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_delete.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_delete.json",
+      "chunk_id": 2
+    }
+  }
+]

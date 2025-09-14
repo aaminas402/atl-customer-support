@@ -1,0 +1,11 @@
+[
+  {
+    "content": "6 docs tagged with \"workflows\" | Atlan Documentation\nSkip to main content\nAlteryx\nIntegrate, catalog, and govern Alteryx assets in Atlan using OpenLineage.\nData Pipelines\nLearn how to connect your data pipelines to Atlan. Explore ETL tools, workflow orchestration, and lineage tracking to build a comprehensive view of your data movement.\nPlaybooks\nCreate and manage automated workflows for metadata management and data governance.\nSend alerts for workflow events\nLearn how to configure alerts for workflow events in Atlan via email or Google Chat.\nSource owner manager\nReference for source owner management capabilities and configuration in stewardship workflows\nStewardship\nLearn how to implement data stewardship in Atlan through automated workflows, policies, and task management.",
+    "metadata": {
+      "source_url": "tags_workflows.html",
+      "source_type": "docs",
+      "file": "tags_workflows.json",
+      "chunk_id": 0
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Google - Developer\nSkip to content\nGoogle model\n¶\nBase class for Google assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand integrating Google assets with Atlan. For that, we would suggest starting with either:\nThe\nmanage Google Cloud Storage assets pattern\nThe\nmanage Google Data Studio assets pattern\nclassDiagram\ndirection RL\nclass Google {\n<<abstract>>\n}\nlink Google \"../google\"\nclass Cloud {\n<<abstract>>\n}\nlink Cloud \"../entities/cloud\"\nCloud <|-- Google : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Cloud : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass DataStudio {\n<<abstract>>\n}\nlink DataStudio \"../datastudio\"\nGoogle <|-- DataStudio : extends\nclass DataStudioAsset\nlink DataStudioAsset \"../entities/datastudioasset\"\nDataStudio <|-- DataStudioAsset : extends\nclass GCS {\n<<abstract>>\n}\nlink GCS \"../gcs\"\nGoogle <|-- GCS : extends\nclass ObjectStore {\n<<abstract>>\n}\nlink ObjectStore \"../entities/objectstore\"\nCatalog <|-- ObjectStore : extends\nclass Catalog {",
+    "metadata": {
+      "source_url": "models_google.html",
+      "source_type": "sdk",
+      "file": "models_google.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "class GCS {\n<<abstract>>\n}\nlink GCS \"../gcs\"\nGoogle <|-- GCS : extends\nclass ObjectStore {\n<<abstract>>\n}\nlink ObjectStore \"../entities/objectstore\"\nCatalog <|-- ObjectStore : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nAsset <|-- Catalog : extends\nObjectStore <|-- GCS : extends\nclass GCSObject\nlink GCSObject \"../entities/gcsobject\"\nGCS <|-- GCSObject : extends\nclass GCSBucket\nlink GCSBucket \"../entities/gcsbucket\"\nGCS <|-- GCSBucket : extends\nProperties\n¶\nThese attributes are specific to instances of\nGoogle\n(and all of its subtypes).\ngoogleLabels\n¶\nList of labels that have been applied to the asset in Google.\ngoogleLocation\n¶\nLocation of this asset in Google.\ngoogleLocationType\n¶\nType of location of this asset in Google.\ngoogleProjectId\n¶\nID of the project in which the asset exists.\ngoogleProjectName\n¶\nName of the project in which the asset exists.\ngoogleProjectNumber\n¶\nNumber of the project in which the asset exists.\ngoogleService\n¶\nService in Google in which the asset exists.\ngoogleTags\n¶\nList of tags that have been applied to the asset in Google.\n2023-07-07\n2023-12-29\nWas this page helpful?\nThanks for your feedback!",
+    "metadata": {
+      "source_url": "models_google.html",
+      "source_type": "sdk",
+      "file": "models_google.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "¶\nService in Google in which the asset exists.\ngoogleTags\n¶\nList of tags that have been applied to the asset in Google.\n2023-07-07\n2023-12-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_google.html",
+      "source_type": "sdk",
+      "file": "models_google.json",
+      "chunk_id": 2
+    }
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "source_url": "events_scenarios_asset-declassify.html",
+  "text": "Asset is untagged - Developer\nSkip to content\nEvents when an asset is untagged\n¶\nWhen an\nasset\nis untagged in Atlan, the following event is emitted.\nCLASSIFICATION_DELETE\n¶\nAtlan always emits a\nCLASSIFICATION_DELETE\nevent when a tag is removed from an asset.\nFor both direct tags and propagations\nRemember that these events will be emitted for both the asset from which the tag was directly removed as well as all assets to which the tag removal is propagated.\n2022-11-07\n2024-10-01\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+  "source_type": "sdk"
+}

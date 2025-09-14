@@ -1,0 +1,245 @@
+[
+  {
+    "content": "Test your package - Developer\nSkip to content\nTest your package's logic\n¶\nThrough testing frameworks\n¶\n4.0.0\n2.4.5\nYou should start by testing your package's logic using standard testing frameworks. These will allow you to run automated regression tests to ensure that your package's logic behaves as you intend as both the package and any of its dependencies evolve.\nIn fact, you can even start with testing this way before you've bundled up your package into a container image and merged it into\natlanhq/marketplace-packages\n!\nPython\nKotlin\nIn Python, we use the\npytest\ntesting\nframework to write integration tests. Make sure it's installed in your environment:\nrequirements-dev.txt\n1\n2\n3\n4\npytest\n# pytest plugins (optional)\npytest\n-\norder\npytest\n-\nsugar\npip\ninstall\n-r\nrequirements-dev.txt\ntests/test_package.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\nfrom\ntyping\nimport\nGenerator\nimport\npytest\nfrom\nopen_apispec_loader.main\nimport\nmain\nfrom\nopen_apispec_loader.open_apispec_loader_cfg\nimport\nCustomConfig\n,\nRuntimeConfig\nfrom",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "66\n67\n68\n69\n70\n71\n72\n73\nfrom\ntyping\nimport\nGenerator\nimport\npytest\nfrom\nopen_apispec_loader.main\nimport\nmain\nfrom\nopen_apispec_loader.open_apispec_loader_cfg\nimport\nCustomConfig\n,\nRuntimeConfig\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nConnection\nfrom\npyatlan.model.enums\nimport\nAtlanConnectorType\nfrom\npyatlan.test_utils\nimport\n(\nTestId\n,\ncreate_connection\n,\ndelete_asset\n,\nvalidate_error_free_logs\n,\nvalidate_files_exist\n,\n)\ntest_id\n=\nTestId\n.\nmake_unique\n(\n\"oapi\"\n)\n# (1)\nfiles\n=\n[\n\"/tmp/debug.log\"\n,\n\"/tmp/pyatlan.json\"\n]\n# (2)\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\nclient\n()\n->\nAtlanClient\n:\n# (3)\nreturn\nAtlanClient\n()\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\nconnection\n(\nclient\n:\nAtlanClient\n)\n->\nGenerator\n[\nConnection\n,\nNone\n,\nNone\n]:\n# (4)\nresult\n=\ncreate_connection\n(\nclient\n=\nclient\n,\nname\n=\ntest_id\n,\nconnector_type\n=\nAtlanConnectorType\n.\nAPI\n)\nyield\nresult\ndelete_asset\n(\nclient\n,\nguid\n=\nresult\n.\nguid\n,\nasset_type\n=\nConnection\n)\n@pytest\n.\nfixture\n(\nscope\n=\n\"function\"\n)\ndef\ncustom_config\n(\nmonkeypatch\n,\nconnection\n):\n# (5)\ncustom_config\n=\nCustomConfig\n(\nspec_url\n=\n\"https://petstore3.swagger.io/api/v3/openapi.json\"\n,\nconnection_usage\n=",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "fixture\n(\nscope\n=\n\"function\"\n)\ndef\ncustom_config\n(\nmonkeypatch\n,\nconnection\n):\n# (5)\ncustom_config\n=\nCustomConfig\n(\nspec_url\n=\n\"https://petstore3.swagger.io/api/v3/openapi.json\"\n,\nconnection_usage\n=\n\"CREATE\"\n,\nconnection\n=\nconnection\n,\n)\nruntime_config\n=\nRuntimeConfig\n(\ncustom_config\n=\ncustom_config\n)\nfor\nkey\n,\nvalue\nin\nruntime_config\n.\nenvars_as_dict\n.\nitems\n():\nmonkeypatch\n.\nsetenv\n(\nkey\n,\nvalue\n)\nclass\nTestPackage\n:\n# (6)\ndef\ntest_main\n(\nself\n,\ncaplog\n,\ncustom_config\n:\nCustomConfig\n,\n):\nmain\n()\nassert\nf\n\"Starting execution of open_apispec_loader...\"\nin\ncaplog\n.\ntext\nvalidate_files_exist\n(\nfiles\n)\n# (7)\nvalidate_error_free_logs\n(\nfiles\n)\n# (8)\nclass\nTestConnection\n:\n# (9)\ndef\ntest_connection\n(\nself\n,\nclient\n:\nAtlanClient\n,\nconnection\n:\nConnection\n):\nresults\n=\nclient\n.\nasset\n.\nfind_connections_by_name\n(\nname\n=\ntest_id\n,\nconnector_type\n=\nAtlanConnectorType\n.\nAPI\n)\nassert\nresults\nassert\nlen\n(\nresults\n)\n==\n1\nassert\nresults\n[\n0\n]\n.\nname\n==\ntest_id\nclass\nTestProcessor\n:\n# (10)\ndef\ntest_process\n(\nself\n):\npass\nUse the built-in\nTestId.make_unique()",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": ".\nAPI\n)\nassert\nresults\nassert\nlen\n(\nresults\n)\n==\n1\nassert\nresults\n[\n0\n]\n.\nname\n==\ntest_id\nclass\nTestProcessor\n:\n# (10)\ndef\ntest_process\n(\nself\n):\npass\nUse the built-in\nTestId.make_unique()\nmethod to create a unique ID for the test-run. This appends some randomly-generated characters onto the string you provide to ensure each run of the test is unique.\nUse this generated ID for all objects your test creates\nTo ensure your test is appropriately isolated from other tests (and possible later runs of the same test), use this generated ID in the naming of all of the objects your test creates. This will ensure it does not clobber, conflict or overlap with any other tests or test runs that might happen in parallel.\nProvide a list of file paths to the log files that need to be validated.\nInstead of duplicating code across tests, create fixtures and attach these functions to the tests.\n@pytest.fixture()\nrun before each test, providing the necessary data or setup for the test.\nWhen creating fixtures for Atlan assets (e.g:\nConnection\n), ensure that you call\nthe\ndelete_asset()\nutility function after\nyield\nto clean up the test object upon test completion.\nCreate a\nCustomConfig",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Connection\n), ensure that you call\nthe\ndelete_asset()\nutility function after\nyield\nto clean up the test object upon test completion.\nCreate a\nCustomConfig\nfixture for your test package with test values. Use\nmonkeypatch.setenv(key, value)\nto patch\nRuntimeConfig\nenvironment variables. This approach is useful for testing code that depends on environment variables without altering the actual system environment.\nA common pattern is to create a test class, such as\nTestPackage\n, with methods that directly invoke the\nmain()\nfunction of your package (\nmain.py\n). This simulates running your package in a test environment.\nIt is also common to include a method that calls the utility function\nvalidate_files_exist()\nto ensure that certain files are created by the package.\nAdditionally, include a method that calls the utility function\nvalidate_error_free_logs()\nto verify that there are no\nERROR\nlevel messages in the log files generated by the package.\nOptionally, you can create multiple test classes\nand methods to cover various conditions for the package. For example:\nTestConnection\nclass can be used to test connection functionality.\nOptionally, you can create multiple test classes",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "and methods to cover various conditions for the package. For example:\nTestConnection\nclass can be used to test connection functionality.\nOptionally, you can create multiple test classes\nand methods to cover various conditions for the package. For example:\nTestProcessor\nclass can include methods that call the package’s\nProcess.process()\nmethod (if implemented) to validate different\nprocessing logic within your package.\nIn Kotlin, to write an integration test you need to extend the package toolkit's\nPackageTest\nclass.\nUse\n-PpackageTests\noption to run the test\nBy default, integration tests will be skipped, since they require first setting up appropriate connectivity to an Atlan tenant to run. If you want to run them, you need to pass the\n-PpackageTests\nargument to Gradle.\nsrc/test/kotlin/ImportPetStoreTest.kt\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\nimport\ncom.atlan.Atlan\nimport\ncom.atlan.model.assets.Connection\nimport\ncom.atlan.model.enums.AtlanConnectorType\nimport\ncom.atlan.pkg.PackageTest\nimport\norg.testng.Assert.assertFalse\nimport\norg.testng.Assert.assertTrue\nimport",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "com.atlan.model.assets.Connection\nimport\ncom.atlan.model.enums.AtlanConnectorType\nimport\ncom.atlan.pkg.PackageTest\nimport\norg.testng.Assert.assertFalse\nimport\norg.testng.Assert.assertTrue\nimport\norg.testng.ITestContext\nimport\norg.testng.annotations.AfterClass\nimport\norg.testng.annotations.BeforeClass\nimport\nkotlin.test.Test\nimport\nkotlin.test.assertEquals\nimport\nkotlin.test.assertNotNull\nclass\nImportPetStoreTest\n:\nPackageTest\n(\n\"x\"\n)\n{\n// (1)\nprivate\nval\ntestId\n=\nmakeUnique\n(\n\"oapi\"\n)\n// (2)\nprivate\nval\nfiles\n=\nlistOf\n(\n\"debug.log\"\n,\n)\noverride\nfun\nsetup\n()\n{\n// (3)\nrunCustomPackage\n(\n// (4)\nOpenAPISpecLoaderCfg\n(\n// (5)\nspecUrl\n=\n\"https://petstore3.swagger.io/api/v3/openapi.json\"\n,\nconnectionUsage\n=\n\"CREATE\"\n,\nconnection\n=\nConnection\n.\ncreator\n(\nclient\n,\ntestId\n,\nAtlanConnectorType\n.\nAPI\n).\nbuild\n(),\n),\nOpenAPISpecLoader\n::\nmain\n,\n// (6)\n)\n}\noverride\nfun\nteardown\n()\n{\n// (7)\nremoveConnection\n(\ntestId\n,\nAtlanConnectorType\n.\nAPI\n)\n// (8)\n}\n@Test\n// (9)\nfun\nconnectionCreated\n()\n{\nval\nresults\n=\nConnection\n.\nfindByName\n(\ntestId\n,\nAtlanConnectorType\n.\nAPI\n)\nassertNotNull\n(\nresults\n)\nassertEquals\n(\n1\n,\nresults\n.\nsize\n)\nassertEquals\n(\ntestId\n,\nresults\n[\n0\n]\n.\nname\n)\n}\n@Test\n// (10)\nfun",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "=\nConnection\n.\nfindByName\n(\ntestId\n,\nAtlanConnectorType\n.\nAPI\n)\nassertNotNull\n(\nresults\n)\nassertEquals\n(\n1\n,\nresults\n.\nsize\n)\nassertEquals\n(\ntestId\n,\nresults\n[\n0\n]\n.\nname\n)\n}\n@Test\n// (10)\nfun\nfilesCreated\n()\n{\nvalidateFilesExist\n(\nfiles\n)\n}\n@Test\nfun\nerrorFreeLog\n()\n{\n// (11)\nvalidateErrorFreeLog\n()\n}\n}\nExtend the built-in\nPackageTest\nclass to define a package test. Provide it a unique string to distinguish it from other integration tests.\nUse the built-in\nmakeUnique()\nmethod to create a unique ID for the test-run. This appends some randomly-generated characters onto the string you provide to ensure each run of the test is unique.\nUse this generated ID for all objects your test creates\nTo ensure your test is appropriately isolated from other tests (and possible later runs of the same test), use this generated ID in the naming of all of the objects your test creates. This will ensure it does not clobber, conflict or overlap with any other tests or test runs that might happen in parallel.\nOverride the\nsetup()\nmethod to set up any necessary prerequisites for your integration test (such as creating any objects it will rely on when it runs).\nCall the\nrunCustomPackage()",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "Override the\nsetup()\nmethod to set up any necessary prerequisites for your integration test (such as creating any objects it will rely on when it runs).\nCall the\nrunCustomPackage()\nmethod to actually run your package, with a predefined set of inputs and configuration.\nPass the\nrunCustomPackage()\nmethod a new configuration object specific to your package. This simulates the hand-off from the UI for your package to your code.\nIn this example, we create a new configuration for the\nOpenAPISpecLoaderCfg\nwith the settings we want to test.\nYou also need to pass the\nrunCustomPackage()\nmethod the entry point for your package (usually just its\nmain\nmethod).\nAny integration test that actually creates some objects in the tenant (whether as part of the prerequisites, or the actual running of the package), should override the\nteardown()\nmethod and implement any cleanup of created or side-effected objects.\nDo this just after setup\nWhile this overridden\nteardown()\nmethod can technically be defined anywhere, it is a good practice to define it just after the\nsetup()\n. This helps keep clear what has been created or side-effected in the\nsetup()\nwith what needs to then be cleaned up in the\nteardown()",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "setup()\n. This helps keep clear what has been created or side-effected in the\nsetup()\nwith what needs to then be cleaned up in the\nteardown()\n.\nYou can use built-in operations like\nremoveConnection()\nto remove all assets that were created within (and including) a connection.\nYou can then use as many\n@Test\n-annotated methods as you like to test various conditions of the result of running your package. These will only execute\nafter\nthe\n@BeforeClass\nmethod's work is all completed.\nA common pattern is to include a method that calls the built-in\nvalidateFilesExist()\nmethod to confirm that certain files are created by the package.\nAnother common pattern is to include a method that calls the built-in\nvalidateErrorFreeLog()\nmethod to confirm there are no error-level messages in the log file that is generated by the package.\n(Optional) Writing tests for non-toolkit based scripts\n¶\nYou can write integration tests for existing scripts in the\nmarketplace-csa-scripts\nrepository, even if they are not based on package toolkits. These tests help verify script behavior end-to-end in a real Atlan tenant.",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "marketplace-csa-scripts\nrepository, even if they are not based on package toolkits. These tests help verify script behavior end-to-end in a real Atlan tenant.\nWe'll begin by performing minimal refactoring of the existing script, as it's necessary to enable writing integration tests.\nStep 1: Rename directory to\nsnake_case\n¶\nIf the script is in\nkebab-case\ndirectory, convert it to\nsnake_case\n.\nDo this just after renaming\nUpdate references in\nmkdocs.yml\n, delete the old directory, and verify imports/links still work.\nFor example:\nBefore:\nscripts/\n└── designation-based-group-provisioning/\n├── main.py\n├── index.md\n└── tests/\n└── test_main.py\nAfter:\nscripts/\n└── designation_based_group_provisioning/\n├── main.py\n├── index.md\n└── tests/\n└── test_main.py\nStep 2: Refactor\nmain.py\n¶\nDO\nRefactor the script without altering logic or flow.\nWrap all logic inside functions.\nCreate a single entry point:\nmain(args: argparse.Namespace)\nCall helper functions from\nmain()\n— each should receive only required\nargs\nor\ninputs\n.\nDO NOT\nRename or restructure existing functions.\nChange the sequence or logic flow.\nModify argument parsing.\nAdd/remove logging unless required for debugging.\nFor example\nmain.py\n:",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "args\nor\ninputs\n.\nDO NOT\nRename or restructure existing functions.\nChange the sequence or logic flow.\nModify argument parsing.\nAdd/remove logging unless required for debugging.\nFor example\nmain.py\n:\ndef\nload_input_file\n(\nfile\n:\nAny\n):\npass\ndef\ndo_something_with_file\n(\nclient\n:\nAtlanClient\n,\nfile\n:\nAny\n):\npass\ndef\nmain\n(\nargs\n:\nargparse\n.\nNamespace\n):\nclient\n=\nget_client\n(\nimpersonate_user_id\n=\nargs\n.\nuser_id\n)\nclient\n=\nset_package_headers\n(\nclient\n)\nfile\n=\nload_input_file\n(\nargs\n.\ninput_file\n)\ndo_something_with_file\n(\nclient\n,\nfile\n)\nif\n__name__\n==\n\"__main__\"\n:\nparser\n=\nargparse\n.\nArgumentParser\n()\nparser\n.\nadd_argument\n(\n\"--user-id\"\n,\nrequired\n=\nTrue\n)\nparser\n.\nadd_argument\n(\n\"--input-file\"\n,\nrequired\n=\nTrue\n)\nargs\n=\nparser\n.\nparse_args\n()\nmain\n(\nargs\n)\nStep 3: Add integration tests\n¶\nBefore writing tests, make sure you've installed the test dependencies in your local environment. You can do that by running the following command:\npip\ninstall\n-e\n\".[test]\"\nAlternatively, you can explicitly install the required packages by creating a\nrequirements-test.txt\nfile and installing them using:\nrequirements-dev.txt\n1\n2\n3\n4\n5\n6\npytest\ncoverage\n# pytest plugins (optional)\npytest\n-\norder\npytest",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "requirements-test.txt\nfile and installing them using:\nrequirements-dev.txt\n1\n2\n3\n4\n5\n6\npytest\ncoverage\n# pytest plugins (optional)\npytest\n-\norder\npytest\n-\nsugar\npytest\n-\ntimer\n[\ntermcolor\n]\npip\ninstall\n-r\nrequirements-test.txt\nTest layout for\ntest_main.py\n¶\nCreate a\ntests/\nfolder if not already present:\nscripts/\n└── my_script/\n├── main.py\n└── tests/\n└── test_main.py\nFunction\nPurpose\ntest_main_functions\nTest small pure helper functions individually (useful for quick validation of logic)\ntest_main\nRun the\nmain()\nfunction with a config to simulate full script execution (end-to-end)\ntest_after_main\n(optional)\nValidate side effects after running the script, such as asset creation, retrieval, audit logs, etc.\nFor example, you can refer to this real-world\nintegration test for\ndesignation_based_group_provisioning/main.py\n:\nRecommended testing strategy for scripts\n¶\nWhen writing\nintegration tests\nfor scripts in\nmarketplace-csa-scripts\n, follow these practices to ensure reliable and production-relevant test coverage:\nBest practices\n¶\nAvoid using\nmock\n,\npatch\n, or mocking\npyatlan\nclients or any Atlan interactions — unless absolutely necessary.\nIntegration tests should interact with a",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Best practices\n¶\nAvoid using\nmock\n,\npatch\n, or mocking\npyatlan\nclients or any Atlan interactions — unless absolutely necessary.\nIntegration tests should interact with a\nreal Atlan tenant\nto validate actual behavior.\nUse mocking or patching\nonly\n(for example):\nExternal/third-party API calls\nDatabase interactions not managed by Atlan\nNon-deterministic behavior (e.g: random data, time-based logic)\nUse\nenvironment variables\nfor all secrets and configuration values.\nLoad them via\n.env\nfiles, CI/CD secrets, or shell configs — never hardcode.\nThings to avoid\n¶\nHardcoding sensitive values such as API keys, user-specific secrets, or test asset names.\nInstead, use environment variables and\npyatlan.test_utils\nlike\nTestId.make_unique()\nto generate unique asset names and avoid naming collisions. Ensure that test objects are generated in fixtures, which can be reused across different tests, and cleaned up safely after tests are complete.\nUsing fake or placeholder data that doesn't reflect the actual structure or behavior of entities in Atlan. Always use data that closely mirrors production data for more meaningful tests.\nMocking\npyatlan\nclient methods — integration tests must execute",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Mocking\npyatlan\nclient methods — integration tests must execute\nreal operations\nagainst a live Atlan tenant to ensure validity and detect regressions. Mocking undermines the purpose of integration testing.\nFull example (expand for details)\ntest_main.py\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n92\n93\n94\n95\n96\n97\n98\n99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n114\n115\n116\n117\n118\n119\n120\n121\n122\n123\n124\n125\nimport\npytest\nfrom\ntypes\nimport\nSimpleNamespace\nfrom\npyatlan.pkg.utils\nimport\nget_client\n,\nset_package_headers\nimport\npandas\nas\npd\nfrom\nscripts.designation_based_group_provisioning.main\nimport\n(\nreview_groups\n,\nget_default_groups\n,\nget_ungrouped_users\n,\nmap_users_by_designation\n,\nmain\n,\n)\nfrom\npyatlan.model.group\nimport\nAtlanGroup\n,\nCreateGroupResponse\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.test_utils\nimport\nTestId\nfrom\ntyping\nimport\nGenerator\nimport\nos\nfrom\npathlib\nimport\nPath\nTEST_PATH\n=\nPath\n(\n__file__\n)\n.\nparent",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "from\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.test_utils\nimport\nTestId\nfrom\ntyping\nimport\nGenerator\nimport\nos\nfrom\npathlib\nimport\nPath\nTEST_PATH\n=\nPath\n(\n__file__\n)\n.\nparent\nTEST_GROUP_NAME\n=\nTestId\n.\nmake_unique\n(\n\"csa-dbgp-test\"\n)\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\nconfig\n()\n->\nSimpleNamespace\n:\nreturn\nSimpleNamespace\n(\nuser_id\n=\nos\n.\nenviron\n.\nget\n(\n\"ATLAN_USER_ID\"\n),\nmapping_file\n=\nf\n\"\n{\nTEST_PATH\n}\n/test_mapping.csv\"\n,\nmissing_groups_handler\n=\n\"SKIP\"\n,\nremove_from_default_group\n=\n\"\"\n,\ndomain_name\n=\n\"mock-tenant.atlan.com\"\n,\n)\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\nclient\n(\nconfig\n):\nif\nconfig\n.\nuser_id\n:\nclient\n=\nget_client\n(\nimpersonate_user_id\n=\nconfig\n.\nuser_id\n)\nelse\n:\nclient\n=\nAtlanClient\n()\nclient\n=\nset_package_headers\n(\nclient\n)\nreturn\nclient\n@pytest\n.\nfixture\n(\nscope\n=\n\"module\"\n)\ndef\ngroup\n(\nclient\n:\nAtlanClient\n)\n->\nGenerator\n[\nCreateGroupResponse\n,\nNone\n,\nNone\n]:\nto_create\n=\nAtlanGroup\n.\ncreate\n(\nTEST_GROUP_NAME\n)\ng\n=\nclient\n.\ngroup\n.\ncreate\n(\ngroup\n=\nto_create\n)\n# Read the CSV file\ndf\n=\npd\n.\nread_csv\n(\nf\n\"\n{\nTEST_PATH\n}\n/mapping.csv\"\n)\n# Replace values in the 'GROUP_NAME' column with the test group name\ndf\n[\n\"GROUP_NAME\"\n]\n=\ndf\n[",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "create\n(\ngroup\n=\nto_create\n)\n# Read the CSV file\ndf\n=\npd\n.\nread_csv\n(\nf\n\"\n{\nTEST_PATH\n}\n/mapping.csv\"\n)\n# Replace values in the 'GROUP_NAME' column with the test group name\ndf\n[\n\"GROUP_NAME\"\n]\n=\ndf\n[\n\"GROUP_NAME\"\n]\n.\nreplace\n(\n\"Data Engineers and Scientists\"\n,\nTEST_GROUP_NAME\n)\n# Save the updated test CSV\ndf\n.\nto_csv\n(\nf\n\"\n{\nTEST_PATH\n}\n/test_mapping.csv\"\n,\nindex\n=\nFalse\n)\nassert\nos\n.\npath\n.\nexists\n(\nf\n\"\n{\nTEST_PATH\n}\n/test_mapping.csv\"\n)\nyield\ng\nclient\n.\ngroup\n.\npurge\n(\ng\n.\ngroup\n)\nos\n.\nremove\n(\nf\n\"\n{\nTEST_PATH\n}\n/test_mapping.csv\"\n)\ndef\ntest_main_functions\n(\nconfig\n:\nSimpleNamespace\n,\nclient\n:\nAtlanClient\n,\ngroup\n:\nAtlanGroup\n,\ncaplog\n:\npytest\n.\nLogCaptureFixture\n,\n):\n# Test configuration validation\nassert\nconfig\n.\nmapping_file\n.\nendswith\n(\n\".csv\"\n)\n# Test group review functionality\nverified_groups\n=\nreview_groups\n(\nconfig\n.\nmapping_file\n,\nconfig\n.\nmissing_groups_handler\n,\nclient\n)\nassert\ncaplog\n.\nrecords\n[\n0\n]\n.\nlevelname\n==\n\"INFO\"\nassert\n\"-> Source information procured.\"\nin\ncaplog\n.\nrecords\n[\n0\n]\n.\nmessage\nassert\nisinstance\n(\nverified_groups\n,\nset\n)\ndefault_groups\n=\nget_default_groups\n(\nclient\n)\nassert\ncaplog\n.\nrecords\n[\n6\n]\n.\nlevelname\n==\n\"INFO\"\nassert\n\"DEFAULT groups found:\"",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": ".\nrecords\n[\n0\n]\n.\nmessage\nassert\nisinstance\n(\nverified_groups\n,\nset\n)\ndefault_groups\n=\nget_default_groups\n(\nclient\n)\nassert\ncaplog\n.\nrecords\n[\n6\n]\n.\nlevelname\n==\n\"INFO\"\nassert\n\"DEFAULT groups found:\"\nin\ncaplog\n.\nrecords\n[\n6\n]\n.\nmessage\nassert\nisinstance\n(\ndefault_groups\n,\nlist\n)\nand\nlen\n(\ndefault_groups\n)\n>\n0\ngroupless_users\n=\nget_ungrouped_users\n(\ndefault_groups\n=\ndefault_groups\n,\nclient\n=\nclient\n)\nassert\nisinstance\n(\ngroupless_users\n,\nlist\n)\nand\nlen\n(\ngroupless_users\n)\n>\n0\nunmappable_users\n=\nmap_users_by_designation\n(\nuser_list\n=\ngroupless_users\n,\nmapping_file\n=\nconfig\n.\nmapping_file\n,\nverified_groups\n=\nverified_groups\n,\nclient\n=\nclient\n,\n)\nassert\nisinstance\n(\nunmappable_users\n,\nlist\n)\nand\nlen\n(\nunmappable_users\n)\n>\n0\ndef\ntest_main\n(\nconfig\n:\nSimpleNamespace\n,\nclient\n:\nAtlanClient\n,\ngroup\n:\nAtlanGroup\n,\ncaplog\n:\npytest\n.\nLogCaptureFixture\n,\n):\n# Test end-to-end main function execution\nmain\n(\nconfig\n)\n# Verify expected log messages\nassert\ncaplog\n.\nrecords\n[\n0\n]\n.\nlevelname\n==\n\"INFO\"\nassert\n\"SDK Client initialized for tenant\"\nin\ncaplog\n.\nrecords\n[\n0\n]\n.\nmessage\nassert\n\"Input file path -\"\nin\ncaplog\n.\nrecords\n[\n1\n]\n.\nmessage\nassert\n\"-> Source information procured.\"\nin\ncaplog\n.",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "assert\n\"SDK Client initialized for tenant\"\nin\ncaplog\n.\nrecords\n[\n0\n]\n.\nmessage\nassert\n\"Input file path -\"\nin\ncaplog\n.\nrecords\n[\n1\n]\n.\nmessage\nassert\n\"-> Source information procured.\"\nin\ncaplog\n.\nrecords\n[\n2\n]\n.\nmessage\nassert\n\"Total distinct groups in the input:\"\nin\ncaplog\n.\nrecords\n[\n3\n]\n.\nmessage\n@pytest\n.\nmark\n.\norder\n(\nafter\n=\n\"test_main\"\n)\ndef\ntest_after_main\n(\nclient\n:\nAtlanClient\n,\ngroup\n:\nCreateGroupResponse\n):\nresult\n=\nclient\n.\ngroup\n.\nget_by_name\n(\nTEST_GROUP_NAME\n)\nassert\nresult\nand\nlen\n(\nresult\n)\n==\n1\ntest_group\n=\nresult\n[\n0\n]\nassert\ntest_group\n.\npath\nassert\ntest_group\n.\nname\nassert\ntest_group\n.\nid\n==\ngroup\n.\ngroup\nassert\ntest_group\n.\nattributes\nassert\nnot\ntest_group\n.\nattributes\n.\ndescription\n# Make sure users are successfully assigned\n# to the test group after running the workflow\nassert\ntest_group\n.\nuser_count\nand\ntest_group\n.\nuser_count\n>=\n1\n(Optional) Writing tests for non-toolkit based scripts using Cursor AI code editor\n¶\nYou can leverage AI code editors like\nCursor\nto help with refactoring existing scripts and generating integration tests for the\nmarketplace-csa-scripts",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "¶\nYou can leverage AI code editors like\nCursor\nto help with refactoring existing scripts and generating integration tests for the\nmarketplace-csa-scripts\nrepository. However, it’s important to be aware of the potential issues and risks that may arise.\nStep 1: Setup Cursor rules\n¶\nTo ensure the AI agent provides the desired results based on your prompts, you need to set up custom rules for your code editor.\nCreate a rules file:\nCreate the file\n.cursor/rules/csa-scripts-tests.mdc\nin your project directory.\nYou can start by copying the\nexample rule\nand modifying them to match your needs.\nRefine rules over time:\nAs you use AI for refactoring and generating tests, you can refine the rules. By adding more context (e.g: multiple packages and varied test patterns), the AI will become more effective over time, improving its results.\nStep 2: Running the agent with the defined Rules\n¶\nTo run the AI agent with the defined rules, follow these steps:\nOpen the cursor chat:\nPress\ncmd + L\nto open a new chat in the Cursor IDE.\nClick on\nAdd Context\n, then select\ncsa-scripts-tests.mdc\nto load the rules you defined.\nProvide a clear prompt:",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "Open the cursor chat:\nPress\ncmd + L\nto open a new chat in the Cursor IDE.\nClick on\nAdd Context\n, then select\ncsa-scripts-tests.mdc\nto load the rules you defined.\nProvide a clear prompt:\nAfter loading the rules, provide a clear prompt like the following to refactor your script and add integration tests:\nRefactor `scripts/asset-change-notification/main.py` using the latest Cursor rules and add integration tests in `scripts/asset_change_notification/tests/test_main.py` to ensure functionality and coverage.\nReview results:\nOnce the AI completes the task, review the generated results carefully. You may need to accept or reject parts of the refactoring based on your preferences and quality standards.\nCommon Issues\n¶\nLow accuracy across models:\nAI results can be highly inconsistent, even after experimenting with different combinations of rules and prompts. In many cases, only a small fraction of attempts yield satisfactory results.\nInconsistent output:\nRegardless of using detailed or minimal rules, and trying various AI models (\nClaude 3.7, Sonnet 3.5, Gemini, OpenAI\n), the output often lacks consistency, leading to unsatisfactory refactorings.\nRisks in refactoring\n¶\nCode deletion:",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "Claude 3.7, Sonnet 3.5, Gemini, OpenAI\n), the output often lacks consistency, leading to unsatisfactory refactorings.\nRisks in refactoring\n¶\nCode deletion:\nAI can unintentionally remove important parts of the original code during refactoring.\nUnnecessary code addition:\nAI might add code that changes the behavior of the script, potentially introducing bugs.\nFlaky or insufficient tests:\nGenerated tests are often overly simplistic or unreliable. AI may also mock components that should not be mocked, leading to incomplete test coverage.\nLive on a tenant\n¶\nYou should then test the package live on a tenant. This will confirm:\nThe UI renders as you intend,\nany inputs provided by the user through the UI are properly handed-off to your logic,\nand your bundled package is orchestrated successfully through Atlan's back-end workflow engine (Argo).\nDeploy the package\n¶\nkubectl\nGitHub\nIf you have\nkubectl\naccess to your cluster, you can selectively deploy your package directly:\nEnsure you are on your cluster:\nloft\nuse\nvcluster\n<tenant-name>\n--project\ndefault\n# (1)!\nReplace\n<tenant-name>",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "kubectl\naccess to your cluster, you can selectively deploy your package directly:\nEnsure you are on your cluster:\nloft\nuse\nvcluster\n<tenant-name>\n--project\ndefault\n# (1)!\nReplace\n<tenant-name>\nwith the name of your tenant. (This assumes you are already logged in to Loft — naturally log in there first, if you are not already.)\n(One-off) Install\nnode\n, if you do not already have\nnpm\navailable:\nbrew\ninstall\nnode\nInstall the latest version of\nargopm\n:\nnpm\ni\n-g\nargopm\nDeploy the package from its rendered output directory:\nargopm\ninstall\n.\n-n\ndefault\n-c\n--force\n# (1)!\nIf you are not in the output directory where your package was rendered, replace the\n.\nwith the directory path for the rendered output.\nPackage must first be generally available\nTo follow these steps, you must first make your package\ngenerally available\n. (Generally available in this sense just means it is available to be deployed — it is not actually deployed to any tenant by default.)\nIf you do not have\nkubectl\naccess to your cluster, you will need to selectively deploy the package through the\natlanhq/marketplace-packages\nrepository.\nClone\natlanhq/marketplace-packages\nto your local machine (if you have not already):\ngit",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "atlanhq/marketplace-packages\nrepository.\nClone\natlanhq/marketplace-packages\nto your local machine (if you have not already):\ngit\nclone\ngit@github.com:atlanhq/marketplace-packages.git\n# (1)!\ncd\nmarketplace-packages\nThis assumes you have configured your Git client with appropriate credentials. If this step fails, you'll need to setup\ngit\nfirst.\nStart from an up-to-date\nmaster\nbranch (in particular if you already have the repository cloned locally):\ngit\ncheckout\nmaster\ngit\nmerge\norigin/master\nCreate a branch in the local repository:\ngit\nbranch\nJIRA-TASK-ID\n# (1)!\ngit\ncheckout\nJIRA-TASK-ID\nReplace\nJIRA-TASK-ID\nwith the unique ID of the task in Jira where you are tracking your work.\nCreate or edit the file\ndeployment/tenants/<tenant-name>.pkl\nfor the tenant where you want to deploy the package, with at least the following content:\ndeployment/tenants/<tenant-name>.pkl\n1\n2\n3\n4\n5\namends\n\"../Deployment.pkl\"\ninclude\n{\n[\n\"@csa/openapi-spec-loader\"\n]\n{}\n// (1)!\n}\nOf course, use your own package's ID in place of\n@csa/openapi-spec-loader\n.\nStage your new (or modified)\n.pkl\nfile:\ngit\nadd\ndeployment/tenants/<tenant-name>.pkl\n# (1)!\nRemember to replace\n<tenant-name>",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "@csa/openapi-spec-loader\n.\nStage your new (or modified)\n.pkl\nfile:\ngit\nadd\ndeployment/tenants/<tenant-name>.pkl\n# (1)!\nRemember to replace\n<tenant-name>\nwith your actual tenant name. (This tells\ngit\nwhich files to include all together in your next commit.)\nCommit your new (or modified) file to the branch:\ngit\ncommit\n-m\n'Package deployment for ...'\n# (1)!\nProvide a meaningful message for the new package you're deploying. (This tells\ngit\nto take a (local) snapshot of all the changes you staged (above).)\nPush your committed changes to the remote repository:\ngit\npush\n--set-upstream\norigin\nJIRA-TASK-ID\n# (1)!\nRemember that\nJIRA-TASK-ID\nis just a placeholder — replace with the name of your actual branch. (This tells\ngit\nto push all the (local) commits you've made against this branch to the remote GitHub repository, so they're available to everyone there.)\nRaise a pull request (PR) from your branch (\nJIRA-TASK-ID\n) to\nmaster\non\natlanhq/marketplace-packages\n.\nWill be auto-approved\nAs long as you have named the file correctly and written valid contents, it will be auto-approved by a bot.\nOnce auto-approved, you can self-merge to\nmaster\n.\n1\nOnce the PR is merged, wait for the\natlan-update",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "Once auto-approved, you can self-merge to\nmaster\n.\n1\nOnce the PR is merged, wait for the\natlan-update\nscript to run and complete on your tenant. By default it will run every 30 minutes, so could take up to 1 hour before it has completed on your tenant.\n2\nTest the package\n¶\nNow that the package is deployed on your tenant:\nHover over the\nNew\nbutton in the upper-right, and then click\nNew workflow\n.\nSelect the pill that matches the name of the\ncategory\nyou specified for your package. (If you did not specify one, it should be under\nCustom\n, by default.)\nSelect the tile for your package, and then click the\nSetup Workflow\nbutton in the upper-right.\nFill in appropriate inputs to the UI to configure your package, click\nNext\nthrough each step (if more than one), and finally\nRun\nthe package.\nRunning example\nFor our running example, this would produce the following UI:\nConfirm:\nThe inputs shown in the UI are as you expect, in particular if you use any\nrules\nto limit what inputs are shown.\nThe values you provided in the inputs are picked up by your custom logic and influence how the package behaves.\nYour package runs to completion when you provide valid inputs.",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "The values you provided in the inputs are picked up by your custom logic and influence how the package behaves.\nYour package runs to completion when you provide valid inputs.\nYour package fails with an error when you provide inputs it cannot use to run successfully.\nIf it fails, double-check you have the correct filename, which\nmust\nend in\n.pkl\n.\n↩\nIt is also possible that synchronization has been disabled on your tenant, in which case\natlan-update\nmay not run at all. If that is the case, you will need to speak with whoever manages your tenant to see how you can test your package.\n↩\n2025-03-12\n2025-04-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits_custom-package_test.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_test.json",
+      "chunk_id": 26
+    }
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Set up an AWS private network link to Snowflake | Atlan Documentation\nSkip to main content\nOn this page\nAWS PrivateLink\ncreates a secure, private connection between services running in AWS. This document describes the steps to set this up between Snowflake and Atlan, when you use our Single Tenant SaaS deployment.\nWho can do this?\nYou will need Snowflake Support, and probably your Snowflake administrator involved   -  you may not have access or the tools to run these tasks.\nPrerequisites\nâ\nSnowflake must be setup with Business Critical Edition (or higher).\nOpen a ticket with Snowflake Support to enable PrivateLink for your Snowflake account.\nSnowflake support will take 1-2 days to review and enable PrivateLink.\nIf you are using IP allowlist in your Snowflake instance, you must add the Atlan IP to the allowlist. Please\nraise a support request\nto do so.\n(For all details, see the\nSnowflake documentation\n.)\nFetch PrivateLink information\nâ\nLog in to snowCLI using the\nACCOUNTADMIN\naccount, and run the following commands:\nuse role accountadmin;\nselect system$get_privatelink_config();\nThis will produce output like the following (formatted here for readability):\n{",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-aws-private-network-link-to-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-aws-private-network-link-to-snowflake.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "ACCOUNTADMIN\naccount, and run the following commands:\nuse role accountadmin;\nselect system$get_privatelink_config();\nThis will produce output like the following (formatted here for readability):\n{\n\"privatelink-account-name\":\"abc123.ap-south-1.privatelink\",\n\"privatelink-vpce-id\":\"com.amazonaws.vpce.ap-south-1.vpce-svc-257a4d536bd8e3594\",\n\"privatelink-account-url\":\"abc123.ap-south-1.privatelink.snowflakecomputing.com\",\n\"regionless-privatelink-account-url\":\"xyz789-abc123.privatelink.snowflakecomputing.com\",\n\"privatelink_ocsp-url\":\"ocsp.abc123.ap-south-1.privatelink.snowflakecomputing.com\",\n\"privatelink-connection-urls\":\"[]\"\n}\nShare details with Atlan support team\nâ\nShare the following values with the\nAtlan support\nteam:\nprivatelink-account-name\nprivatelink-vpce-id\nprivatelink-account-url\nprivatelink_ocsp-url\nAtlan support will finish the configuration on the Atlan side using these values. Support will then provide the Snowflake PrivateLink endpoint back to you.\nWhen you use this endpoint in the configuration for\ncrawling\nand\nmining\n, Atlan will connect to Snowflake over the PrivateLink.\nPrerequisites\nFetch PrivateLink information\nShare details with Atlan support team",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-aws-private-network-link-to-snowflake.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_snowflake_how-tos_set-up-an-aws-private-network-link-to-snowflake.json",
+      "chunk_id": 1
+    }
+  }
+]

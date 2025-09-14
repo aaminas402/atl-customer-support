@@ -1,0 +1,209 @@
+[
+  {
+    "content": "dbt assets package - Developer\nSkip to content\ndbt assets package\n¶\nThe\ndbt assets package\ncrawls dbt assets and publishes them to Atlan for discovery.\nCloud\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method\nit will create a new connection and new assets within that connection — which could lead to\nduplicate assets if you run the workflow this way multiple times with the same settings.\nInstead, when you want to re-crawl assets, re-run the existing workflow\n(see\nRe-run existing workflow\nbelow).\n7.0.0\n4.0.0\nTo create a new crawl of dbt assets from a multi-tenant dbt Cloud account:\nJava\nPython\nKotlin\nRaw REST API\ndbt Cloud multi-tenant\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\nWorkflow\ncrawler\n=\nDbtCrawler\n.\ncreator\n(\n// (1)\nclient\n,\n// (2)\n\"dbt-snowflake\"\n,\n// (3)\nList\n.\nof\n(\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"$admin\"\n)),\n// (4)\nnull\n,\nnull\n)\n.\ncloud\n(\n// (5)\n\"https://cloud.getdbt.com\"\n,\n\"example-token\"\n,\ntrue\n)\n.\nlimitToConnection\n(\n// (6)\n\"default/snowflake/1234567890\"\n)\n.\ninclude\n(\n\"{\\\"24670\\\":{\\\"211208\\\":{\\\"163013\\\":{\\\"207502\\\":{}}}}}\"\n)\n// (7)\n.\nexclude\n(\n\"{\\\"24670\\\":{}}\"\n)\n// (8)\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ",\ntrue\n)\n.\nlimitToConnection\n(\n// (6)\n\"default/snowflake/1234567890\"\n)\n.\ninclude\n(\n\"{\\\"24670\\\":{\\\"211208\\\":{\\\"163013\\\":{\\\"207502\\\":{}}}}}\"\n)\n// (7)\n.\nexclude\n(\n\"{\\\"24670\\\":{}}\"\n)\n// (8)\n.\ntags\n(\ntrue\n)\n// (9)\n.\nenrichMaterializedAssets\n(\ntrue\n)\n// (10)\n.\nbuild\n()\n// (11)\n.\ntoWorkflow\n();\n// (12)\nWorkflowResponse\nresponse\n=\ncrawler\n.\nrun\n(\nclient\n);\n// (13)\nThe\nDbtCrawler\npackage will create a workflow to crawl assets from dbt cloud.\nYou must provide Atlan client.\nYou must provide a name for the connection that the dbt assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers)\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nTo configure the crawler for extracting dbt assets directly from dbt cloud account then you must provide the following information:\nhostname of your dbt cloud instance.\ntoken to use to authenticate against dbt cloud instance.\nwhether to use a multi-tenant cloud config (\ntrue\n), otherwise a single-tenant cloud config (\nfalse\n).\nYou can also optionally specify the\nqualifiedName",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "whether to use a multi-tenant cloud config (\ntrue\n), otherwise a single-tenant cloud config (\nfalse\n).\nYou can also optionally specify the\nqualifiedName\nof a connection to a source (such as Snowflake), to limit the crawling of dbt assets to that existing connection in Atlan.\nYou can also optionally specify the list of assets to include in crawling. This is a highly-nested map structure of numeric IDs for the account, project, etc. You will almost certainly need to set up the filter you want through the UI first, and look at the developer console of your browser to see the structure.\nYou can also optionally specify the list of assets to exclude from crawling. This follows the same structure as the inclusion filter.\nYou can also optionally specify whether to enable dbt tag syncing as part of crawling dbt.\nYou can also optionally set whether to enable the enrichment of materialized SQL assets as part of crawling dbt.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.\nYou can then run the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Workflow\nobject.\nYou can then run the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\ndbt Cloud multi-tenant\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nDbtCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nDbtCrawler\n(\n# (1)\nclient\n=\nclient\n,\n# (2)\nconnection_name\n=\n\"dbt-snowflake\"\n,\n# (3)\nadmin_roles\n=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (4)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\n)\n.\ncloud\n(\n# (5)\nhostname\n=\n\"https://cloud.getdbt.com\"\n,\nservice_token\n=\n\"example-token\"\n,\nmulti_tenant\n=\nTrue\n,\n)\n.\nlimit_to_connection\n(\n# (6)\nconnection_qualified_name\n=\n\"default/snowflake/1234567890\"\n)\n.\ninclude\n(\nfilter\n=\n'{\"24690\":{\"327645\":\n{}\n}}'\n)\n# (7)\n.\nexclude\n(\nfilter\n=\n''\n)\n# (8)\n.\ntags\n(\nTrue\n)\n# (9)\n.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "(\n# (6)\nconnection_qualified_name\n=\n\"default/snowflake/1234567890\"\n)\n.\ninclude\n(\nfilter\n=\n'{\"24690\":{\"327645\":\n{}\n}}'\n)\n# (7)\n.\nexclude\n(\nfilter\n=\n''\n)\n# (8)\n.\ntags\n(\nTrue\n)\n# (9)\n.\nenrich_materialized_assets\n(\nTrue\n)\n# (10)\n.\nto_workflow\n()\n# (11)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\ncrawler\n)\n# (12)\nBase configuration for a new dbt crawler.\nYou must provide a client instance.\nYou must provide a name for the connection that the dbt assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers)\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nTo configure the crawler for extracting dbt assets directly from\ndbt cloud account then you must provide the following information:\nhostname of your dbt cloud instance.\ntoken to use to authenticate against dbt cloud instance.\nwhether to use a multi-tenant cloud config (\nTrue\n), otherwise a single-tenant cloud config (\nFalse\n).\nYou can also optionally specify the\nqualifiedName\nof a connection to a source (such as Snowflake),\nto limit the crawling of dbt assets to that existing connection in Atlan.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "False\n).\nYou can also optionally specify the\nqualifiedName\nof a connection to a source (such as Snowflake),\nto limit the crawling of dbt assets to that existing connection in Atlan.\nYou can also optionally specify the list of assets to include in crawling.\nThis is a highly-nested map structure of numeric IDs for the account, project, etc.\nYou will almost certainly need to set up the filter you want through the UI first,\nand look at the developer console of your browser to see the structure.\n(If set to None, all assets will be crawled.)\nYou can also optionally specify the list of assets to exclude from crawling.\nThis follows the same structure as the inclusion filter.\n(If set to None, no assets will be excluded.)\nYou can also optionally specify whether to\nenable dbt tag syncing as part of crawling dbt.\nYou can also optionally set whether to enable\nthe enrichment of materialized SQL assets as part of crawling dbt.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "run()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\ndbt Cloud multi-tenant\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\nval\ncrawler\n=\nDbtCrawler\n.\ncreator\n(\n// (1)\nclient\n,\n// (2)\n\"dbt-snowflake\"\n,\n// (3)\nlistOf\n(\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"\\\n$\nadmin\n\"\n)),\n// (4)\nnull\n,\nnull\n)\n.\ncloud\n(\n// (5)\n\"https://cloud.getdbt.com\"\n,\n\"example-token\"\n,\ntrue\n)\n.\nlimitToConnection\n(\n// (6)\n\"default/snowflake/1234567890\"\n)\n.\ninclude\n(\n\"{\\\"24670\\\":{\\\"211208\\\":{\\\"163013\\\":{\\\"207502\\\":{}}}}}\"\n)\n// (7)\n.\nexclude\n(\n\"{\\\"24670\\\":{}}\"\n)\n// (8)\n.\ntags\n(\ntrue\n)\n// (9)\n.\nenrichMaterializedAssets\n(\ntrue\n)\n// (10)\n.\nbuild\n()\n// (11)\n.\ntoWorkflow\n()\n// (12)\nval\nresponse\n=\ncrawler\n.\nrun\n(\nclient\n)\n// (13)\nThe\nDbtCrawler\npackage will create a workflow to crawl assets from dbt cloud.\nYou must provide Atlan client.\nYou must provide a name for the connection that the dbt assets will exist within.\nYou must specify at\nleast one connection admin\n, either:",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "You must provide Atlan client.\nYou must provide a name for the connection that the dbt assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers)\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nTo configure the crawler for extracting dbt assets directly from dbt cloud account then you must provide the following information:\nhostname of your dbt cloud instance.\ntoken to use to authenticate against dbt cloud instance.\nwhether to use a multi-tenant cloud config (\ntrue\n), otherwise a single-tenant cloud config (\nfalse\n).\nYou can also optionally specify the\nqualifiedName\nof a connection to a source (such as Snowflake), to limit the crawling of dbt assets to that existing connection in Atlan.\nYou can also optionally specify the list of assets to include in crawling. This is a highly-nested map structure of numeric IDs for the account, project, etc. You will almost certainly need to set up the filter you want through the UI first, and look at the developer console of your browser to see the structure.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "You can also optionally specify the list of assets to exclude from crawling. This follows the same structure as the inclusion filter.\nYou can also optionally specify whether to enable dbt tag syncing as part of crawling dbt.\nYou can also optionally set whether to enable the enrichment of materialized SQL assets as part of crawling dbt.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.\nYou can then run the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI. To rerun an existing workflow, see the steps below.\nCore\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method it",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "Core\n¶\nWill create a new connection\nThis should only be used to create the workflow the first time. Each time you run this method it\nwill create a new connection and new assets within that connection — which could lead to duplicate assets\nif you run the workflow this way multiple times with the same settings.\nInstead, when you want to re-crawl assets, re-run the existing workflow\n(see\nRe-run existing workflow\nbelow).\n7.0.0\n4.0.0\nTo create a new crawl of dbt assets from a dbt files location:\nJava\nPython\nKotlin\nRaw REST API\ndbt Core\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\nWorkflow\ncrawler\n=\nDbtCrawler\n.\ncreator\n(\n// (1)\nclient\n,\n// (2)\n\"dbt-snowflake\"\n,\n// (3)\nList\n.\nof\n(\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"$admin\"\n)),\n// (4)\nnull\n,\nnull\n)\n.\ncore\n(\n// (5)\n\"dbt-bucket\"\n,\n\"dbt-data\"\n,\n\"ap-south-1\"\n)\n.\nlimitToConnection\n(\n// (6)\n\"default/snowflake/1234567890\"\n)\n.\ntags\n(\ntrue\n)\n// (7)\n.\nenrichMaterializedAssets\n(\ntrue\n)\n// (8)\n.\nbuild\n()\n// (9)\n.\ntoWorkflow\n();\n// (10)\nWorkflowResponse\nresponse\n=\ncrawler\n.\nrun\n(\nclient\n);\n// (11)\nThe\nDbtCrawler\npackage will create a workflow to crawl assets from dbt files location.\nYou must provide Atlan client.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "();\n// (10)\nWorkflowResponse\nresponse\n=\ncrawler\n.\nrun\n(\nclient\n);\n// (11)\nThe\nDbtCrawler\npackage will create a workflow to crawl assets from dbt files location.\nYou must provide Atlan client.\nYou must provide a name for the connection that the dbt assets will exist within\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers)\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nTo configure the crawler for extracting dbt assets directly from the dbt files location, you must provide the following information:\ns3 bucket containing the dbt Core files.\nprefix within the S3 bucket where the dbt Core files are located.\ns3 region where the bucket is located.\nYou can also optionally specify the\nqualifiedName\nof a connection to a source (such as Snowflake), to limit the crawling of dbt assets to that existing connection in Atlan.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "You can also optionally specify the\nqualifiedName\nof a connection to a source (such as Snowflake), to limit the crawling of dbt assets to that existing connection in Atlan.\nYou can also optionally specify the list of assets to include in crawling. This is a highly-nested map structure of numeric IDs for the account, project, etc. You will almost certainly need to set up the filter you want through the UI first, and look at the developer console of your browser to see the structure.\nYou can also optionally set whether to enable the enrichment of materialized SQL assets as part of crawling dbt.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.\nYou can then run the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\ndbt Core\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\nfrom",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "for details on how you can check the status and wait until the workflow has been completed.\ndbt Core\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.packages\nimport\nDbtCrawler\nclient\n=\nAtlanClient\n()\ncrawler\n=\n(\nDbtCrawler\n(\n# (1)\nclient\n=\nclient\n,\n# (2)\nconnection_name\n=\n\"dbt-snowflake\"\n,\n# (3)\nadmin_roles\n=\n[\nclient\n.\nrole_cache\n.\nget_id_for_name\n(\n\"$admin\"\n)],\n# (4)\nadmin_groups\n=\nNone\n,\nadmin_users\n=\nNone\n,\n)\n.\ncore\n(\n# (5)\ns3_bucket\n=\n\"dbt-bucket\"\n,\ns3_prefix\n=\n\"dbt-data\"\n,\ns3_region\n=\n\"ap-south-1\"\n,\n)\n.\nlimit_to_connection\n(\n# (6)\nconnection_qualified_name\n=\n\"default/snowflake/1234567890\"\n)\n.\ntags\n(\nTrue\n)\n# (7)\n.\nenrich_materialized_assets\n(\nTrue\n)\n# (8)\n.\nto_workflow\n()\n# (9)\n)\nresponse\n=\nclient\n.\nworkflow\n.\nrun\n(\ncrawler\n)\n# (10)\nBase configuration for a new dbt crawler.\nYou must provide a client instance.\nYou must provide a name for the connection that the dbt assets will exist within.\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers).\na list of groups (names) that will be connection admins.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "You must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers).\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nTo configure the crawler for extracting dbt assets directly\nfrom the dbt files location, you must provide the following information:\ns3 bucket containing the dbt Core files.\nprefix within the S3 bucket where the dbt Core files are located.\ns3 region where the bucket is located.\nYou can also optionally specify the\nqualifiedName\nof a connection to a source (such as Snowflake),\nto limit the crawling of dbt assets to that existing connection in Atlan.\nYou can also optionally specify whether to\nenable dbt tag syncing as part of crawling dbt.\nYou can also optionally set whether to enable\nthe enrichment of materialized SQL assets as part of crawling dbt.\nNow, you can convert the package into a\nWorkflow\nobject.\nRun the workflow by invoking the\nrun()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "run()\nmethod on the workflow client, passing the created object.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\ndbt Core\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\nval\ncrawler\n=\nDbtCrawler\n.\ncreator\n(\n// (1)\nclient\n,\n// (2)\n\"dbt-snowflake\"\n,\n// (3)\nlistOf\n(\nclient\n.\ngetRoleCache\n().\ngetIdForName\n(\n\"\\\n$\nadmin\n\"\n)),\n// (4)\nnull\n,\nnull\n)\n.\ncore\n(\n// (5)\n\"dbt-bucket\"\n,\n\"dbt-data\"\n,\n\"ap-south-1\"\n)\n.\nlimitToConnection\n(\n// (6)\n\"default/snowflake/1234567890\"\n)\n.\ntags\n(\ntrue\n)\n// (7)\n.\nenrichMaterializedAssets\n(\ntrue\n)\n// (8)\n.\nbuild\n()\n// (9)\n.\ntoWorkflow\n()\n// (10)\nval\nresponse\n=\ncrawler\n.\nrun\n(\nclient\n)\n// (11)\nThe\nDbtCrawler\npackage will create a workflow to crawl assets from dbt files location.\nYou must provide Atlan client.\nYou must provide a name for the connection that the dbt assets will exist within\nYou must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers)\na list of groups (names) that will be connection admins.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "You must specify at\nleast one connection admin\n, either:\neveryone in a role (in this example, all\n$admin\nusers)\na list of groups (names) that will be connection admins.\na list of users (names) that will be connection admins.\nTo configure the crawler for extracting dbt assets directly from the dbt files location, you must provide the following information:\ns3 bucket containing the dbt Core files.\nprefix within the S3 bucket where the dbt Core files are located.\ns3 region where the bucket is located.\nYou can also optionally specify the\nqualifiedName\nof a connection to a source (such as Snowflake), to limit the crawling of dbt assets to that existing connection in Atlan.\nYou can also optionally specify the list of assets to include in crawling. This is a highly-nested map structure of numeric IDs for the account, project, etc. You will almost certainly need to set up the filter you want through the UI first, and look at the developer console of your browser to see the structure.\nYou can also optionally set whether to enable the enrichment of materialized SQL assets as part of crawling dbt.\nBuild the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "Build the minimal package object.\nNow, you can convert the package into a\nWorkflow\nobject.\nYou can then run the workflow using the\nrun()\nmethod on the object you've created. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nCreate the workflow via UI only\nWe recommend creating the workflow only via the UI. To rerun an existing workflow, see the steps below.\nRe-run existing workflow\n¶\n1.9.5\n4.0.0\nTo re-run an existing workflow for dbt assets:\nJava\nPython\nKotlin\nRaw REST API\nRe-run existing dbt workflow\n1\n2\n3\n4\nList\n<\nWorkflowSearchResult\n>\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nDbtCrawler\n.\nPREFIX\n,\n5\n);\n// (2)\n// Determine which of the results is the dbt workflow you want to re-run...\nWorkflowRunResponse\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n);\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "WorkflowRunResponse\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n);\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nDbtCrawler\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(client, true)\nmethod with idempotency to avoid re-running a workflow that is already in running or in a pending state. This will return details of the already running workflow if found, and by default, it is set to\nfalse\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "false\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRe-run existing dbt workflow\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nWorkflowPackage\nclient\n=\nAtlanClient\n()\nexisting\n=\nclient\n.\nworkflow\n.\nfind_by_type\n(\n# (1)\nprefix\n=\nWorkflowPackage\n.\nDBT\n,\nmax_results\n=\n5\n)\n# Determine which dbt workflow (n)\n# from the list of results you want to re-run.\nresponse\n=\nclient\n.\nworkflow\n.\nrerun\n(\nexisting\n[\nn\n])\n# (2)\nYou can find workflows by their type using the workflow client\nfind_by_type()\nmethod and providing the\nprefix\nfor one of the packages.\nIn this example, we do so for the\nDbtCrawler\n. (You can also specify\nthe\nmaximum number of resulting workflows\nyou want to retrieve as results.)\nOnce you've found the workflow you want to re-run,\nyou can simply call the workflow client\nrerun()\nmethod.\nOptionally, you can use\nrerun(idempotent=True)\nto avoid re-running a workflow that is already in running or in a pending state.",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "you can simply call the workflow client\nrerun()\nmethod.\nOptionally, you can use\nrerun(idempotent=True)\nto avoid re-running a workflow that is already in running or in a pending state.\nThis will return details of the already running workflow if found, and by default, it is set to\nFalse\n.\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRe-run existing dbt workflow\n1\n2\n3\n4\n5\nval\nexisting\n=\nWorkflowSearchRequest\n// (1)\n.\nfindByType\n(\nclient\n,\nDbtCrawler\n.\nPREFIX\n,\n5\n)\n// (2)\n// Determine which of the results is the\n// dbt workflow you want to re-run...\nval\nresponse\n=\nexisting\n.\nget\n(\nn\n).\nrerun\n(\nclient\n)\n// (3)\nYou can search for existing workflows through the\nWorkflowSearchRequest\nclass.\nYou can find workflows by their type using the\nfindByType()\nhelper method and providing the prefix for one of the packages. In this example, we do so for the\nDbtCrawler\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "DbtCrawler\n. (You can also specify the maximum number of resulting workflows you want to retrieve as results.)\nOnce you've found the workflow you want to re-run, you can simply call the\nrerun()\nhelper method on the workflow search result. The\nWorkflowRunResponse\nis just a subtype of\nWorkflowResponse\nso has the same helper method to monitor progress of the workflow run. Because this operation will execute work in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nOptionally, you can use the\nrerun(true)\nmethod with idempotency to avoid re-running a workflow that is already in running or in a pending state. This will return details of the already running workflow if found, and by default, it is set to\nfalse\nWorkflows run asynchronously\nRemember that workflows run asynchronously. See the\npackages and workflows introduction\nfor details on how you can check the status and wait until the workflow has been completed.\nRequires multiple steps through the raw REST API\nFind the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "Find the existing workflow.\nSend through the resulting re-run request.\nPOST /api/service/workflows/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n5\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n,\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"metadata.name.keyword\"\n:\n{\n\"value\"\n:\n\"atlan-dbt\"\n// (1)\n}\n}\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"metadata.creationTimestamp\"\n:\n{\n\"nested\"\n:\n{\n\"path\"\n:\n\"metadata\"\n},\n\"order\"\n:\n\"desc\"\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\nSearching by the\natlan-dbt\nprefix will ensure you only find existing dbt assets workflows.\nName of the workflow\nThe name of the workflow will be nested within the\n_source.metadata.name\nproperty of the response object.\n(Remember since this is a search, there could be multiple results, so you may want to use the other\ndetails in each result to determine which workflow you really want.)\nPOST /api/service/workflows/submit\n100\n101\n102\n103\n104\n{\n\"namespace\"\n:\n\"default\"\n,\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"atlan-dbt-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2022-12-28\n2025-06-11\nWas this page helpful?",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": ",\n\"resourceKind\"\n:\n\"WorkflowTemplate\"\n,\n\"resourceName\"\n:\n\"atlan-dbt-1684500411\"\n// (1)\n}\nSend the name of the workflow as the\nresourceName\nto rerun it.\n2022-12-28\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_workflows_packages_dbt-assets.html",
+      "source_type": "sdk",
+      "file": "snippets_workflows_packages_dbt-assets.json",
+      "chunk_id": 22
+    }
+  }
+]

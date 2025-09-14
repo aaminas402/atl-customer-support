@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Package widgets - Developer\nSkip to content\nWidgets reference\n¶\nThere are a number of input widgets you can use when defining your inputs. For more details about the configurable options of each of these individual widgets, use hover-over context help in your IDE when writing your package.\nAPITokenSelector\n¶\nAPITokenSelector\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_a\"\n]\n=\nnew\nAPITokenSelector\n{\ntitle\n=\n\"API Token Selector (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for API token selector widget (helpText).\"\nshowAll\n=\ntrue\n// (1)!\n}\n}\nControls whether to show all API tokens (true) or only the API tokens created by the user configuring the package (false).\nBooleanInput\n¶\nBooleanInput\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_b\"\n]\n=\nnew\nBooleanInput\n{\ntitle\n=\n\"Boolean Input (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for boolean input widget (helpText).\"\ndefaultSelection\n=\ntrue\n}\n}\nConnectionCreator\n¶\nConnectionCreator\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_c\"\n]\n=\nnew\nConnectionCreator\n{\ntitle\n=\n\"Connection Creator (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for connection creator widget (helpText).\"\nwidth\n=\n8\n}\n}\nConnectionSelector\n¶\nConnectionSelector\n39\n40\n41\n42",
+    "metadata": {
+      "source_url": "toolkits_custom-package_widgets.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_widgets.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "{\ntitle\n=\n\"Connection Creator (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for connection creator widget (helpText).\"\nwidth\n=\n8\n}\n}\nConnectionSelector\n¶\nConnectionSelector\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\ninputs\n{\n[\n\"var_name_d\"\n]\n=\nnew\nConnectionSelector\n{\ntitle\n=\n\"Connection Selector single (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for connection selector widget (helpText).\"\nmultiSelect\n=\nfalse\nlimitToConnectors\n=\n\"snowflake\"\n// (1)!\n}\n[\n\"var_name_e\"\n]\n=\nnew\nConnectionSelector\n{\ntitle\n=\n\"Connection Selector multi (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for connection selector widget (helpText).\"\nmultiSelect\n=\ntrue\nlimitToConnectors\n=\n{\n\"snowflake\"\n\"bigquery\"\n}\n}\n}\nLimits the connections listed to only those with the specified connector type, which can either be a single string or a list. (If this\nlimitToConnectors\nis left out entirely, all connections will be included in the drop-down.)\nConnectorTypeSelector\n¶\nConnectorTypeSelector\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_f\"\n]\n=\nnew\nConnectorTypeSelector\n{\ntitle\n=\n\"Connector Type Selector (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for connector type selector widget (helpText).\"\nwidth\n=\n8\n}\n}",
+    "metadata": {
+      "source_url": "toolkits_custom-package_widgets.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_widgets.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "46\ninputs\n{\n[\n\"var_name_f\"\n]\n=\nnew\nConnectorTypeSelector\n{\ntitle\n=\n\"Connector Type Selector (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for connector type selector widget (helpText).\"\nwidth\n=\n8\n}\n}\nCredentialInput\n¶\nCredentialInput\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_g\"\n]\n=\nnew\nCredentialInput\n{\ntitle\n=\n\"Credential (title)\"\ncredType\n=\n\"atlan-connectors-snowflake\"\n// (1)\nhelpText\n=\n\"Example for connector type selector widget (helpText).\"\nallowTestAuthentication\n=\ntrue\n// (2)\n}\n}\nThe value used for\ncredType\nmust\nmatch an existing credential defined in\npackages/atlan/connectors/configmaps/*.yaml\n, whether pre-existing or generated through the use of\ncredentialConfig\nand placed there yourself.\nYou can remove the green\nTest Authentication\nbutton by setting\nallowTestAuthentication\nto\nfalse\n. (If left out entirely, it will default to\ntrue\n.)\nDateInput\n¶\nDateInput\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\ninputs\n{\n[\n\"var_name_h\"\n]\n=\nnew\nDateInput\n{\ntitle\n=\n\"Date Input (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for date input widget (helpText).\"\npast\n=\n-14\n// (1)\nfuture\n=\n14\n// (2)\ndefaultDay\n=\n-1\n// (3)\nwidth\n=\n8\n}\n}",
+    "metadata": {
+      "source_url": "toolkits_custom-package_widgets.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_widgets.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "]\n=\nnew\nDateInput\n{\ntitle\n=\n\"Date Input (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for date input widget (helpText).\"\npast\n=\n-14\n// (1)\nfuture\n=\n14\n// (2)\ndefaultDay\n=\n-1\n// (3)\nwidth\n=\n8\n}\n}\nAn offset from today (0) that indicates how far back in the calendar can be selected (-1 is yesterday, 1 is tomorrow, and so on).\nAn offset from today (0) that indicates how far forward in the calendar can be selected (-1 is yesterday, 1 is tomorrow, and so on).\nAn offset from today that indicates the default date that should be selected in the calendar (0 is today, -1 is yesterday, 1 is tomorrow, and so on).\nDropDown\n¶\nDropDown\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\ninputs\n{\n[\n\"var_name_i\"\n]\n=\nnew\nDropDown\n{\ntitle\n=\n\"Drop Down single (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for drop down widget (restricted to a single) (helpText).\"\npossibleValues\n{\n[\n\"ONE\"\n]\n=\n\"One\"\n[\n\"TWO\"\n]\n=\n\"Two\"\n[\n\"THREE\"\n]\n=\n\"Three\"\n}\nmultiSelect\n=\nfalse\nwidth\n=\n4\n}\n[\n\"var_name_j\"\n]\n=\nnew\nDropDown\n{\ntitle\n=\n\"Drop Down multi (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for drop down widget (allowing multiple) (helpText).\"\npossibleValues\n{\n[\n\"ONE\"\n]\n=\n\"One\"\n[\n\"TWO\"\n]\n=",
+    "metadata": {
+      "source_url": "toolkits_custom-package_widgets.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_widgets.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "]\n=\nnew\nDropDown\n{\ntitle\n=\n\"Drop Down multi (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for drop down widget (allowing multiple) (helpText).\"\npossibleValues\n{\n[\n\"ONE\"\n]\n=\n\"One\"\n[\n\"TWO\"\n]\n=\n\"Two\"\n[\n\"THREE\"\n]\n=\n\"Three\"\n}\nmultiSelect\n=\ntrue\nwidth\n=\n4\n}\n}\nFileCopier\n¶\nFileCopier\n39\n40\n41\n42\n43\n44\n45\n46\n47\ninputs\n{\n[\n\"var_name_k\"\n]\n=\nnew\nFileCopier\n{\ntitle\n=\n\"File Copier (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for file copier widget (helpText).\"\nplaceholderText\n=\n\"path/file.csv (placeholderText)\"\nwidth\n=\n8\n}\n}\nFileUploader\n¶\nFileUploader\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\ninputs\n{\n[\n\"var_name_l\"\n]\n=\nnew\nFileUploader\n{\ntitle\n=\n\"File Uploader (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for file uploader widget (helpText).\"\nplaceholderText\n=\n\"Sample CSV file (placeholderText)\"\nfileTypes\n{\n// (1)!\n\"text/csv\"\n}\nwidth\n=\n8\n}\n}\nA list of the mime-types that the upload widget will accept. If someone tries to upload a file of a different type, it will be rejected automatically by the UI itself.\nKeygenInput\n¶\nKeygenInput\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_m\"\n]\n=\nnew\nKeygenInput\n{\ntitle\n=\n\"Keygen Input (title)\"\nrequired\n=\nfalse\nhelpText\n=",
+    "metadata": {
+      "source_url": "toolkits_custom-package_widgets.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_widgets.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "KeygenInput\n¶\nKeygenInput\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_m\"\n]\n=\nnew\nKeygenInput\n{\ntitle\n=\n\"Keygen Input (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for keygen input widget (helpText).\"\nwidth\n=\n8\n}\n}\nMultipleGroups / SingleGroup\n¶\nSingleGroup | MultipleGroups\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\ninputs\n{\n[\n\"var_name_n\"\n]\n=\nnew\nSingleGroup\n{\ntitle\n=\n\"Single Group (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for single group widget (helpText).\"\nwidth\n=\n4\n}\n[\n\"var_name_o\"\n]\n=\nnew\nMultipleGroups\n{\ntitle\n=\n\"Multiple Groups (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for multiple groups widget (helpText).\"\nwidth\n=\n4\n}\n}\nMultipleUsers / SingleUser\n¶\nSingleUser | MultipleUsers\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\ninputs\n{\n[\n\"var_name_p\"\n]\n=\nnew\nSingleUser\n{\ntitle\n=\n\"Single User (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for single user widget (helpText).\"\nwidth\n=\n4\n}\n[\n\"var_name_q\"\n]\n=\nnew\nMultipleUsers\n{\ntitle\n=\n\"Multiple Users (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for multiple users widget (helpText).\"\nwidth\n=\n4\n}\n}\nNumericInput\n¶\nNumericInput\n39\n40\n41\n42\n43\n44\n45\n46\n47\ninputs\n{\n[\n\"var_name_r\"\n]\n=\nnew\nNumericInput\n{\ntitle\n=\n\"Numeric Input (title)\"",
+    "metadata": {
+      "source_url": "toolkits_custom-package_widgets.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_widgets.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "=\n\"Example for multiple users widget (helpText).\"\nwidth\n=\n4\n}\n}\nNumericInput\n¶\nNumericInput\n39\n40\n41\n42\n43\n44\n45\n46\n47\ninputs\n{\n[\n\"var_name_r\"\n]\n=\nnew\nNumericInput\n{\ntitle\n=\n\"Numeric Input (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for numeric input widget (helpText).\"\nplaceholderValue\n=\n50\nwidth\n=\n8\n}\n}\nPasswordInput\n¶\nPasswordInput\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_s\"\n]\n=\nnew\nPasswordInput\n{\ntitle\n=\n\"Password Input (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for password input widget (helpText).\"\nwidth\n=\n8\n}\n}\nRadio\n¶\nRadio\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\ninputs\n{\n[\n\"var_name_t\"\n]\n=\nnew\nRadio\n{\ntitle\n=\n\"Radio (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for radio widget (helpText).\"\npossibleValues\n{\n[\n\"ONE\"\n]\n=\n\"One (value)\"\n[\n\"TWO\"\n]\n=\n\"Two (value)\"\n[\n\"THREE\"\n]\n=\n\"Three (value)\"\n}\ndefault\n=\n\"TWO\"\n}\n}\nTextInput\n¶\nTextInput\n39\n40\n41\n42\n43\n44\n45\n46\ninputs\n{\n[\n\"var_name_u\"\n]\n=\nnew\nTextInput\n{\ntitle\n=\n\"Text Input (title)\"\nrequired\n=\nfalse\nhelpText\n=\n\"Example for text input widget (helpText).\"\nwidth\n=\n8\n}\n}\n2025-03-12\n2025-03-12\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form",
+    "metadata": {
+      "source_url": "toolkits_custom-package_widgets.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_widgets.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "width\n=\n8\n}\n}\n2025-03-12\n2025-03-12\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits_custom-package_widgets.html",
+      "source_type": "sdk",
+      "file": "toolkits_custom-package_widgets.json",
+      "chunk_id": 7
+    }
+  }
+]

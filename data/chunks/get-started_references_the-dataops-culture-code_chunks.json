@@ -1,0 +1,38 @@
+[
+  {
+    "content": "The DataOps Culture Code | Atlan Documentation\nSkip to main content\nOn this page\nWe experimented for two years, across 200 data projects, to create our own viewpoint of what makes data teams successful. We've codified these learnings into what we call the \"DataOps Culture Code\".\nThe data team is the most interdisciplinary team in any organization.\nData Scientists, Analysts, Engineers, Business Users\n... These are diverse people, with diverse tools, skillsets, and DNA. All doing diverse things.\nSometimes they're asking open-ended questions to get to the bottom of âwhyâ, just like a scientist in a research lab. Sometimes they're working on scaling petabyte-sized data processing systems, like a software engineer.\nAdd to all this the living and breathing thing that is...\ndata\n. Unlike code or design, it's constantly changing.\nHow do you make a data team successful?\nâ\nThere's no easy answer.\nWe started as a data team ourselves, on a quest to make ourselves as agile as we could. We borrowed the principles of Agile from product teams, DevOps from engineering teams, and Lean Manufacturing from supply chain teams.",
+    "metadata": {
+      "source_url": "get-started_references_the-dataops-culture-code.html",
+      "source_type": "docs",
+      "file": "get-started_references_the-dataops-culture-code.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "We then experimented for two years, across 200 data projects, to create our own idea of what makes data teams successful. These principles are the foundation of everything we build at Atlan.\nThe DataOps Culture Code\nâ\nð¤Â  Itâs a team sport, and collaboration is key\nâ\nData teams will always have a variety of roles, each with their own skills, favorite tools and DNA. Embrace the diversity, and create mechanisms for effective collaboration.\nð Treat data, code, models and dashboards as assets.\nâ\nAll data assets   -  from code and models to data and dashboards   -  are assets, and they should be treated like assets.\nAssets should be easily discoverable.\nAssets should be maintained.\nAssets should be easily reusable.\nðÂ  Optimize for agility\nâ\nIn todayâs world, as business needs evolve rapidly, data teams need to be a step ahead, not deluged with three months of backlog.\nConstantly measure your teamâs velocity, and invest in foundational initiatives to improve cycle times.\nReduce dependencies between business, analysts and engineers.\nEnable a documentation-first culture.\nAutomate whatever is repetitive.Â\nð¥Â  Create systems of trust\nâ",
+    "metadata": {
+      "source_url": "get-started_references_the-dataops-culture-code.html",
+      "source_type": "docs",
+      "file": "get-started_references_the-dataops-culture-code.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Reduce dependencies between business, analysts and engineers.\nEnable a documentation-first culture.\nAutomate whatever is repetitive.Â\nð¥Â  Create systems of trust\nâ\nWith the inherent diversity of data teams, it's all too easy to misunderstand other team members' roles. But that creates trust deficiencies   -  especially when things go wrong!\nIntentionally create systems of trust in your team.\nMake everyoneâs work accessible and discoverable to break down \"tool\" silos.\nCreate transparency in data pipelines and lineage so everyone can see and troubleshoot issues.\nSet up monitoring and alerting systems to proactively know when things break.\nðï¸ Create a plug-and-play data stack\nâ\nThe data ecosystem will rapidly evolve. The tools, technology and infrastructure you use today will (and should) be different from the tools you use two years later.\nYour data stack should allow your team to experiment and innovate as technology evolves, without creating lock-ins.\nEmbrace tools that are open and extensible.\nLeverage a strong metadata layer to tie diverse tooling together.\nâ¨Â  User experience defines adoption velocity\nâ\nEmployees at\nAirbnb",
+    "metadata": {
+      "source_url": "get-started_references_the-dataops-culture-code.html",
+      "source_type": "docs",
+      "file": "get-started_references_the-dataops-culture-code.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Embrace tools that are open and extensible.\nLeverage a strong metadata layer to tie diverse tooling together.\nâ¨Â  User experience defines adoption velocity\nâ\nEmployees at\nAirbnb\nfamously said, \"Designing the interface and user experience of a data tool should not be an afterthought.\"\nWithout good user experience, the best tools or most thoughtful processes won't be adopted in your team.\nInvest in user experience, even for internal tools. It will define adoption velocity!\nInvest in simple and intuitive tools.\nSoftware shouldn't need training programs.\nHow do you make a data team successful?\nThe DataOps Culture Code",
+    "metadata": {
+      "source_url": "get-started_references_the-dataops-culture-code.html",
+      "source_type": "docs",
+      "file": "get-started_references_the-dataops-culture-code.json",
+      "chunk_id": 3
+    }
+  }
+]

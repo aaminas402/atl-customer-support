@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Access control - Developer\nSkip to content\nAccess control model\n¶\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage access control in Atlan. For that, we would suggest starting with the\naccess control and personalization snippets\n.\nBase class for Atlan access control assets.\nclassDiagram\ndirection RL\nclass AccessControl {\n<<abstract>>\n}\nlink AccessControl \"../accesscontrol\"\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- AccessControl : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass Persona\nlink Persona \"../entities/persona\"\nAccessControl <|-- Persona : extends\nclass Purpose\nlink Purpose \"../entities/purpose\"\nAccessControl <|-- Purpose : extends\nclass AuthPolicy\nlink AuthPolicy \"../entities/authpolicy\"\nAsset <|-- AuthPolicy : extends\nclass AuthService\nlink AuthService \"../entities/authservice\"\nAsset <|-- AuthService : extends\nProperties\n¶\nThese attributes are specific to instances of\nAccessControl\n(and all of its subtypes).\nchannelLink\n¶\nTBC\ndefaultNavigation\n¶",
+    "metadata": {
+      "source_url": "models_accesscontrol.html",
+      "source_type": "sdk",
+      "file": "models_accesscontrol.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Asset <|-- AuthService : extends\nProperties\n¶\nThese attributes are specific to instances of\nAccessControl\n(and all of its subtypes).\nchannelLink\n¶\nTBC\ndefaultNavigation\n¶\nTBC\ndenyAssetFilters\n¶\nTBC\ndenyAssetTabs\n¶\nTBC\ndenyAssetTypes\n¶\nTBC\ndenyCustomMetadataGuids\n¶\nTBC\ndenyNavigationPages\n¶\nTBC\ndisplayPreferences\n¶\nTBC\nisAccessControlEnabled\n¶\nTBC\nRelationships\n¶\nThe following illustrates how the various pieces of access control inter-relate with each other:\nerDiagram\nPersona |o--o{ AuthPolicy : policies\nPurpose |o--o{ AuthPolicy : policies\nAuthPolicy }o..o{ Asset : policyResources\n2023-07-07\n2024-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_accesscontrol.html",
+      "source_type": "sdk",
+      "file": "models_accesscontrol.json",
+      "chunk_id": 1
+    }
+  }
+]

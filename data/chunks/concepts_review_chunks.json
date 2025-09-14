@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Important concepts - Developer\nSkip to content\nOther important concepts\n¶\nType definitions\n¶\nType definitions (or\ntypedefs\nfor short) describe the properties and relationships that each different\ntype\nof asset can have in Atlan.\nType definitions are the\nstructure\nfor metadata\nIn an object-oriented programming sense, think of a type definition as the\nclass\nitself. They describe the underlying\ndata model\nof Atlan.\nFor example:\nThe model for database tables in Atlan is defined by the\nTable\ntypedef.\nThe\nTable\ntypedef describes characteristics unique to database tables, such as column counts and row counts.\nThe\nTable\ntypedef inherits from an\nAsset\ntypedef. (As do most other objects in Atlan.)\nThe\nAsset\ntypedef describes characteristics that apply to all of these objects, such as certificates and announcements.\nclassDiagram\nclass Asset {\n<<abstract>>\nname\nqualifiedName\ncertificateStatus\ncertificateStatusMessage\nannouncementType\nannouncementTitle\nannouncementMessage\n...\nassignedTerms()\n}\nclass Table {\ncolumnCount\nrowCount\natlanSchema()\ncolumns()\n}\nclass Column {\ndataType\nisNullable\ntable()\n}\nAsset <|-- Table : extends\nAsset <|-- Column : extends\nSpecial assets\n¶",
+    "metadata": {
+      "source_url": "concepts_review.html",
+      "source_type": "sdk",
+      "file": "concepts_review.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "...\nassignedTerms()\n}\nclass Table {\ncolumnCount\nrowCount\natlanSchema()\ncolumns()\n}\nclass Column {\ndataType\nisNullable\ntable()\n}\nAsset <|-- Table : extends\nAsset <|-- Column : extends\nSpecial assets\n¶\nWhile all assets follow the above principles, there are two types of assets to be aware of that have further specific uses in Atlan.\nConnections\n¶\nclassDiagram\nclass Connection {\n...\nconnector[Name|Type]\n...\n}\nConnections\nplay several important roles:\nThey form the basis of Atlan's access control policies.\nTheir\nconnectorName\nproperty (renamed\nconnectorType\nin some SDKs) decides the\nicon\nAtlan will use for assets contained within the connection.\nProcesses\n¶\nProcesses\nform the basis for Atlan's data lineage. They define how data inputs (\nsources\n) are translated into data outputs (\ntargets\n).\nWithout a process asset to link these upstream and downstream assets, you cannot have data lineage in Atlan.\ngraph LR\ns1[(Source 1)]\ns2[(Source 2)]\ns3[(Source 3)]\nt1[(Target 1)]\nt2[(Target 2)]\np([Process])\ns1 & s2 & s3-->|upstream|p-->|downstream|t1 & t2\nTags\n¶\nTags\ngive you a way to classify and group assets in different ways, for example:",
+    "metadata": {
+      "source_url": "concepts_review.html",
+      "source_type": "sdk",
+      "file": "concepts_review.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "s3[(Source 3)]\nt1[(Target 1)]\nt2[(Target 2)]\np([Process])\ns1 & s2 & s3-->|upstream|p-->|downstream|t1 & t2\nTags\n¶\nTags\ngive you a way to classify and group assets in different ways, for example:\nBy industry standard information security or sensitivity schemes (for example: PII)\nBy department or business domain (for example: HR, Finance, Marketing, and so on)\nBy key characteristic for alerting (for example: data quality issue, load failure, or similar)\nReally any other way you want to group together your assets\nPropagation\n¶\nWhat's special about tags?\nAtlan can\npropagate\ntags for you automatically, to related assets:\nFrom upstream assets to downstream assets (via lineage)\nFrom parent assets to child assets (for example, from a table to all of its columns)\nFrom a term to all of its linked assets\nThis becomes particularly powerful when using tags to represent key information you want to let your users know about. For example:\nTagging problematic assets\n¶\nIf you find a problem on an asset, you can tag that asset as having a known issue.\nWith propagation, Atlan will\nautomatically\ntag all downstream (impacted) assets as having a known issue as well.",
+    "metadata": {
+      "source_url": "concepts_review.html",
+      "source_type": "sdk",
+      "file": "concepts_review.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "¶\nIf you find a problem on an asset, you can tag that asset as having a known issue.\nWith propagation, Atlan will\nautomatically\ntag all downstream (impacted) assets as having a known issue as well.\nEven better, you can see from that propagated tag which upstream asset(s) are the source of that known issue.\nTagging sensitive assets\n¶\nYou can create a glossary of terms core to your business like customer details, accounts, etc.\nYou can assign the terms in that glossary to the data assets that hold that information.\nYou can then tag the terms with sensitivity ratings (like PII, Confidential, Public, etc).\nWith propagation, Atlan will\nautomatically\ntag all related data assets with those same sensitivity ratings.\nEven better, any assets or fields\nderived\nfrom those assets (even if named differently) will be propagated that sensitivity rating as well.\nBranding\n¶\nYou can also \"brand\" tags to provide quick visual distinction:\nChoose from a predefined list of icons\nApply a color to the tag\nOr even upload your own image to use as an icon to represent the tag\nAccess control\n¶\nTags can also be used to control access to assets, through\npurposes",
+    "metadata": {
+      "source_url": "concepts_review.html",
+      "source_type": "sdk",
+      "file": "concepts_review.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Apply a color to the tag\nOr even upload your own image to use as an icon to represent the tag\nAccess control\n¶\nTags can also be used to control access to assets, through\npurposes\n. When combined with propagation, you gain a very powerful, automated means to protect your most sensitive data.\nCustom metadata\n¶\nCustom metadata\ngives you a way to extend the built-in\ntypes\nwith your own attributes.\nStructurally custom metadata is composed of:\nAn overall name (sometimes referred to as a \"set\")\nIndividual attributes contained within that \"set\"\n(Optional) Restrictions on which assets can possess values for the custom metadata\nRuntime resolution\nNote that unlike built-in types and attributes, custom metadata can only be resolved at runtime. Therefore custom metadata attributes are not strongly-typed in the SDKs the way built-in types and attributes are — they must be handled a little differently.\nBadges\n¶\nWhat's special about custom metadata?\nFirstly, custom metadata gives you a way to define your own attributes for assets.\nIn addition, on top of custom metadata attributes you can create\nbadges\nto callout important information on assets.\nBranding\n¶",
+    "metadata": {
+      "source_url": "concepts_review.html",
+      "source_type": "sdk",
+      "file": "concepts_review.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "In addition, on top of custom metadata attributes you can create\nbadges\nto callout important information on assets.\nBranding\n¶\nYou can also \"brand\" custom metadata to provide quick visual distinction:\nChoose from a predefined list of emojis\nOr even upload your own image to use as an icon to represent the custom metadata\nThis \"branding\" will also be used for any badges you create over the custom metadata attributes.\n2023-12-28\n2024-02-22\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "concepts_review.html",
+      "source_type": "sdk",
+      "file": "concepts_review.json",
+      "chunk_id": 5
+    }
+  }
+]

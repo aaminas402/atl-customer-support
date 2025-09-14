@@ -1,0 +1,119 @@
+[
+  {
+    "content": "Manage Atlan tags - Developer\nSkip to content\nManage Atlan tags\n¶\nSimilar to other objects you can create in the SDK, Atlan tags implement the builder pattern.\nAtlan tags vs tags in general\nNote that we intentionally use the phrase\nAtlan tag\nhere to differentiate\ntags you can structurally maintain in Atlan vs other tags in general.\nFor example, Snowflake tags are not managed this way, since they are owned and managed in Snowflake.\nBuild minimal object needed\n¶\n1.3.3\n1.0.0\nFor example, to create an Atlan tag to identify personally-identifiable information:\nJava\nPython\nKotlin\nRaw REST API\nBuild Atlan tag object for creation\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nAtlanTagDef\ncolor\n=\nAtlanTagDef\n.\ncreator\n(\n// (1)\n\"PII\"\n,\n// (2)\nAtlanTagColor\n.\nRED\n)\n// (3)\n.\ndescription\n(\n\"Personally-Identifiable Information\"\n)\n// (4)\n.\nbuild\n();\n// (5)\nAtlanTagDef\nicon\n=\nAtlanTagDef\n.\ncreator\n(\n\"PII\"\n,\nAtlanIcon\n.\nPASSWORD\n,\n// (6)\nAtlanTagColor\n.\nRED\n)\n.\nbuild\n();\nAtlanTagDef\nimage\n=\nAtlanTagDef\n.\ncreator\n(\n\"PII\"\n,\n\"http://some.example.com/image.png\"\n,\n// (7)\nAtlanTagColor\n.\nRED\n)\n.\nbuild\n();\nUse the\ncreator()\nmethod to start building up the Atlan tag.\nYou must provide a name for the Atlan tag (\nPII",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "(\n\"PII\"\n,\n\"http://some.example.com/image.png\"\n,\n// (7)\nAtlanTagColor\n.\nRED\n)\n.\nbuild\n();\nUse the\ncreator()\nmethod to start building up the Atlan tag.\nYou must provide a name for the Atlan tag (\nPII\nin this example).\nYou must also specify the color you want to use for the Atlan tag.\n(Optional) You can also give the Atlan tag a description.\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nAs an alternative, you can also specify a built-in icon to use for the tag.\nAs an alternative, you can also specify your own image to use for the tag.\nBuild Atlan tag object for creation\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\nimport\nurllib.request\nfrom\npyatlan.model.typedef\nimport\nAtlanTagDef\nfrom\npyatlan.model.enums\nimport\nAtlanTagColor\n,\nAtlanIcon\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\natlan_tag_def\n=\nAtlanTagDef\n.\ncreate\n(\n# (1)\nname\n=\n\"PII\"\n,\n# (2)\ncolor\n=\nAtlanTagColor\n.\nRED\n)\n# (3)\natlan_tag_def\n.\ndescription\n=\n\"Personally-Identifiable Information\"\n# (4)\natlan_tag_def\n=\nAtlanTagDef\n.\ncreate\n(\nname\n=\n\"PII\"\n,\nicon\n=\nAtlanIcon\n.\nPASSWORD\n,\n# (5)\ncolor\n=\nAtlanTagColor\n.\nRED\n)\nurllib\n.\nrequest\n.\nurlretrieve\n(",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "=\n\"Personally-Identifiable Information\"\n# (4)\natlan_tag_def\n=\nAtlanTagDef\n.\ncreate\n(\nname\n=\n\"PII\"\n,\nicon\n=\nAtlanIcon\n.\nPASSWORD\n,\n# (5)\ncolor\n=\nAtlanTagColor\n.\nRED\n)\nurllib\n.\nrequest\n.\nurlretrieve\n(\n\"http://some.example.com/image.png\"\n,\n\"image.png\"\n)\n# (6)\nwith\nopen\n(\n\"image.png\"\n,\n\"rb\"\n)\nas\nimg_file\n:\nimage\n=\nclient\n.\nupload_image\n(\nfile\n=\nimg_file\n,\nfilename\n=\n\"image.png\"\n)\n# (7)\natlan_tag_def\n=\nAtlanTagDef\n.\ncreate\n(\nname\n=\n\"PII\"\n,\nimage\n=\nimage\n,\n# (8)\ncolor\n=\nAtlanTagColor\n.\nRED\n)\nUse the\ncreate()\nmethod to set up the Atlan tag with its minimal necessary inputs.\nYou must provide a name for the Atlan tag (\nPII\nin this example).\nYou must also specify the color you want to use for the Atlan tag.\n(Optional) You can also give the Atlan tag a description.\nAs an alternative, you can also specify a built-in icon to use for the tag.\nAs an alternative, you can download or use your own image file for the tag.\nBefore you can use the image, you must upload it to Atlan.\nYou can then specify the uploaded image to use for the tag.\nBuild Atlan tag object for creation\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nval\ncolor\n=\nAtlanTagDef\n.\ncreator\n(\n// (1)\n\"PII\"\n,\n// (2)\nAtlanTagColor\n.\nRED\n)\n// (3)\n.",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Build Atlan tag object for creation\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nval\ncolor\n=\nAtlanTagDef\n.\ncreator\n(\n// (1)\n\"PII\"\n,\n// (2)\nAtlanTagColor\n.\nRED\n)\n// (3)\n.\ndescription\n(\n\"Personally-Identifiable Information\"\n)\n// (4)\n.\nbuild\n()\n// (5)\nval\nicon\n=\nAtlanTagDef\n.\ncreator\n(\n\"PII\"\n,\nAtlanIcon\n.\nPASSWORD\n,\n// (6)\nAtlanTagColor\n.\nRED\n)\n.\nbuild\n()\nval\nimage\n=\nAtlanTagDef\n.\ncreator\n(\n\"PII\"\n,\n\"http://some.example.com/image.png\"\n,\n// (7)\nAtlanTagColor\n.\nRED\n)\n.\nbuild\n()\nUse the\ncreator()\nmethod to start building up the Atlan tag.\nYou must provide a name for the Atlan tag (\nPII\nin this example).\nYou must also specify the color you want to use for the Atlan tag.\n(Optional) You can also give the Atlan tag a description.\nAs with all other builder patterns, you must\nbuild()\nthe object you've defined.\nAs an alternative, you can also specify a built-in icon to use for the tag.\nAs an alternative, you can also specify your own image to use for the tag.\nImage option not shown",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "As an alternative, you can also specify a built-in icon to use for the tag.\nAs an alternative, you can also specify your own image to use for the tag.\nImage option not shown\nThe option to use your own image is significantly more complicated, as it involves constructing a multipart form-encoded upload of the binary image data first, and then using the resulting uploaded object's details to use the image within the tag.\nPOST /api/meta/types/typedefs\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n{\n\"classificationDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"CLASSIFICATION\"\n,\n// (2)\n\"name\"\n:\n\"PII\"\n,\n// (3)\n\"description\"\n:\n\"Personally-Identifiable Information\"\n,\n\"displayName\"\n:\n\"PII\"\n,\n// (4)\n\"options\"\n:\n{\n\"color\"\n:\n\"Red\"\n,\n// (5)\n\"icon\"\n:\n\"PhPassword\"\n,\n// (6)\n\"iconType\"\n:\n\"icon\"\n},\n\"skipDisplayNameUniquenessCheck\"\n:\nfalse\n}\n]\n}\nAll Atlan tag definitions must be specified within the\nclassificationDefs\narray.\nEach definition must be defined with a category set to\nCLASSIFICATION\n.\nWhatever name you provide for the definition will be replaced by a hashed-string generated name by the back-end.\nSpecify the name of the Atlan tag, as it should appear in the UI, to the\ndisplayName\n.",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Whatever name you provide for the definition will be replaced by a hashed-string generated name by the back-end.\nSpecify the name of the Atlan tag, as it should appear in the UI, to the\ndisplayName\n.\nSet the color to use for the Atlan tag within the\noptions\nobject.\n(Optional) Set a built-in icon to use within the\noptions\nobject. When defining an icon, you must also set\noptions.iconType\nto\n\"icon\"\n.\nWhere can I see each icon?\nWe use\nPhosphor\nfor the icons. They have a beautiful icon browser on their site to search and preview the icons.\nCreate the Atlan tag from the object\n¶\n1.3.3\n4.0.0\nNow that the object is built, it will have the required information for Atlan to create it:\nJava\nPython\nKotlin\nRaw REST API\nCreate the Atlan tag\n6\nAtlanTagDef\nresponse\n=\natlanTagDef\n.\ncreate\n(\nclient\n);\n// (1)\nThe\ncreate()\noperation will actually create the Atlan tag within Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreate the Atlan tag\n8\nresponse\n=\nclient\n.\ntypedef\n.\ncreate\n(\natlan_tag_def\n)\n# (1)\nThe\ntypedef.create()\noperation will actually create the Atlan tag within Atlan.\nCreate the Atlan tag\n6\nval",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Create the Atlan tag\n8\nresponse\n=\nclient\n.\ntypedef\n.\ncreate\n(\natlan_tag_def\n)\n# (1)\nThe\ntypedef.create()\noperation will actually create the Atlan tag within Atlan.\nCreate the Atlan tag\n6\nval\nresponse\n=\ncolor\n.\ncreate\n(\nclient\n)\n// (1)\nThe\ncreate()\noperation will actually create the Atlan tag within Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nCreation implicit in step above\nThe actual creation of the Atlan tag is implicit in the example above.\nNow that the Atlan tag has been created, you can\nuse it to tag assets\n.\nUpdate Atlan tags\n¶\n2.1.0\nTo update Atlan tags:\nJava\nPython\nKotlin\nRaw REST API\nComing soon\nUpdate existing tag structure\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\natlan_tag\n=\nclient\n.\ntypedef\n.\nget_by_name\n(\n\"S7qnUqZ5mBMBpzQ3Wzt6yD\"\n)\n# (1)\natlan_tag\n.\noptions\n[\n\"color\"\n]\n=\n\"Green\"\n# (2)\natlan_tag\n.\noptions\n[\n\"emoji\"\n]\n=\n\"💪\"\natlan_tag\n.\ndisplay_name\n=\n\"MyTagName\"\nresponse\n=\nclient\n.\ntypedef\n.\nupdate\n(\natlan_tag\n)\n# (3)\nTo ensure you have the complete structure, it is easiest to start by",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ".\noptions\n[\n\"emoji\"\n]\n=\n\"💪\"\natlan_tag\n.\ndisplay_name\n=\n\"MyTagName\"\nresponse\n=\nclient\n.\ntypedef\n.\nupdate\n(\natlan_tag\n)\n# (3)\nTo ensure you have the complete structure, it is easiest to start by\nretrieving the existing Atlan tag structure by its hashed-string name\n.\nIn this example, we're updating the following properties of an Atlan tag:\ncolor of the tag.\nemoji of the tag.\ndisplay name of the tag.\nNow use\nclient.typedef.update()\nwith the updated tag definition.\nComing soon\nPUT /api/meta/types/typedefs\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n{\n\"enumDefs\"\n:\n[],\n\"structDefs\"\n:\n[],\n\"classificationDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"CLASSIFICATION\"\n,\n\"createTime\"\n:\n1716829706708\n,\n\"createdBy\"\n:\n\"service-account-apikey-2e721c86-2814-4c98-8e1a-fc3fdf6b0489\"\n,\n\"guid\"\n:\n\"884091b2-4fbc-4c8e-85d1-173ad90547cf\"\n,\n\"name\"\n:\n\"S7qnUqZ5mBMBpzQ3Wzt6yD\"\n,\n\"typeVersion\"\n:\n\"1.0\"\n,\n\"updateTime\"\n:\n1716835149934\n,\n\"updatedBy\"\n:\n\"service-account-apikey-2e721c86-2814-4c98-8e1a-fc3fdf6b0489\"\n,\n\"version\"\n:\n16\n,\n\"attributeDefs\"\n:\n[],\n\"entityTypes\"\n:\n[],\n\"displayName\"\n:\n\"MyTagName\"\n,\n// (2)\n\"options\"\n:\n{\n\"color\"\n:\n\"Green\"\n,\n\"emoji\"\n:\n\"💪\"\n,\n\"imageID\"\n:\n\"\"\n,\n\"iconName\"",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": ",\n\"version\"\n:\n16\n,\n\"attributeDefs\"\n:\n[],\n\"entityTypes\"\n:\n[],\n\"displayName\"\n:\n\"MyTagName\"\n,\n// (2)\n\"options\"\n:\n{\n\"color\"\n:\n\"Green\"\n,\n\"emoji\"\n:\n\"💪\"\n,\n\"imageID\"\n:\n\"\"\n,\n\"iconName\"\n:\n\"PhRocketLaunch\"\n,\n\"iconType\"\n:\n\"emoji\"\n},\n\"subTypes\"\n:\n[],\n\"superTypes\"\n:\n[]\n}\n],\n\"entityDefs\"\n:\n[],\n\"relationshipDefs\"\n:\n[],\n\"businessMetadataDefs\"\n:\n[]\n}\nAll Atlan tag definitions must be specified within the\nclassificationDefs\narray.\nIn this example, we're updating the following properties of an Atlan tag:\ndisplay name of the tag.\ncolor of the tag.\nemoji of the tag.\nRetrieve Atlan tags\n¶\n2.1.0\n4.0.0\nTo retrieve Atlan tag by its hashed-string name eg:\nS7qnUqZ5mBMBpzQ3Wzt6yD\n:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve existing tag structure\n1\nTypeDef\natlanTag\n=\nclient\n.\ntypeDefs\n.\nget\n(\n\"S7qnUqZ5mBMBpzQ3Wzt6yD\"\n);\n// (1)\nTo retrieve the tag, you need to call the\n.typeDefs.get()\nmethod on a client, with the hashed-string name of the tag.\nRetrieve existing tag structure\n1\n2\n3\n4\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\natlan_tag\n=\nclient\n.\ntypedef\n.\nget_by_name\n(\n\"S7qnUqZ5mBMBpzQ3Wzt6yD\"\n)\n# (1)\nTo retrieve the tag, you need to call the\nclient.typedef.get_by_name()",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "import\nAtlanClient\nclient\n=\nAtlanClient\n()\natlan_tag\n=\nclient\n.\ntypedef\n.\nget_by_name\n(\n\"S7qnUqZ5mBMBpzQ3Wzt6yD\"\n)\n# (1)\nTo retrieve the tag, you need to call the\nclient.typedef.get_by_name()\nmethod with its hashed-string name.\nRetrieve existing tag structure\n1\nval\natlanTag\n=\nclient\n.\ntypeDefs\n.\nget\n(\n\"S7qnUqZ5mBMBpzQ3Wzt6yD\"\n);\n// (1)\nTo retrieve the tag, you need to call the\n.typeDefs.get()\nmethod on a client, with the hashed-string name of the tag.\nGET /api/meta/types/typedef/name/S7qnUqZ5mBMBpzQ3Wzt6yD\n1\nAtlan tag have a hashed-string representation\nUse their hashed-string name when retrieving its structure eg:\nS7qnUqZ5mBMBpzQ3Wzt6yD\n.\nRetrieve all Atlan tags\n¶\n1.3.3\n4.0.0\nTo retrieve all Atlan tags:\nJava\nPython\nKotlin\nRaw REST API\nRetrieve all tag structures\n1\nTypeDefResponse\natlanTags\n=\nclient\n.\ntypeDefs\n.\nlist\n(\nAtlanTypeCategory\n.\nCLASSIFICATION\n);\n// (1)\nTo retrieve all tags, call the\n.typeDefs.list()\nmethod on a client, with the category\nAtlanTypeCategory.CLASSIFICATION\n.\nRetrieve all tag structures\n1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ntypedef\n.\nget\n(\ntype_category\n=\nAtlanTypeCategory\n.\nCLASSIFICATION\n)\n# (1)",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "1\n2\n3\n4\n5\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ntypedef\n.\nget\n(\ntype_category\n=\nAtlanTypeCategory\n.\nCLASSIFICATION\n)\n# (1)\natlan_tags\n=\nresponse\n.\natlan_tag_defs\n# (2)\nTo retrieve all tags, call the\nclient.typedef.get()\nmethod with the definition category\nAtlanTypeCategory.CLASSIFICATION\n.\nSpecifically retrieve the list of tags from\nTypeDefResponse\n.\nRetrieve all tag structures\n1\nval\natlanTags\n=\nclient\n.\ntypeDefs\n.\nlist\n(\nAtlanTypeCategory\n.\nCLASSIFICATION\n)\n// (1)\nTo retrieve all tags, call the\n.typeDefs.list()\nmethod on a client, with the category\nAtlanTypeCategory.CLASSIFICATION\n.\nGET /api/meta/types/typedefs/?type=CLASSIFICATION\n1\nDelete Atlan tags\n¶\n1.3.3\n4.0.0\nDelete Atlan tags by its human-readable name:\nJava\nPython\nKotlin\nRaw REST API\nDelete tag structure\n1\nAtlanTagDef\n.\npurge\n(\nclient\n,\n\"MyTagName\"\n);\n// (1)\nYou only need to call the\nAtlanTagDef.purge()\nmethod with the human-readable name of the tag, and it will be deleted. Because this operation will remove the structure from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nDelete tag structure\n1\n2\n3\n4\n5\nfrom\npyatlan.model.typedef\nimport",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nDelete tag structure\n1\n2\n3\n4\n5\nfrom\npyatlan.model.typedef\nimport\nAtlanTagDef\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nclient\n.\ntypedef\n.\npurge\n(\n\"MyTagName\"\n,\nAtlanTagDef\n)\n# (1)\nYou only need to call the\nclietn.typedef.purge()\nmethod\nwith the human-readable name of the tag, and it will be deleted.\nDelete tag structure\n1\nAtlanTagDef\n.\npurge\n(\nclient\n,\n\"MyTagName\"\n)\n// (1)\nYou only need to call the\nAtlanTagDef.purge()\nmethod with the hashed-string name of the tag, and it will be deleted. Because this operation will remove the structure from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nDELETE /api/meta/types/typedef/name/S7qnUqZ5mBMBpzQ3Wzt6yD\n1\nAtlan tag have a hashed-string representation\nUse their hashed-string name when deleting its structure eg:\nS7qnUqZ5mBMBpzQ3Wzt6yD\n.\n2024-05-27\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Thanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_tags_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_manage.json",
+      "chunk_id": 12
+    }
+  }
+]

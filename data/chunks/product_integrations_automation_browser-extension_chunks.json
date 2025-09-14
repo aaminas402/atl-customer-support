@@ -1,0 +1,11 @@
+[
+  {
+    "content": "Browser Extension | Atlan Documentation\nSkip to main content\nOn this page\nOverview:\nConnect Atlan with the Browser Extension to enhance your data catalog experience, streamline workflows, and access Atlan features directly from your browser.\nGuides\nâ\nConfigure the extension for managed browsers\n: How to configure the Atlan browser extension for managed environments.\nUse the Atlan browser extension\n: Step-by-step instructions to use the Atlan browser extension.\nConcepts\nâ\nAtlan browser extension security\n: Learn about the security features of the Atlan browser extension.\nTroubleshooting\nâ\nTroubleshooting Atlan browser extension\n: Solutions for common issues encountered when using the Atlan browser extension.\nFAQ\nâ\nAdd the browser extension for everyone in my organization\nBrowser extension shows an error message\nBrowser extension not loading\nGuides\nConcepts\nTroubleshooting\nFAQ",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension.json",
+      "chunk_id": 0
+    }
+  }
+]

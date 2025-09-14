@@ -1,0 +1,200 @@
+[
+  {
+    "content": "Discovery FAQs | Atlan Documentation\nSkip to main content\nOn this page\nHow does Atlan handle archived or deleted assets?\nâ\nIf an\nasset is removed from a workflow\nor a\nuser loses permissions\nto an asset, the asset will be\narchived\nin Atlan. The asset will be unarchived with all the metadata intact if it is\nincluded\nin the next workflow run or users permissions are restored.\nIn Atlan, an asset's\ntypename\nand\nqualifiedName\npair serves as a distinctive identifier. The\nqualifiedName\nis a string that has been concatenated and contains the asset's source, host, and hierarchy. The related asset in Atlan will not change unless a modification is made, such as changing the schema or table name.\nIs it possible to search for fields across all data sources?\nâ\nIf you know exactly what you're looking for, Atlan suggests using exact match search. Wrap the search terms within double quotation marks\n\" \"\nwhen typing it in the search bar. For example,\n\"instacart_total_users\"\n.\nFor\ncontextual search\n, the\nAssets\npage provides a\nnumber of filters\nto help you narrow down your search results. Filter data assets by various properties, asset types, and so on.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ".\nFor\ncontextual search\n, the\nAssets\npage provides a\nnumber of filters\nto help you narrow down your search results. Filter data assets by various properties, asset types, and so on.\nThe search results in Atlan also provide a quick count of all the resulting data assets, organized by asset type. These counts will alter in real time as you apply filters.\nWhat is included in the \"All assets\" view?\nâ\nThe\nAll assets\nview includes\nall\nassets in your Atlan data estate.\nIf your Atlan admin has turned off\nView \"All assets\" in Assets Discovery\nfrom Labs in the admin center\n, you may be unable to see this view. In that case, you'll only be able to view the assets curated for the persona(s) or purpose(s) you belong to in Atlan. Admin users will still have full access to all assets, even when this default behavior is turned off.\nCan I search by a value to find assets with that value?\nâ\nAtlan allows you to search and discover metadata, not data.\nAs a constantly updated data catalog of all your data assets and metadata, Atlan allows you to identify and\naccess your data assets\nas well as the\ntribal knowledge and business context",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "As a constantly updated data catalog of all your data assets and metadata, Atlan allows you to identify and\naccess your data assets\nas well as the\ntribal knowledge and business context\nassociated with them. The powerful, intelligent search returns relevant search results.\nWhy do I not see more results when searching with the search bar (or Cmd + K)?\nâ\nThe search bar is meant to be a quick search option. It works best when you know the name of the asset. As such, it only loads 20 search results at a time. You can also quickly access your\nrecently visited\nstarred assets\nfrom the search bar.\nFor more in-depth discovery,\nsearch from the\nAssets\npage:\nMore results\nAdditional filters\nWhat is the timezone for data display?\nâ\nFor asset properties such as\nLast updated (in Atlan)\n,\nLast synced with source\n, or\nCreated (in Atlan)\n, the timestamps are displayed in local timezones based on the user's browser location. To learn more, see\nHow to interpret timestamps\n.\nAsset Profile FAQs\nâ\nCan we replace or rename existing assets?\nâ\nThe expected behavior will vary based on the\nsupported connector\nand asset type. If the asset name is reflected in the\nqualifiedName",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "â\nCan we replace or rename existing assets?\nâ\nThe expected behavior will vary based on the\nsupported connector\nand asset type. If the asset name is reflected in the\nqualifiedName\nof the asset and you rename the asset, Atlan will create a net-new asset. This is because the\nqualifiedName\ndetermines\nasset uniqueness\nin Atlan.\nConsider the following examples:\nThe name of a Snowflake table is part of its\nqualifiedName\n. Any changes to the table name in Snowflake will result in a new\nqualifiedName\n, and thus the creation of a new asset in Atlan.\nConversely, the\nqualifiedName\nof Microsoft Power BI reports are based on the UUIDs of the assets in Microsoft Power BI   -  no names are embedded. In this case, renaming a Microsoft Power BI report does not change its UUID in Microsoft Power BI. This means that the\nqualifiedName\nof that report in Atlan will remain unchanged. Atlan will simply update the existing asset. However, this may not be the case where a Microsoft Power BI table is concerned, as the table name is included in the\nqualifiedName\nof the asset.\nIf your use case is to enable quick discovery in Atlan, consider\nadding a business-friendly alias\nto the asset.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "qualifiedName\nof the asset.\nIf your use case is to enable quick discovery in Atlan, consider\nadding a business-friendly alias\nto the asset.\nWhat is an activity log?\nâ\nThe activity log in the asset sidebar provides a changelog for your data assets. Having a record of all the changes made to an asset can help build trust in your data assets and promote transparency across your organization.\nView the activity log of an asset\nâ\nTo view the activity log of an asset:\nFrom the left menu of any screen in Atlan, click\nAssets\n.\nClick on an asset to view its asset profile.\nFrom the asset sidebar to the right, click the\nActivity\ntab to view the activity log.\nIf an asset was updated from\nGoogle Sheets\nor\nMicrosoft Excel\n, an\nUpdated using Google Sheets\nor\nUpdated using Microsoft Excel\nstamp will appear, respectively. (Optional) Click the\nGoogle Sheets\nor\nMicrosoft Excel\nlink to view the source spreadsheet.\n(Optional) To filter the activity log by a specific type of activity, under\nActivity\n, click the dropdown arrow and then:\nClick\nAlias\nto view\nalias activity\nby user and timestamp of update.\nClick\nDescription\nto view any changes in the\ndescription\nof an asset.\nClick\nStarred\nto view",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": ", click the dropdown arrow and then:\nClick\nAlias\nto view\nalias activity\nby user and timestamp of update.\nClick\nDescription\nto view any changes in the\ndescription\nof an asset.\nClick\nStarred\nto view\nstarred activity\nby user and timestamp.\nClick\nAnnouncement\nto view any changes to the\nannouncement\non an asset.\nClick\nTerms\nto view any updates on linked\nterms\n.\nClick\nCertificate\nto view any changes in the\ncertification status\nof an asset.\nClick\nOwners\nto view any changes to the\nownership\nof an asset.\nClick\nTag Added\nor\nTag Removed\nto view any changes for\ntags directly added\nto an asset.\nClick\nTag Added (Propagation)\nor\nTag Removed (Propagation)\nto view any changes for\ntags propagated\nto an asset.\nClick\nColumn Added\n,\nColumn Deleted\n, or\nColumn Updated\nto view column changes.\nClick\nReadme Added\nor\nReadme Updated\nto view when a\nREADME was created\nfor an asset and which user created or updated it.\n(Optional) Click the\nFilter by column\nmenu to filter your activity logs by specific columns.\nYou can now view all the changes that were made to an asset in the activity log! ð\nDid you know?",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "(Optional) Click the\nFilter by column\nmenu to filter your activity logs by specific columns.\nYou can now view all the changes that were made to an asset in the activity log! ð\nDid you know?\nActivity logs for metadata changes are persisted throughout the lifecycle of the Atlan instance for your organization.\nWhy do dbt descriptions keep getting deleted?\nâ\nIf you notice that the descriptions from a Snowflake table, for example, get deleted when dbt is your source of truth, it is likely that you have the data source scheduled to run after the dbt run. Atlan recommends following the order of operations as documented in\nHow to order workflows\n.\nYou can also use dbt's\npersist_docs\nfeature to ensure that your metadata\npersists through workflow runs\n.\nWhat is the timeframe for recently verified assets?\nâ\nAtlan displays up to 20 most recently verified assets at a time in the\nRecently verified assets\nsection on your Atlan homepage. You can scroll down further and click\nLoad more",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "â\nAtlan displays up to 20 most recently verified assets at a time in the\nRecently verified assets\nsection on your Atlan homepage. You can scroll down further and click\nLoad more\nto view more recently verified assets. This is not based on any particular timeline. In fact, this list may include assets that were updated as long as a week ago, if no new assets were verified more recently.\nWhat signals Atlan to auto-add the deprecated certifications in Looker?\nâ\nThese certifications are sourced from Looker. Once the\nLooker crawler\nhas run successfully and detected that an asset was deleted, Atlan will attached a\nDeprecated\ncertificate to the asset because it no longer exists at source. For example:\nIf tiles are deleted, the API response generated is titled\nLook Deleted\n. In this case, Atlan will add the deprecated certificate.\nIf Atlan crawls any models that do not have a project associated with them (indicated by a missing\nproject_name\nkey in the model API response), Atlan adds a deprecated certificate to the asset.\nIs it possible to add PDFs to an asset README?\nâ\nAtlan currently does not support embedding a PDF file in an asset README. Alternatively, PDF files can be",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "Is it possible to add PDFs to an asset README?\nâ\nAtlan currently does not support embedding a PDF file in an asset README. Alternatively, PDF files can be\nlinked as a resource\n.\nHow does version control work for description changes in source tools vs. Atlan?\nâ\nConsidering that users may update metadata in Atlan and the source tool, Atlan\nmanages descriptions in two fields\n-  populating either or both depending on where it was created or updated. This is the format Atlan follows:\nSource descriptions are stored in the\ndescription\nfield\nAny description added or updated in Atlan is stored in the\nuserDescription\nfield\nSeparating them into two fields ensures that the connection package does not override the descriptions entered by users in Atlan every time the workflow runs and updates the asset. This way, the description field in Atlan becomes the source of truth.\nThere is one exception though. If the description field has not been edited at all in Atlan and the connection package only ever brings the descriptions from the source, the workflow will keep updating the description field with what is available at source   -  only source edits will come through.\nOnce the\ndescription",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "Once the\ndescription\nfield is edited in Atlan, the\nuserDescription\nfield takes over. If you would like to restore the original source description, simply clear the description added in Atlan and it will automatically revert to the source description.\nAs a best practice, we recommend all subsequent edits to the description be done in Atlan.\nThis is valid across all connector workflows.\nCan Atlan track schema changes?\nâ\nAtlan tracks schema changes for SQL sources, which can be viewed in the\nactivity log\nof an asset. However, Atlan is not a schema registry or a data modeling tool such as dbt.\nAre different fonts supported for READMEs and descriptions?\nâ\nAtlan currently does not support customizing the following for asset\ndescriptions\n,\nREADMEs\n, and\nREADME templates\n:\nFonts\nFont sizes\nFont colors\nCan Atlan handle assets with a large number of rows and columns?\nâ\nYou can safely catalog your assets in Atlan, regardless of the number of rows or columns. Since Atlan only extracts metadata, data volume is not a consideration. Note that if an asset has a large number of columns, the\ncolumn preview\nin the asset profile may take some time to load.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "column preview\nin the asset profile may take some time to load.\nWhy do I not see any tables or columns under database, only schema?\nâ\nIf you're viewing related assets for databases from the\nRelations\ntab in the asset sidebar, Atlan will only display schemas. You can click the schema asset and then open the\nRelations\ntab of the schema to view tables and views.\nTo find tables and views contained within a database, Atlan also recommends using the\ndatabase asset type filter\nfor quick discovery.\nIs the sample data preview cached?\nâ\nWhen previewing sample data on any asset, Atlan retrieves the sample data from source each time. No data is cached in Atlan.\nDelete an asset\nâ\nHave one or more assets in Atlan that you don't want to be there? You have several options for removing them.\nSpecific assets\nâ\nTo remove targeted, specific assets\nuse one of our SDKs or our open API\n.\nSet of related assets\nâ\nTo remove a set of related assets, such as an entire schema:\nModify the connector's configuration\nwith a filter to exclude the asset(s).\nRe-run the connector's workflow with the new configuration.\nDid you know?\nThis will\narchive\nthe schema and its assets.\nAn entire connection's assets",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "with a filter to exclude the asset(s).\nRe-run the connector's workflow with the new configuration.\nDid you know?\nThis will\narchive\nthe schema and its assets.\nAn entire connection's assets\nâ\nTo remove an entire connection and all its assets, see\nHow to delete a connection\n.\nIf an asset is deleted via API, will workflows recreate the asset on the next run?\nâ\nIf you delete an asset at source, Atlan will\narchive\nthat asset in the next crawler run. Atlan recommends that you manage additions or deletions through source workflows. Considering that Atlan workflows run differential crawls, any changes to your assets will be reflected in subsequent crawler runs. This helps deliver faster runtimes and improves workflow performance.\nIf you delete an asset using APIs, there can be two scenarios:\nArchived:\nAssets are soft-deleted, moving to an\nArchived\nstate.\nThe next workflow run will restore the asset only if any changes are made to any of its source metadata properties   -  for example, a new column was added.\nYou can also\nrestore archived assets\n.\nHard-deleted:\nThe asset is completely removed from the metastore.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "You can also\nrestore archived assets\n.\nHard-deleted:\nThe asset is completely removed from the metastore.\nThe next workflow run creates a new asset if the previously deleted asset is still present or reintroduced in the source system. For example, this can happen if the asset was never actually removed from the source or if it was deleted and later recreated. However, the newly created asset doesn't retain any of its original Atlan metadata.\nYou\ncan't\nrestore hard-deleted assets.\nAtlan recommends the deletion of assets to be managed by source workflows. The delete and restore endpoints are generally meant for assets created via APIs.\nAdd a README\nâ\nA README is an essential part of every code repository. The better the README, the more collaborators will want to work on your code. The same holds true for your data assets.\nEach data asset should have its own README, which provides a description of its characteristics and other critical information. Atlan allows users to add a README for every data asset, using an intuitive, rich text editor.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "You can document the tribal knowledge associated with each data asset in a README and reduce dependencies on your team members. The README appears right below each data table in the asset profile, displaying the data and the metadata on the same page and bridging the gap between the two.\nAtlan currently supports the following file types for asset READMEs:\nGoogle Docs\nGoogle Sheets\nGoogle Slides\nMiro boards\nFigJam boards\nLucidchart\ndbdiagram\nERD Lab\nMicrosoft Word\nMicrosoft Excel\nMicrosoft PowerPoint\nGoogle Data Studio\nGoogle Looker Studio\nCanva\nAdd a README\nâ\nA README can be added to different types of data assets in Atlan, including BI dashboards, widgets, columns, databases, and schemas.\nThe character limit for READMEs is 100,000 characters. A portion of this limit is used to ensure compatibility with rich text formatting, slightly reducing the available character limit.\nTo add a README to an asset, follow these steps:\nOn the Atlan homepage, click\nAssets\nin the left menu.\nClick on an asset to view its asset profile.\nIn the\nReadme\nsection of the asset profile, click\n+Add\n.\nYou can either:\nClick\nBlank Page\nto create a new README from scratch.\nClick\nUse\nto select an",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Click on an asset to view its asset profile.\nIn the\nReadme\nsection of the asset profile, click\n+Add\n.\nYou can either:\nClick\nBlank Page\nto create a new README from scratch.\nClick\nUse\nto select an\nexisting template\nas a starting point.\nEnter your knowledge into the README. Type\n/\nto use the text editor options to format your text, embed links, and more:\nClick\nHeading 1\nto add a title or main heading.\nClick\nHeading 2\nto add subheadings and create sections.\nClick\nHeading 3\nto create subcategories within sections.\nClick\nBulleted List\nto create a bulleted list.\nClick\nNumbered List\nto create an ordered list.\nClick\nChecklist\nto create a checklist of items.\nClick\nFormula\nto add formulae from a\nlist of supported functions\n.\nClick\nCode\nto add a code snippet.\nClick\nImage\nto embed or upload an image.\nClick\nQuote\nto add block quotations.\nClick\nMention\nto tag another user in your Atlan workspace.\nClick\nTable\nto create a table.\nClick\nGoogle Docs\nto paste a Google Doc link and embed your online documents.\nClick\nGoogle Sheets\nto paste a Google Sheets link and embed your online spreadsheets.\nClick\nGoogle Slides\nto paste a Google Slides link and embed your online presentations.\nClick\nMiro Board",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Click\nGoogle Sheets\nto paste a Google Sheets link and embed your online spreadsheets.\nClick\nGoogle Slides\nto paste a Google Slides link and embed your online presentations.\nClick\nMiro Board\nto paste a Miro board link and embed your boards.\nClick\nFigJam\nto paste a FigJam link and embed your boards.\nClick\nLucidchart\nto paste a Lucidchart link and embed your documents or models.\ndanger\nTo embed a Lucidchart document or model, you will need to activate the embed code. Activating an embed code will disable password protection on published documents and make them accessible publicly.\nClick\nDBDiagram\nto paste a dbdiagram link and embed your database diagrams.\nClick\nERD Lab\nto paste an ERD Lab link and embed your entity relationship diagrams.\nClick\nMicrosoft Word\nto paste a Microsoft Word link and embed your online documents.\nClick\nMicrosoft Excel\nto paste a Microsoft Excel link and embed your online spreadsheets.\nClick\nMicrosoft PowerPoint\nto paste a Microsoft PowerPoint link and embed your online presentations.\nClick\nGoogle Data Studio\nor\nGoogle Looker Studio\nto paste a Google Data Studio or Google Looker Studio link and embed your reports and dashboards.\nClick\nCanva",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "Click\nGoogle Data Studio\nor\nGoogle Looker Studio\nto paste a Google Data Studio or Google Looker Studio link and embed your reports and dashboards.\nClick\nCanva\nto paste a Canva link and embed your Canva graphics and presentations.\nClick\nSave\n.\nYour README is ready to be shared! ð\nAlthough it may take some time to create, a README is a critical step for documenting any data asset and making it trustworthy.\nUse README shortcuts\nâ\nAtlan supports keyboard and markdown shortcuts to supercharge your README documentation.\nKeyboard shortcuts\nâ\nIn the table below,\nMod\nstands for modifier key   -\nCommand\nfor Mac and\nCtrl\nfor Windows.\nShortcut\nAction\nMod + Shift + B\nblock quote\nMod + B\nbold\nMod + I\nitalics\nMod + Shift + 8\nbulleted list\nMod + E\ncode\nMod + Alt + C\ncode block\nEnter\nthrice,\nâ\nexit code block\nMod + Alt + 1\nheading 1\nMod + Alt + 2\nheading 2\nMod + Alt + 3\nheading 3\nMod + Alt + 4\nheading 4\nMod + Alt + 5\nheading 5\nMod + Alt + 1\nheading 6\nEnter\nadd new list item\nShift + Tab\nuplift list item\nTab\nsink list item\nMod + Shift + 7\nordered list\nMod + Alt + 0\nset paragraph\nMod + Shift + X\nstrikethrough\nMod + U\nunderline\nMod + Shift + 9\ntoggle task list\nMod + Shift + L\nleft align text",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "Tab\nsink list item\nMod + Shift + 7\nordered list\nMod + Alt + 0\nset paragraph\nMod + Shift + X\nstrikethrough\nMod + U\nunderline\nMod + Shift + 9\ntoggle task list\nMod + Shift + L\nleft align text\nMod + Shift + E\ncenter align text\nMod + Shift + R\nright align text\nMod + Shift + J\njustify text\nMod + Shift + H\nhighlight text\nWithin a table:\nÂ\nTab\ngo to next cell\nShift + Tab\ngo to previous cell\nBackspace\ndelete table when all cells are selected\nMod - Backspace\ndelete table when all cells are selected\nDelete\ndelete table when all cells are selected\nMod - Delete\ndelete table when all cells are selected\nMarkdown shortcuts\nâ\nMarkdown shortcuts are triggered by pressing space after the shortcut   -  except for bold and italics. For example, to add a block quote, type\n>\nand then tap the spacebar.\nShortcut\nAction\n>\nblock quote\n**\n(text)\n**\n,\n__\nbold\n*\n(text)\n*\n,\n_\nitalics\n-\nbulleted list\n`\ncode\n```\n,\n~~~\ncode block\n#\nheading 1\n##\nheading 2\n###\nheading 3\n####\nheading 4\n#####\nheading 5\n######\nheading 6\n---\n,\n--\n,\n___\nhorizontal divider\nany numeric digit\nordered list\n~~\nstrikethrough\n[]\nunchecked task\n[x]\nchecked task\n==\nhighlight\nDoes Atlan support asset previews?\nâ",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "heading 5\n######\nheading 6\n---\n,\n--\n,\n___\nhorizontal divider\nany numeric digit\nordered list\n~~\nstrikethrough\n[]\nunchecked task\n[x]\nchecked task\n==\nhighlight\nDoes Atlan support asset previews?\nâ\nYes, Atlan provides asset previews for supported tools to help with quick discovery and give you the context you need. Typically, the\nWhat does Atlan crawl from (connector name)?\ndocumentation will indicate whether asset previews are supported for a specific connector.\nFor example, Atlan supports asset previews for:\nTableau worksheets and dashboards\nMicrosoft Power BI reports\nGoogle BigQuery tables, views, and materialized views\nSigma workbooks\nCan I search for assets by README, description, or other metadata?\nâ\nIf the keywords you're searching by is present in the asset name or\ndescription\n, only then will the asset appear in your search results. You can also use a\nvariety of filters\nto narrow down your search.\nNote that asset READMEs are currently not searchable in Atlan. This is because Atlan stores them as a relation to a data asset rather than as a direct metadata attribute.\nCan I add the Google Sheets extension for everyone in my organization?\nâ",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "Can I add the Google Sheets extension for everyone in my organization?\nâ\nYes! To install the Google Sheets Atlan extension at the workspace level, follow the instructions in this\nguide\n. You will need to be an administrator or have access to the admin console of your organization's Google account for this setup.\nOnce installed, users in your organization can\nconnect Atlan with Google Sheets\nto start using the extension.\nCan I embed presentations or docs from SharePoint in a README?\nâ\nYes, you can embed links to your Microsoft Word, Excel, and PowerPoint files stored in SharePoint or OneDrive in READMEs. Refer to\nHow to add a README\nto learn more.\nWhy can hard deleted assets be immediately restored after deletion?\nâ\nThe\nAPI\nis eventually consistent. This means that there is a short window of time, up to a few minutes, during which you can use the restore API endpoint to restore the asset that was hard deleted   -  even if it no longer appears on the UI.\nHow can I make external documents and spreadsheets appear as assets in Atlan?\nâ\nAtlan supports\ncataloging files\nthrough APIs. The\nsupported file types\ninclude DOC, Excel, PPT, CSV, TXT, JSON, XML, and ZIP files.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": "â\nAtlan supports\ncataloging files\nthrough APIs. The\nsupported file types\ninclude DOC, Excel, PPT, CSV, TXT, JSON, XML, and ZIP files.\nWill Atlan send a notification if there's a new table added to my schema?\nâ\nYou can configure any of the following options to receive notifications on asset additions:\nCreate a webhook\nUse the asset change notification custom package\nHow does Atlan handle archived or deleted assets?\nIs it possible to search for fields across all data sources?\nWhat is included in the \"All assets\" view?\nCan I search by a value to find assets with that value?\nWhy do I not see more results when searching with the search bar (or Cmd + K)?\nWhat is the timezone for data display?\nAsset Profile FAQs\nCan we replace or rename existing assets?\nWhat is an activity log?\nWhy do dbt descriptions keep getting deleted?\nWhat is the timeframe for recently verified assets?\nWhat signals Atlan to auto-add the deprecated certifications in Looker?\nIs it possible to add PDFs to an asset README?\nHow does version control work for description changes in source tools vs. Atlan?\nCan Atlan track schema changes?\nAre different fonts supported for READMEs and descriptions?",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "How does version control work for description changes in source tools vs. Atlan?\nCan Atlan track schema changes?\nAre different fonts supported for READMEs and descriptions?\nCan Atlan handle assets with a large number of rows and columns?\nWhy do I not see any tables or columns under database, only schema?\nIs the sample data preview cached?\nDelete an asset\nIf an asset is deleted via API, will workflows recreate the asset on the next run?\nAdd a README\nDoes Atlan support asset previews?\nCan I search for assets by README, description, or other metadata?\nCan I add the Google Sheets extension for everyone in my organization?\nCan I embed presentations or docs from SharePoint in a README?\nWhy can hard deleted assets be immediately restored after deletion?\nHow can I make external documents and spreadsheets appear as assets in Atlan?\nWill Atlan send a notification if there's a new table added to my schema?",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_faq.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_faq.json",
+      "chunk_id": 21
+    }
+  }
+]

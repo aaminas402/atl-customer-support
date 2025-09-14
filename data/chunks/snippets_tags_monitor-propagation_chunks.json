@@ -1,0 +1,65 @@
+[
+  {
+    "content": "Monitor tag propagation - Developer\nSkip to content\nMonitor tag propagation\n¶\nAtlan's background tasks queue provides essential insights for monitoring tag propagation of assets, detailing completed, pending, in-progress, and deleted tasks. In Atlan's SDK you can use the\nFluentTasks\nobject to search the tasks queue.\nRun the search\n¶\n2.0.2\n4.0.0\nFor example, to initiate a search for pending tag propagation tasks related to a specific asset after a tag has been added:\nJava\nPython\nKotlin\nRaw REST API\nSearch for background tag propagation tasks\n1\n2\n3\n4\n5\n6\n7\n8\n9\nclient\n.\ntasks\n.\nselect\n()\n// (1)\n// (2)\n.\nwhere\n(\nAtlanTask\n.\nENTITY_GUID\n.\neq\n(\n\"f65e3da2-6ec2-4ff5-8f0b-b6eba640df24\"\n))\n.\nwhere\n(\nAtlanTask\n.\nTYPE\n.\neq\n(\nAtlanTaskType\n.\nCLASSIFICATION_PROPAGATION_ADD\n))\n.\nwhere\n(\nAtlanTask\n.\nSTATUS\n.\nmatch\n(\nAtlanTaskStatus\n.\nPENDING\n.\ngetValue\n()))\n.\nstream\n()\n// (3)\n.\nforEach\n(\ntask\n->\n{\n// (4)\nlog\n.\ninfo\n(\n\"Task: {}\"\n,\ntask\n);\n});\nTo search across all tasks, you can use the\ntasks.select()\nconvenience method on a client.\nThe\n.where()\nmethod allows you to limit to only tasks that have a particular value in a particular field:\nGUID",
+    "metadata": {
+      "source_url": "snippets_tags_monitor-propagation.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_monitor-propagation.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "tasks.select()\nconvenience method on a client.\nThe\n.where()\nmethod allows you to limit to only tasks that have a particular value in a particular field:\nGUID\nof the asset for which you want to retrieve tag propagation tasks.\nSpecify the task type; in this example, we're retrieving tasks for monitoring propagation after a tag has been added to the asset.\nSpecify the task status; here, we're checking for any pending tag propagation tasks for the given asset.\nNote:\nThere's no need to try to remember or even know the precise string values for the above constants. Enums for these values are available in the SDK, making it easier for you.\nThe search will only run when you call the\nstream()\nmethod, which will then lazily-load each page of results into a stream.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nSearch for background tag propagation tasks\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.task\nimport\nAtlanTask\nfrom\npyatlan.model.fluent_tasks\nimport\nFluentTasks\nfrom\npyatlan.model.enums\nimport\nAtlanTaskStatus",
+    "metadata": {
+      "source_url": "snippets_tags_monitor-propagation.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_monitor-propagation.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "21\n22\n23\n24\n25\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.task\nimport\nAtlanTask\nfrom\npyatlan.model.fluent_tasks\nimport\nFluentTasks\nfrom\npyatlan.model.enums\nimport\nAtlanTaskStatus\n,\nAtlanTaskType\nclient\n=\nAtlanClient\n()\ntask_request\n=\n(\nFluentTasks\n()\n# (1)\n.\nwhere\n(\n# (2)\nAtlanTask\n.\nENTITY_GUID\n.\neq\n(\n\"f65e3da2-6ec2-4ff5-8f0b-b6eba640df24\"\n)\n)\n.\nwhere\n(\nAtlanTask\n.\nTYPE\n.\neq\n(\nAtlanTaskType\n.\nCLASSIFICATION_PROPAGATION_ADD\n.\nvalue\n)\n)\n.\nwhere\n(\nAtlanTask\n.\nSTATUS\n.\nmatch\n(\nAtlanTaskStatus\n.\nPENDING\n.\nvalue\n)\n)\n.\nto_request\n()\n# (3)\n)\nresponse\n=\nclient\n.\ntasks\n.\nsearch\n(\nrequest\n=\ntask_request\n)\n# (4)\nfor\ntask\nin\nresponse\n:\n# (5)\n...\nYou can use\nFluentTasks()\nto simplify the most common searches against the Atlan task queue.\nThe\n.where()\nmethod allows you to limit to only tasks that have a particular value in a particular field:\nGUID\nof the asset for which you want to retrieve tag propagation tasks.\nSpecify the task type; in this example, we're retrieving tasks for monitoring propagation after a tag has been added to the asset.\nSpecify the task status; here, we're checking for any pending tag propagation tasks for the given asset.\nNote:",
+    "metadata": {
+      "source_url": "snippets_tags_monitor-propagation.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_monitor-propagation.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Specify the task status; here, we're checking for any pending tag propagation tasks for the given asset.\nNote:\nThere's no need to try to remember or even know the precise string values for the above constants. Enums for these values are available in the SDK, making it easier for you.\nBuild the task request object using the provided search criteria.\nInitiate the task request search by providing the created request object.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nSearch for background tag propagation tasks\n1\n2\n3\n4\n5\n6\n7\n8\n9\nclient\n.\nassets\n.\nselect\n()\n// (1)\n// (2)\n.\nwhere\n(\nAtlanTask\n.\nENTITY_GUID\n.\neq\n(\n\"f65e3da2-6ec2-4ff5-8f0b-b6eba640df24\"\n))\n.\nwhere\n(\nAtlanTask\n.\nTYPE\n.\neq\n(\nAtlanTaskType\n.\nCLASSIFICATION_PROPAGATION_ADD\n))\n.\nwhere\n(\nAtlanTask\n.\nSTATUS\n.\nmatch\n(\nAtlanTaskStatus\n.\nPENDING\n.\nvalue\n))\n.\nstream\n()\n// (3)\n.\nforEach\n{\n// (4)\nlog\n.\ninfo\n{\n\"Task:\n$\nit\n\"\n}\n}\nTo search across all tasks, you can use the\ntasks.select()\nconvenience method on a client.\nThe\n.where()\nmethod allows you to limit to only tasks that have a particular value in a particular field:\nGUID",
+    "metadata": {
+      "source_url": "snippets_tags_monitor-propagation.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_monitor-propagation.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "tasks.select()\nconvenience method on a client.\nThe\n.where()\nmethod allows you to limit to only tasks that have a particular value in a particular field:\nGUID\nof the asset for which you want to retrieve tag propagation tasks.\nSpecify the task type; in this example, we're retrieving tasks for monitoring propagation after a tag has been added to the asset.\nSpecify the task status; here, we're checking for any pending tag propagation tasks for the given asset.\nNote:\nThere's no need to try to remember or even know the precise string values for the above constants. Enums for these values are available in the SDK, making it easier for you.\nThe search will only run when you call the\nstream()\nmethod, which will then lazily-load each page of results into a stream.\nThis is the pattern for iterating through all results (across pages) covered in the\nSearching for assets\nportion of the SDK documentation.\nPOST /api/meta/task/search\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n{\n\"dsl\"\n:\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n20\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"__task_entityGuid\"\n:\n{\n\"value\"\n:",
+    "metadata": {
+      "source_url": "snippets_tags_monitor-propagation.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_monitor-propagation.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n{\n\"dsl\"\n:\n{\n\"from\"\n:\n0\n,\n\"size\"\n:\n20\n,\n\"query\"\n:\n{\n\"bool\"\n:\n{\n\"filter\"\n:\n[\n{\n\"term\"\n:\n{\n\"__task_entityGuid\"\n:\n{\n\"value\"\n:\n\"f65e3da2-6ec2-4ff5-8f0b-b6eba640df24\"\n,\n// (1)\n\"case_insensitive\"\n:\nfalse\n}\n}\n},\n{\n\"term\"\n:\n{\n\"__task_type\"\n:\n{\n\"value\"\n:\n\"CLASSIFICATION_PROPAGATION_ADD\"\n// (2)\n}\n}\n},\n{\n\"match\"\n:\n{\n\"__task_status\"\n:\n{\n\"query\"\n:\n\"PENDING\"\n// (3)\n}\n}\n}\n]\n}\n},\n\"sort\"\n:\n[\n{\n\"__task_startTime\"\n:\n{\n\"order\"\n:\n\"asc\"\n// (4)\n}\n}\n],\n\"track_total_hits\"\n:\ntrue\n}\n}\nGUID\nof the asset for which you want to retrieve tag propagation tasks.\nSpecify the task type; in this example, we're retrieving tasks for monitoring propagation after a tag has been added to the asset.\nSpecify the task status; here, we're checking for any pending tag propagation tasks for the given asset.\nThis is the default sort order for tag propagation tasks search.\n2024-03-04\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and",
+    "metadata": {
+      "source_url": "snippets_tags_monitor-propagation.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_monitor-propagation.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Thanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_tags_monitor-propagation.html",
+      "source_type": "sdk",
+      "file": "snippets_tags_monitor-propagation.json",
+      "chunk_id": 6
+    }
+  }
+]

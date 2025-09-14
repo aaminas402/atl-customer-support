@@ -1,0 +1,182 @@
+[
+  {
+    "content": "Paging search results - Developer\nSkip to content\nPaging search results\n¶\nAutomatically (via SDK)\n¶\nOur SDKs are designed to simplify paging, so you do not need to worry about the underlying details. You can simply iterate through a search response and the SDK will automatically fetch the next page(s) when it needs to (lazily).\nThe SDKs will even add a default sort by GUID to ensure stable results across pages, even when you do not provide any sorting criteria yourself.\nJava\nPython\nKotlin\nRaw REST API\nAutomatic paging\n1\n2\n3\n4\n5\n6\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\npageSize\n(\n50\n)\n// (2)\n.\nstream\n()\n// (3)\n.\nlimit\n(\n100\n)\n// (4)\n.\nfilter\n(\na\n->\n!\n(\na\ninstanceof\nILineageProcess\n))\n// (5)\n.\nforEach\n(\na\n->\nlog\n.\ninfo\n(\n\"Do something with each result: {}\"\n,\na\n));\n// (6)\nYou can start building a query across all assets using the\nselect()\nmethod on the\nassets\nmember of any client. You can chain as many mandatory (\nwhere()\n) conditions, mandatory exclusion (\nwhereNot()\n) conditions, and set of conditions some of which must match (\nwhereSome()\n) as you want.\nThe number of results to include (per page).",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "where()\n) conditions, mandatory exclusion (\nwhereNot()\n) conditions, and set of conditions some of which must match (\nwhereSome()\n) as you want.\nThe number of results to include (per page).\nYou can stream the results direct from the response. This will also lazily load and loop through each page of results.\nCan be chained without creating a request in-between\nYou can actually chain the\nstream()\nmethod directly onto the end of your query and request construction, without creating a\nrequest\nor\nresponse\nobject in-between.\nWith streaming, you can apply your own limits to the maximum number of results you want to process.\nIndependent of page size\nNote that this is independent of page size. You could page through results 50 at a time, but only process a maximum of 100 total results this way. Since the results are lazily-loaded when streaming, only the first two pages of results would be retrieved in such a scenario.\nYou can also apply your own logical filters to the results.\nPush-down as much as you can to the query",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "You can also apply your own logical filters to the results.\nPush-down as much as you can to the query\nYou should of course push-down as many of the filters as you can to the query itself, but if you have a particular complex check to apply that cannot be encoded in the query this can be a useful secondary filter over the results.\nThe\nforEach()\non the resulting stream will then apply whatever actions you want with the results that come through.\nBuild the query\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\n,\nProcess\nfrom\npyatlan.model.fluent_search\nimport\nCompoundQuery\n,\nFluentSearch\nbuilder\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nCompoundQuery\n.\nactive_assets\n())\n# (2)\n)\n.\nto_request\n()\n# (3)\nresults\n=\nclient\n.\nasset\n.\nsearch\n(\nindex\n)\n# (4)\nfor\nasset\nin\nresults\n:\n# (5)\nif\nnot\nisinstance\n(\nasset\n,\nProcess\n):\n# (6)\nnon_process\n=\nasset\nYou can start building a query using a\nFluentSearch\nobject. You can have as many mandatory (\nwhere()\n) conditions, mandatory exclusion (\nwhere_not()\n) conditions, and set of conditions some of which must match (\nwhere_some()\n) as you want.",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "object. You can have as many mandatory (\nwhere()\n) conditions, mandatory exclusion (\nwhere_not()\n) conditions, and set of conditions some of which must match (\nwhere_some()\n) as you want.\nThis helper provides a query that ensures results are active (not archived) assets.\nYou can now build all of this search configuration into a request.\nYou can then run the search against this request.\nThis will iterate through all the results without the need to be concerned with pages.\nIterating over results produces a\nGenerator\nThis means that results are retrieved from the backend a page at time. This also means that you can only iterate over the results once.\nRemember that each result is a generic\nAsset\n. You should of course push-down as many of the filters as you can to the query itself, but if you have a particular complex check to apply that cannot be encoded in the query this can be a useful secondary filter over the results.\nAutomatic paging\n1\n2\n3\n4\n5\n6\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\npageSize\n(\n50\n)\n// (2)\n.\nstream\n()\n// (3)\n.\nlimit\n(\n100\n)\n// (4)\n.\nfilter\n{\nit\n!is\nILineageProcess\n}\n// (5)\n.\nforEach\n{\nlog\n.\ninfo\n{\n\"Do something with each result:\n$\nit\n\"\n}\n}\n// (6)",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "()\n// (1)\n.\npageSize\n(\n50\n)\n// (2)\n.\nstream\n()\n// (3)\n.\nlimit\n(\n100\n)\n// (4)\n.\nfilter\n{\nit\n!is\nILineageProcess\n}\n// (5)\n.\nforEach\n{\nlog\n.\ninfo\n{\n\"Do something with each result:\n$\nit\n\"\n}\n}\n// (6)\nYou can start building a query across all assets using the\nselect()\nmethod on the\nassets\nmember of any client. You can chain as many mandatory (\nwhere()\n) conditions, mandatory exclusion (\nwhereNot()\n) conditions, and set of conditions some of which must match (\nwhereSome()\n) as you want.\nThe number of results to include (per page).\nYou can stream the results direct from the response. This will also lazily load and loop through each page of results.\nCan be chained without creating a request in-between\nYou can actually chain the\nstream()\nmethod directly onto the end of your query and request construction, without creating a\nrequest\nor\nresponse\nobject in-between.\nWith streaming, you can apply your own limits to the maximum number of results you want to process.\nIndependent of page size",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "request\nor\nresponse\nobject in-between.\nWith streaming, you can apply your own limits to the maximum number of results you want to process.\nIndependent of page size\nNote that this is independent of page size. You could page through results 50 at a time, but only process a maximum of 100 total results this way. Since the results are lazily-loaded when streaming, only the first two pages of results would be retrieved in such a scenario.\nYou can also apply your own logical filters to the results.\nPush-down as much as you can to the query\nYou should of course push-down as many of the filters as you can to the query itself, but if you have a particular complex check to apply that cannot be encoded in the query this can be a useful secondary filter over the results.\nThe\nforEach()\non the resulting stream will then apply whatever actions you want with the results that come through.\nUse an SDK\nThe SDKs manage making multiple requests and parsing results to make subsequent requests in the most efficient way possible. You will need to make many different API requests if you want to do the same directly via the raw REST APIs.\nManually (via Elastic)\n¶",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Manually (via Elastic)\n¶\nFor curious minds, though, you can page through search results using a combination of the following properties\n1\n:\nProperty\nDescription\nExample\nfrom\nIndicates the starting point for the results.\n0\nsize\nIndicates how many results to include per response (page). As a general rule of thumb we would recommend a size from\n20\n-\n100\n, making\n50\na common starting point.\n50\ntrack_total_hits\nIncludes an accurate number of total results, if set to\ntrue\n. With its default value on the raw REST APIs (\nfalse\n) the maximum number of results you will see in the\napproximateCount\nfield in the response is 10000. (Again, the SDKs set this to\ntrue\nby default to avoid this confusion.)\ntrue\nConstraints with this approach\nTo have the most consistent results you can when paging, you must always use some sorting criteria and include at least one sorting criteria as a tie-breaker. (You must also keep that criteria the same for every page.)\nFurthermore, as you get to larger\nfrom",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Furthermore, as you get to larger\nfrom\nsizes (more than ~10,000) Elastic will begin to use significantly more resources to process your paging. To reduce this impact, if you need to page through many results you should implement your own timestamp-based offset mechanism so that the\nfrom\nsize is kept consistently low.\n(Again, the SDKs do both of these for you automatically.)\n1.4.0\n1.1.0\nFor example:\nJava\nPython\nKotlin\nRaw REST API\nAnnotated sort options, as you would define them in the Java SDK\n1\n2\nSortOptions\nbyUpdate\n=\nAsset\n.\nUPDATE_TIME\n.\norder\n(\nSortOrder\n.\nDesc\n);\n// (1)\nSortOptions\nbyGuid\n=\nAsset\n.\nGUID\n.\norder\n(\nSortOrder\n.\nAsc\n);\n// (2)\nInclude any of your own sorting, like this example putting the most recently-updated assets first in the results.\nAlso consider a tie-breaker sorting mechanism. In this case, we use an asset's GUID to further sort any results that have the same last modified timestamp, since GUID is guaranteed to be unique for every asset.\nBuild the request\n3\n4\n5\n6\n7\n8\n9\n10\n11\nIndexSearchRequest\nindex\n=\nIndexSearchRequest\n.\nbuilder\n(\nIndexSearchDSL\n.\nbuilder\n(\nsomeQuery\n)\n// (1)\n.\nfrom\n(\n100\n)\n// (2)\n.\nsize\n(\n50\n)\n// (3)\n.\ntrackTotalHits\n(\ntrue\n)\n// (4)\n.",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "4\n5\n6\n7\n8\n9\n10\n11\nIndexSearchRequest\nindex\n=\nIndexSearchRequest\n.\nbuilder\n(\nIndexSearchDSL\n.\nbuilder\n(\nsomeQuery\n)\n// (1)\n.\nfrom\n(\n100\n)\n// (2)\n.\nsize\n(\n50\n)\n// (3)\n.\ntrackTotalHits\n(\ntrue\n)\n// (4)\n.\nsortOption\n(\nbyUpdate\n)\n// (5)\n.\nsortOption\n(\nbyGuid\n)\n.\nbuild\n())\n.\nbuild\n();\nYou still need a query, to get some results\n.\nStarting point for the page of results being requested. In this example, you would be asking for the third page. (\n0\nwould be from\n0-50\nfor the first page,\n50\nwould be from\n50-100\nfor the second page, and this gives us\n100-150\nfor the third page.)\nThe number of results per page (in this example,\n50\nresults per page).\nEnable\ntrackTotalHits\nso that your response includes an accurate total number of results. (Actually the Java SDK enables this by default, so this step is redundant unless you want to turn it\noff\n.)\nAnd we need to include the sorting criteria we defined just above.\nIterate through multiple pages of results\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\nIndexSearchResponse\nresponse\n=\nindex\n.\nsearch\n(\nclient\n);\n// (1)\nlong\ntotalResults\n=\nresponse\n.\ngetApproximateCount\n();\n// (2)\nfor\n(\nAsset\nresult\n:\nresponse\n)\n{\n// (3)\n// Do something with each result of the search...",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "response\n=\nindex\n.\nsearch\n(\nclient\n);\n// (1)\nlong\ntotalResults\n=\nresponse\n.\ngetApproximateCount\n();\n// (2)\nfor\n(\nAsset\nresult\n:\nresponse\n)\n{\n// (3)\n// Do something with each result of the search...\n}\nresponse\n.\nforEach\n(\na\n->\nlog\n.\ninfo\n(\n\"Found asset: {}\"\n,\na\n.\ngetGuid\n()));\n// (4)\nresponse\n.\nstream\n()\n// (5)\n.\nfilter\n(\na\n->\n!\n(\na\ninstanceof\nILineageProcess\n))\n// (6)\n.\nlimit\n(\n100\n)\n// (7)\n.\nforEach\n(\na\n->\nlog\n.\ninfo\n(\n\"Found asset: {}\"\n,\na\n.\ngetGuid\n()))\n// (8)\nKeep the response object from the initial search, as it has a helper method for paging.\nSince we set\ntrackTotalHits\nto\ntrue\n(the default for the Java SDK even if we do not set it), the\n.getApproximateCount()\nwill give us the total number of results. This can be over 10,000.\nIterate through all the results, across all pages (each page is lazily-loaded, so you can break out at any time without actually retrieving all pages of results).\nAlternatively, you can iterate through all the results using\nforEach()\non the response. (This uses the same underlying iterable-based implementation.)",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Alternatively, you can iterate through all the results using\nforEach()\non the response. (This uses the same underlying iterable-based implementation.)\nAlternatively, you can stream the results. Streaming will also lazily-load only the pages of results necessary to meet the chained criteria for processing the stream.\nWhen streaming, you can further filter the results to apply any complex filtering logic you could not push-down as part of the query itself.\nWhen streaming, you can also limit the total number of results you want to process — independently of the page size.\nDon't forget to actually\ndo\nsomething with the results in the stream\nAnnotated sort options, as you would define them in the Python SDK\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.enums\nimport\nSortOrder\nfrom\npyatlan.model.assets\nimport\nReferenceable\nfrom\npyatlan.model.search\nimport\nIndexSearchRequest\n,\nDSL\nby_update\n=\nReferenceable\n.\nUPDATE_TIME\n.\norder\n(\nSortOrder\n.\nDESCENDING\n)\n# (1)\nby_guid\n=\nReferenceable\n.\nGUID\n.\norder\n(\nSortOrder\n.\nASCENDING\n)\n# (2)\nInclude any of your own sorting, like this example putting the most recently-updated assets first in the results.",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": ")\n# (1)\nby_guid\n=\nReferenceable\n.\nGUID\n.\norder\n(\nSortOrder\n.\nASCENDING\n)\n# (2)\nInclude any of your own sorting, like this example putting the most recently-updated assets first in the results.\nAlso consider a tie-breaker sorting mechanism. In this case, we use an asset's GUID to further sort any results that have the same last modified timestamp, since GUID is guaranteed to be unique for every asset.\nBuild the request\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\nindex\n=\nIndexSearchRequest\n(\ndsl\n=\nDSL\n(\nquery\n=\nsomeQuery\n,\n# (1)\nfrom_\n=\n100\n,\n# (2)\nsize\n=\n50\n,\n# (3)\ntrack_total_hits\n=\nTrue\n,\n# (4)\nsort\n=\n[\n# (5)\nby_update\n,\nby_guid\n],\n)\n)\nYou still need a query, to get some results\n.\nStarting point for the page of results being requested. In this example, you would be asking for the third page. (\n0\nwould be from\n0-50\nfor the first page,\n50\nwould be from\n50-100\nfor the second page, and this gives us\n100-150\nfor the third page.)\nThe number of results per page (in this example,\n50\nresults per page).\nEnable\ntrack_total_hits\nso that your response includes an accurate total number of results. (Actually the Python SDK enables this by default, so this step is redundant unless you want to turn it\noff",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "Enable\ntrack_total_hits\nso that your response includes an accurate total number of results. (Actually the Python SDK enables this by default, so this step is redundant unless you want to turn it\noff\n.)\nAnd we need to include the sorting criteria we defined just above.\nIterate through multiple pages of results\n20\n21\n22\n23\n24\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\nasset\n.\nsearch\n(\nindex\n)\n# (1)\ntotal_results\n=\nresponse\n.\ncount\n# (2)\nfor\nresult\nin\nresponse\n:\n# (3)\n# Do something with each result of the search...\nKeep the response object from the initial search, as it has a helper method for paging.\nSince we set\ntrack_total_hits\nto\nTrue\n(the default for the Python SDK even if we do not set it), the\n.count\nproperty will give us the total number of results. This can be over 10,000.\nIterate through all the results, across all pages (each page is lazily-loaded, so you can break out at any time without actually retrieving all pages of results). Don't forget to actually\ndo\nsomething with the results in the stream\nAnnotated sort options, as you would define them in the Java SDK\n1\n2\nval\nbyUpdate\n=\nAsset\n.\nUPDATE_TIME\n.\norder\n(\nSortOrder\n.\nDesc\n)\n// (1)\nval\nbyGuid\n=\nAsset\n.\nGUID\n.\norder\n(",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "Annotated sort options, as you would define them in the Java SDK\n1\n2\nval\nbyUpdate\n=\nAsset\n.\nUPDATE_TIME\n.\norder\n(\nSortOrder\n.\nDesc\n)\n// (1)\nval\nbyGuid\n=\nAsset\n.\nGUID\n.\norder\n(\nSortOrder\n.\nAsc\n)\n// (2)\nInclude any of your own sorting, like this example putting the most recently-updated assets first in the results.\nAlso consider a tie-breaker sorting mechanism. In this case, we use an asset's GUID to further sort any results that have the same last modified timestamp, since GUID is guaranteed to be unique for every asset.\nBuild the request\n3\n4\n5\n6\n7\n8\n9\n10\n11\nval\nindex\n=\nIndexSearchRequest\n.\nbuilder\n(\nIndexSearchDSL\n.\nbuilder\n(\nsomeQuery\n)\n// (1)\n.\nfrom\n(\n100\n)\n// (2)\n.\nsize\n(\n50\n)\n// (3)\n.\ntrackTotalHits\n(\ntrue\n)\n// (4)\n.\nsortOption\n(\nbyUpdate\n)\n// (5)\n.\nsortOption\n(\nbyGuid\n)\n.\nbuild\n())\n.\nbuild\n()\nYou still need a query, to get some results\n.\nStarting point for the page of results being requested. In this example, you would be asking for the third page. (\n0\nwould be from\n0-50\nfor the first page,\n50\nwould be from\n50-100\nfor the second page, and this gives us\n100-150\nfor the third page.)\nThe number of results per page (in this example,\n50\nresults per page).\nEnable\ntrackTotalHits",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "50\nwould be from\n50-100\nfor the second page, and this gives us\n100-150\nfor the third page.)\nThe number of results per page (in this example,\n50\nresults per page).\nEnable\ntrackTotalHits\nso that your response includes an accurate total number of results. (Actually the Java SDK enables this by default, so this step is redundant unless you want to turn it\noff\n.)\nAnd we need to include the sorting criteria we defined just above.\nIterate through multiple pages of results\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\nval\nresponse\n=\nindex\n.\nsearch\n(\nclient\n)\n// (1)\nval\ntotalResults\n=\nresponse\n.\napproximateCount\n// (2)\nfor\n(\nresult\nin\nresponse\n)\n{\n// (3)\n// Do something with each result of the search...\n}\nresponse\n.\nforEach\n{\nlog\n.\ninfo\n{\n\"Found asset:\n${\nit\n.\nguid\n}\n\"\n}\n}\n// (4)\nresponse\n.\nstream\n()\n// (5)\n.\nfilter\n{\nit\n!is\nILineageProcess\n}\n// (6)\n.\nlimit\n(\n100\n)\n// (7)\n.\nforEach\n{\nlog\n.\ninfo\n{\n\"Found asset:\n${\nit\n.\nguid\n}\n\"\n}\n}\n// (8)\nKeep the response object from the initial search, as it has a helper method for paging.\nSince we set\ntrackTotalHits\nto\ntrue\n(the default for the Java SDK even if we do not set it), the\n.getApproximateCount()",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Since we set\ntrackTotalHits\nto\ntrue\n(the default for the Java SDK even if we do not set it), the\n.getApproximateCount()\nwill give us the total number of results. This can be over 10,000.\nIterate through all the results, across all pages (each page is lazily-loaded, so you can break out at any time without actually retrieving all pages of results).\nAlternatively, you can iterate through all the results using\nforEach()\non the response. (This uses the same underlying iterable-based implementation.)\nAlternatively, you can stream the results. Streaming will also lazily-load only the pages of results necessary to meet the chained criteria for processing the stream.\nWhen streaming, you can further filter the results to apply any complex filtering logic you could not push-down as part of the query itself.\nWhen streaming, you can also limit the total number of results you want to process — independently of the page size.\nDon't forget to actually\ndo\nsomething with the results in the stream\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"dsl\"\n:\n{\n\"from\"\n:\n100\n,\n// (1)\n\"size\"\n:\n50\n,\n// (2)\n\"track_total_hits\"\n:\ntrue\n,\n// (3)\n\"query\"\n:\n{\n...\n},\n// (4)\n\"sort\"\n:\n[\n// (5)\n{",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "POST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n{\n\"dsl\"\n:\n{\n\"from\"\n:\n100\n,\n// (1)\n\"size\"\n:\n50\n,\n// (2)\n\"track_total_hits\"\n:\ntrue\n,\n// (3)\n\"query\"\n:\n{\n...\n},\n// (4)\n\"sort\"\n:\n[\n// (5)\n{\n\"__modificationTimestamp\"\n:\n{\n\"order\"\n:\n\"desc\"\n}},\n// (6)\n{\n\"__guid\"\n:\n{\n\"order\"\n:\n\"asc\"\n}}\n// (7)\n]\n}\n}\nStarting point for the page of results being requested. In this example, you would be asking for the third page. (\n0\nwould be from\n0-50\nfor the first page,\n50\nwould be from\n50-100\nfor the second page, and this gives us\n100-150\nfor the third page.)\nThe number of results per page (in this example,\n50\nresults per page).\nEnable\ntrack_total_hits\nso that your response includes an accurate total number of results.\nYou still need a query, to get some results\n.\nWhen paging, we should always sort the results (for consistency across the pages).\nInclude any of your own sorting, like this example putting the most recently-updated assets first in the results.\nAlso consider a tie-breaker sorting mechanism. In this case, we use the GUID of an asset to further sort any results that have the same last modified timestamp.\nAnnotated response, in plain JSON\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "Annotated response, in plain JSON\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n{\n\"queryType\"\n:\n\"INDEX\"\n,\n\"searchParameters\"\n:\n{\n\"showSearchScore\"\n:\nfalse\n,\n\"suppressLogs\"\n:\nfalse\n,\n\"allowDeletedRelations\"\n:\nfalse\n,\n\"query\"\n:\n\"{\\\"from\\\":100,\\\"size\\\":50,\\\"track_total_hits\\\":true,\\\"query\\\":{...},\\\"sort\\\":[{\\\"__modificationTimestamp\\\":\\\"asc\\\"},{\\\"__guid\\\":\\\"asc\\\"}]}\"\n// (1)\n},\n\"entities\"\n:\n[\n// (2)\n{\n...\n},\n{\n...\n},\n...\n],\n\"approximateCount\"\n:\n24631\n// (3)\n}\nNote that every response to a search includes the query that was run. You can deconstruct this programmatically to always determine the\nfrom\nyou will need for the next page of results. (Basically:\nfrom = from + size\n.) And in fact, since you can programmatically extract both the query and sorting criteria from this you have everything you need to get the next page — the\nquery\n, the\nfrom\n, the\nsize\nand the\nsort\n.\nThe results themselves are the objects in the\nentities\narray. The size of this array will be\nat most\nsize\nelements. Of course, your final page of results may not have a complete page of results, so it is possible that this array will be\nless\nthan\nsize\n(in particular, when you are on the final page).\nSince the request sets",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "less\nthan\nsize\n(in particular, when you are on the final page).\nSince the request sets\ntrack_total_hits\nto\ntrue\n, the\napproximateCount\nin the response will have an accurate number of total results. Note that this can go beyond 10,000.\nIf you're familiar with Elasticsearch there are an alternative paging options using\nsearch_after\nand point-in-time (PIT) state preservation. (There also used to be scrolling, but this is no longer recommended by Elasticsearch.) We do not currently expose the\nsearch_after\nor PIT approaches through Atlan's search. However, you should still be able to page beyond the first 10,000 results using the approach outlined above.\n↩\n2022-09-11\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "Any personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "search_paging.html",
+      "source_type": "sdk",
+      "file": "search_paging.json",
+      "chunk_id": 19
+    }
+  }
+]

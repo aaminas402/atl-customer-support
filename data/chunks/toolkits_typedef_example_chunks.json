@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Running example - Developer\nSkip to content\nRunning example\n¶\nRunning example\nTo summarize the overall example — we want to have\nCustomDataset\n,\nCustomTable\nand\nCustomField\nassets.\nThese assets are related to each other in a hierarchy of parent-child relationships:\nCustomDataset\nto\nCustomTable\n, through\ncustomTables\nCustomTable\nto\nCustomField\n, through\ncustomFields\nAll of these assets have a number of attributes:\nSome common (like\ncustomSourceId\n,\ncustomDatasetName\nand\ncustomDatasetQualifiedName\n).\nOthers unique (like\ncustomTemperature\nand\ncustomRatings\n).\nSome of these attributes themselves have a set of restricted values (\ncustomTemperature\n) or are a nested set of information (\ncustomRatings\n).\nMost of the attributes capture only a single value (\ncustomSourceId\nand\ncustomTemperature\n) but some allow multiple values (\ncustomRatings\n).\nTo help explain how this all works, we'll use this fictional example of a metadata model we want to set up:\nerDiagram\nConnection ||..o{ CustomDataset : \"\"\nCustomDataset {\nstring customSourceId\nstring customDatasetName\nstring customDatasetQualifiedName\n}\nCustomDataset ||--o{ CustomTable : customTables\nCustomTable {\nstring customSourceId",
+    "metadata": {
+      "source_url": "toolkits_typedef_example.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_example.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "CustomDataset {\nstring customSourceId\nstring customDatasetName\nstring customDatasetQualifiedName\n}\nCustomDataset ||--o{ CustomTable : customTables\nCustomTable {\nstring customSourceId\nstring customDatasetName\nstring customDatasetQualifiedName\nstruct[] customRatings\n}\nCustomTable ||--o{ CustomField : customFields\nCustomField {\nstring customSourceId\nstring customDatasetName\nstring customDatasetQualifiedName\nstring tableName\nstring tableQualifiedName\nenum customTemperature\n}\n\"CustomTemperature(Enum)\" |o--o{ CustomField : \"\"\n\"CustomTemperature(Enum)\" {\nval HOT \"highly available\"\nval COLD \"offline storage\"\n}\n\"CustomRating(Struct)\" |o--o{ CustomTable : \"\"\n\"CustomRating(Struct)\" {\nstring customRatingFrom\nlong customRatingOf\n}\n2025-03-11\n2025-03-14\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.",
+    "metadata": {
+      "source_url": "toolkits_typedef_example.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_example.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Allow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "toolkits_typedef_example.html",
+      "source_type": "sdk",
+      "file": "toolkits_typedef_example.json",
+      "chunk_id": 2
+    }
+  }
+]

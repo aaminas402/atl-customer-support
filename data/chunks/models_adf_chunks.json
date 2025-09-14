@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Azure Data Factory - Developer\nSkip to content\nAzure Data Factory model\n¶\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage Azure Data Factory assets in Atlan.\nThese model elements all deal with Azure Data Factory constructs.\nclassDiagram\ndirection RL\nclass ADF {\n<<abstract>>\n}\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- ADF : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass AdfActivity\nlink AdfActivity \"../entities/adfactivity\"\nADF <|-- AdfActivity : extends\nclass AdfDataflow\nlink AdfDataflow \"../entities/adfdataflow\"\nADF <|-- AdfDataflow : extends\nclass AdfDataset\nlink AdfDataset \"../entities/adfdataset\"\nADF <|-- AdfDataset : extends\nclass AdfLinkedservice\nlink AdfLinkedservice \"../entities/adflinkedservice\"\nADF <|-- AdfLinkedservice : extends\nclass AdfPipeline\nlink AdfPipeline \"../entities/adfpipeline\"\nADF <|-- AdfPipeline : extends\nProperties\n¶",
+    "metadata": {
+      "source_url": "models_adf.html",
+      "source_type": "sdk",
+      "file": "models_adf.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "link AdfLinkedservice \"../entities/adflinkedservice\"\nADF <|-- AdfLinkedservice : extends\nclass AdfPipeline\nlink AdfPipeline \"../entities/adfpipeline\"\nADF <|-- AdfPipeline : extends\nProperties\n¶\nThese attributes are unique to instances of\nADF\n(and all of its subtypes).\nadfAssetFolderPath\n¶\nDefines the folder path in which this ADF asset exists.\nadfFactoryName\n¶\nDefines the name of the factory in which this asset exists.\nRelationships\n¶\nThe following illustrates how the various Azure Data Factory objects inter-relate with each other:\nerDiagram\nConnection ||..o{ AdfPipeline : \"\"\nAdfPipeline ||--o{ AdfActivity : \"adfActivities\"\nAdfPipeline }o--o{ AdfDataflow : \"adfDataflows\"\nAdfPipeline }o--o{ AdfDataset : \"adfDatasets\"\nAdfPipeline }o--o{ AdfLinkedservice : \"adfLinkedservices\"\nAdfDataflow ||--o{ AdfActivity : \"adfActivities\"\nAdfDataflow }o--o{ AdfDataset : \"adfDatasets\"\nAdfDataflow }o--o{ AdfLinkedservice : \"adfLinkedservices\"\nAdfLinkedservice }o--o{ AdfActivity : \"adfActivities\"\nAdfLinkedservice ||--o{ AdfDataset : \"adfDatasets\"\nAdfActivity }o--o{ AdfDataset : \"adfDatasets\"\n2024-11-29\n2024-11-29\nWas this page helpful?\nThanks for your feedback!",
+    "metadata": {
+      "source_url": "models_adf.html",
+      "source_type": "sdk",
+      "file": "models_adf.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "AdfLinkedservice ||--o{ AdfDataset : \"adfDatasets\"\nAdfActivity }o--o{ AdfDataset : \"adfDatasets\"\n2024-11-29\n2024-11-29\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_adf.html",
+      "source_type": "sdk",
+      "file": "models_adf.json",
+      "chunk_id": 2
+    }
+  }
+]

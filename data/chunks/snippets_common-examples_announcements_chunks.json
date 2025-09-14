@@ -1,0 +1,128 @@
+[
+  {
+    "content": "Manage announcements - Developer\nSkip to content\nManage announcements\n¶\nAdd to an existing asset\n¶\n1.4.0\n4.0.0\nTo add an announcement to an existing\nasset\n:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nAdd announcement to existing assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nattributes\n:\n# (2)\nannouncementType\n:\nwarning\n# (3)\nannouncementTitle\n:\n\"Caution!\"\n# (4)\nannouncementMessage\n:\n>-\n# (5)\nThis table was changed.\nYou must of course give the name of the object.\nThe details for the announcement must be nested within the\nmeta\n.\natlan\n.\nattributes\nstructure.\nYou must provide a valid status for the announcement (\ninformation\n,\nwarning\nor\nissue\n).\n(Optional) You can also provide a title for the announcement.\n(Optional) You can also provide a message to include in the announcement.\nAdd announcement to existing assets\n1\n2\n3\n4\n5\n6\nTable\nresult\n=\nTable\n.\nupdateAnnouncement\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\nAtlanAnnouncementType\n.\nWARNING\n,\n// (4)\n\"Caution!\"\n,\n// (5)\n\"This table was changed.\"\n);\n// (6)\nUse the\nupdateAnnouncement()",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ",\n// (3)\nAtlanAnnouncementType\n.\nWARNING\n,\n// (4)\n\"Caution!\"\n,\n// (5)\n\"This table was changed.\"\n);\n// (6)\nUse the\nupdateAnnouncement()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the update operation all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the object.\nThe type of the announcement (the\nAtlanAnnouncementType\nenumeration gives the valid values).\nA title for the announcement.\nA message to include in the announcement.\nAdd announcement to existing assets\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.core\nimport\nAnnouncement\nfrom\npyatlan.model.enums\nimport\nAnnouncementType\nclient\n=\nAtlanClient\n()\nannouncement\n=\nAnnouncement\n(\n# (1)\nannouncement_title\n=\n\"Caution\"\n,\nannouncement_message\n=\n\"This table was changed.\"\n,\nannouncement_type\n=\nAnnouncementType\n.\nWARNING\n,\n# (2)\n)\ntable\n=\nclient\n.\nasset\n.\nupdate_announcement\n(",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "(\n# (1)\nannouncement_title\n=\n\"Caution\"\n,\nannouncement_message\n=\n\"This table was changed.\"\n,\nannouncement_type\n=\nAnnouncementType\n.\nWARNING\n,\n# (2)\n)\ntable\n=\nclient\n.\nasset\n.\nupdate_announcement\n(\n# (3)\nasset_type\n=\nTable\n,\n# (4)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\nannouncement\n=\nannouncement\n,\n)\nCreate the announcement.\nThe type of the announcement (the\nAnnouncementType\nenum gives the valid values).\nUse the\nupdate_announcment()\nmethod, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the update operation all-in-one.\nSpecify the type of asset to be updated.\nAdd announcement to existing assets\n1\n2\n3\n4\n5\n6\nval\nresult\n=\nTable\n.\nupdateAnnouncement\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (3)\nAtlanAnnouncementType\n.\nWARNING\n,\n// (4)\n\"Caution!\"\n,\n// (5)\n\"This table was changed.\"\n)\n// (6)\nUse the\nupdateAnnouncement()",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": ",\n// (3)\nAtlanAnnouncementType\n.\nWARNING\n,\n// (4)\n\"Caution!\"\n,\n// (5)\n\"This table was changed.\"\n)\n// (6)\nUse the\nupdateAnnouncement()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the update operation all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the object.\nThe type of the announcement (the\nAtlanAnnouncementType\nenumeration gives the valid values).\nA title for the announcement.\nA message to include in the announcement.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"announcementType\"\n:\n\"warning\"\n,\n// (5)\n\"announcementTitle\"\n:\n\"Caution!\"\n,\n// (6)\n\"announcementMessage\"\n:\n\"This table was changed.\"\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": ",\n// (4)\n\"announcementType\"\n:\n\"warning\"\n,\n// (5)\n\"announcementTitle\"\n:\n\"Caution!\"\n,\n// (6)\n\"announcementMessage\"\n:\n\"This table was changed.\"\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nYou must provide a valid type for the announcement.\n(Optional) You can also provide a title and message for the announcement.\nRemove from an existing asset\n¶\n1.4.0\n4.0.0\nTo remove an announcement from an existing asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nIt is currently not possible to\nremove\nan announcement from an asset via dbt.\nRemove announcement from existing asset\n1\n2\n3\n4\nColumn\ncolumn\n=\nColumn\n.\nremoveAnnouncement\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\n// (3)\n\"USER_ID\"\n);\n// (4)\nUse the\nremoveAnnouncement()",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "column\n=\nColumn\n.\nremoveAnnouncement\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\n// (3)\n\"USER_ID\"\n);\n// (4)\nUse the\nremoveAnnouncement()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the removal operation all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the column (this is generally needed on all assets).\nThe name of the column (this varies by asset, but most assets need the name specified).\nRemove announcement from existing asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nclient\n=\nAtlanClient\n()\ntable\n=\nclient\n.\nasset\n.\nremove_announcement\n(\n# (1)\nasset_type\n=\nTable\n,\n# (2)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\nname\n=\n\"USER_ID\"\n,\n)\nUse the\nasset.remove_announcement()",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "(\n# (1)\nasset_type\n=\nTable\n,\n# (2)\nqualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\nname\n=\n\"USER_ID\"\n,\n)\nUse the\nasset.remove_announcement()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the removal operation all-in-one.\nSpecify the type of asset from which to remove the announcement.\nRemove announcement from existing asset\n1\n2\n3\n4\nval\ncolumn\n=\nColumn\n.\nremoveAnnouncement\n(\n// (1)\nclient\n,\n// (2)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS/USER_ID\"\n,\n// (3)\n\"USER_ID\"\n)\n// (4)\nUse the\nremoveAnnouncement()\nhelper method, which for most objects requires a minimal set of information. This helper method will construct the necessary request, call the necessary API(s), and return with the result of the removal operation all-in-one.\nBecause this operation will directly change the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the column (this is generally needed on all assets).",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "provide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe\nqualifiedName\nof the column (this is generally needed on all assets).\nThe name of the column (this varies by asset, but most assets need the name specified).\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"announcementType\"\n:\nnull\n,\n// (5)\n\"announcementTitle\"\n:\nnull\n,\n\"announcementMessage\"\n:\nnull\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide the exact name of the asset (case-sensitive).\nYou must provide the exact\nqualifiedName\nof the asset (case-sensitive).\nYou must provide the value\nnull\nfor the type of the announcement, its title, and its message.\nWhen creating an asset\n¶\n2.0.0\n4.0.0\nTo add an announcement when creating an asset:\ndbt\nJava\nPython\nKotlin\nRaw REST API\nAdd announcement when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nattributes\n:\n# (2)",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "dbt\nJava\nPython\nKotlin\nRaw REST API\nAdd announcement when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nmodels\n:\n-\nname\n:\nTOP_BEVERAGE_USERS\n# (1)\nmeta\n:\natlan\n:\nattributes\n:\n# (2)\nannouncementType\n:\ninformation\n# (3)\nannouncementTitle\n:\n\"New!\"\n# (4)\nannouncementMessage\n:\n>-\n# (5)\nThis table is newly created.\nYou must of course give the name of the object.\nThe details for the announcement must be nested within the\nmeta\n.\natlan\n.\nattributes\nstructure.\nYou must provide a valid status for the announcement (\ninformation\n,\nwarning\nor\nissue\n).\n(Optional) You can also provide a title for the announcement.\n(Optional) You can also provide a message to include in the announcement.\nAdd announcement when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nTable\ntable\n=\nTable\n.\ncreator\n(\n\"TOP_BEVERAGE_USERS\"\n,\n// (1)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n)\n.\nannouncementType\n(\nAtlanAnnouncementType\n.\nINFORMATION\n)\n// (2)\n.\nannouncementTitle\n(\n\"New!\"\n)\n// (3)\n.\nannouncementMessage\n(\n\"This table is newly created.\"\n)\n// (4)\n.\nbuild\n();\n// (5)\nAssetMutationResponse\nresponse\n=\ntable\n.\nsave\n(\nclient\n);\n// (6)\nassert\nresponse\n.\ngetCreatedAssets\n().\nsize\n()\n==\n1\n// (7)\nUse the\ncreator()",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": ")\n// (4)\n.\nbuild\n();\n// (5)\nAssetMutationResponse\nresponse\n=\ntable\n.\nsave\n(\nclient\n);\n// (6)\nassert\nresponse\n.\ngetCreatedAssets\n().\nsize\n()\n==\n1\n// (7)\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nSet the announcement that should be added (in this example, we're using\nINFORMATION\n).\nAdd a title for the announcement.\nAdd a message for the announcement.\nCall the\nbuild()\nmethod to build the enriched object.\nCall the\nsave()\nmethod to actually create the asset with this announcement. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was created.\nAdd announcement when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nTable\nfrom\npyatlan.model.core\nimport\nAnnouncement\nfrom\npyatlan.model.enums\nimport\nAnnouncementType\nfrom\npyatlan.model.response\nimport\nAssetMutationResponse\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\ncreator\n(\n# (1)\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\nschema_qualified_name\n=",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "import\nAnnouncementType\nfrom\npyatlan.model.response\nimport\nAssetMutationResponse\nclient\n=\nAtlanClient\n()\ntable\n=\nTable\n.\ncreator\n(\n# (1)\nname\n=\n\"TOP_BEVERAGE_USERS\"\n,\nschema_qualified_name\n=\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n,\n)\nannouncement\n=\nAnnouncement\n(\n# (2)\nannouncement_title\n=\n\"New!\"\n,\nannouncement_message\n=\n\"This table is newly created.\"\n,\nannouncement_type\n=\nAnnouncementType\n.\nINFORMATION\n,\n)\ntable\n.\nset_announcement\n(\nannouncement\n=\nannouncement\n)\nresponse\n=\nclient\n.\nasset\n.\nsave\n(\ntable\n)\n# (3)\nassert\nresponse\n.\nassets_created\n(\nTable\n)\n# (4)\ntable\n=\nresponse\n.\nassets_created\n(\nTable\n)[\n0\n]\n# (5)\nUse the\ncreate()\nmethod to initialize the object with all [necessary attributes for creating it.\nCreate the\nAnnouncement\nto be used.\nInvoke the\nsave()\nmethod with asset. This method will return an AssetMutationResponse object that encapsulates the results.\nSince a save can add, update, delete or partially update multiple assets the\nassets_created()\nmethod can be used to return a list of the assets of the specified type that were added. The assert statement is present to ensure a\nTable\nasset was created.\nSince only one\nTable",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "assets_created()\nmethod can be used to return a list of the assets of the specified type that were added. The assert statement is present to ensure a\nTable\nasset was created.\nSince only one\nTable\nshould have been created we use an index of 0 to retrieve the newly created table.\nAdd announcement when creating asset\n1\n2\n3\n4\n5\n6\n7\n8\n9\nval\ntable\n=\nTable\n.\ncreator\n(\n\"TOP_BEVERAGE_USERS\"\n,\n// (1)\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n)\n.\nannouncementType\n(\nAtlanAnnouncementType\n.\nINFORMATION\n)\n// (2)\n.\nannouncementTitle\n(\n\"New!\"\n)\n// (3)\n.\nannouncementMessage\n(\n\"This table is newly created.\"\n)\n// (4)\n.\nbuild\n()\n// (5)\nval\nresponse\n=\ntable\n.\nsave\n(\nclient\n)\n// (6)\nassert\n(\nresponse\n.\ncreatedAssets\n.\nsize\n==\n1\n)\n// (7)\nUse the\ncreator()\nmethod to initialize the object with all\nnecessary attributes for creating it\n.\nSet the announcement that should be added (in this example, we're using\nINFORMATION\n).\nAdd a title for the announcement.\nAdd a message for the announcement.\nCall the\nbuild()\nmethod to build the enriched object.\nCall the\nsave()\nmethod to actually create the asset with this announcement. Because this operation will persist the asset in Atlan, you must\nprovide it an",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "build()\nmethod to build the enriched object.\nCall the\nsave()\nmethod to actually create the asset with this announcement. Because this operation will persist the asset in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nThe response will include that single asset that was created.\nPOST /api/meta/entity/bulk\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n{\n\"entities\"\n:\n[\n// (1)\n{\n\"typeName\"\n:\n\"Table\"\n,\n// (2)\n\"attributes\"\n:\n{\n\"name\"\n:\n\"TOP_BEVERAGE_USERS\"\n,\n// (3)\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV/TOP_BEVERAGE_USERS\"\n,\n// (4)\n\"atlanSchema\"\n:\n{\n// (5)\n\"typeName\"\n:\n\"Schema\"\n,\n\"uniqueAttributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1657037873/SAMPLE_DB/FOOD_BEV\"\n}\n},\n\"announcementType\"\n:\n\"information\"\n,\n// (6)\n\"announcementTitle\"\n:\n\"New!\"\n,\n// (7)\n\"announcementMessage\"\n:\n\"This table is newly created.\"\n}\n}\n]\n}\nAll assets must be wrapped in an\nentities\narray.\nYou must provide the exact type name for the asset (case-sensitive).\nYou must provide a name for the asset.\nIn the case of a table, the\nqualifiedName\nmust be the concatenation of the parent schema's qualifiedName and the name of the table.",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "You must provide a name for the asset.\nIn the case of a table, the\nqualifiedName\nmust be the concatenation of the parent schema's qualifiedName and the name of the table.\nWhen creating a table, you must specify the schema to create it within. This is defined by the\natlanSchema\nattribute. You must specify both the type (must be\nSchema\n) and qualifiedName of the schema within the\natlanSchema\nattribute — and the schema must already exist.\nYou must provide a valid status for the announcement.\n(Optional) You can also provide a title and message for the announcement.\n2022-08-22\n2024-12-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_common-examples_announcements.html",
+      "source_type": "sdk",
+      "file": "snippets_common-examples_announcements.json",
+      "chunk_id": 13
+    }
+  }
+]

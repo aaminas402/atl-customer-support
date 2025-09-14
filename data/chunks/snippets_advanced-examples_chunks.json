@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Asset CRUD operations - Developer\nSkip to content\nAsset CRUD operations\n¶\nIn this section you'll find details about creating, retrieving, updating, deleting, and searching for\nassets\n. Rather than covering every asset type in detail (since there are many), the subsections focus on the operations and patterns to follow for each operation.\nFor more details on specific assets that are primarily intended to be managed programmatically, see the\nAPI-first models\n.\nCreate an asset\nRetrieve an asset\nUpdate an asset\nDelete an asset\nRestore an asset\nView history of an asset\nSearch for assets\nIn many cases, you can also\ncombine multiple operations\ninto a single API call for efficiency.\n2022-10-17\n2024-10-01\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙",
+    "metadata": {
+      "source_url": "snippets_advanced-examples.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "We do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_advanced-examples.html",
+      "source_type": "sdk",
+      "file": "snippets_advanced-examples.json",
+      "chunk_id": 1
+    }
+  }
+]

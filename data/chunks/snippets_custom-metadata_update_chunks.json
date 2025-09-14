@@ -1,0 +1,209 @@
+[
+  {
+    "content": "Update custom metadata - Developer\nSkip to content\nUpdate custom metadata\n¶\nCustom metadata structure updates are complete replacements\nYou need to send the entire custom metadata structure (all of its attributes) on each update.\nRetrieve existing structure\n¶\nTo ensure you have the complete structure, it is easiest to start by\nretrieving the existing custom metadata structure\n.\nUpdate the custom metadata structure\n¶\nNow that you have the existing structure, modify the object. You can add or remove as many properties as you want in a single update, but for simplicity the following describe how to add and remove a single property each.\nAdd a property\n¶\n7.0.0\n4.0.0\nTo add a property:\nJava\nPython\nKotlin\nRaw REST API\nAdd a property to the structure\n4\n5\n6\n7\n8\n9\n10\nexisting\n.\ntoBuilder\n()\n// (6)\n.\nattributeDef\n(\nAttributeDef\n.\nof\n(\nclient\n,\n// (2)\n\"Extra\"\n,\n// (3)\nAtlanCustomAttributePrimitiveType\n.\nSTRING\n,\n// (4)\nfalse\n))\n// (5)\n.\nbuild\n();\n// (6)\nCustomMetadataDef\nupdated\n=\nexisting\n.\nupdate\n(\nclient\n);\n// (7)\nAfter retrieving the existing custom metadata structure, clone the structure into a mutable one using\ntoBuilder()\n.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": ".\nbuild\n();\n// (6)\nCustomMetadataDef\nupdated\n=\nexisting\n.\nupdate\n(\nclient\n);\n// (7)\nAfter retrieving the existing custom metadata structure, clone the structure into a mutable one using\ntoBuilder()\n.\nYou can append a new attribute to its list of attributes by chaining\n.attributeDef()\n. Use the\nAttributeDef.of()\nfactory method to define the attribute with the correct internal settings. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWhen using the factory method, you need to provide at least a name;\n...a type;\n...and whether there can be multiple values for this property (true) or only a single value (false) on a given asset.\nThen build the mutable structure.\nAnd finally call the\n.update()\nmethod on the revised custom metadata structure to actually submit the changes to Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nAdd a property to the structure\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.model.typedef\nimport\nAttributeDef\nfrom\npyatlan.model.enums\nimport",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "through which to connect to the tenant.\nAdd a property to the structure\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.model.typedef\nimport\nAttributeDef\nfrom\npyatlan.model.enums\nimport\nAtlanCustomAttributePrimitiveType\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nattrs\n=\nexisting\n.\nattribute_defs\n# (1)\nattrs\n.\nappend\n(\nAttributeDef\n.\ncreate\n(\n# (2)\nclient\n=\nclient\n,\n# (3)\ndisplay_name\n=\n\"Extra\"\n,\n# (4)\nattribute_type\n=\nAtlanCustomAttributePrimitiveType\n.\nSTRING\n,\n),\n)\nexisting\n.\nattribute_defs\n=\nattrs\n# (5)\nresponse\n=\nclient\n.\ntypedef\n.\nupdate\n(\nexisting\n)\n# (6)\nCreate a new list of attributes, starting with the list of existing attributes.\nAdd a new attribute to this list of attributes. Use the\nAttributeDef.create()\nfactory method to define the attribute with the correct internal settings.\nYou must provide a client instance.\nWhen using the factory method, you need to provide at least a name and a type.\nThen set the attributes on the custom metadata structure to this revised list.\nAnd finally call the\n.typedef.update()\nmethod sending the revised custom metadata structure to actually submit the changes to Atlan.\nAdd a property to the structure\n4\n5\n6\n7",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "And finally call the\n.typedef.update()\nmethod sending the revised custom metadata structure to actually submit the changes to Atlan.\nAdd a property to the structure\n4\n5\n6\n7\n8\n9\n10\nexisting\n.\ntoBuilder\n()\n// (6)\n.\nattributeDef\n(\nAttributeDef\n.\nof\n(\nclient\n,\n// (2)\n\"Extra\"\n,\n// (3)\nAtlanCustomAttributePrimitiveType\n.\nSTRING\n,\n// (4)\nfalse\n))\n// (5)\n.\nbuild\n()\n// (6)\nval\nupdated\n=\nexisting\n.\nupdate\n(\nclient\n)\n// (7)\nAfter retrieving the existing custom metadata structure, clone the structure into a mutable one using\ntoBuilder()\n.\nYou can append a new attribute to its list of attributes by chaining\n.attributeDef()\n. Use the\nAttributeDef.of()\nfactory method to define the attribute with the correct internal settings. Because this operation may need to retrieve information from Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nWhen using the factory method, you need to provide at least a name;\n...a type;\n...and whether there can be multiple values for this property (true) or only a single value (false) on a given asset.\nThen build the mutable structure.\nAnd finally call the\n.update()",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "...a type;\n...and whether there can be multiple values for this property (true) or only a single value (false) on a given asset.\nThen build the mutable structure.\nAnd finally call the\n.update()\nmethod on the revised custom metadata structure to actually submit the changes to Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPUT /api/meta/types/typedefs\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n{\n\"businessMetadataDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"BUSINESS_METADATA\"\n,\n// (2)\n\"guid\"\n:\n\"917ffec9-fa84-4c59-8e6c-c7b114d04be3\"\n,\n\"name\"\n:\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n,\n\"displayName\"\n:\n\"RACI\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeVersion\"\n:\n\"1.0\"\n,\n\"serviceType\"\n:\n\"atlan\"\n,\n\"attributeDefs\"\n:\n[\n// (3)\n{\n\"name\"\n:\n\"fWMB77RSjRGNYoFeD4FcGi\"\n,\n\"displayName\"\n:\n\"Responsible\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": ":\n\"Responsible\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"valuesMinCount\"\n:\n0\n,\n\"valuesMaxCount\"\n:\n1\n,\n\"options\"\n:\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"allowFiltering\"\n:\ntrue\n,\n\"allowSearch\"\n:\ntrue\n,\n\"primitiveType\"\n:\n\"string\"\n,\n\"customType\"\n:\n\"users\"\n}\n},\n{\n...\n},\n{\n...\n},\n{\n...\n},\n{\n\"name\"\n:\n\"Extra\"\n,\n// (4)\n\"displayName\"\n:\n\"Extra\"\n,\n// (5)\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"valuesMinCount\"\n:\n0\n,\n\"valuesMaxCount\"\n:\n1\n,\n\"options\"\n:\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"allowFiltering\"\n:\ntrue\n,",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": ":\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"allowFiltering\"\n:\ntrue\n,\n\"allowSearch\"\n:\ntrue\n,\n\"primitiveType\"\n:\n\"string\"\n,\n\"customType\"\n:\n\"users\"\n}\n}\n],\n\"createdBy\"\n:\n\"jsmith\"\n,\n\"updatedBy\"\n:\n\"jsmith\"\n,\n\"createTime\"\n:\n1648852296555\n,\n\"updateTime\"\n:\n1649172284333\n,\n\"version\"\n:\n2\n}\n]\n}\nYou need to specify the entire custom metadata structure, within the\nbusinessMetadataDefs\narray.\nInclude all the details of the custom metadata structure definition as you retrieved it.\nInclude all the details of the custom metadata attribute definitions, as you retrieved them.\nAdd the new attribute definition to the list of attribute definitions. Note that for the\nname\nduring this update you can use any string you want, as it will be replaced by a system-generated hashed-string during creation of the property.\nHowever, ensure you use the human-readable name you want for the property for the\ndisplayName\nof the attribute definition. Also ensure you set all the remaining pieces of the attribute definition according to the nature of the attribute you want to define.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "displayName\nof the attribute definition. Also ensure you set all the remaining pieces of the attribute definition according to the nature of the attribute you want to define.\nChange a property\n¶\n1.3.3\n4.0.0\nTo change an existing property:\nJava\nPython\nKotlin\nRaw REST API\nChange the custom metadata definition\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nList\n<\nAttributeDef\n>\nrevised\n=\nnew\nArrayList\n<>\n();\n// (1)\nfor\n(\nAttributeDef\nattr\n:\nexisting\n.\ngetAttributeDefs\n())\n{\n// (2)\nif\n(\nattr\n.\ngetDisplayName\n().\nequals\n(\n\"Extra\"\n))\n{\nrevised\n.\nadd\n(\nattr\n.\ntoBuilder\n().\ndisplayName\n(\n\"Something else\"\n).\nbuild\n());\n// (3)\n}\nelse\n{\nrevised\n.\nadd\n(\nattr\n);\n// (4)\n}\n}\nexisting\n.\ntoBuilder\n()\n// (5)\n.\nclearAttributeDefs\n()\n// (6)\n.\nattributeDefs\n(\nrevised\n)\n// (7)\n.\nbuild\n();\nCustomMetadataDef\nupdated\n=\nexisting\n.\nupdate\n(\nclient\n);\n// (8)\nCreate a new (mutable) empty list of attributes.\nIterate through the existing attributes in the custom metadata structure...\n...When you get to the attribute you want to change, modify it as-needed.\nSome properties must not be changed\nDo not change the attribute's\nprimitiveType\n,\nisEnum\n,\nenumType\n,\ncustomType\n,\nmultiValueSelect\n,\nisArchived\n,\narchivedAt\n, or",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "Some properties must not be changed\nDo not change the attribute's\nprimitiveType\n,\nisEnum\n,\nenumType\n,\ncustomType\n,\nmultiValueSelect\n,\nisArchived\n,\narchivedAt\n, or\narchivedBy\nproperties. These should only be set at creation or through archival methods.\nAnd add all attributes (existing and the modified one) into the list of revised attributes.\nYou must then clone the custom metadata structure into a mutable structure, using\ntoBuilder()\n.\nYou then need to clear the existing attribute definitions (otherwise the next step will only\nappend\nthe same definitions again).\nThen you can set the attributes on the custom metadata structure to this revised list, and build the structure.\nAnd finally call the\n.update()\nmethod on the revised custom metadata structure to actually submit the changes to Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nChange the custom metadata definition\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nfrom\npyatlan.model.typedef\nimport\nAttributeDef\nfrom\npyatlan.model.enums\nimport\nAtlanCustomAttributePrimitiveType\nrevised\n=\n[]\n# (1)\nfor\nattr\nin\nexisting\n.\nattribute_defs\n:\n# (2)\nif\nattr\n.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "12\n13\n14\n15\nfrom\npyatlan.model.typedef\nimport\nAttributeDef\nfrom\npyatlan.model.enums\nimport\nAtlanCustomAttributePrimitiveType\nrevised\n=\n[]\n# (1)\nfor\nattr\nin\nexisting\n.\nattribute_defs\n:\n# (2)\nif\nattr\n.\ndisplay_name\n==\n\"Extra\"\n:\nattr\n.\ndisplay_name\n=\n\"Something else\"\n# (3)\nrevised\n.\nappend\n(\nattr\n)\n# (4)\nexisting\n.\nattribute_defs\n=\nrevised\n# (5)\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ntypedef\n.\nupdate\n(\nexisting\n)\n# (6)\nCreate a new empty list of attributes.\nIterate through the existing attributes in the custom metadata structure...\n...When you get to the attribute you want to change, you can change its\ndisplay_name\n, but not much else. (You should not change its type, hashed-string name, etc.)\nAnd add all attributes (existing and the modified one) into the list of revised attributes.\nThen set the attributes on the custom metadata structure to this revised list.\nAnd finally call the\ntypedef.update()\nmethod sending the revised custom metadata structure to actually submit the changes to Atlan.\nChange the custom metadata definition\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nval\nrevised\n=\nmutableListOf\n<\nAttributeDef\n>\n()\n// (1)\nfor\n(\nattr\nin",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Change the custom metadata definition\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nval\nrevised\n=\nmutableListOf\n<\nAttributeDef\n>\n()\n// (1)\nfor\n(\nattr\nin\nexisting\n.\nattributeDefs\n)\n{\n// (2)\nif\n(\nattr\n.\ndisplayName\n==\n\"Extra\"\n)\n{\nrevised\n.\nadd\n(\nattr\n.\ntoBuilder\n().\ndisplayName\n(\n\"Something else\"\n).\nbuild\n())\n// (3)\n}\nelse\n{\nrevised\n.\nadd\n(\nattr\n)\n// (4)\n}\n}\nexisting\n.\ntoBuilder\n()\n// (5)\n.\nclearAttributeDefs\n()\n// (6)\n.\nattributeDefs\n(\nrevised\n)\n// (7)\n.\nbuild\n()\nval\nupdated\n=\nexisting\n.\nupdate\n(\nclient\n)\n// (8)\nCreate a new (mutable) empty list of attributes.\nIterate through the existing attributes in the custom metadata structure...\n...When you get to the attribute you want to change, modify it as-needed.\nSome properties must not be changed\nDo not change the attribute's\nprimitiveType\n,\nisEnum\n,\nenumType\n,\ncustomType\n,\nmultiValueSelect\n,\nisArchived\n,\narchivedAt\n, or\narchivedBy\nproperties. These should only be set at creation or through archival methods.\nAnd add all attributes (existing and the modified one) into the list of revised attributes.\nYou must then clone the custom metadata structure into a mutable structure, using\ntoBuilder()\n.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": "And add all attributes (existing and the modified one) into the list of revised attributes.\nYou must then clone the custom metadata structure into a mutable structure, using\ntoBuilder()\n.\nYou then need to clear the existing attribute definitions (otherwise the next step will only\nappend\nthe same definitions again).\nThen you can set the attributes on the custom metadata structure to this revised list, and build the structure.\nAnd finally call the\n.update()\nmethod on the revised custom metadata structure to actually submit the changes to Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPUT /api/meta/types/typedefs\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n{\n\"businessMetadataDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"BUSINESS_METADATA\"\n,\n// (2)\n\"guid\"\n:\n\"917ffec9-fa84-4c59-8e6c-c7b114d04be3\"\n,\n\"name\"\n:\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n,\n\"displayName\"\n:\n\"RACI\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeVersion\"\n:\n\"1.0\"\n,\n\"serviceType\"\n:\n\"atlan\"\n,",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": ",\n// (2)\n\"guid\"\n:\n\"917ffec9-fa84-4c59-8e6c-c7b114d04be3\"\n,\n\"name\"\n:\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n,\n\"displayName\"\n:\n\"RACI\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeVersion\"\n:\n\"1.0\"\n,\n\"serviceType\"\n:\n\"atlan\"\n,\n\"attributeDefs\"\n:\n[\n// (3)\n{\n\"name\"\n:\n\"fWMB77RSjRGNYoFeD4FcGi\"\n,\n\"displayName\"\n:\n\"Responsible\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"valuesMinCount\"\n:\n0\n,\n\"valuesMaxCount\"\n:\n1\n,\n\"options\"\n:\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"allowFiltering\"\n:\ntrue\n,\n\"allowSearch\"\n:\ntrue\n,\n\"primitiveType\"\n:\n\"string\"\n,\n\"customType\"\n:\n\"users\"\n}\n},\n{\n...\n},\n{\n...\n},\n{\n...\n},\n{\n\"name\"\n:\n\"okm7BDXjTQx4iYPT5u7ilu\"\n,\n// (4)\n\"displayName\"\n:\n\"Something else\"\n,\n// (5)\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": ":\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"valuesMinCount\"\n:\n0\n,\n\"valuesMaxCount\"\n:\n1\n,\n\"options\"\n:\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"allowFiltering\"\n:\ntrue\n,\n\"allowSearch\"\n:\ntrue\n,\n\"primitiveType\"\n:\n\"string\"\n,\n\"customType\"\n:\n\"users\"\n}\n}\n],\n\"createdBy\"\n:\n\"jsmith\"\n,\n\"updatedBy\"\n:\n\"jsmith\"\n,\n\"createTime\"\n:\n1648852296555\n,\n\"updateTime\"\n:\n1649172284333\n,\n\"version\"\n:\n2\n}\n]\n}\nYou need to specify the entire custom metadata structure, within the\nbusinessMetadataDefs\narray.\nInclude all the details of the custom metadata structure definition as you retrieved it.\nInclude all the details of the custom metadata attribute definitions, as you retrieved them.\nFor the attribute you want to modify, include its hashed-string name as with all the other attribute definitions.\nHowever, for the\ndisplayName",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "For the attribute you want to modify, include its hashed-string name as with all the other attribute definitions.\nHowever, for the\ndisplayName\nof the attribute you want to modify, change it to the new human-readable name you want to use.\nRemove a property\n¶\n1.3.3\n4.0.0\nTo remove a property:\nJava\nPython\nKotlin\nRaw REST API\nRemove a property from the structure\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nList\n<\nAttributeDef\n>\nrevised\n=\nnew\nArrayList\n<>\n();\n// (1)\nfor\n(\nAttributeDef\nattr\n:\nexisting\n.\ngetAttributeDefs\n())\n{\n// (2)\nif\n(\nattr\n.\ngetDisplayName\n().\nequals\n(\n\"Extra\"\n))\n{\nrevised\n.\nadd\n(\nattr\n.\ntoBuilder\n().\narchive\n(\n\"jsmith\"\n).\nbuild\n());\n// (3)\n}\nelse\n{\nrevised\n.\nadd\n(\nattr\n);\n// (4)\n}\n}\nexisting\n.\ntoBuilder\n()\n// (5)\n.\nclearAttributeDefs\n()\n// (6)\n.\nattributeDefs\n(\nrevised\n)\n// (7)\n.\nbuild\n();\nCustomMetadataDef\nupdated\n=\nexisting\n.\nupdate\n(\nclient\n);\n// (8)\nCreate a new (mutable) empty list of attributes.\nIterate through the existing attributes in the custom metadata structure...\n...When you get to the attribute you want to remove, call the\n.archive()\nmethod against it passing the name of the user deleting the attribute.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "...When you get to the attribute you want to remove, call the\n.archive()\nmethod against it passing the name of the user deleting the attribute.\nAnd add all attributes (existing and the removed one) into the list of revised attributes.\nYou must then clone the custom metadata structure into a mutable structure, using\ntoBuilder()\n.\nYou then need to clear the existing attribute definitions (otherwise the next step will only\nappend\nthe same definitions again).\nThen you can set the attributes on the custom metadata structure to this revised list, and build the structure.\nAnd finally call the\n.update()\nmethod on the revised custom metadata structure to actually submit the changes to Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nChange the custom metadata definition\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\nfrom\npyatlan.model.typedef\nimport\nAttributeDef\nfrom\npyatlan.model.enums\nimport\nAtlanCustomAttributePrimitiveType\nrevised\n=\n[]\n# (1)\nfor\nattr\nin\nexisting\n.\nattribute_defs\n:\n# (2)\nif\nattr\n.\ndisplay_name\n==\n\"Extra\"\n:\nattr\n.\narchive\n(\nby\n=\n\"jsmith\"\n)\n# (3)\nrevised\n.\nappend\n(\nattr\n)\n# (4)\nexisting\n.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "revised\n=\n[]\n# (1)\nfor\nattr\nin\nexisting\n.\nattribute_defs\n:\n# (2)\nif\nattr\n.\ndisplay_name\n==\n\"Extra\"\n:\nattr\n.\narchive\n(\nby\n=\n\"jsmith\"\n)\n# (3)\nrevised\n.\nappend\n(\nattr\n)\n# (4)\nexisting\n.\nattribute_defs\n=\nrevised\n# (5)\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\ntypedef\n.\nupdate\n(\nexisting\n)\n# (6)\nCreate a new empty list of attributes.\nIterate through the existing attributes in the custom metadata structure...\n...When you get to the attribute you want to remove, call the\n.archive()\nmethod against it passing the name of the user deleting the attribute.\nAnd add all attributes (existing and the archived one) into the list of revised attributes.\nThen set the attributes on the custom metadata structure to this revised list.\nAnd finally call the\n.update()\nmethod on the revised custom metadata structure to actually submit the changes to Atlan.\nRemove a property from the structure\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\nval\nrevised\n=\nmutableListOf\n<\nAttributeDef\n>\n()\n// (1)\nfor\n(\nattr\nin\nexisting\n.\nattributeDefs\n)\n{\n// (2)\nif\n(\nattr\n.\ndisplayName\n==\n\"Extra\"\n)\n{\nrevised\n.\nadd\n(\nattr\n.\ntoBuilder\n().\narchive\n(\n\"jsmith\"\n).\nbuild\n())\n// (3)\n}\nelse\n{\nrevised\n.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": ">\n()\n// (1)\nfor\n(\nattr\nin\nexisting\n.\nattributeDefs\n)\n{\n// (2)\nif\n(\nattr\n.\ndisplayName\n==\n\"Extra\"\n)\n{\nrevised\n.\nadd\n(\nattr\n.\ntoBuilder\n().\narchive\n(\n\"jsmith\"\n).\nbuild\n())\n// (3)\n}\nelse\n{\nrevised\n.\nadd\n(\nattr\n)\n// (4)\n}\n}\nexisting\n.\ntoBuilder\n()\n// (5)\n.\nclearAttributeDefs\n()\n// (6)\n.\nattributeDefs\n(\nrevised\n)\n// (7)\n.\nbuild\n()\nval\nupdated\n=\nexisting\n.\nupdate\n(\nclient\n)\n// (8)\nCreate a new (mutable) empty list of attributes.\nIterate through the existing attributes in the custom metadata structure...\n...When you get to the attribute you want to remove, call the\n.archive()\nmethod against it passing the name of the user deleting the attribute.\nAnd add all attributes (existing and the removed one) into the list of revised attributes.\nYou must then clone the custom metadata structure into a mutable structure, using\ntoBuilder()\n.\nYou then need to clear the existing attribute definitions (otherwise the next step will only\nappend\nthe same definitions again).\nThen you can set the attributes on the custom metadata structure to this revised list, and build the structure.\nAnd finally call the\n.update()",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": "append\nthe same definitions again).\nThen you can set the attributes on the custom metadata structure to this revised list, and build the structure.\nAnd finally call the\n.update()\nmethod on the revised custom metadata structure to actually submit the changes to Atlan. Because this operation will persist the structure in Atlan, you must\nprovide it an\nAtlanClient\nthrough which to connect to the tenant.\nPUT /api/meta/types/typedefs\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n{\n\"businessMetadataDefs\"\n:\n[\n// (1)\n{\n\"category\"\n:\n\"BUSINESS_METADATA\"\n,\n// (2)\n\"guid\"\n:\n\"917ffec9-fa84-4c59-8e6c-c7b114d04be3\"\n,\n\"name\"\n:\n\"MNJ8mpLsIOaP4OQnLNhRta\"\n,\n\"displayName\"\n:\n\"RACI\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeVersion\"\n:\n\"1.0\"\n,\n\"serviceType\"\n:\n\"atlan\"\n,\n\"attributeDefs\"\n:\n[\n// (3)\n{\n\"name\"\n:\n\"fWMB77RSjRGNYoFeD4FcGi\"\n,\n\"displayName\"\n:\n\"Responsible\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": ":\n\"Responsible\"\n,\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"valuesMinCount\"\n:\n0\n,\n\"valuesMaxCount\"\n:\n1\n,\n\"options\"\n:\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"allowFiltering\"\n:\ntrue\n,\n\"allowSearch\"\n:\ntrue\n,\n\"primitiveType\"\n:\n\"string\"\n,\n\"customType\"\n:\n\"users\"\n}\n},\n{\n...\n},\n{\n...\n},\n{\n...\n},\n{\n\"name\"\n:\n\"okm7BDXjTQx4iYPT5u7ilu\"\n,\n// (4)\n\"displayName\"\n:\n\"Extra-archived-1649172285912\"\n,\n// (5)\n\"description\"\n:\n\"\"\n,\n\"typeName\"\n:\n\"string\"\n,\n\"includeInNotification\"\n:\nfalse\n,\n\"isIndexable\"\n:\ntrue\n,\n\"isOptional\"\n:\ntrue\n,\n\"isUnique\"\n:\nfalse\n,\n\"indexType\"\n:\n\"DEFAULT\"\n,\n\"searchWeight\"\n:\n-1\n,\n\"cardinality\"\n:\n\"SINGLE\"\n,\n\"valuesMinCount\"\n:\n0\n,\n\"valuesMaxCount\"\n:\n1\n,\n\"options\"\n:\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": ":\n{\n\"applicableEntityTypes\"\n:\n\"[\\\"Asset\\\"]\"\n,\n\"customApplicableEntityTypes\"\n:\n\"[\\\"Database\\\",\\\"Schema\\\",\\\"Table\\\"]\\n\"\n,\n\"maxStrLength\"\n:\n\"100000000\"\n,\n\"isEnum\"\n:\nfalse\n,\n\"multiValueSelect\"\n:\nfalse\n,\n\"allowFiltering\"\n:\ntrue\n,\n\"allowSearch\"\n:\ntrue\n,\n\"primitiveType\"\n:\n\"string\"\n,\n\"customType\"\n:\n\"users\"\n,\n\"isArchived\"\n:\ntrue\n,\n// (6)\n\"archivedBy\"\n:\n\"jsmith\"\n,\n// (7)\n\"archivedAt\"\n:\n1649172285912\n// (8)\n}\n}\n],\n\"createdBy\"\n:\n\"jsmith\"\n,\n\"updatedBy\"\n:\n\"jsmith\"\n,\n\"createTime\"\n:\n1648852296555\n,\n\"updateTime\"\n:\n1649172284333\n,\n\"version\"\n:\n2\n}\n]\n}\nYou need to specify the entire custom metadata structure, within the\nbusinessMetadataDefs\narray.\nInclude all the details of the custom metadata structure definition as you retrieved it.\nInclude all the details of the custom metadata attribute definitions, as you retrieved them.\nFor the attribute you want to remove, include its hashed-string name as with all the other attribute definitions.\nHowever, for the\ndisplayName\nof the attribute you want to remove, append\n-archived-\nand a millisecond epoch for the current system time.\nWithin the\noptions\nfor the attribute definition, set\nisArchived\nto\ntrue\n.\nWithin the\noptions\nfor the attribute definition, set",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "-archived-\nand a millisecond epoch for the current system time.\nWithin the\noptions\nfor the attribute definition, set\nisArchived\nto\ntrue\n.\nWithin the\noptions\nfor the attribute definition, set\narchivedBy\nto the name of the user who is deleting the attribute.\nWithin the\noptions\nfor the attribute definition, set\narchivedAt\nto the millisecond epoch appended to the\ndisplayName\n.\nRemoved properties are only soft-deleted\nNote that removing a property only archives (soft-deletes) it. When retrieving the custom metadata structure again, you will still see the deleted attribute definition in the structure, but its\nattributeDefs.options.isArchived\nproperty will be set to\ntrue\nand its\ndisplayName\nwill have been changed to include the time at which it was archived.\n2023-03-07\n2025-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": "Cookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_custom-metadata_update.html",
+      "source_type": "sdk",
+      "file": "snippets_custom-metadata_update.json",
+      "chunk_id": 22
+    }
+  }
+]

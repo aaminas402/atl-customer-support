@@ -1,0 +1,20 @@
+[
+  {
+    "content": "12 docs tagged with \"metadata\" | Atlan Documentation\nSkip to main content\nAtlan MCP Overview\nLearn what the Atlan MCP server is, what it enables, and how to connect using Remote or Local setup.\nEnable embedded metadata in Tableau\nLearn how to enable embedded Atlan metadata in Tableau dashboards for seamless data context and governance.\nHow does Atlan handle lineage from Spark jobs?\nLearn about how does atlan handle lineage from spark jobs?.\nIs there a way to build lineage from NetSuite to Snowflake?\nLearn about is there a way to build lineage from netsuite to snowflake?.\nOpenLineage configuration and facets\nLearn about openlineage configuration and facets.\nPlaybooks\nCreate and manage automated workflows for metadata management and data governance.\nTroubleshooting Amazon DynamoDB connectivity\nLearn about troubleshooting amazon dynamodb connectivity.\nTroubleshooting IBM Cognos Analytics connectivity\nLearn about troubleshooting ibm cognos analytics connectivity.\nTroubleshooting Tableau connectivity\nLearn about troubleshooting tableau connectivity.\nWhat does Atlan crawl from CrateDB?\nComplete list of CrateDB assets and metadata properties extracted by Atlan during crawling",
+    "metadata": {
+      "source_url": "tags_metadata.html",
+      "source_type": "docs",
+      "file": "tags_metadata.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Learn about troubleshooting tableau connectivity.\nWhat does Atlan crawl from CrateDB?\nComplete list of CrateDB assets and metadata properties extracted by Atlan during crawling\nWhat does Atlan crawl from Dagster\nLearn about the Dagster metadata that Atlan captures and visualizes\nWhy is my Databricks lineage API not working?\nLearn about why is my databricks lineage api not working?.",
+    "metadata": {
+      "source_url": "tags_metadata.html",
+      "source_type": "docs",
+      "file": "tags_metadata.json",
+      "chunk_id": 1
+    }
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "content": "How to interpret timestamps | Atlan Documentation\nSkip to main content\nOn this page\nAtlan displays timestamps for assets in local timezones based on the location of your browser. The date and time display includes a combination of the following components:\nRelative time   -  for example,\n2 hours ago\n,\n1 day ago\n,\n3 months ago\nAbsolute time   -  for example,\nMar 14, 2024, 9:40:01 AM\nAtlan displays the following timestamps in the asset sidebar:\nOverview tab\nâ\nUsage\n-  timestamp for the number of read queries on an asset at\nsource\nwithin a specific date range, as fetched from the miner run. This also includes an absolute time value for\nLast usage data updated (in Atlan)\n. Only applicable to data sources for which Atlan supports mining query history.\nLast queried\n-  timestamp for the latest read query on an assetÂ at\nsource\nas fetched from the miner run or in Atlan within a specific date range. Only applicable to data sources for which Atlan supports mining query history.\ndbt run status\n-  status and timestamp for the last run of the dbt job updating an asset in dbt, as fetched from a\ndbt crawler\nrun.\nUsage tab\nâ\nRow update frequency",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "dbt run status\n-  status and timestamp for the last run of the dbt job updating an asset in dbt, as fetched from a\ndbt crawler\nrun.\nUsage tab\nâ\nRow update frequency\n-  timestamps for recent row updates on an asset at\nsource\nwithin a specific date range, as fetched from the miner run. Only applicable to data sources for which Atlan supports mining query history. Up to five recent row updates will be displayed, if available.\nProperties tab\nâ\nLast updated (in Atlan)\n-  timestamp for when any metadata attribute of the asset was last updated in Atlan. For example, when you\nlinked a term\nor\nadded a certificate\nto an asset in Atlan.\nLast synced with source\nÂ   -  timestamp for when a workflow run last checked for this asset at\nsource\n. This timestamp also includes a link to the connection workflow.\nCreated (in Atlan)\n-  timestamp for when this asset was first created and published in Atlan during a crawler run.\nLast updated (on source)\n-  timestamp for when any metadata for the asset was last altered at\nsource\n, as fetched from the crawler run.\nCreated at (on source)\n-  timestamp for when the asset was first created at\nsource\n, as fetched from the crawler run.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "source\n, as fetched from the crawler run.\nCreated at (on source)\n-  timestamp for when the asset was first created at\nsource\n, as fetched from the crawler run.\nFrequently asked questions\nâ\nWhy are metrics missing after miner runs?\nâ\nIf you notice a time lag from when your miner workflows last ran, note that Atlan requires a minimum lag of 24 to 48 hours to capture all the relevant transformations that were part of a session. (Read more about miner logic\nhere\n.) This may also depend on when your miner workflow was scheduled to run, which you can\nmodify\nat any time.\nWhy do some timestamps have variable time ranges?\nâ\nMiners have a configurable property that governs the window of time for which metrics are reported. If a miner has been failing consistently, Atlan may reduce this window from 30 to only 14 days for reporting metrics. This is applicable to all date and time properties populated by miners.\nIs last updated in Atlan the same as last synced with source?\nâ\nNo,\nLast updated (in Atlan)\nrecords the time when any metadata is updated on the asset in Atlan while\nLast synced with source",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Is last updated in Atlan the same as last synced with source?\nâ\nNo,\nLast updated (in Atlan)\nrecords the time when any metadata is updated on the asset in Atlan while\nLast synced with source\nrecords the time when a workflow ran successfully updating the asset with changes from source, if any. If no metadata updates were made on the asset in Atlan before the next scheduled workflow run,Â\nLast synced with source\nÂ may be considered as the more current timestamp reflecting any or no changes on the asset as fetched from source.\nWhy are there discrepancies in time for some miner-related timestamps?\nâ\nFor timestamps related to miner runs:\nIf no one has queried the asset at source, the timestamp for\nLast queried\nmay be older than the date range recorded for\nUsage\n.\nIf no one has used the asset at source for the duration of time that query history was mined,\nRow update frequency\nmay not display any time value.\nEven when a miner run fails, it partially publishes assets, resulting in inconsistencies. For example, the date range in the\nLast queried\ntooltip may be for a successful miner run but the absolute time may be a different value if the asset had been partially published.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Last queried\ntooltip may be for a successful miner run but the absolute time may be a different value if the asset had been partially published.\nOverview tab\nUsage tab\nProperties tab\nFrequently asked questions",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_concepts_how-to-interpret-timestamps.json",
+      "chunk_id": 4
+    }
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Anaplan - Developer\nSkip to content\nAnaplan\n¶\nBase class for all Anaplan types.\nComplete reference\nThis is a complete reference for the\nAnaplan\nobject in Atlan, showing every possible property and relationship that can exist for these objects. For an introduction, you probably want to start with:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nAnaplan\ninherits its attributes and relationships from these other types:\nclassDiagram\ndirection RL\nclass AnaplanPage\nlink AnaplanPage \"../entities/anaplanpage\"\nAnaplan <|-- AnaplanPage : extends\nclass AnaplanList\nlink AnaplanList \"../entities/anaplanlist\"\nAnaplan <|-- AnaplanList : extends\nclass AnaplanLineItem\nlink AnaplanLineItem \"../entities/anaplanlineitem\"\nAnaplan <|-- AnaplanLineItem : extends\nclass AnaplanWorkspace\nlink AnaplanWorkspace \"../entities/anaplanworkspace\"\nAnaplan <|-- AnaplanWorkspace : extends\nclass AnaplanModule\nlink AnaplanModule \"../entities/anaplanmodule\"\nAnaplan <|-- AnaplanModule : extends\nclass AnaplanModel\nlink AnaplanModel \"../entities/anaplanmodel\"\nAnaplan <|-- AnaplanModel : extends\nclass AnaplanApp",
+    "metadata": {
+      "source_url": "models_anaplan.html",
+      "source_type": "sdk",
+      "file": "models_anaplan.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Anaplan <|-- AnaplanModule : extends\nclass AnaplanModel\nlink AnaplanModel \"../entities/anaplanmodel\"\nAnaplan <|-- AnaplanModel : extends\nclass AnaplanApp\nlink AnaplanApp \"../entities/anaplanapp\"\nAnaplan <|-- AnaplanApp : extends\nclass AnaplanSystemDimension\nlink AnaplanSystemDimension \"../entities/anaplansystemdimension\"\nAnaplan <|-- AnaplanSystemDimension : extends\nclass AnaplanDimension\nlink AnaplanDimension \"../entities/anaplandimension\"\nAnaplan <|-- AnaplanDimension : extends\nclass AnaplanView\nlink AnaplanView \"../entities/anaplanview\"\nAnaplan <|-- AnaplanView : extends\nclass Anaplan {\n<<abstract>>\n}\nlink Anaplan \"../anaplan\"\nclass BI {\n<<abstract>>\n}\nlink BI \"../entities/bi\"\nBI <|-- Anaplan : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- BI : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nProperties\n¶\nThese attributes are specific to instances of\nAnaplan\n(and all of its subtypes).\nanaplanModelName\n¶",
+    "metadata": {
+      "source_url": "models_anaplan.html",
+      "source_type": "sdk",
+      "file": "models_anaplan.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nProperties\n¶\nThese attributes are specific to instances of\nAnaplan\n(and all of its subtypes).\nanaplanModelName\n¶\nSimple name of the AnaplanModel asset that contains this asset(AnaplanModule and everthing under it's hierarchy).\nanaplanModelQualifiedName\n¶\nUnique name of the AnaplanModel asset that contains this asset(AnaplanModule and everthing under it's hierarchy).\nanaplanModuleName\n¶\nSimple name of the AnaplanModule asset that contains this asset(AnaplanLineItem, AnaplanList, AnaplanView and everthing under their hierarchy).\nanaplanModuleQualifiedName\n¶\nUnique name of the AnaplanModule asset that contains this asset(AnaplanLineItem, AnaplanList, AnaplanView and everthing under their hierarchy).\nanaplanSourceId\n¶\nId/Guid of the Anaplan asset in the source system.\nanaplanWorkspaceName\n¶\nSimple name of the AnaplanWorkspace asset that contains this asset(AnaplanModel and everthing under it's hierarchy).\nanaplanWorkspaceQualifiedName\n¶\nUnique name of the AnaplanWorkspace asset that contains this asset(AnaplanModel and everthing under it's hierarchy).\nRelationships\n¶",
+    "metadata": {
+      "source_url": "models_anaplan.html",
+      "source_type": "sdk",
+      "file": "models_anaplan.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "anaplanWorkspaceQualifiedName\n¶\nUnique name of the AnaplanWorkspace asset that contains this asset(AnaplanModel and everthing under it's hierarchy).\nRelationships\n¶\nThe following illustrates how the various Anomalo objects inter-relate with each other:\nerDiagram\nConnection ||..o{ AnaplanWorkspace : \"\"\nConnection ||..o{ AnaplanSystemDimension : \"\"\nConnection ||..o{ AnaplanApp : \"\"\nAnaplanApp ||--o{ AnaplanPage : anaplanPages\nAnaplanPage o|..o| AnaplanModel : \"\"\nAnaplanWorkspace ||--o{ AnaplanModel : anaplanModels\nAnaplanModel ||--o{ AnaplanDimension : anaplanDimensions\nAnaplanModel ||--o{ AnaplanModule : anaplanModules\nAnaplanModel ||--o{ AnaplanList : anaplanLists\nAnaplanModule ||--o{ AnaplanLineItem : anaplanLineItems\nAnaplanModule ||--o{ AnaplanView : anaplanViews\nAnaplanList o|..o| AnaplanLineItem : \"\"\nAnaplanDimension o|..o| AnaplanLineItem : \"\"\nAnaplanDimension o|..o| AnaplanView : \"Row/Column/Page\"\n2024-12-29\n2025-02-07\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and",
+    "metadata": {
+      "source_url": "models_anaplan.html",
+      "source_type": "sdk",
+      "file": "models_anaplan.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Thanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_anaplan.html",
+      "source_type": "sdk",
+      "file": "models_anaplan.json",
+      "chunk_id": 4
+    }
+  }
+]

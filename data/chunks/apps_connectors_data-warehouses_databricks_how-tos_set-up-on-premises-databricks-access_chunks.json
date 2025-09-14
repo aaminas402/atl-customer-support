@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Set up on-premises Databricks access | Atlan Documentation\nSkip to main content\nOn this page\nWho can do this?\nYou will need access to a machine that can run Docker on-premises. You will also need your Databricks instance details, including credentials.\nIn some cases you will not be able to expose your Databricks instance for Atlan to crawl and ingest metadata. For example, this may happen when security requirements restrict access to sensitive, mission-critical data.\nIn such cases you may want to decouple the extraction of metadata from its ingestion in Atlan. This approach gives you full control over your resources and metadata transfer to Atlan.\nPrerequisites\nâ\nTo extract metadata from your on-premises Databricks instance, you will need to use Atlan's databricks-extractor tool.\nDid you know?\nAtlan uses exactly the same databricks-extractor behind the scenes when it connects to Databricks in the cloud.\nInstall Docker Compose\nâ\nDocker Compose\nis a tool for defining and running applications composed of many\nDocker\ncontainers. (Any guesses where the name came from? ð)\nTo install Docker Compose:\nInstall Docker\nInstall Docker Compose\nDid you know?",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Docker\ncontainers. (Any guesses where the name came from? ð)\nTo install Docker Compose:\nInstall Docker\nInstall Docker Compose\nDid you know?\nInstructions provided in this documentation should be enough even if you are completely new to Docker and Docker Compose. However, you can also walk through the\nGet started with Docker Compose\ntutorial if you want to learn Docker Compose basics first.\nGet the databricks-extractor tool\nâ\nTo get the databricks-extractor tool:\nRaise a support ticket\nto get the link to the latest version.\nDownload the image using the link provided by support.\nLoad the image to the server you'll use to crawl Databricks:\nsudo docker load -i /path/to/databricks-extractor-master.tar\nGet the compose file\nâ\nAtlan provides you with a\nDocker compose file\nfor the databricks-extractor tool.\nTo get the compose file:\nDownload the\nlatest compose file\n.\nSave the file to an empty directory on the server you'll use to access your on-premises Databricks instance.\nThe file is\ndocker-compose.yaml\n.\nDefine Databricks connections\nâ\nThe structure of the compose file includes three main sections:\nx-templates",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "The file is\ndocker-compose.yaml\n.\nDefine Databricks connections\nâ\nThe structure of the compose file includes three main sections:\nx-templates\ncontains configuration fragments. You should ignore this section   -  do not make any changes to it.\nservices\nis where you will define your Databricks connections.\nvolumes\ncontains mount information. You should ignore this section as well   -  do not make any changes to it.\nDefine services\nâ\nFor each on-premises Databricks instance, define an entry under\nservices\nin the compose file.\nEach entry will have the following structure:\nservices:\nconnection-name:\n<<: *extract\nenvironment:\n<<: *databricks-defaults\nINCLUDE_FILTER: '{\"DB_1\": [], \"DB_2\": [\"SCHEMA_1\", \"SCHEMA_2\"]}'\nEXCLUDE_FILTER: '{\"DB_1\": [\"SCHEMA_1\", \"SCHEMA_2\"]}'\nTEMP_TABLE_REGEX: '.*temp.*|.*tmp.*|.*TEMP.*|.*TMP.*'\nSYSTEM_SCHEMA_REGEX: '^information_schema$'\nvolumes:\n- ./output/connection-name:/output\nReplace\nconnection-name\nwith the name of your connection.\n<<: *extract\ntells the databricks-extractor tool to run.\nenvironment\ncontains all parameters for the tool.\nINCLUDE_FILTER",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "Replace\nconnection-name\nwith the name of your connection.\n<<: *extract\ntells the databricks-extractor tool to run.\nenvironment\ncontains all parameters for the tool.\nINCLUDE_FILTER\n-  specify the databases and schemas from which you want to extract metadata. Remove this line if you want to extract metadata from all databases and schemas.\nEXCLUDE_FILTER\n-  specify the databases and schemas you want to exclude from metadata extraction. This will take precedence over\nINCLUDE_FILTER\n. Remove this line if you do not want to exclude any databases or schemas.\nTEMP_TABLE_REGEX\n-  specify a regular expression for excluding temporary tables. Remove this line if you do not want to exclude any temporary tables.\nSYSTEM_SCHEMA_REGEX\n-  specify a regular expression for excluding system schemas. If unspecified,\nINFORMATION_SCHEMA\nwill be excluded from the extracted metadata by default.\nvolumes\nspecifies where to store results. In this example, the extractor will store results in the\n./output/connection-name\nfolder on the local file system.\nYou can add as many Databricks connections as you want.\nDid you know?\nDocker's documentation\ndescribes the\nservices\nformat in more detail.\nProvide credentials",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "folder on the local file system.\nYou can add as many Databricks connections as you want.\nDid you know?\nDocker's documentation\ndescribes the\nservices\nformat in more detail.\nProvide credentials\nâ\nTo define the credentials for your Databricks connections, you will need to provide a Databricks configuration file.\nThe Databricks configuration is a\n.ini\nfile with the following format:\n[DatabricksConfig]\nhost = <host>\nport = <port>\n# seconds to wait for a response from the server\ntimeout = 300\n# Databricks authentication type. Options: personal_access_token, aws_service_principal\nauth_type = personal_access_token\n# Required only if auth_type is personal_access_token.\n[PersonalAccessTokenAuth]\npersonal_access_token = <personal_access_token>\n# Required only if auth_type is aws_service_principal.\n[AWSServicePrincipalAuth]\nclient_id = <client_id>\nclient_secret = <client_secret>\nSecure credentials\nâ\nUsing local files\nâ\ndanger\nIf you decide to keep Databricks credentials in plaintext files, we recommend you restrict access to the directory and the compose file. For extra security, we recommend you use\nDocker secrets\nto store the sensitive passwords.",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Docker secrets\nto store the sensitive passwords.\nTo specify the local files in your compose file:\nsecrets:\ndatabricks_config:\nfile: ./databricks.ini\ndanger\nThis\nsecrets\nsection is at the same top-level as the\nservices\nsection described earlier. It is not a sub-section of the\nservices\nsection.\nUsing Docker secrets\nâ\nTo create and use Docker secrets:\nStore the Databricks configuration file:\nsudo docker secret create databricks_config path/to/databricks.ini\nAt the top of your compose file, add a\nsecrets\nelement to access your secret:\nsecrets:\ndatabricks_config:\nexternal: true\nname: databricks_config\nThe\nname\nshould be the same one you used in the\ndocker secret create\ncommand above.\nOnce stored as a Docker secret, you can remove the local Databricks configuration file.\nWithin the\nservice\nsection of the compose file, add a new secrets element and specify the name of the secret within your service to use it.\nExample\nâ\nLet's explain in detail with an example:\nsecrets:\ndatabricks_config:\nexternal: true\nname: databricks_config\nx-templates:\n# ...\nservices:\ndatabricks-example:\n<<: *extract\nenvironment:\n<<: *databricks-defaults",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "secrets:\ndatabricks_config:\nexternal: true\nname: databricks_config\nx-templates:\n# ...\nservices:\ndatabricks-example:\n<<: *extract\nenvironment:\n<<: *databricks-defaults\nINCLUDE_FILTER: '{\"DB_1\": [], \"DB_2\": [\"SCHEMA_1\", \"SCHEMA_2\"]}'\nEXCLUDE_FILTER: '{\"DB_1\": [\"SCHEMA_1\", \"SCHEMA_2\"]}'\nTEMP_TABLE_REGEX: '.*temp.*|.*tmp.*|.*TEMP.*|.*TMP.*'\nSYSTEM_SCHEMA_REGEX: '^information_schema$'\nvolumes:\n- ./output/databricks-example:/output\nsecrets:\n- databricks_config\nIn this example, we've defined the secrets at the top of the file (you could also define them at the bottom). The\ndatabricks_config\nrefers to an external Docker secret created using the\ndocker secret create\ncommand.\nThe name of this service is\ndatabricks-example\n. You can use any meaningful name you want.\nThe\n<<: *databricks-defaults\nsets the connection type to Databricks.\nThe\n./output/databricks-example:/output\nÂ line tells the extractor where to store results. In this example, the extractor will store results in theÂ\n./output/databricks-example\ndirectory on the local file system. We recommend you output the extracted metadata for different connections in separate directories.\nThe\nsecrets\nsection within\nservices",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "./output/databricks-example\ndirectory on the local file system. We recommend you output the extracted metadata for different connections in separate directories.\nThe\nsecrets\nsection within\nservices\ntells the extractor which secrets to use for this service. Each of these refers to the name of a secret listed at the beginning of the compose file.\nPrerequisites\nGet the compose file\nDefine Databricks connections\nProvide credentials\nSecure credentials\nExample",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_set-up-on-premises-databricks-access.json",
+      "chunk_id": 7
+    }
+  }
+]

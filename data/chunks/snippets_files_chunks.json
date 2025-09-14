@@ -1,0 +1,65 @@
+[
+  {
+    "content": "Manage files in Atlan's tenant object store - Developer\nSkip to content\nManage files in tenant object store\n¶\nYou can use the SDK's\nFileClient\nto manage your files\nwithin Atlan's tenant object store by leveraging presigned URLs.\nUpload a file to the object store\n¶\n0.0.4\n2.1.7\n0.1.3\nTo upload a file to the tenant object store:\nAtlan CLI\nJava\nPython\nKotlin\nGo\nRaw REST API\nUpload a file to the tenant object store\n1\natlan\nupload\n-f\nuser/some-folder/my-file.txt\n-r\natlan/object/store/file.txt\n# (1)\nTo upload the file to the object store, you must specify the following flags:\n-f or --file\n: path to the file to be uploaded to the object store.\n--r or --remote\n: actual object name where you want to upload the file (e.g:\nprefix/object_name\n).\nCLI must be configured\nMake sure you have the\nCLI configured before\nrunning the above command.\nComing soon\nUpload a file to the tenant object store\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.file\nimport\nPresignedURLRequest\nclient\n=\nAtlanClient\n()\npresigned_url\n=\nclient\n.\nfiles\n.\ngenerate_presigned_url\n(\nrequest\n=\nPresignedURLRequest\n(\n# (1)\nkey\n=\n\"my-folder/my-file.txt\"\n,\nexpiry\n=\n\"30s\"\n,",
+    "metadata": {
+      "source_url": "snippets_files.html",
+      "source_type": "sdk",
+      "file": "snippets_files.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "import\nPresignedURLRequest\nclient\n=\nAtlanClient\n()\npresigned_url\n=\nclient\n.\nfiles\n.\ngenerate_presigned_url\n(\nrequest\n=\nPresignedURLRequest\n(\n# (1)\nkey\n=\n\"my-folder/my-file.txt\"\n,\nexpiry\n=\n\"30s\"\n,\nmethod\n=\nPresignedURLRequest\n.\nMethod\n.\nPUT\n,\n)\n)\nclient\n.\nfiles\n.\nupload_file\n(\n# (2)\npresigned_url\n=\npresigned_url\n,\nfile_path\n=\n\"user/some-folder/upload-file.txt\"\n)\nBegin by generating a presigned URL for the object store. You need to specify:\nactual object name where you want to upload the file (e.g:\nprefix/object_name\n).\nexpiration time interval for the presigned URL.\npresigned URL method (\nPUT\nfor upload).\nFinally, upload the file to the object store by providing:\nany valid presigned URL.\npath to the file to be uploaded to the object store.\nComing soon\nUpload a file to the tenant object store\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\npackage\nmain\nimport\n(\n\"fmt\"\n\"github.com/atlanhq/atlan-go/atlan/assets\"\n\"github.com/atlanhq/atlan-go/atlan/model\"\n)\nfunc\nmain\n()\n{\nctx\n:=\nassets\n.\nNewContext\n()\nclient\n:=\nassets\n.\nNewFileClient\n(\nctx\n)\npresignedUrl\n,\nerr\n:=\nclient\n.\nGeneratePresignedURL\n(\n&\nmodel\n.\nPresignedURLRequest\n{\n// (1)\nKey\n:",
+    "metadata": {
+      "source_url": "snippets_files.html",
+      "source_type": "sdk",
+      "file": "snippets_files.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ")\nfunc\nmain\n()\n{\nctx\n:=\nassets\n.\nNewContext\n()\nclient\n:=\nassets\n.\nNewFileClient\n(\nctx\n)\npresignedUrl\n,\nerr\n:=\nclient\n.\nGeneratePresignedURL\n(\n&\nmodel\n.\nPresignedURLRequest\n{\n// (1)\nKey\n:\n\"my-folder/my-file.txt\"\n,\nExpiry\n:\n\"30s\"\n,\nMethod\n:\nmodel\n.\nPUT\n,\n},\n)\nif\nerr\n!=\nnil\n{\nfmt\n.\nPrintln\n(\n\"Error while generating url:\"\n,\nerr\n)\n}\nuploadFilePath\n:=\n\"user/some-folder/upload-file.txt\"\nerr\n=\nclient\n.\nUploadFile\n(\npresignedUrl\n,\nuploadFilePath\n)\n// (2)\nif\nerr\n!=\nnil\n{\nfmt\n.\nPrintln\n(\n\"Error while uploading file:\"\n,\nerr\n)\n}\n}\nBegin by generating a presigned URL for the object store. You need to specify:\nactual object name where you want to upload the file (e.g:\nprefix/object_name\n).\nexpiration time interval for the presigned URL.\npresigned URL method (\nPUT\nfor upload).\nFinally, upload the file to the object store by providing:\nany valid presigned URL.\npath to the file to be uploaded to the object store.\nPOST /api/service/files/presignedUrl\n1\n2\n3\n4\n5\n{\n\"method\"\n:\n\"PUT\"\n,\n// (1)\n\"key\"\n:\n\"my-folder/my-file.txt\"\n,\n// (2)\n\"expiry\"\n:\n\"30s\"\n// (3)\n}\nThe presigned URL method (\nPUT\nfor upload).\nThe actual object name where you want to upload the file (e.g:\nprefix/object_name\n).",
+    "metadata": {
+      "source_url": "snippets_files.html",
+      "source_type": "sdk",
+      "file": "snippets_files.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "\"key\"\n:\n\"my-folder/my-file.txt\"\n,\n// (2)\n\"expiry\"\n:\n\"30s\"\n// (3)\n}\nThe presigned URL method (\nPUT\nfor upload).\nThe actual object name where you want to upload the file (e.g:\nprefix/object_name\n).\nAn expiration time interval for the presigned URL.\nDownload a file from the object store\n¶\n0.0.4\n2.1.7\n0.1.3\nTo download a file from the tenant object store:\nAtlan CLI\nJava\nPython\nKotlin\nGo\nRaw REST API\nDownload a file to the tenant object store\n1\natlan\ndownload\n-r\natlan/object/store/file.txt\n-o\nuser/some-folder/my_file.txt\n# (1)\nTo download the file from the object store, you must specify the following flags:\n-r or --remote\n: actual object name you want to download (e.g:\nprefix/object_name\n).\n--o or --output\n: path to the location where you want to save the downloaded file.\nCLI must be configured\nMake sure you have the\nCLI configured before\nrunning the above command.\nComing soon\nDownload a file from the tenant object store\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.file\nimport\nPresignedURLRequest\nclient\n=\nAtlanClient\n()\npresigned_url\n=\nclient\n.\nfiles\n.\ngenerate_presigned_url\n(\nrequest\n=\nPresignedURLRequest\n(\n# (1)\nkey\n=",
+    "metadata": {
+      "source_url": "snippets_files.html",
+      "source_type": "sdk",
+      "file": "snippets_files.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "import\nAtlanClient\nfrom\npyatlan.model.file\nimport\nPresignedURLRequest\nclient\n=\nAtlanClient\n()\npresigned_url\n=\nclient\n.\nfiles\n.\ngenerate_presigned_url\n(\nrequest\n=\nPresignedURLRequest\n(\n# (1)\nkey\n=\n\"my-folder/my-file.txt\"\n,\nexpiry\n=\n\"30s\"\n,\nmethod\n=\nPresignedURLRequest\n.\nMethod\n.\nGET\n,\n)\n)\nclient\n.\nfiles\n.\ndownload_file\n(\n# (2)\npresigned_url\n=\npresigned_url\n,\nfile_path\n=\n\"user/some-folder/download-file.txt\"\n)\nBegin by generating a presigned URL for the object store. You need to specify:\nactual object name you want to download (e.g:\nprefix/object_name\n).\nexpiration time interval for the presigned URL.\npresigned URL method (\nGET\nfor download).\nFinally, download the file from the object store by providing:\nany valid presigned URL.\npath to the location where you want to save the downloaded file.\nComing soon\nDownload a file from the tenant object store\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\npackage\nmain\nimport\n(\n\"fmt\"\n\"github.com/atlanhq/atlan-go/atlan/assets\"\n\"github.com/atlanhq/atlan-go/atlan/model\"\n)\nfunc\nmain\n()\n{\nctx\n:=\nassets\n.\nNewContext\n()\nclient\n:=\nassets\n.\nNewFileClient\n(\nctx\n)\npresignedUrl\n,\nerr\n:=\nclient\n.\nGeneratePresignedURL\n(\n&",
+    "metadata": {
+      "source_url": "snippets_files.html",
+      "source_type": "sdk",
+      "file": "snippets_files.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "\"github.com/atlanhq/atlan-go/atlan/model\"\n)\nfunc\nmain\n()\n{\nctx\n:=\nassets\n.\nNewContext\n()\nclient\n:=\nassets\n.\nNewFileClient\n(\nctx\n)\npresignedUrl\n,\nerr\n:=\nclient\n.\nGeneratePresignedURL\n(\n&\nmodel\n.\nPresignedURLRequest\n{\n// (1)\nKey\n:\n\"my-folder/my-file.txt\"\n,\nExpiry\n:\n\"30s\"\n,\nMethod\n:\nmodel\n.\nGET\n,\n},\n)\nif\nerr\n!=\nnil\n{\nfmt\n.\nPrintln\n(\n\"Error while generating url:\"\n,\nerr\n)\n}\ndownloadFilePath\n:=\n\"user/some-folder/download-file.txt\"\nerr\n=\nclient\n.\nDownloadFile\n(\npresignedUrl\n,\ndownloadFilePath\n)\n// (2)\nif\nerr\n!=\nnil\n{\nfmt\n.\nPrintln\n(\n\"Error while downloading file:\"\n,\nerr\n)\n}\n}\nBegin by generating a presigned URL for the object store. You need to specify:\nactual object name you want to download (e.g:\nprefix/object_name\n).\nexpiration time interval for the presigned URL.\npresigned URL method (\nGET\nfor download).\nFinally, download the file from the object store by providing:\nany valid presigned URL.\npath to the location where you want to save the downloaded file.\nPOST /api/service/files/presignedUrl\n1\n2\n3\n4\n5\n{\n\"method\"\n:\n\"GET\"\n,\n// (1)\n\"key\"\n:\n\"my-folder/my-file.txt\"\n,\n// (2)\n\"expiry\"\n:\n\"30s\"\n// (3)\n}\nThe presigned URL method (\nGET\nfor download).",
+    "metadata": {
+      "source_url": "snippets_files.html",
+      "source_type": "sdk",
+      "file": "snippets_files.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "POST /api/service/files/presignedUrl\n1\n2\n3\n4\n5\n{\n\"method\"\n:\n\"GET\"\n,\n// (1)\n\"key\"\n:\n\"my-folder/my-file.txt\"\n,\n// (2)\n\"expiry\"\n:\n\"30s\"\n// (3)\n}\nThe presigned URL method (\nGET\nfor download).\nThe actual object name you want to download (e.g:\nprefix/object_name\n).\nAn expiration time interval for the presigned URL.\n2024-04-29\n2024-07-22\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_files.html",
+      "source_type": "sdk",
+      "file": "snippets_files.json",
+      "chunk_id": 6
+    }
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "content": "Manage data contracts - Developer\nSkip to content\nManage data contracts\n¶\nLimited availability\nData contracts can currently only be managed for\ntables\n,\nviews\n,\nand\nmaterialized views\n.\nInitialize a contract\n¶\n0.1.0\nTo generate a\ncontract\nfor an existing asset in Atlan:\nAtlan CLI\natlan\ninit\ncontract\n\\\n# (1)\n--asset\n\"Table@CUST_TXN\"\n\\\n# (2)\n--data-source\n\"snowflake\"\n# (3)\nUse\natlan init contract\nto initialize a contract. If you provide no other arguments, the CLI will generate a skeletal contract you can fill in yourself.\nTo pre-populate the contract with information about a dataset, you must provide the type and (technical)\nname\nof the asset to generate from, in the format\nTypeName@name\n.\nTo pre-populate the contract, you must also provide the name of the\ndata source\nin which to find the asset.\nThis will generate a contract in your current working directory, using the details from the asset in Atlan as a starting point. (This requires you to first\nconfigure the Atlan CLI\nwith details about your tenant.)\nCan I manage contracts without Atlan connectivity?\nYou can also initialize a contract without any connection to Atlan, by leaving out the\n--asset\nand\n--data-source",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "with details about your tenant.)\nCan I manage contracts without Atlan connectivity?\nYou can also initialize a contract without any connection to Atlan, by leaving out the\n--asset\nand\n--data-source\narguments. This will provide you a skeletal contract you can then fill in yourself.\nValidate contract\n¶\n0.1.0\nYou can validate the contract file is syntactically correct and refers to an asset known to Atlan:\nAtlan CLI\natlan\nvalidate\ncontract\n\\\n# (1)\n-f\n\"contract.yaml\"\n# (2)\nUse\natlan validate contract\nto validate a contract.\nYou must specify the filename that defines the contract.\nPush contract\n¶\n0.1.0\nTo apply the contract in Atlan, you then need to push the contract:\nAtlan CLI\natlan\npush\ncontract\n\\\n# (1)\n-f\n\"contract.yaml\"\n# (2)\nUse\natlan push contract\nto push a contract.\nYou must specify the filename that defines the contract.\nSync metadata\n¶\n0.1.5\nTo sync metadata from a contract file to the asset governed by the contract in Atlan:\nAtlan CLI\natlan\nsync\ncontract\n\\\n# (1)\n-f\n\"contract.yaml\"\n# (2)\nUse\natlan sync contract\nto sync metadata contained in a contract to the asset governed by that contract.",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Atlan CLI\natlan\nsync\ncontract\n\\\n# (1)\n-f\n\"contract.yaml\"\n# (2)\nUse\natlan sync contract\nto sync metadata contained in a contract to the asset governed by that contract.\nYou must specify the filename that defines the contract (containing the metadata to be synced).\nThis command will sync the following from the contract file to the governed asset in Atlan:\ndescription\n:\n|-\n# (1)\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu orci non arcu placerat tincidunt eu et ligula.\nNullam non nisi in risus finibus tristique non quis erat. Phasellus hendrerit finibus velit nec dapibus.\nSed non viverra ligula, at dignissim diam. Mauris finibus elementum mi id luctus.\nMaecenas sit amet lectus placerat, lobortis turpis dictum, semper magna.\nNullam sollicitudin ipsum eget felis vulputate, sit amet ultrices nisi posuere. Ut facilisis eu enim id maximus.\nowners\n:\nusers\n:\n# (2)\n-\njdoe\n-\njsmith\ngroups\n:\n# (3)\n-\ndata_producers_group\ncertification\n:\nstatus\n:\nVERIFIED\n# (4)\nmessage\n:\n\"\"\nannouncement\n:\ntype\n:\ninformation\n# (5)\ntitle\n:\n\"\"\ndescription\n:\n\"\"\nterms\n:\n# (6)\n-\n\"\"\ntags\n:\n# (7)\n-\nname\n:\nPII\npropagate\n:\nfalse\nrestrict_propagation_through_lineage\n:\nfalse",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "# (4)\nmessage\n:\n\"\"\nannouncement\n:\ntype\n:\ninformation\n# (5)\ntitle\n:\n\"\"\ndescription\n:\n\"\"\nterms\n:\n# (6)\n-\n\"\"\ntags\n:\n# (7)\n-\nname\n:\nPII\npropagate\n:\nfalse\nrestrict_propagation_through_lineage\n:\nfalse\nrestrict_propagation_through_hierarchy\n:\nfalse\ncustom_metadata\n:\n# (8)\nData Quality\n:\nCompleteness Score\n:\n100\nFailed Checks\n:\n-\n884438be-82cc-4e04-bfe1-fba59276df38\n-\nafa0e560-a916-4862-a2f2-c491f19f39f5\nUpdates the\nuser-managed description\nof the governed asset.\nAppends\nindividual user owners\nto the list of existing owning users of the governed asset. Each user should be listed by their username in Atlan.\nAppends\ngroup owners\nto the list of existing owning groups of the governed asset. Each group should be listed by its internal alias name in Atlan.\nUpdates the\ncertificate\nof the governed asset. Must be one of:\nVERIFIED\nDRAFT\nDEPRECATED\nUpdates the\nannouncement\non the governed asset. Must be one of:\ninformation\nwarning\nissue\nAppends\nassigned terms\nto the list of terms assigned to the governed asset. Each term should be listed by its name in Atlan.\nIf multiple terms exist with the same name",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "information\nwarning\nissue\nAppends\nassigned terms\nto the list of terms assigned to the governed asset. Each term should be listed by its name in Atlan.\nIf multiple terms exist with the same name\nIf multiple terms are found with the same name in Atlan, these will be returned as a conflict (rather than any being added to the asset).\nAppends\ntags\nto the list of tags assigned to the governed asset. Each tag should be listed by its name in Atlan.\nMerges the\ncustom metadata\nprovided with any existing custom metadata on the governed asset. Each custom metadata set and its attributes should be keyed by its name in Atlan.\nManaging via CI/CD\n¶\nYou can combine the actions above to manage data contracts via automated CI/CD pipelines. For example, a process to automate publication of data contracts could be as follows:\nConfigure CLI for CI/CD\n¶\nFirst,\nconfigure the CLI\nwithin your CI/CD environment.\nSeparate sensitive and non-sensitive configuration",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Configure CLI for CI/CD\n¶\nFirst,\nconfigure the CLI\nwithin your CI/CD environment.\nSeparate sensitive and non-sensitive configuration\nAs a general rule, we recommend removing sensitive information (like the API token) from your configuration file. Instead manage this through an environment variable, which your CI/CD environment can inject into the job that runs the CLI. (For example, in GitHub you can use\nGitHub Secrets\nto manage the API token and have it automatically injected as an environment variable in GitHub Actions.)\nThe non-sensitive configuration details can remain in the configuration file, and the configuration file itself can then be version-controlled in your source code repository, too.\nThe examples below assume you have stored:\nyour tenant's URL in a repository secret named\nATLAN_BASE_URL\nthe API token in a repository secret named\nATLAN_API_KEY\nPublish contracts from CI/CD\n¶\nOnce configured, you can use the CLI to publish any new contracts or changes to existing contracts:\nCommit contract file(s) to your revision control repository.",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Publish contracts from CI/CD\n¶\nOnce configured, you can use the CLI to publish any new contracts or changes to existing contracts:\nCommit contract file(s) to your revision control repository.\nApply any validations or approval processes you like in your revision control repository. (For example, GitHub Actions that are triggered by pull request events.)\nWhen the committed changes are merged to a particular branch (for example,\nmain\n), trigger an action to publish them to Atlan using the command in the\npush contract\nstep.\nGitHub\n.atlan/config.yaml\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\natlan_api_key\n:\n\"\"\n# (1)\nlog\n:\nenabled\n:\ntrue\n# (2)\nlevel\n:\ninfo\ndata_source snowflake\n:\n# (3)\ntype\n:\nsnowflake\nconnection\n:\nname\n:\nsnowflake-prod\nqualified_name\n:\n\"default/snowflake/1234567890\"\ndatabase\n:\ndb\nschema\n:\nanalytics\nYour repository should\nconfigure the CLI\n. The simplest way to do this is to include the configuration file in your repository (it must be at exactly\n.atlan/config.yaml\nin your repository to be picked up by the GitHub Action automatically).\nLeave sensitive information out",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ".atlan/config.yaml\nin your repository to be picked up by the GitHub Action automatically).\nLeave sensitive information out\nLeave the sensitive information (like API token and URL of your tenant) out of the configuration file. These can instead be stored as GitHub Secrets and used via environment variables in the GitHub Action.\nYou may want to enable logging, so you'll have debugging information to review if something goes wrong.\nYou will need to\ndefine the data sources\nused by your contracts.\n.github/workflows/push-contracts.yml\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\nname\n:\nPush contract to Atlan\non\n:\npush\n:\nbranches\n:\n-\nmain\npaths\n:\n-\n'contracts/**'\n# (1)\nenv\n:\nATLAN_BINARY_URL\n:\n\"https://github.com/atlanhq/atlan-cli-releases/releases/latest/download/atlan_Linux_amd64.tar.gz\"\nBINARY_FILE_NAME\n:\n\"atlan_Linux_amd64.tar.gz\"\njobs\n:\npush-contract\n:\nruns-on\n:\nubuntu-latest\nsteps\n:\n-\nname\n:\nCheckout repository\nuses\n:\nactions/checkout@v4\n-\nname\n:\nDownload atlan CLI\nrun\n:\n|\ncurl -LO $ATLAN_BINARY_URL\n-\nname\n:\nUncompress CLI archive\nrun\n:\ntar -xzf $BINARY_FILE_NAME\n-\nname\n:\nGive permissions to CLI\nrun\n:\n|",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "uses\n:\nactions/checkout@v4\n-\nname\n:\nDownload atlan CLI\nrun\n:\n|\ncurl -LO $ATLAN_BINARY_URL\n-\nname\n:\nUncompress CLI archive\nrun\n:\ntar -xzf $BINARY_FILE_NAME\n-\nname\n:\nGive permissions to CLI\nrun\n:\n|\nsudo mv atlan /usr/local/bin/atlan\nchmod +x /usr/local/bin/atlan\n-\nname\n:\nConfigure the CLI\n# (2)\nrun\n:\n|\necho \"atlan_base_url: \\\"$ATLAN_BASE_URL\\\"\" >> .atlan/config.yaml\nenv\n:\nATLAN_BASE_URL\n:\n${{ secrets.ATLAN_BASE_URL }}\n-\nname\n:\nRun atlan push command\n# (3)\nrun\n:\n|\natlan push dc -f \"$GITHUB_WORKSPACE/contracts\"\nenv\n:\nATLAN_API_KEY\n:\n${{ secrets.ATLAN_API_KEY }}\n# (4)\nSpecify the path where your contract files exist in the GitHub repository, so the action is only triggered when contract files themselves change.\nConfigure the CLI with the URL of your tenant, here pulled from a repository secret with the name\nATLAN_BASE_URL\n.\nAgain, this directory may need to change depending on where the contract files are within your GitHub repository.\nInclude your API token as the\nATLAN_API_KEY\nenvironment variable, here pulled from a repository secret with the same name.\n2024-04-25\n2024-11-18\nWas this page helpful?\nThanks for your feedback!",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": "Include your API token as the\nATLAN_API_KEY\nenvironment variable, here pulled from a repository secret with the same name.\n2024-04-25\n2024-11-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "snippets_datacontract_manage.html",
+      "source_type": "sdk",
+      "file": "snippets_datacontract_manage.json",
+      "chunk_id": 9
+    }
+  }
+]

@@ -1,0 +1,515 @@
+[
+  {
+    "content": "Common search fields - Developer\nSkip to content\nCommon search fields\n¶\nThese attributes exist on\nall\nassets\nin Atlan. You can therefore use them to search\nall\nassets in Atlan.\nLook up the asset type you're interested in for a complete list\nThe complete list of attributes that can be searched is extensive. Rather than list every single attribute here, particularly since they vary based on the kind of asset you're looking for, instead see the\nfull model reference\n.\nAsset.GUID\n¶\n1.4.0\n4.0.0\nThe globally unique identifier (GUID) of any object in Atlan.\nThe identifier has no meaning, and is randomly generated, but is guaranteed to uniquely identify only a single asset.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nGUID\n.\neq\n(\n\"25638e8c-0225-46fd-a70c-304117370c4c\"\n))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific GUID. This uses a",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Searching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific GUID. This uses a\nterm query\nto exactly match the GUID.\nEquivalent query from Elastic\nQuery\nbyGuid\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__guid\"\n)\n.\nvalue\n(\n\"25638e8c-0225-46fd-a70c-304117370c4c\"\n))\n.\n_toQuery\n();\nRun the search\n4\n5\n6\n7\nOptional\n<\nAsset\n>\nasset\n=\nindex\n.\nsearch\n(\nclient\n).\nstream\n().\nfindFirst\n();\nif\n(\nasset\n.\nisPresent\n())\n{\nString\nguid\n=\nasset\n.\nget\n().\ngetGuid\n();\n// (1)\n}\nFor a search by GUID, you would expect either no results, or at most a single result.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nGUID\n.\neq\n(\n\"25638e8c-0225-46fd-a70c-304117370c4c\"\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": ")\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific GUID. This uses a\nterm query\nto exactly match the GUID.\nRun the search\n8\n9\n10\n11\nclient\n=\nAtlanClient\n()\nresponse\n=\nclient\n.\nasset\n.\nsearch\n(\nindex\n)\nif\nresponse\n.\ncount\n>\n0\n:\nguid\n=\nresponse\n.\ncurrent_page\n()[\n0\n]\n.\nguid\n# (1)\nFor a search by GUID, you would expect either no results, or at most a single result.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nGUID\n.\neq\n(\n\"25638e8c-0225-46fd-a70c-304117370c4c\"\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific GUID. This uses a\nterm query\nto exactly match the GUID.\nEquivalent query from Elastic\nval\nbyGuid\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__guid\"\n)\n.\nvalue\n(",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "term query\nto exactly match the GUID.\nEquivalent query from Elastic\nval\nbyGuid\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__guid\"\n)\n.\nvalue\n(\n\"25638e8c-0225-46fd-a70c-304117370c4c\"\n))\n.\n_toQuery\n()\nRun the search\n4\n5\n6\n7\nval\nasset\n=\nindex\n.\nsearch\n(\nclient\n).\nstream\n().\nfindFirst\n()\nif\n(\nasset\n.\nisPresent\n)\n{\nval\nguid\n=\nasset\n.\nget\n().\nguid\n// (1)\n}\nFor a search by GUID, you would expect either no results, or at most a single result.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__guid\"\n:\n\"25638e8c-0225-46fd-a70c-304117370c4c\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__guid\"\n]\n}\nYou can use a\nterm query\nto exactly match the GUID.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__guid\"\n:\n\"25638e8c-0225-46fd-a70c-304117370c4c\"\n},\n\"guid\"\n:\n\"25638e8c-0225-46fd-a70c-304117370c4c\"\n}\n]\n}\nAsset.CREATED_BY\n¶\n1.4.0\n4.0.0\nThe Atlan user who created this asset.\nIf created via API, this will be a unique identifier for the API token used. Otherwise, this will be the username of the user that created the asset through the Atlan UI.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Java\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nCREATED_BY\n.\neq\n(\n\"jdoe\"\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nCREATED_BY\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific username. This uses a\nterm query\nto exactly match the username.\nEquivalent query from Elastic\nQuery\nbyCreator\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__createdBy\"\n)\n.\nvalue\n(\n\"jdoe\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nString\ncreator\n=\nresult\n.\ngetCreatedBy\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe creator can be retrieved from a result through\n.getCreatedBy()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": ".getCreatedBy()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nCREATED_BY\n.\neq\n(\n\"jdoe\"\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nCREATED_BY\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific username. This uses a\nterm query\nto exactly match the username.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\ncreator\n=\nresult\n.\ncreated_by\n# (2)\nFor details, see\nSearching for assets\n.\nThe creator can be retrieved from a result through\n.created_by\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nCREATED_BY\n.\neq\n(\n\"jdoe\"\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nCREATED_BY\n)\n// (3)\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": ".\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nCREATED_BY\n.\neq\n(\n\"jdoe\"\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nCREATED_BY\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific username. This uses a\nterm query\nto exactly match the username.\nEquivalent query from Elastic\nval\nbyCreator\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__createdBy\"\n)\n.\nvalue\n(\n\"jdoe\"\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\ncreator\n=\nresult\n.\ncreatedBy\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe creator can be retrieved from a result through\n.createdBy\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__createdBy\"\n:\n\"jdoe\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__createdBy\"\n]\n}\nYou can use a\nterm query",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": ".createdBy\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__createdBy\"\n:\n\"jdoe\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__createdBy\"\n]\n}\nYou can use a\nterm query\nto exactly match the username.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__createdBy\"\n:\n\"jdoe\"\n},\n\"createdBy\"\n:\n\"jdoe\"\n}\n]\n}\nAsset.UPDATED_BY\n¶\n1.4.0\n4.0.0\nThe Atlan user who last updated the asset.\nIf updated via API, this will be a unique identifier for the API token used. Otherwise, this will be the username of the user that made the change through the Atlan UI.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nUPDATED_BY\n.\neq\n(\n\"jdoe\"\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nUPDATED_BY\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific username. This uses a\nterm query\nto exactly match the username.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 7
+    }
+  },
+  {
+    "content": "eq()\npredicate looks for an exact match, in this case against a specific username. This uses a\nterm query\nto exactly match the username.\nEquivalent query from Elastic\nQuery\nbyUpdater\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__modifiedBy\"\n)\n.\nvalue\n(\n\"jdoe\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nString\nupdater\n=\nresult\n.\ngetUpdatedBy\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe updater can be retrieved from a result through\n.getUpdatedBy()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nUPDATED_BY\n.\neq\n(\n\"jdoe\"\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nUPDATED_BY\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 8
+    }
+  },
+  {
+    "content": ")\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific username. This uses a\nterm query\nto exactly match the username.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nupdater\n=\nresult\n.\nupdated_by\n# (2)\nFor details, see\nSearching for assets\n.\nThe updater can be retrieved from a result through\n.updated_by\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nUPDATED_BY\n.\neq\n(\n\"jdoe\"\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nUPDATED_BY\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific username. This uses a\nterm query",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 9
+    }
+  },
+  {
+    "content": "Searching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific username. This uses a\nterm query\nto exactly match the username.\nEquivalent query from Elastic\nval\nbyUpdater\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__modifiedBy\"\n)\n.\nvalue\n(\n\"jdoe\"\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\nupdater\n=\nresult\n.\nupdatedBy\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe updater can be retrieved from a result through\n.updatedBy\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__modifiedBy\"\n:\n\"jdoe\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__modifiedBy\"\n]\n}\nYou can use a\nterm query\nto exactly match the username.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__modifiedBy\"\n:\n\"jdoe\"\n},\n\"updatedBy\"\n:\n\"jdoe\"\n}\n]\n}\nAsset.CREATE_TIME\n¶\n1.4.0\n4.0.0\nThe time (in milliseconds) when the asset was created.\nThis is stored as an epoch: the milliseconds since January 1, 1970 (UTC).\nJava\nPython\nKotlin",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 10
+    }
+  },
+  {
+    "content": ":\n\"jdoe\"\n}\n]\n}\nAsset.CREATE_TIME\n¶\n1.4.0\n4.0.0\nThe time (in milliseconds) when the asset was created.\nThis is stored as an epoch: the milliseconds since January 1, 1970 (UTC).\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nCREATE_TIME\n.\ngte\n(\n1640995200000L\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nCREATE_TIME\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\ngte()\npredicate looks for any values greater than or equal to the provided epoch-style date (milliseconds since January 1, 1970). This uses a\nrange query\nto find any assets created on or after a particular date.\nEquivalent query from Elastic\nQuery\nbyCreation\n=\nRangeQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"__timestamp\"\n)\n.\ngte\n(\nJsonData\n.\nof\n(\n1640995200000L\n)))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nLong",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 11
+    }
+  },
+  {
+    "content": "_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nLong\ncreated\n=\nresult\n.\ngetCreateTime\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe creation time can be retrieved from a result through\n.getCreateTime()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nCREATE_TIME\n.\ngte\n(\n1640995200000\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nCREATE_TIME\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\ngte()\npredicate looks for any values greater than or equal to the provided epoch-style date (milliseconds since January 1, 1970). This uses a\nrange query\nto find any assets created on or after a particular date.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 12
+    }
+  },
+  {
+    "content": "range query\nto find any assets created on or after a particular date.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\ncreated\n=\nresult\n.\ncreate_time\n# (2)\nFor details, see\nSearching for assets\n.\nThe creation time can be retrieved from a result through\n.create_time\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nCREATE_TIME\n.\ngte\n(\n1640995200000L\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nCREATE_TIME\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\ngte()\npredicate looks for any values greater than or equal to the provided epoch-style date (milliseconds since January 1, 1970). This uses a\nrange query\nto find any assets created on or after a particular date.\nEquivalent query from Elastic\nval\nbyCreation\n=\nRangeQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"__timestamp\"\n)\n.\ngte\n(\nJsonData\n.\nof\n(\n1640995200000L\n)))\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 13
+    }
+  },
+  {
+    "content": "Equivalent query from Elastic\nval\nbyCreation\n=\nRangeQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"__timestamp\"\n)\n.\ngte\n(\nJsonData\n.\nof\n(\n1640995200000L\n)))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\ncreated\n=\nresult\n.\ncreateTime\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe creation time can be retrieved from a result through\n.createTime\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"range\"\n:\n{\n\"__timestamp\"\n:\n{\n\"gte\"\n:\n1640995200000\n}}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__timestamp\"\n]\n}\nYou can use a\nrange query\nto find any assets created on or after a particular date.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__timestamp\"\n:\n1654992094524\n},\n\"createTime\"\n:\n1654992094524\n}\n]\n}\nAsset.UPDATE_TIME\n¶\n1.4.0\n4.0.0\nThe time (in milliseconds) when the asset was last updated.\nThis is stored as an epoch: the milliseconds since January 1, 1970 (UTC).\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 14
+    }
+  },
+  {
+    "content": "Java\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nUPDATE_TIME\n.\ngte\n(\n1640995200000L\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nUPDATE_TIME\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\ngte()\npredicate looks for any values greater than or equal to the provided epoch-style date (milliseconds since January 1, 1970). This uses a\nrange query\nto find any assets modified on or after a particular date.\nEquivalent query from Elastic\nQuery\nbyUpdate\n=\nRangeQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"__modificationTimestamp\"\n)\n.\ngte\n(\nJsonData\n.\nof\n(\n1640995200000L\n)))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nLong\nupdated\n=\nresult\n.\ngetUpdateTime\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe last modified time can be retrieved from a result through\n.getUpdateTime()\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 15
+    }
+  },
+  {
+    "content": "search\n(\nclient\n))\n{\n// (1)\nLong\nupdated\n=\nresult\n.\ngetUpdateTime\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe last modified time can be retrieved from a result through\n.getUpdateTime()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nUPDATE_TIME\n.\ngte\n(\n1640995200000\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nUPDATE_TIME\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\ngte()\npredicate looks for any values greater than or equal to the provided epoch-style date (milliseconds since January 1, 1970). This uses a\nrange query\nto find any assets modified on or after a particular date.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nupdated\n=\nresult\n.\nupdate_time\n# (2)\nFor details, see",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 16
+    }
+  },
+  {
+    "content": "include_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nupdated\n=\nresult\n.\nupdate_time\n# (2)\nFor details, see\nSearching for assets\n.\nThe last modified time can be retrieved from a result through\n.update_time\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nUPDATE_TIME\n.\ngte\n(\n1640995200000L\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nUPDATE_TIME\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\ngte()\npredicate looks for any values greater than or equal to the provided epoch-style date (milliseconds since January 1, 1970). This uses a\nrange query\nto find any assets modified on or after a particular date.\nEquivalent query from Elastic\nval\nbyUpdate\n=\nRangeQuery\n.\nof\n(\nr\n->\nr\n.\nfield\n(\n\"__modificationTimestamp\"\n)\n.\ngte\n(\nJsonData\n.\nof\n(\n1640995200000L\n)))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 17
+    }
+  },
+  {
+    "content": ")\n.\ngte\n(\nJsonData\n.\nof\n(\n1640995200000L\n)))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\nupdated\n=\nresult\n.\nupdateTime\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe last modified time can be retrieved from a result through\n.updateTime\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"range\"\n:\n{\n\"__modificationTimestamp\"\n:\n{\n\"gte\"\n:\n1640995200000\n}}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__modificationTimestamp\"\n]\n}\nYou can use a\nrange query\nto find any assets modified on or after a particular date.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__modificationTimestamp\"\n:\n1654905667786\n},\n\"updateTime\"\n:\n1654905667786\n}\n]\n}\nAsset.STATUS\n¶\n1.4.0\n4.0.0\nThe asset status in Atlan. The expected values are:\nACTIVE\nfor assets that are available in Atlan.\nDELETED\nfor assets that are (soft-)deleted in Atlan. These will not appear in the UI or API responses unless explicitly requested.\nOnly visible for soft-deleted (archived) assets",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 18
+    }
+  },
+  {
+    "content": "DELETED\nfor assets that are (soft-)deleted in Atlan. These will not appear in the UI or API responses unless explicitly requested.\nOnly visible for soft-deleted (archived) assets\nHard-deleted, or \"purged\" assets are fully erased, and therefore no status exists for them.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nSTATUS\n.\neq\n(\nAtlanStatus\n.\nDELETED\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nSTATUS\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific state. This uses a\nterm query\nto exactly match the state.\nEquivalent query from Elastic\nQuery\nbyState\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__state\"\n)\n.\nvalue\n(\nAtlanStatus\n.\nDELETED\n.\ngetValue\n()))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 19
+    }
+  },
+  {
+    "content": ".\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nAtlanStatus\nstatus\n=\nresult\n.\ngetStatus\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe status can be retrieved from a result through\n.getStatus()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nSTATUS\n.\neq\n(\nEntityStatus\n.\nDELETED\n.\nvalue\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nSTATUS\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific state. This uses a\nterm query\nto exactly match the state.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 20
+    }
+  },
+  {
+    "content": "To ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nstatus\n=\nresult\n.\nstatus\n# (2)\nFor details, see\nSearching for assets\n.\nThe status can be retrieved from a result through\n.status\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nSTATUS\n.\neq\n(\nAtlanStatus\n.\nDELETED\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nSTATUS\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match, in this case against a specific state. This uses a\nterm query\nto exactly match the state.\nEquivalent query from Elastic\nval\nbyState\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__state\"\n)\n.\nvalue\n(\nAtlanStatus\n.\nDELETED\n.\ngetValue\n()))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 21
+    }
+  },
+  {
+    "content": ".\ngetValue\n()))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\nstatus\n=\nresult\n.\nstatus\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe status can be retrieved from a result through\n.status\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__state\"\n:\n\"DELETED\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__state\"\n]\n}\nYou can use a\nterm query\nto exactly match the state.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__state\"\n:\n\"DELETED\"\n},\n\"status\"\n:\n\"DELETED\"\n}\n]\n}\nAsset.ATLAN_TAGS\n¶\n1.4.0\n4.0.0\nAll directly-assigned Atlan tags that exist on an asset.\nInternal representation\nThe Atlan tag names in the index are an Atlan-internal hashed string,\nnot\nthe human-readable name you see in the UI. The value you search for must be this Atlan-internal hashed string.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.\ntoRequest\n();",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 22
+    }
+  },
+  {
+    "content": "Java\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhasAnyValue()\npredicate looks for any value in this field, in this case any Atlan tags. This uses an\nexists query\nto check that any value exists in the field.\nEquivalent query from Elastic\nQuery\nbyAtlanTag\n=\nExistsQuery\n.\nof\n(\nq\n->\nq\n.\nfield\n(\n\"__traitNames\"\n))\n.\n_toQuery\n();\nRun the search\n4\n5\n6\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nSet\n<\nAtlanTag\n>\natlanTags\n=\nresult\n.\ngetAtlanTags\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.getAtlanTags()\n. Note that the Java SDK will automatically translate these from the internal hashed string representation of Atlan into the Atlan tag names as you would recognize them in the UI.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 23
+    }
+  },
+  {
+    "content": "Build the query and request\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nATLAN_TAGS\n.\nhas_any_value\n())\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhas_any_value()\npredicate looks for any value in this field, in this case any Atlan tags. This uses an\nexists query\nto check that any value exists in the field.\nRun the search\n8\n9\n10\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\natlan_tags\n=\nresult\n.\natlan_tags\n# (2)\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.atlan_tags\n. Note that the Python SDK will automatically translate these from the internal hashed string representation of Atlan into the Atlan tag names as you would recognize them in the UI.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 24
+    }
+  },
+  {
+    "content": "Build the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhasAnyValue()\npredicate looks for any value in this field, in this case any Atlan tags. This uses an\nexists query\nto check that any value exists in the field.\nEquivalent query from Elastic\nval\nbyAtlanTag\n=\nExistsQuery\n.\nof\n(\nq\n->\nq\n.\nfield\n(\n\"__traitNames\"\n))\n.\n_toQuery\n()\nRun the search\n4\n5\n6\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\natlanTags\n=\nresult\n.\natlanTags\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.atlanTags\n. Note that the Java SDK will automatically translate these from the internal hashed string representation of Atlan into the Atlan tag names as you would recognize them in the UI.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"exists\"\n:\n{\n\"field\"\n:\n\"__traitNames\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 25
+    }
+  },
+  {
+    "content": "POST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"exists\"\n:\n{\n\"field\"\n:\n\"__traitNames\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__classificationNames\"\n]\n}\nYou can use an\nexists query\nto find assets that have a directly-assigned Atlan tag.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__classificationNames\"\n:\n\"|E4FUqA9JFgb0VHRZWRAq95|I0oabU4LhZ69Nb0FKBGKfS|\"\n},\n\"classificationNames\"\n:\n[\n\"I0oabU4LhZ69Nb0FKBGKfS\"\n,\n\"E4FUqA9JFgb0VHRZWRAq95\"\n]\n}\n]\n}\nDetails\nattributes.__classificationNames\nin the response is a single string of all Atlan tags, pipe-delimited.\nclassificationNames\nin the response is a set (unordered) of strings. Note that its order may or may not match that of the pipe-delimited\nattributes.__classificationNames\nstring.\nWhen searching for the existence of Atlan tags, the\n__traitNames\nfield provides more reliable results than searching\n__classificationNames\n. The latter can return results that have no Atlan tags (but previously did), while the former returns only those that currently have Atlan tags.\nAsset.PROPAGATED_ATLAN_TAGS\n¶\n1.4.0\n4.0.0",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 26
+    }
+  },
+  {
+    "content": ". The latter can return results that have no Atlan tags (but previously did), while the former returns only those that currently have Atlan tags.\nAsset.PROPAGATED_ATLAN_TAGS\n¶\n1.4.0\n4.0.0\nAll propagated Atlan tags that exist on an asset. This includes Atlan tags propagated by:\nUpstream assets in lineage (from source to target)\nParent assets (for example, from tables to columns)\nLinked terms\nInternal representation\nThe Atlan tag names in the index are an Atlan-internal hashed string,\nnot\nthe human-readable name you see in the UI. The value you search for must be this Atlan-internal hashed string.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nPROPAGATED_ATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhasAnyValue()\npredicate looks for any value in this field, in this case any propagated Atlan tags. This uses an\nexists query\nto check that any value exists in the field.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 27
+    }
+  },
+  {
+    "content": "hasAnyValue()\npredicate looks for any value in this field, in this case any propagated Atlan tags. This uses an\nexists query\nto check that any value exists in the field.\nEquivalent query from Elastic\nQuery\nbyAtlanTag\n=\nExistsQuery\n.\nof\n(\nq\n->\nq\n.\nfield\n(\n\"__propagatedTraitNames\"\n))\n.\n_toQuery\n();\nRun the search\n4\n5\n6\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nSet\n<\nAtlanTag\n>\natlanTags\n=\nresult\n.\ngetAtlanTags\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.getAtlanTags()\n. Note that the Java SDK will automatically translate these from the internal hashed string representation of Atlan into the Atlan tag names as you would recognize them in the UI.\nHow do I distinguish between propagated and direct tags?\nFrom each\nAtlanTag\nobject you can use\n.getEntityGuid()\n.\nIf this matches the GUID of the asset, the tag has been directly assigned to the asset\nIf this is a different GUID from the asset, the tag has been propagated to the asset (the GUID indicates the asset the tag was propagated from)\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 28
+    }
+  },
+  {
+    "content": "Build the query and request\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nPROPAGATED_ATLAN_TAGS\n.\nhas_any_value\n())\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhas_any_value()\npredicate looks for any value in this field, in this case any propagated Atlan tags. This uses an\nexists query\nto check that any value exists in the field.\nRun the search\n8\n9\n10\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\natlan_tags\n=\nresult\n.\natlan_tags\n# (2)\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.atlan_tags\n. Note that the Python SDK will automatically translate these from the internal hashed string representation of Atlan into the Atlan tag names as you would recognize them in the UI.\nHow do I distinguish between propagated and direct tags?\nFrom each\nAtlanTag\nobject you can use\n.entity_guid\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 29
+    }
+  },
+  {
+    "content": "How do I distinguish between propagated and direct tags?\nFrom each\nAtlanTag\nobject you can use\n.entity_guid\n.\nIf this matches the GUID of the asset, the tag has been directly assigned to the asset\nIf this is a different GUID from the asset, the tag has been propagated to the asset (the GUID indicates the asset the tag was propagated from)\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nPROPAGATED_ATLAN_TAGS\n.\nhasAnyValue\n())\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhasAnyValue()\npredicate looks for any value in this field, in this case any propagated Atlan tags. This uses an\nexists query\nto check that any value exists in the field.\nEquivalent query from Elastic\nval\nbyAtlanTag\n=\nExistsQuery\n.\nof\n(\nq\n->\nq\n.\nfield\n(\n\"__propagatedTraitNames\"\n))\n.\n_toQuery\n()\nRun the search\n4\n5\n6\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\natlanTags\n=\nresult\n.\natlanTags\n// (2)\n}\nFor details, see\nSearching for assets\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 30
+    }
+  },
+  {
+    "content": "\"__propagatedTraitNames\"\n))\n.\n_toQuery\n()\nRun the search\n4\n5\n6\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\natlanTags\n=\nresult\n.\natlanTags\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.atlanTags\n. Note that the Java SDK will automatically translate these from the internal hashed string representation of Atlan into the Atlan tag names as you would recognize them in the UI.\nHow do I distinguish between propagated and direct tags?\nFrom each\nAtlanTag\nobject you can use\n.entityGuid\n.\nIf this matches the GUID of the asset, the tag has been directly assigned to the asset\nIf this is a different GUID from the asset, the tag has been propagated to the asset (the GUID indicates the asset the tag was propagated from)\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"exists\"\n:\n{\n\"field\"\n:\n\"__propagatedTraitNames\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__propagatedClassificationNames\"\n]\n}\nYou can use an\nexists query\nto find assets that have a propagated Atlan tag.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__propagatedClassificationNames\"\n:",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 31
+    }
+  },
+  {
+    "content": "]\n}\nYou can use an\nexists query\nto find assets that have a propagated Atlan tag.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__propagatedClassificationNames\"\n:\n\"|E4FUqA9JFgb0VHRZWRAq95|I0oabU4LhZ69Nb0FKBGKfS|\"\n},\n\"classificationNames\"\n:\n[\n\"I0oabU4LhZ69Nb0FKBGKfS\"\n,\n\"E4FUqA9JFgb0VHRZWRAq95\"\n]\n}\n]\n}\nDetails\nattributes.__propagatedClassificationNames\nin the response is a single string of all Atlan tags, pipe-delimited.\nclassificationNames\nin the response is a set (unordered) of strings. Note that its order may or may not match that of the pipe-delimited\nattributes.__propagatedClassificationNames\nstring.\nWhen searching for the existence of propagated Atlan tags, the\n__propagatedTraitNames\nfield provides more reliable results than searching\n__propagatedClassificationNames\n. The latter can return results that have no Atlan tags (but previously did), while the former returns only those that currently have Atlan tags.\nAsset.ASSIGNED_TERMS\n¶\n1.4.0\n4.0.0\nAll terms attached to an asset.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nASSIGNED_TERMS\n.\nhasAnyValue",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 32
+    }
+  },
+  {
+    "content": "Java\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nASSIGNED_TERMS\n.\nhasAnyValue\n())\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nASSIGNED_TERMS\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhasAnyValue()\npredicate looks for any value in this field, in this case any term assignments. This uses an\nexists query\nto check that any value exists in the field.\nEquivalent query from Elastic\nQuery\nbyMeaning\n=\nExistsQuery\n.\nof\n(\nq\n->\nq\n.\nfield\n(\n\"__meanings\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nSet\n<\nIGlossaryTerm\n>\nassignedTerms\n=\nresult\n.\ngetAssignedTerms\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.getAssignedTerms()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 33
+    }
+  },
+  {
+    "content": "Searching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.getAssignedTerms()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nASSIGNED_TERMS\n.\nhas_any_value\n())\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nASSIGNED_TERMS\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhasAnyValue()\npredicate looks for any value in this field, in this case any term assignments. This uses an\nexists query\nto check that any value exists in the field.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nassigned_terms\n=\nresult\n.\nassigned_terms\n# (2)\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.assigned_terms\n.\nBuild the query and request\n1\n2\n3\n4",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 34
+    }
+  },
+  {
+    "content": "=\nresult\n.\nassigned_terms\n# (2)\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.assigned_terms\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nASSIGNED_TERMS\n.\nhasAnyValue\n())\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nASSIGNED_TERMS\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nhasAnyValue()\npredicate looks for any value in this field, in this case any term assignments. This uses an\nexists query\nto check that any value exists in the field.\nEquivalent query from Elastic\nval\nbyMeaning\n=\nExistsQuery\n.\nof\n(\nq\n->\nq\n.\nfield\n(\n\"__meanings\"\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\nassignedTerms\n=\nresult\n.\nassignedTerms\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.assignedTerms\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 35
+    }
+  },
+  {
+    "content": "search\n(\nclient\n))\n{\n// (1)\nval\nassignedTerms\n=\nresult\n.\nassignedTerms\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe assigned Atlan tags can be retrieved from a result through\n.assignedTerms\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"exists\"\n:\n{\n\"field\"\n:\n\"__meanings\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__meanings\"\n]\n}\nYou can use an\nexists query\nto find assets that have any terms assigned.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"meanings\"\n:\n[\n{\n\"termGuid\"\n:\n\"b4113341-251b-4adc-81fb-2420501c30e6\"\n,\n\"relationGuid\"\n:\n\"10df06a1-5b7c-492f-b827-bf4f46931c3e\"\n,\n\"displayText\"\n:\n\"Example Term\"\n,\n\"confidence\"\n:\n0\n}\n]\n}\n]\n}\nDetails\n__meanings\nis a keyword array in Elastic, so cannot be searched by simple matching.\n__meanings\nhas no separate response — the default\nmeanings\nappears with or without\n__meanings\nin the attribute list of the request.\n__meaningsText\nhas no separate response — the default\nmeaningNames\nappears with or without\n__meaningsText\nin the attribute list of the request.\nmeaningNames\nis an (unordered) set of term names, rather than a single string.\nAsset.TYPE_NAME\n¶\n1.4.0\n4.0.0\nThe type of asset. For example,\nTable\n,",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 36
+    }
+  },
+  {
+    "content": "in the attribute list of the request.\nmeaningNames\nis an (unordered) set of term names, rather than a single string.\nAsset.TYPE_NAME\n¶\n1.4.0\n4.0.0\nThe type of asset. For example,\nTable\n,\nColumn\n, and so on.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nTYPE_NAME\n.\neq\n(\nGlossaryTerm\n.\nTYPE_NAME\n))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. The Java SDK provides\nAsset.TYPE_NAME.eq()\nand\nAsset.TYPE_NAME.in()\nto restrict assets to one or more specific types.\nEquivalent query from Elastic\nQuery\nbyType\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__typeName.keyword\"\n)\n.\nvalue\n(\nGlossaryTerm\n.\nTYPE_NAME\n))\n.\n_toQuery\n();\nRun the search\n4\n5\n6\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nString\ntypeName\n=\nresult\n.\ngetTypeName\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe type name can be retrieved from a result through\n.getTypeName()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 37
+    }
+  },
+  {
+    "content": "();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe type name can be retrieved from a result through\n.getTypeName()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\n,\nAtlasGlossaryTerm\nfrom\npyatlan.model.fluent_search\nimport\nCompoundQuery\n,\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nCompoundQuery\n.\nasset_type\n(\nAtlasGlossaryTerm\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. The Python SDK provides\nCompoundQuery.asset_type()\nand\nCompoundQuery.asset_types()\nto restrict assets to one or more specific types.\nRun the search\n8\n9\n10\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\ntype_name\n=\nresult\n.\ntype_name\n# (2)\nFor details, see\nSearching for assets\n.\nThe type name can be retrieved from a result through\n.type_name\n.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nTYPE_NAME\n.\neq\n(\nGlossaryTerm\n.\nTYPE_NAME\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 38
+    }
+  },
+  {
+    "content": "1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nTYPE_NAME\n.\neq\n(\nGlossaryTerm\n.\nTYPE_NAME\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. The Java SDK provides\nAsset.TYPE_NAME.eq()\nand\nAsset.TYPE_NAME.in()\nto restrict assets to one or more specific types.\nEquivalent query from Elastic\nval\nbyType\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__typeName.keyword\"\n)\n.\nvalue\n(\nGlossaryTerm\n.\nTYPE_NAME\n))\n.\n_toQuery\n()\nRun the search\n4\n5\n6\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\ntypeName\n=\nresult\n.\ntypeName\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe type name can be retrieved from a result through\n.typeName\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__typeName.keyword\"\n:\n\"AtlasGlossaryTerm\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__typeName\"\n]\n}\nYou can use a\nterm query\nto exactly match the type.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"attributes\"\n:\n{\n\"__typeName\"\n:\n\"AtlasGlossaryTerm\"\n}\n}\n]\n}",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 39
+    }
+  },
+  {
+    "content": "]\n}\nYou can use a\nterm query\nto exactly match the type.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"AtlasGlossaryTerm\"\n,\n\"attributes\"\n:\n{\n\"__typeName\"\n:\n\"AtlasGlossaryTerm\"\n}\n}\n]\n}\nAsset.SUPER_TYPE_NAMES\n¶\n1.4.0\n4.0.0\nAll super types of an asset.\nFor example:\nTable\nhas super types of\nSQL\n,\nCatalog\n,\nAsset\nand\nReferenceable\n.\nLookerField\nhas super types of\nLooker\n,\nBI\n,\nCatalog\n,\nAsset\nand\nReferenceable\n.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nSUPER_TYPE_NAMES\n.\neq\n(\nISQL\n.\nTYPE_NAME\n))\n// (2)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. The Java SDK provides\nAsset.SUPER_TYPE_NAMES.eq()\nand\nAsset.SUPER_TYPE_NAMES.in()\nto restrict assets to subtypes of one or more specific supertypes.\nIn the Java SDK, supertypes are interfaces\nNote that in the Java SDK, you can find the type name for most supertypes through an interface (prefixing\nI\nin front of the supertype name to get the appropriate Java interface class).",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 40
+    }
+  },
+  {
+    "content": "Note that in the Java SDK, you can find the type name for most supertypes through an interface (prefixing\nI\nin front of the supertype name to get the appropriate Java interface class).\nEquivalent query from Elastic\nQuery\nbySuperType\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__superTypeNames.keyword\"\n)\n.\nvalue\n(\nISQL\n.\nTYPE_NAME\n))\n.\n_toQuery\n();\nRun the search\n4\n5\n6\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nString\ntypeName\n=\nresult\n.\ngetTypeName\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe type name can be retrieved from a result through\n.getTypeName()\n. Note that in this example the results list will contain all subtypes of\nSQL\n: databases, schemas, tables, views, columns, and so on.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\n,\nSQL\nfrom\npyatlan.model.fluent_search\nimport\nCompoundQuery\n,\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nCompoundQuery\n.\nsuper_types\n(\nSQL\n))\n# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. The Python SDK provides",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 41
+    }
+  },
+  {
+    "content": "# (2)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. The Python SDK provides\nCompoundQuery.super_types()\nto restrict assets to subtypes of one or more specific supertypes.\nRun the search\n8\n9\n10\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\ntype_name\n=\nresult\n.\ntype_name\n# (2)\nFor details, see\nSearching for assets\n.\nThe type name can be retrieved from a result through\n.type_name\n. Note that in this example the results list will contain all subtypes of\nSQL\n: databases, schemas, tables, views, columns, and so on.\nBuild the query and request\n1\n2\n3\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nSUPER_TYPE_NAMES\n.\neq\n(\nISQL\n.\nTYPE_NAME\n))\n// (2)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. The Java SDK provides\nAsset.SUPER_TYPE_NAMES.eq()\nand\nAsset.SUPER_TYPE_NAMES.in()\nto restrict assets to subtypes of one or more specific supertypes.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 42
+    }
+  },
+  {
+    "content": ".)\nThen provide a predicate and value to search. The Java SDK provides\nAsset.SUPER_TYPE_NAMES.eq()\nand\nAsset.SUPER_TYPE_NAMES.in()\nto restrict assets to subtypes of one or more specific supertypes.\nIn the Java SDK, supertypes are interfaces\nNote that in the Java SDK, you can find the type name for most supertypes through an interface (prefixing\nI\nin front of the supertype name to get the appropriate Java interface class).\nEquivalent query from Elastic\nval\nbySuperType\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__superTypeNames.keyword\"\n)\n.\nvalue\n(\nISQL\n.\nTYPE_NAME\n))\n.\n_toQuery\n()\nRun the search\n4\n5\n6\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\ntypeName\n=\nresult\n.\ntypeName\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe type name can be retrieved from a result through\n.typeName\n. Note that in this example the results list will contain all subtypes of\nSQL\n: databases, schemas, tables, views, columns, and so on.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__superTypeNames.keyword\"\n:\n\"SQL\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__superTypeNames\"\n]\n}\nYou can use a\nterm query\nto exactly match the type.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 43
+    }
+  },
+  {
+    "content": ":\n{\n\"term\"\n:\n{\n\"__superTypeNames.keyword\"\n:\n\"SQL\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__superTypeNames\"\n]\n}\nYou can use a\nterm query\nto exactly match the type.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n{\n\"entities\"\n:\n[\n{\n\"typeName\"\n:\n\"Query\"\n},\n{\n\"typeName\"\n:\n\"Table\"\n},\n{\n\"typeName\"\n:\n\"Database\"\n},\n{\n\"typeName\"\n:\n\"Column\"\n}\n]\n}\nDetails\n__superTypeNames\nhas no separate response — the default\ntypeName\nappears with or without\n__superTypeNames\nin the attribute list of the request.\nAsset.HAS_LINEAGE\n¶\n1.4.0\n4.0.0\nFlag that is true if an asset has at least one process upstream or downstream. Otherwise, it will be false.\nProcesses are also included\nProcess\nassets themselves will also be included in the\ntrue\nresults, unless excluded by some other search criteria.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nHAS_LINEAGE\n.\neq\n(\ntrue\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nHAS_LINEAGE\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 44
+    }
+  },
+  {
+    "content": "(\nAsset\n.\nHAS_LINEAGE\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for any assets with the lineage flag set to\ntrue\n. This uses a\nterm query\nto exactly match a\ntrue\nvalue.\nEquivalent query from Elastic\nQuery\nbyLineage\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__hasLineage\"\n)\n.\nvalue\n(\ntrue\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nBoolean\nhasLineage\n=\nresult\n.\ngetHasLineage\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe lineage status can be retrieved from a result through\n.getHasLineage()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nHAS_LINEAGE\n.\neq\n(\nTrue\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nHAS_LINEAGE\n)\n# (3)\n)\n.\nto_request\n()",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 45
+    }
+  },
+  {
+    "content": "pyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nHAS_LINEAGE\n.\neq\n(\nTrue\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nHAS_LINEAGE\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for any assets with the lineage flag set to\nTrue\n. This uses a\nterm query\nto exactly match a\nTrue\nvalue.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nhas_lineage\n=\nresult\n.\nhas_lineage\n# (2)\nFor details, see\nSearching for assets\n.\nThe lineage status can be retrieved from a result through\n.has_lineage\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nHAS_LINEAGE\n.\neq\n(\ntrue\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nHAS_LINEAGE\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 46
+    }
+  },
+  {
+    "content": "includeOnResults\n(\nAsset\n.\nHAS_LINEAGE\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for any assets with the lineage flag set to\ntrue\n. This uses a\nterm query\nto exactly match a\ntrue\nvalue.\nEquivalent query from Elastic\nval\nbyLineage\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"__hasLineage\"\n)\n.\nvalue\n(\ntrue\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\nhasLineage\n=\nresult\n.\nhasLineage\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe lineage status can be retrieved from a result through\n.hasLineage\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"__hasLineage\"\n:\ntrue\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"__hasLineage\"\n]\n}\nYou can use a\nterm query\nto exactly match the boolean value.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__hasLineage\"\n:\ntrue\n}\n}\n]\n}\nAsset.QUALIFIED_NAME\n¶\n1.4.0",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 47
+    }
+  },
+  {
+    "content": "]\n}\nYou can use a\nterm query\nto exactly match the boolean value.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"__hasLineage\"\n:\ntrue\n}\n}\n]\n}\nAsset.QUALIFIED_NAME\n¶\n1.4.0\n4.0.0\nThe unique fully-qualified name of any asset in Atlan.\nQualified names are often constructed from the identity characteristics of an asset. For example, included in a database's\nqualifiedName\nis the connection that crawled the database. (And included in a schema's\nqualifiedName\nis the database it exists in, and therefore it\nalso\nimplicitly includes the connection's\nqualifiedName\nsince the database's\nqualifiedName\nincludes it.)\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nQUALIFIED_NAME\n.\nstartsWith\n(\n\"default/snowflake/1662194632\"\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nQUALIFIED_NAME\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nstartsWith()",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 48
+    }
+  },
+  {
+    "content": "select()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nstartsWith()\npredicate looks for any value that starts with the provided string, in this case matching any assets within this connection. This uses a\nprefix query\nto match values that start with a particular string rather than the entire value.\nEquivalent query from Elastic\nQuery\nbyQN\n=\nPrefixQuery\n.\nof\n(\np\n->\np\n.\nfield\n(\n\"qualifiedName\"\n)\n.\nvalue\n(\n\"default/snowflake/1662194632\"\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nString\nqualifiedName\n=\nresult\n.\ngetQualifiedName\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe\nqualifiedName\ncan be retrieved from a result through\n.getQualifiedName()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nQUALIFIED_NAME\n.\nstartswith\n(",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 49
+    }
+  },
+  {
+    "content": "import\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nQUALIFIED_NAME\n.\nstartswith\n(\n\"default/snowflake/1662194632\"\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nQUALIFIED_NAME\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nstartswith()\npredicate looks for any value that starts with the provided string, in this case matching any assets within this connection. This uses a\nprefix query\nto match values that start with a particular string rather than the entire value.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nqualified_name\n=\nresult\n.\nqualified_name\n# (2)\nFor details, see\nSearching for assets\n.\nThe\nqualified_name\ncan be retrieved from a result through\n.qualified_name\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 50
+    }
+  },
+  {
+    "content": "Searching for assets\n.\nThe\nqualified_name\ncan be retrieved from a result through\n.qualified_name\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nQUALIFIED_NAME\n.\nstartsWith\n(\n\"default/snowflake/1662194632\"\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nQUALIFIED_NAME\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\nstartsWith()\npredicate looks for any value that starts with the provided string, in this case matching any assets within this connection. This uses a\nprefix query\nto match values that start with a particular string rather than the entire value.\nEquivalent query from Elastic\nval\nbyQN\n=\nPrefixQuery\n.\nof\n(\np\n->\np\n.\nfield\n(\n\"qualifiedName\"\n)\n.\nvalue\n(\n\"default/snowflake/1662194632\"\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\nqualifiedName\n=\nresult\n.\nqualifiedName\n// (2)\n}\nFor details, see",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 51
+    }
+  },
+  {
+    "content": "includeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\nqualifiedName\n=\nresult\n.\nqualifiedName\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe\nqualifiedName\ncan be retrieved from a result through\n.qualifiedName\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"prefix\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1662194632\"\n}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"qualifiedName\"\n]\n}\nYou can use a\nprefix query\nto find all the objects in a connection, based on the qualifiedName.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1662194632\"\n//(1)\n}\n},\n{\n\"attributes\"\n:\n{\n\"qualifiedName\"\n:\n\"default/snowflake/1662194632/SAMPLEDB\"\n// (2)\n}\n}\n]\n}\nWhen searching on prefix you'll get exact matches...\n...and also matches of any other objects whose value for that attribute\nstarts with\nthe prefix value.\nAsset.NAME\n¶\n1.4.0\n4.0.0\nThe name of the asset in Atlan, as it appears in the UI.\nJava\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\neq\n(\n\"dev\"\n,\ntrue\n))\n// (2)\n.",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 52
+    }
+  },
+  {
+    "content": "Java\nPython\nKotlin\nRaw REST API\nBuild the query and request\n1\n2\n3\n4\nIndexSearchRequest\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\neq\n(\n\"dev\"\n,\ntrue\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nNAME\n)\n// (3)\n.\ntoRequest\n();\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match (case-insensitively). This uses a\nterm query\nto exactly match the names, but ignores case due to the second parameter being\ntrue\n.\nEquivalent query from Elastic\nQuery\nbyName\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"dev\"\n)\n.\ncaseInsensitive\n(\ntrue\n))\n.\n_toQuery\n();\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nAsset\nresult\n:\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nString\nname\n=\nresult\n.\ngetName\n();\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe\nname\ncan be retrieved from a result through\n.getName()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 53
+    }
+  },
+  {
+    "content": "}\nFor details, see\nSearching for assets\n.\nThe\nname\ncan be retrieved from a result through\n.getName()\n.\nBuild the query and request\n1\n2\n3\n4\n5\n6\n7\n8\nfrom\npyatlan.client.atlan\nimport\nAtlanClient\nfrom\npyatlan.model.assets\nimport\nAsset\nfrom\npyatlan.model.fluent_search\nimport\nFluentSearch\nindex\n=\n(\nFluentSearch\n()\n# (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\neq\n(\n\"dev\"\n,\ncase_insensitive\n=\nTrue\n))\n# (2)\n.\ninclude_on_results\n(\nAsset\n.\nNAME\n)\n# (3)\n)\n.\nto_request\n()\nYou can search across all assets using a\nFluentSearch()\nobject. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match (case-insensitively). This uses a\nterm query\nto exactly match the names, but ignores case due to the second parameter being\ntrue\n.\nTo ensure the details of this field are included in each result, add the field to\ninclude_on_results()\n.\nRun the search\n9\n10\n11\nclient\n=\nAtlanClient\n()\nfor\nresult\nin\nclient\n.\nasset\n.\nsearch\n(\nindex\n):\n# (1)\nname\n=\nresult\n.\nname\n# (2)\nFor details, see\nSearching for assets\n.\nThe\nname\ncan be retrieved from a result through\n.name\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 54
+    }
+  },
+  {
+    "content": "name\n=\nresult\n.\nname\n# (2)\nFor details, see\nSearching for assets\n.\nThe\nname\ncan be retrieved from a result through\n.name\n.\nBuild the query and request\n1\n2\n3\n4\nval\nindex\n=\nclient\n.\nassets\n.\nselect\n()\n// (1)\n.\nwhere\n(\nAsset\n.\nNAME\n.\neq\n(\n\"dev\"\n,\ntrue\n))\n// (2)\n.\nincludeOnResults\n(\nAsset\n.\nNAME\n)\n// (3)\n.\ntoRequest\n()\nYou can search across all assets using the\nselect()\nmethod of the\nassets\nmember on any client. (For details, see\nSearching for assets\n.)\nThen provide a predicate and value to search. In this example the\neq()\npredicate looks for an exact match (case-insensitively). This uses a\nterm query\nto exactly match the names, but ignores case due to the second parameter being\ntrue\n.\nEquivalent query from Elastic\nval\nbyName\n=\nTermQuery\n.\nof\n(\nt\n->\nt\n.\nfield\n(\n\"name.keyword\"\n)\n.\nvalue\n(\n\"dev\"\n)\n.\ncaseInsensitive\n(\ntrue\n))\n.\n_toQuery\n()\nTo ensure the details of this field are included in each result, add the field to\nincludeOnResults()\n.\nRun the search\n5\n6\n7\nfor\n(\nresult\nin\nindex\n.\nsearch\n(\nclient\n))\n{\n// (1)\nval\nname\n=\nresult\n.\nname\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe\nname\ncan be retrieved from a result through\n.name\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 55
+    }
+  },
+  {
+    "content": "(\nclient\n))\n{\n// (1)\nval\nname\n=\nresult\n.\nname\n// (2)\n}\nFor details, see\nSearching for assets\n.\nThe\nname\ncan be retrieved from a result through\n.name\n.\nPOST /api/meta/search/indexsearch\n1\n2\n3\n4\n5\n6\n7\n8\n{\n\"dsl\"\n:\n{\n\"query\"\n:\n{\n\"term\"\n:\n{\n\"name.keyword\"\n:\n{\n\"value\"\n:\n\"dev\"\n}}\n// (1)\n}\n},\n\"attributes\"\n:\n[\n\"name\"\n]\n}\nA\nterm query\non the keyword index will only match results whose name is\nexactly\ndev\n— not\ndevelopment\nor\ndeveloper\nor any other variation.\nResponse\n1\n2\n3\n4\n5\n6\n7\n8\n9\n{\n\"entities\"\n:\n[\n{\n\"attributes\"\n:\n{\n\"name\"\n:\n\"dev\"\n}\n}\n]\n}\n2022-08-22\n2025-01-16\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "search_attributes_common.html",
+      "source_type": "sdk",
+      "file": "search_attributes_common.json",
+      "chunk_id": 56
+    }
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "content": "Manage Databricks tags | Atlan Documentation\nSkip to main content\nOn this page\nYou must have a\nUnity Catalog-enabled workspace\nto import Databricks tags in Atlan.\nAtlan enables you to import your\nDatabricks tags\n, update your Databricks assets with the imported tags, and push the tag updates back to Databricks:\nImport tags\n-  crawl Databricks tags from Databricks to Atlan\nReverse sync\n-  sync Databricks tag updates from Atlan to Databricks\nOnce you've\nimported your Databricks tags\nto Atlan:\nYour Databricks assets in Atlan will be automatically enriched with their Databricks tags.\nImported Databricks tags\nwill be mapped to corresponding\nAtlan tags\nthrough case-insensitive name match   -  multiple Databricks tags can be matched to a single tag in Atlan.\nYou can also\nattach Databricks tags\n, including tag values, to your Databricks assets in Atlan   -  allowing you to categorize your assets at a more granular level.\nYou can\nfilter your assets\nby Databricks tags and tag values.\nYou can\nenable reverse sync\nto push any tag updates for your Databricks assets back to Databricks   -  including tag values added to assets in Atlan.\nDid you know?",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "by Databricks tags and tag values.\nYou can\nenable reverse sync\nto push any tag updates for your Databricks assets back to Databricks   -  including tag values added to assets in Atlan.\nDid you know?\nEnabling reverse sync will only update existing tags in Databricks. It will neither create nor delete any tags in Databricks.\nPrerequisites\nâ\nYou must have a\nUnity Catalog-enabled workspace\nand SQL warehouse configured to import Databricks tags in Atlan.\nBefore you can import tags from andÂ push tag updates to Databricks using\npersonal access token\n,\nAWS service principal\n, or\nAzure service principal\nauthentication, you will need to do the following:\nEnsure that you have a\nUnity Catalog-enabled workspace\nand a SQL warehouse configured.\nCreate tags\nor have existing tags in Databricks.\nGrant permissions\nto import tags from and push tag updates to Databricks.\nImport Databricks tags to Atlan\nâ\nWho can do this?\nYou will need to be an\nadmin user\nin Atlan to import Databricks tags to Atlan. You will also need to work with your Databricks administrator to grantÂ permissions to import tags from Databricks   -  you may not have access yourself.",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "in Atlan to import Databricks tags to Atlan. You will also need to work with your Databricks administrator to grantÂ permissions to import tags from Databricks   -  you may not have access yourself.\nYou can import your Databricks tags to Atlan through one-way tag sync. The synced Databricks tags will be matched to corresponding tags in Atlan through case-insensitive name match and your Databricks assets will be enriched with their synced tags from Databricks.\nTo import Databricks tags to Atlan, you can either:\nCreate a new Databricks workflow and\nconfigure the crawler\nto import tags.\nModify the crawler's configuration\nfor an existing Databricks workflow to change\nImport Tags\nto\nYes\n. If you subsequently modify the workflow to disable tag import, for any tags already imported, Atlan will preserve those tags.\nOnce the crawler has completed running, tags imported from Databricks will be available to use for\ntagging assets\n! ð\nView Databricks tags in Atlan\nâ\nOnce you've imported your Databricks tags, you will be able to view and manage your Databricks tags in Atlan.\nTo view Databricks tags:\nFrom the left menu of any screen, click\nGovernance\n.\nUnder the\nGovernance",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "To view Databricks tags:\nFrom the left menu of any screen, click\nGovernance\n.\nUnder the\nGovernance\nheading of the _Governance cente_r, click\nTags\n.\n(Optional) Under\nTags\n, click the funnel icon to filter tags by source type. Click\nDatabricks\nto filter for tags imported from Databricks.\nFrom the left menu under\nTags\n, select a synced tag.\nIn the\nOverview\nsection, you can view a total count of synced Databricks tags. To the right of\nOverview\n, click\nSynced tags\nto view additional details   -  including tag name, description, tag values, total count of linked assets, connection, database, and schema names, and timestamp for last synced.\n(Optional) Click the\nLinked assets\ntab to view linked assets for your Databricks tag.\n(Optional) In the top right, click the pencil icon to add a description and change the\ntag icon\n. You cannot rename tags synced from Databricks.\nPush tag updates to Databricks\nâ\nWho can do this?\nAny\nadmin or member user\nin Atlan can configure reverse sync for tag updates to Databricks. You will also need to work with your Databricks administrator to grant additional permissions to push updates   -  you may not have access yourself.",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "You can enable reverse sync for your imported Databricks tags in Atlan and push all tag updates for your Databricks assets back to source. Once you have enabled reverse sync, any Databricks assets with tags updated in Atlan will also be updated in Databricks.\nTo enable reverse sync for imported Databricks tags:\nFrom the left menu of any screen, click\nGovernance\n.\nUnder the\nGovernance\nheading of the _Governance cente_r, click\nTags\n.\n(Optional) Under\nTags\n, click the funnel icon to filter tags by source type. Click\nDatabricks\nto filter for tags imported from Databricks.\nIn the left menu under\nTags\n, select a synced Databricks tag   -  synced tags will display the Databricks icon next to the tag name.Â\nOn your selected tag page, to the right of\nOverview\n, click\nSynced tags\n.\nUnder\nSynced tags\n, in the upper right, turn on\nEnable reverse sync\nto synchronize tag updates from Atlan to Databricks.\nIn the corresponding confirmation dialog, click\nYes, enable it\nto enable reverse tag sync or click\nCancel\n.\nNow when you\nattach Databricks tags\nto your Databricks assets in Atlan, these tag updates will also be pushed to Databricks! ð\nDid you know?\nEnabling reverse sync will\nnot",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Cancel\n.\nNow when you\nattach Databricks tags\nto your Databricks assets in Atlan, these tag updates will also be pushed to Databricks! ð\nDid you know?\nEnabling reverse sync will\nnot\ntrigger any updates in Databricks until synced tags are attached to Databricks assets in Atlan.\nPrerequisites\nImport Databricks tags to Atlan\nView Databricks tags in Atlan\nPush tag updates to Databricks",
+    "metadata": {
+      "source_url": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.html",
+      "source_type": "docs",
+      "file": "apps_connectors_data-warehouses_databricks_how-tos_manage-databricks-tags.json",
+      "chunk_id": 5
+    }
+  }
+]

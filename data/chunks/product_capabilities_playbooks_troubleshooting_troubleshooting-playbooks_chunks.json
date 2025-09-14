@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Troubleshooting playbooks | Atlan Documentation\nSkip to main content\nOn this page\nwarning\nð¤ Who can do this?\nYou will need to be an admin user in Atlan to create playbooks.\nHere are a few things to know about\nsetting up playbooks\n:\nWhat are the known limitations of the domain action?\nâ\nFollowing are the known issues or limitations when using the\ndomain action\n:\nAtlan currently does not support adding glossaries, categories, and terms to domains.\nIf you do not have read permission on the assets you want to add to a domain, those assets will be removed from the playbook workflow during processing.Â\nIf you do not have update permission on the assets you want to add to a domain, the playbook workflow will fail. However, some assets may still be linked to the domain before the failure occurs.\nWhat type of infrastructure costs can I expect to incur?\nâ\nAtlan uses Elasticsearch to run playbooks, so expect infrastructure costs to be minimal and not a determining factor for utilizing playbooks.\nWhat is the maximum number of playbooks that can be run?\nâ",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_troubleshooting_troubleshooting-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_troubleshooting_troubleshooting-playbooks.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "What is the maximum number of playbooks that can be run?\nâ\nWe recommend building no more than a maximum of 20 rules per playbook. However, the total number of playbooks that can be run is still to be determined. From a technical standpoint, playbooks leverage the workflow infrastructure, which means there are no hard limits. Depending on the number of playbooks that need to be run, the infrastructure will have to be scaled accordingly.Â\nDo I also need to have update permissions for playbooks?\nâ\nYes. You need to have the permission to update assets in Atlan in order to run playbooks for updating them.Â If you do not have the permission to update an asset, you will be unable to update it using playbooks.\nAdditionally, Atlan uses the permissions of the playbook creator in determining the assets to be updated and not that of the user who runs the playbook. Your user permissions are used to determine the bulk updates you can make to ensure that there is no adverse impact on assets beyond your scope of access.\nCan I automate requests for updates through playbooks?\nâ\nNo, Atlan currently does not support automating asset update\nrequests\nthrough playbooks.",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_troubleshooting_troubleshooting-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_troubleshooting_troubleshooting-playbooks.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Can I automate requests for updates through playbooks?\nâ\nNo, Atlan currently does not support automating asset update\nrequests\nthrough playbooks.\nIs there a way to undo updates made through playbooks?\nâ\nCurrently, there is no button to undo asset updates. However, you can\nmodify your existing playbooks\n. You can either turn off the filters or add new rules to reverse the updates.\nIs there a way to view or download a report of updated assets from previous playbook runs?\nâ\nCurrently, no. You can\nmonitor your existing playbooks\nto view a high-level summary of asset updates from previous playbook runs. Observability of results is on the roadmap.\nCan I get email notifications for playbook run successes or failures?\nâ\nCurrently, no. However, you can\nset up Slack or Microsoft Teams alerts\nfor your playbook runs in Atlan.\nHow to handle an\noffload node status is not supported\nerror?\nâ\nIf you encounter an\noffload node status is not supported\nerror message, the playbook workflow may have exceededÂ the EtcD size limit. Playbooks use Argo workflow templates, which are stored as Kubernetes resources. This creates a limit to their size.",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_troubleshooting_troubleshooting-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_troubleshooting_troubleshooting-playbooks.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "error message, the playbook workflow may have exceededÂ the EtcD size limit. Playbooks use Argo workflow templates, which are stored as Kubernetes resources. This creates a limit to their size.\nTo handle this error, Atlan recommends the following:\nReduce the number of rules in your playbook\nOptimize filters for asset selection",
+    "metadata": {
+      "source_url": "product_capabilities_playbooks_troubleshooting_troubleshooting-playbooks.html",
+      "source_type": "docs",
+      "file": "product_capabilities_playbooks_troubleshooting_troubleshooting-playbooks.json",
+      "chunk_id": 3
+    }
+  }
+]

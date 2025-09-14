@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Use the Atlan browser extension | Atlan Documentation\nSkip to main content\nOn this page\nThe Atlan browser extension provides metadata context directly in your\nsupported data tools\n. You can use the extension in the following Chromium-based browsers: Google Chrome and Microsoft Edge.\nInstall the extension\nâ\nTo install the Atlan browser extension, first log into your Atlan instance. Atlan saves your Atlan domain in a cookie when you log in.\nTo install Atlan's browser extension:\nYou can either:\nFind the extension in the Chrome Web Store:\nhttps://chrome.google.com/webstore/detail/atlan/fipjfjlalpnbejlmmpfnmlkadjgaaheg\nFrom the upper right of any screen in Atlan, navigate to your name and then click\nProfile\n.\nClick the four dots icon in the resulting dialog to get to integrations.\nUnder\nApps\n, for\nBrowser extension\n, click\nInstall\n.\nTo install the Atlan browser extension:\nFor Google Chrome, in the upper right of your screen, click\nAdd to Chrome\n. When prompted for confirmation, click the\nAdd extension\nbutton.\nFor Microsoft Edge, follow the steps in\nAdd an extension to Microsoft Edge from the Chrome Web Store\n.",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Add to Chrome\n. When prompted for confirmation, click the\nAdd extension\nbutton.\nFor Microsoft Edge, follow the steps in\nAdd an extension to Microsoft Edge from the Chrome Web Store\n.\nCurrently, you can't install the browser extension on mobile devices or tablets.\nDid you know?\nYou can also install Atlan's browser extension at the\nworkspace level\n. To set this up, you need to be an administrator or have access to the admin console of your organization's Google account. If your organization uses managed browsers, you can\nconfigure the extension for managed browsers\n.\nConfigure the extension\nâ\nOnce installed, configure the Atlan browser extension to get started. Optionally, Atlan admins can\npreconfigure custom domains for data sources\n, if any.\nConfigure the extension as a user\nâ\nTo configure the browser extension, once installed:\nIf you are logged into your Atlan instance, skip to the next step. If you haven't logged into Atlan, log in to your Atlan instance when prompted.\nIn the\nOptions\npage, to enter the URL of your Atlan instance:\nIf your organization uses an Atlan domain (for example,\n_mycompany_.atlan.com\n), the Atlan instance URL appears preselected. Click\nGet started",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Options\npage, to enter the URL of your Atlan instance:\nIf your organization uses an Atlan domain (for example,\n_mycompany_.atlan.com\n), the Atlan instance URL appears preselected. Click\nGet started\n. (Optional) Switch to a different Atlan domain, if required.\nIf your organization uses a custom domain (for example,\n_atlan_.mycompany.com\n), enter the URL of your Atlan instance and then click\nGet started\n.\nAfter a successful login, the message\nUpdated successfully\nappears.\n(Optional) If your data tools are hosted on custom domains, rather than the standard SaaS domain of each tool:\nClick the\nConfigure custom domain\nlink at the bottom.\nIn the dropdown on the left, select your data tool.\nIn the text box on the right, enter the custom domain you use for that tool.\nRepeat these steps for each tool hosted on a custom domain.\nClick the\nSave\nbutton when finished.\nIf your Atlan admin has\npreconfigured custom domains for data sources\n, you won't be able to update or remove these selections. Click\n+ Add\nto configure custom domains for additional data sources as required.\nYou can now close the\nOptions\ntab.\nThe extension is now ready to use! ð\n(Optional) Configure custom domains as an admin",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "+ Add\nto configure custom domains for additional data sources as required.\nYou can now close the\nOptions\ntab.\nThe extension is now ready to use! ð\n(Optional) Configure custom domains as an admin\nâ\nWho can do this?\nYou need to be an admin user in Atlan to configure custom domains for data sources from the admin center.\nTo configure custom domains, from within Atlan:\nFrom the left menu of any screen, click\nAdmin\n.\nUnder\nWorkspace\n, click\nIntegrations\n.\nUnder\nApps\n, expand the\nBrowser extension\ntile.\nIn theÂ\nBrowser extension\ntile, for\nSet up your custom data source...\n, if your data tools are hosted on custom domains rather than the standard SaaS domain of each tool, click the\nConfigure\nlink to configure them for users in your organization.\nFor\nConnector\n, select a\nsupported tool\nfor the browser extension.\nIn the adjacent field, enter the URL of the custom domain for your data source.\n(Optional) Click\n+ Add\nto add more.\nClick\nSave\nto save your configuration.\ninfo\nðª\nDid you know?\nFor any\nsupported tools\nthat you have configured, your users won't be able to update or remove these selections. They can, however, add additional custom domains for data sources.\n(Optional) For",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "For any\nsupported tools\nthat you have configured, your users won't be able to update or remove these selections. They can, however, add additional custom domains for data sources.\n(Optional) For\nDownload Atlan extension or share with your team\n, you can either install the Atlan browser extension for your own use or share the link with your users.\nUsage\nâ\nWho can do this?\nAnyone with access to Atlanâany admin, member, or guest userâand a supported tool can use the browser extension. First, log into Atlan.\nDid you know?\nWhen using Atlan's browser extension in a\nsupported tool\n, the extension only reads the URL of your browser tabâno other data is accessed. If using Atlan's browser extension on any\nwebsite\n, it only reads the favicon, page title, and URL of your browser tab. Learn more about\nAtlan browser extension security\n.\nAccess and enrich context in-flow\nâ\nTo access context for an asset, from within a supported tool:\nLog into the supported tool.\nOpen any supported asset.\nIn the lower-right corner of the page, click the small Atlan icon.\ndanger\nThe icon to activate Atlan is\nnot",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "Log into the supported tool.\nOpen any supported asset.\nIn the lower-right corner of the page, click the small Atlan icon.\ndanger\nThe icon to activate Atlan is\nnot\nthe extension icon that appears at the top of your Chrome browser. This small Atlan icon in the lower right corner of the page is the only way to access the metadata for the asset you are viewing in another tool.\nIn the sidebar that appears:\nClick the tabs and links to view all context about the asset.\nMake changes to any of the metadata you'd like.\nNow you can understand and enrich assets without leaving your data tools themselves! ð\nThe Atlan sidebar automatically reloads as you browse your assets in a supported tool to show details about the asset you're currently viewing.\nDid you know?\nYour permissions in Atlan control what metadata you can see and change in the extension.\nSearch for metadata\nâ\nTo search for context for any information on\nany\nwebsite:\nSelect the text you'd like to search on the web page you're viewing.\nRight-click, and then select\nSearch in Atlan ð¡\n.\nThe extension opens a new browser tab on Atlan's discovery page, with the results for that text! ð\nAdd a resource\nâ",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Right-click, and then select\nSearch in Atlan ð¡\n.\nThe extension opens a new browser tab on Atlan's discovery page, with the results for that text! ð\nAdd a resource\nâ\nYou can link any web page as a\nresource\nto your assets in Atlan using the browser extension.\nTo add a web page as a resource to an asset:\nIn the top right of the web page you're viewing, click the\nAtlan Chrome extension\n.\nIn the resource clipper menu, under\nLink this page to an asset\n, select the asset to which you'd like to add the web page as a resource.\nClick\nSave\nto confirm your selection.\n(Optional) Once the resource has been linked successfully, click the\nOpen in Atlan\nbutton to view the linked asset directly in Atlan.\nYou can now add resources to your assets in Atlan from any website! ð\nDid you know?\nThe Tableau extension offers native embeddings directly in your dashboards. See\nEnable embedded metadata in Tableau\nfor more information.\nSupported tools\nâ\nCurrently, the Atlan browser extension supports assets in the following tools:\nAmazon QuickSight\n: analyses, dashboards, and datasets\nDatabricks\n: databases, schemas, views, and tables\ndbt Cloud\n: models and sources in the model editor and dbt docs",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "Amazon QuickSight\n: analyses, dashboards, and datasets\nDatabricks\n: databases, schemas, views, and tables\ndbt Cloud\n: models and sources in the model editor and dbt docs\nGoogle BigQuery\n: datasets, schemas, views, and tables\nIBM Cognos Analytics\n: folders, dashboards, packages, explorations, reports, files, data sources, and modules\nLooker\n: dashboards, explores, and folders\nMicrosoft Power BI\n: dashboards, reports, dataflows, and datasets\nMode\n: collections, reports, queries, and charts\nQlik Sense Cloud\n: apps, datasets, sheets, and spaces\nRedash\n: queries, dashboards, and visualizations\nSalesforce\n: objects\nSigma\n: datasets, pages, and data elements\nSnowflake\n(via Snowsight schema explorer): databases, schemas, tables, views, dynamic tables, streams, and pipes\nTableau\n: dashboards, data sources, workbooks, and metrics. Additionally, you can choose to switch the Tableau extension to offer native embeddings directly in your dashboards. See\nEnable embedded metadata in Tableau\nfor more information.\nThoughtSpot\n: liveboards, answers, visualizations, and tables\nMicroStrategy\n: dossiers, reports, documents\nInstall the extension\nConfigure the extension\nUsage\nSupported tools",
+    "metadata": {
+      "source_url": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.html",
+      "source_type": "docs",
+      "file": "product_integrations_automation_browser-extension_how-tos_use-the-atlan-browser-extension.json",
+      "chunk_id": 7
+    }
+  }
+]

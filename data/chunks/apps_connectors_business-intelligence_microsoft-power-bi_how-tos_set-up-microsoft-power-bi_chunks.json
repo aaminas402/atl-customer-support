@@ -1,0 +1,74 @@
+[
+  {
+    "content": "Set up Microsoft Power BI | Atlan Documentation\nSkip to main content\nOn this page\nWho can do this?\nDepending on the authentication method you choose, you may need a combination of your\nCloud Application Administrator\nor\nApplication Administrator\nfor Microsoft Entra ID, Microsoft 365 administrator for Microsoft 365, and\nFabric Administrator\n(\nformerly known as Power BI Administrator\n) for Microsoft Power BI to complete these tasks -> you may not have access yourself.\nThis guide outlines how to set up Microsoft Power BI so it can connect with Atlan for metadata extraction and lineage tracking.\nBefore you begin\nâ\nRegister application in Microsoft Entra ID\nâ\nWho can do this?\nYou need your\nCloud Application Administrator\nor\nApplication Administrator\nto complete these stepsâ> you may not have access yourself. This is required if the creation of registered applications isn't enabled for the entire organization.\nTo register a new application in Microsoft Entra ID:\nLog in to the\nAzure portal\n.\nSearch for\nMicrosoft Entra ID\nand select it.\nClick\nApp registrations\nfrom the left menu.\nClick\n+ New registration\n.\nEnter a name for your client application and click\nRegister\n.",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Azure portal\n.\nSearch for\nMicrosoft Entra ID\nand select it.\nClick\nApp registrations\nfrom the left menu.\nClick\n+ New registration\n.\nEnter a name for your client application and click\nRegister\n.\nFrom the Overview screen, copy and securely store:\nApplication (client) ID\nDirectory (tenant) ID\nClick\nCertificates & secrets\nfrom the left menu.\nUnder\nClient secrets\n, click\n+ New client secret\n.\nEnter a description, select an expiry time, and click\nAdd\n.\nCopy and securely store the client secret\nValue\n.\nCreate security group in Microsoft Entra ID\nâ\nWho can do this?\nYou need your\nCloud Application Administrator\nor\nApplication Administrator\nto complete these steps - you may not have access yourself.\nTo create a security group for your application:\nLog in to the\nAzure portal\n.\nSearch for\nMicrosoft Entra ID\nand select it.\nClick\nGroups\nunder the Manage section.\nClick\nNew group\n.\nSet the Group type to\nSecurity\n.\nEnter a Group name and optional description.\nClick\nNo members selected\n.\nAdd the appropriate member:\nFor Delegated User authentication\n: search for the user and select it.\nFor Service Principal authentication\n: search for the application registration created earlier and select it.",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "For Delegated User authentication\n: search for the user and select it.\nFor Service Principal authentication\n: search for the application registration created earlier and select it.\nClick\nSelect\nand then\nCreate\n.\nBy the end of these steps, you have registered an application with Microsoft Entra ID and created a Security Group with the appropriate member.\nConfigure authentication options\nâ\nAtlan supports two authentication methods for fetching metadata from Microsoft Power BI:\nService principal authentication (recommended)\nâ\nWhen using Service Principal authentication, you must decide how the connector shall access metadata to catalog assets and build lineage. There are two supported options:\nAdmin API only\nâ\nThis option grants permissions that let the service principal to access only admin-level Power BI APIs. In this mode, Atlan extracts metadata exclusively using administrative endpoints. This option is recommended for stricter access control environments.\nWho can do this?\nYou need your\nFabric Administrator\n(\nformerly known as Power BI Administrator\n) to complete these tasks - you may not have access yourself.\nTo configure admin API access:\nLog in to the",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.json",
+      "chunk_id": 2
+    }
+  },
+  {
+    "content": "You need your\nFabric Administrator\n(\nformerly known as Power BI Administrator\n) to complete these tasks - you may not have access yourself.\nTo configure admin API access:\nLog in to the\nPower BI admin portal\n.\nClick\nTenant settings\nunder Admin portal.\nUnder\nAdmin API settings\n:\nExpand\nEnable service principals to use read-only Power BI admin APIs\nand set to\nEnabled\nAdd your security group under\nSpecific security groups\nClick\nApply\nExpand\nEnhance admin APIs responses with detailed metadata\nand set to\nEnabled\nAdd your security group\nClick\nApply\nExpand\nEnhance admin APIs responses with DAX and mashup expressions\nand set to\nEnabled\nAdd your security group\nClick\nApply\nAdmin and non-admin APIs\nâ\nThis option grants permissions that let the service principal to access both admin and non-admin Power BI APIs. This enables Atlan to extract richer metadata and build detailed lineage across Power BI assets.\nAssign security group to Power BI workspaces in PowerBI service portal\nâ\nWho can do this?",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.json",
+      "chunk_id": 3
+    }
+  },
+  {
+    "content": "Assign security group to Power BI workspaces in PowerBI service portal\nâ\nWho can do this?\nYou need to be at least a member of the Microsoft Power BI workspace to which you want to add the security group to complete these steps - you may not have access yourself. Make sure that you add the security group from the homepage and not the admin portal.\nTo assign a Microsoft Power BI workspace role to the security group:\nOpen the\nMicrosoft Power BI homepage\n.\nOpen\nWorkspaces\nand select the workspace you want to access from Atlan.\nClick\nAccess\n.\nIn the panel:\nEnter the name of your security group where it says\nEnter email addresses\nChoose one of the following roles:\nViewer\n: For workspaces without parameters\nContributor\n: For workspaces with semantic models containing parameters or to generate lineage for measures\nMember\n: To generate lineage for dataflows\nClick\nAdd\n.\nConfigure admin and non-admin API access in PowerBI Service Portal\nâ\nWho can do this?\nYou need your\nFabric Administrator\n(\nformerly known as Power BI Administrator\n) to complete these tasks - you may not have access yourself.\nTo enable both admin and non-admin API access:\nLog in to the\nPower BI admin portal\n.\nClick",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.json",
+      "chunk_id": 4
+    }
+  },
+  {
+    "content": "(\nformerly known as Power BI Administrator\n) to complete these tasks - you may not have access yourself.\nTo enable both admin and non-admin API access:\nLog in to the\nPower BI admin portal\n.\nClick\nTenant settings\nunder Admin portal.\nUnder\nDeveloper settings\n:\nExpand\nService principals can use Fabric APIs\nand set to\nEnabled\nAdd your security group under\nSpecific security groups\nClick\nApply\nUnder\nAdmin API settings\n:\nExpand\nEnable service principals to use read-only Power BI admin APIs\nand set to\nEnabled\nAdd your security group\nClick\nApply\nExpand\nEnhance admin APIs responses with detailed metadata\nand set to\nEnabled\nAdd your security group\nClick\nApply\nExpand\nEnhance admin APIs responses with DAX and mashup expressions\nand set to\nEnabled\nAdd your security group\nClick\nApply\nAfter making these changes, you typically need to wait 15-30 minutes for the settings to take effect across Microsoft's services.\nDelegated user authentication\nâ\ninfo\nAtlan doesn't recommend using delegated user authentication as it's also not recommended by Microsoft.\nFabric administrator role assignment\nâ\nWho can do this?",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.json",
+      "chunk_id": 5
+    }
+  },
+  {
+    "content": "Delegated user authentication\nâ\ninfo\nAtlan doesn't recommend using delegated user authentication as it's also not recommended by Microsoft.\nFabric administrator role assignment\nâ\nWho can do this?\nYou need your Microsoft 365 administrator to complete these steps - you may not have access yourself.\nTo assign the delegated user to the\nFabric Administrator\nrole:\nOpen the\nMicrosoft 365 admin portal\n.\nClick\nUsers\nand then\nActive users\nfrom the left menu.\nSelect the delegated user.\nUnder\nRoles\n, click\nManage roles\n.\nExpand\nShow all by category\n.\nUnder\nCollaboration\n, select\nFabric Administrator\n.\nClick\nSave changes\n.\nAPI permissions\nâ\nWho can do this?\nYou need your\nCloud Application Administrator\nor\nApplication Administrator\nto complete these steps, you may not have access yourself.\ndanger\nThe following permissions are only required for delegated user authentication. If using service principal authentication, you don't need to configure any delegated permissions for a service principalâit's\nrecommended\nthat you avoid adding these permissions. These are never used and can cause errors that may be hard to troubleshoot.\nTo add permissions for the\nregistered application\n:",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.json",
+      "chunk_id": 6
+    }
+  },
+  {
+    "content": "recommended\nthat you avoid adding these permissions. These are never used and can cause errors that may be hard to troubleshoot.\nTo add permissions for the\nregistered application\n:\nIn your app registration, click\nAPI permissions\nunder the Manage section.\nClick\nAdd a permission\n.\nSearch for and select\nPower BI Service\n.\nClick\nDelegated permissions\nand select:\nCapacity.Read.All\nDataflow.Read.All\nDataset.Read.All\nReport.Read.All\nTenant.Read.All\nWorkspace.Read.All\nClick\nGrant Admin consent\n(If you only see the\nAdd permissions\nbutton, you aren't an administrator).\nAdmin API settings configuration\nâ\nWho can do this?\nYou need your\nFabric Administrator\n(\nformerly known as Power BI Administrator\n) to complete these tasks, you may not have access yourself.\nTo enable the Microsoft Power BI admin API:\nLog in to the\nPower BI admin portal\n.\nClick\nTenant settings\nunder Admin portal.\nUnder\nAdmin API settings\n:\nExpand\nEnhance admin APIs responses with detailed metadata\nand set to\nEnabled\nAdd your security group\nClick\nApply\nExpand\nEnhance admin APIs responses with DAX and mashup expressions\nand set to\nEnabled\nAdd your security group\nClick\nApply\n.\nBefore you begin\nConfigure authentication options",
+    "metadata": {
+      "source_url": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.html",
+      "source_type": "docs",
+      "file": "apps_connectors_business-intelligence_microsoft-power-bi_how-tos_set-up-microsoft-power-bi.json",
+      "chunk_id": 7
+    }
+  }
+]

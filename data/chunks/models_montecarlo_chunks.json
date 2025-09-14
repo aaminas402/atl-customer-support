@@ -1,0 +1,20 @@
+[
+  {
+    "content": "MonteCarlo - Developer\nSkip to content\nMonteCarlo\n¶\nBase class for Monte Carlo assets.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand managing Monte Carlo assets in Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass MonteCarlo {\n<<abstract>>\n}\nlink MonteCarlo \"../montecarlo\"\nclass DataQuality {\n<<abstract>>\n}\nlink DataQuality \"../entities/dataquality\"\nDataQuality <|-- MonteCarlo : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../entities/catalog\"\nCatalog <|-- DataQuality : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../entities/asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../entities/referenceable\"\nReferenceable <|-- Asset : extends\nclass MCIncident\nlink MCIncident \"../entities/mcincident\"\nMonteCarlo <|-- MCIncident : extends\nclass MCMonitor\nlink MCMonitor \"../entities/mcmonitor\"\nMonteCarlo <|-- MCMonitor : extends\nType-specific properties\n¶",
+    "metadata": {
+      "source_url": "models_montecarlo.html",
+      "source_type": "sdk",
+      "file": "models_montecarlo.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "link MCIncident \"../entities/mcincident\"\nMonteCarlo <|-- MCIncident : extends\nclass MCMonitor\nlink MCMonitor \"../entities/mcmonitor\"\nMonteCarlo <|-- MCMonitor : extends\nType-specific properties\n¶\nFollowing are the properties uniquely available on\nMonteCarlo\nassets in Atlan.\nJava\nPython\nRaw REST API\nRelationships\n¶\nThe following illustrates how the various Monte Carlo objects inter-relate with each other:\nerDiagram\nConnection ||..o{ MCMonitor : \"\"\nMCMonitor }o--o{ Asset : mcMonitorAssets\nMCIncident }o--o{ Asset : mcIncidentAssets\nMCMonitor |o--o{ MCIncident : mcIncidents\n2023-01-04\n2024-06-11\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_montecarlo.html",
+      "source_type": "sdk",
+      "file": "models_montecarlo.json",
+      "chunk_id": 1
+    }
+  }
+]

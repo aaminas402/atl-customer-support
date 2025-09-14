@@ -1,0 +1,29 @@
+[
+  {
+    "content": "Domo - Developer\nSkip to content\nDomo\n¶\nThese are the model elements in Atlan related to Domo.\nReference documentation\nThis is reference documentation covering the entire Atlan model. It is\nnot\nthe best place to start when trying to understand how to manage Domo assets in Atlan. For that, we would suggest starting with either:\nSnippets\n— small, atomic examples of single-step use cases.\nPatterns\n— walkthroughs of common multi-step implementation patterns.\nclassDiagram\ndirection RL\nclass Domo {\n<<abstract>>\n}\nlink Domo \"../domo\"\nclass BI {\n<<abstract>>\n}\nlink BI \"../bi\"\nBI <|-- Domo : extends\nclass Catalog {\n<<abstract>>\n}\nlink Catalog \"../catalog\"\nCatalog <|-- BI : extends\nclass Asset {\n<<abstract>>\n}\nlink Asset \"../asset\"\nAsset <|-- Catalog : extends\nclass Referenceable {\n<<abstract>>\n}\nlink Referenceable \"../referenceable\"\nReferenceable <|-- Asset : extends\nclass DomoDataset\nlink DomoDataset \"../entities/domodataset\"\nDomo <|-- DomoDataset : extends\nclass DomoCard\nlink DomoCard \"../entities/domocard\"\nDomo <|-- DomoCard : extends\nclass DomoDatasetColumn\nlink DomoDatasetColumn \"../entities/domodatasetcolumn\"\nDomo <|-- DomoDatasetColumn : extends\nclass DomoDashboard",
+    "metadata": {
+      "source_url": "models_domo.html",
+      "source_type": "sdk",
+      "file": "models_domo.json",
+      "chunk_id": 0
+    }
+  },
+  {
+    "content": "Domo <|-- DomoCard : extends\nclass DomoDatasetColumn\nlink DomoDatasetColumn \"../entities/domodatasetcolumn\"\nDomo <|-- DomoDatasetColumn : extends\nclass DomoDashboard\nlink DomoDashboard \"../entities/domodashboard\"\nDomo <|-- DomoDashboard : extends\nProperties\n¶\nThese attributes are specific to instances of\nDomo\n(and all of its subtypes).\ndomoId\n¶\nId of the Domo dataset.\ndomoOwnerId\n¶\nId of the owner of the Domo dataset.\nRelationships\n¶\nThe following illustrates how the various pieces of Domo inter-relate with each other:\nerDiagram\nDomoDataset ||--o{ DomoCard : domoCards\nDomoDataset ||--o{ DomoDatasetColumn : domoDatasetColumns\nDomoCard }o--o{ DomoDashboard : domoDashboards\nDomoDashboard |o--o{ DomoDashboard : domoDashboardChildren\n2024-06-18\n2024-06-18\nWas this page helpful?\nThanks for your feedback!\nThanks for your feedback! Help us improve this page by using our\nfeedback form\nto provide us with more information.\nBack to top\nCookie consent\nWe use cookies to:\nAnonymously measure page views, and\nAllow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.",
+    "metadata": {
+      "source_url": "models_domo.html",
+      "source_type": "sdk",
+      "file": "models_domo.json",
+      "chunk_id": 1
+    }
+  },
+  {
+    "content": "Allow you to give us one-click feedback on any page.\nWe do\nnot\ncollect or store:\nAny personally identifiable information.\nAny information for any (re)marketing purposes.\nWith your consent, you're helping us to make our documentation better 💙\nGoogle Analytics\nAccept\nReject\nManage settings",
+    "metadata": {
+      "source_url": "models_domo.html",
+      "source_type": "sdk",
+      "file": "models_domo.json",
+      "chunk_id": 2
+    }
+  }
+]

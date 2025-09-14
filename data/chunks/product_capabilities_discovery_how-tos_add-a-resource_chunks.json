@@ -1,0 +1,11 @@
+[
+  {
+    "content": "Add a resource | Atlan Documentation\nSkip to main content\nNeed to redirect users to important information that's outside Atlan?\nYou can add links to internal or external URLs wit\nhin an asset profile. These can help your team better understand the contextual information for your asset.\nTo add resources to your assets, follow these steps:\nOn the Atlan homepage, click\nAssets\nin the left menu.\nClick on an asset to open the asset profile.\nIn the navigation bar to the right of the asset profile, click\nResources\n.\nClick\n+Add Resource\nand paste your URL.\nFor\nTitle\n, type a title for your resource.\nYour resource is now ready to use! ð\nOnce you've added a resource, click\n+Add\nin the\nResource\nmenu to add more resources for your asset. You can also edit or delete them to curate your list of resources.Â\nDid you know?\nYou can also add any web page as a resource to your assets\nusing Atlan's Chrome extension\n.",
+    "metadata": {
+      "source_url": "product_capabilities_discovery_how-tos_add-a-resource.html",
+      "source_type": "docs",
+      "file": "product_capabilities_discovery_how-tos_add-a-resource.json",
+      "chunk_id": 0
+    }
+  }
+]
