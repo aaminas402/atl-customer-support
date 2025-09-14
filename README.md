@@ -15,24 +15,26 @@ Provide real-time analysis of customer queries
   2. Retriever - Runs the Embedding of queries, Retrieval, and Generation.
   3. Services  - Contains the functions for chunking and indexing the vector database
 ## PROJECT STRUCTURE
+```text
 customer-support/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
-├── dashboard_app.py                          # Main Streamlit application entry point
-│   ├── data/ 
-│   │   ├── raw             
-│   │   ├── processed      
-│   │   └── chunks       
-│   ├── scripts/
-│   │   ├── scrape_docs.py                   # Scraper for docs.atlan.com
-│   │   └── preprocess_html_to_json.py              
+├── dashboard_app.py       # Main Streamlit application entry point
+├── data/
+│   ├── raw
+│   ├── processed
+│   └── chunks
+├── scripts/
+│   ├── scrape_docs.py         # Scraper for docs.atlan.com
+│   └── preprocess_html_to_json.py
 ├── backend/
 │   ├── services/
-│   │   ├── chunk.py    
-│   │   └── indexing.py       
-├── index                                     #FAISS Index
+│   │   ├── chunk.py
+│   │   └── indexing.py
+├── index                     # FAISS Index
 └── retriever.py
+```
 
 ##  TECHNICAL DESCRIPTION
 1. Chunk Size - 1000 with an overlap of 200 for better context, which will help in fuller and complete answers.
