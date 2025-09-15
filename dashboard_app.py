@@ -1,5 +1,5 @@
 import streamlit as st
-import psycopg2
+import psycopg
 from datetime import datetime
 from retriever import retrieve_and_summarize
 
@@ -52,7 +52,7 @@ def classify_ticket(body, subject=""):
 # Database Connection
 # ---------------------------
 def get_connection():
-    return psycopg2.connect(
+    return psycopg.connect(
         host=st.secrets["aiven"]["host"],
         dbname=st.secrets["aiven"]["dbname"],
         user=st.secrets["aiven"]["user"],
