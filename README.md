@@ -55,6 +55,8 @@ customer-support/
 5.  🕷️ Initialize Knowledge Base (Load Vectordata Store)
 6.  🚀 Launch the Application by running the dashboard_app.py file
 
-## SCREENSHOTS - LOCAL DEPLOYMENT
+## SCREENSHOTS 
 <img width="1917" height="865" alt="Screenshot 2025-09-14 204954" src="https://github.com/user-attachments/assets/1cca8621-0800-4543-ae0d-1dcb6a025104" />
+<img width="1918" height="839" alt="image" src="https://github.com/user-attachments/assets/4c3b95f7-8452-439e-b054-0064275bfb75" />
+
 
