@@ -42,6 +42,30 @@ Handles query embedding, similarity-based retrieval, and final response generati
 
 Implements document preprocessing, including chunking (1,000 tokens with 200 overlap) and vector indexing.Provides auxiliary functions to manage updates to the knowledge base and streamline ingestion workflows.
 
+## Database Schema
+
+**`tickets` table**
+
+| Column           | Type                        | Description                                               |
+|------------------|----------------------------|-----------------------------------------------------------|
+| `id`             | integer (PK)               | Unique ticket identifier                                  |
+| `created_at`     | timestamp without time zone | Time the ticket was created                               |
+| `subject`        | text                        | Ticket subject or title                                   |
+| `body`           | text                        | Full content of the ticket                                |
+| `customer_email` | text                        | Email of the customer who submitted the ticket           |
+
+**`responses` table**
+
+| Column       | Type                        | Description                           |
+|--------------|----------------------------|---------------------------------------|
+| `id`         | integer (PK)               | Unique response identifier            |
+| `created_at` | timestamp without time zone | Time the response was generated       |
+| `ticket_id`  | integer (FK)               | References `tickets.id`               |
+| `body`       | text                        | Generated response content            |
+
+**Relationship:**  
+- One `ticket` → Many `responses` (supports multiple system-generated answers per ticket)
+
 ## Project Structure
 ```text
 customer-support/
