@@ -2,10 +2,10 @@
 An intelligent AI-powered helpdesk system that automates ticket classification and generates contextual responses using RAG (Retrieval-Augmented Generation) technology.
 This project implements a comprehensive customer support automation pipeline that can:
 
-Classify support tickets by topic, sentiment, and priority
-Generate intelligent responses using knowledge from Atlan's documentation
-Route complex issues to appropriate teams
-Provide real-time analysis of customer queries
+* Classify support tickets by topic, sentiment, and priority
+* Generate intelligent responses using knowledge from Atlan's documentation
+* Route complex issues to appropriate teams
+* Provide real-time analysis of customer queries
 
 ## ARCHITECTURE
 ![Untitled](https://github.com/user-attachments/assets/e4bf654c-1ac7-4c5f-a993-b69c47f656e4)
