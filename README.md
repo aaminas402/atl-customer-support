@@ -5,7 +5,7 @@ This project implements a comprehensive customer support automation pipeline tha
 * Classify support tickets by topic, sentiment, and priority
 * Generate intelligent responses using knowledge from Atlan's documentation
 * Route complex issues to appropriate teams
-* Provide real-time analysis of customer queries
+
 
 ## Architecture
 ![Untitled](https://github.com/user-attachments/assets/e4bf654c-1ac7-4c5f-a993-b69c47f656e4)
